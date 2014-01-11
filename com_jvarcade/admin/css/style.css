@@ -1,0 +1,172 @@
+/**
+* This file is part of the jVArcade distribution. 
+* Detailed copyright and licensing information can be found
+* in the gpl-3.0.txt file which should be included in the distribution.
+* 
+* @version		2.01 2013-07-29 nuclear-head
+* @copyright	2011-2013 jVitals
+* @license		GPLv3 Open Source
+* @link			http://jvitals.com
+* @since		File available since initial release
+*/
+
+.icon-48-jvasettings {
+	background:url("/images/jvarcade/images/cpanel/config.png") no-repeat scroll 0 0 transparent !important;
+}
+.icon-48-jvascores {
+	background:url("/images/jvarcade/images/cpanel/doc_48.png") no-repeat scroll 0 0 transparent !important;
+}
+.icon-48-jvafolders {
+	background:url("/images/jvarcade/images/cpanel/folder.png") no-repeat scroll 0 0 transparent !important;
+}
+.icon-48-jvagames {
+	background:url("/images/jvarcade/images/cpanel/games2.png") no-repeat scroll 0 0 transparent !important;
+	padding-left: 65px!important;
+}
+.icon-48-jvaupload {
+	background:url("/images/jvarcade/images/cpanel/upload_zip.png") no-repeat scroll 0 0 transparent !important;
+}
+.icon-48-jvamaintenance {
+	background:url("/images/jvarcade/images/cpanel/maintenance.png") no-repeat scroll 0 0 transparent !important;
+}
+.icon-48-jvacontent {
+	background:url("/images/jvarcade/images/cpanel/content_rating.png") no-repeat scroll 0 0 transparent !important;
+}
+.icon-48-jvacontests {
+	background:url("/images/jvarcade/images/cpanel/contests.png") no-repeat scroll 0 0 transparent !important;
+}
+
+/* CHANGELOG */
+
+div.changelog_content { display:block; margin:10px; max-width:400px; }
+#changelog-wrapper {
+	overflow-x: auto;
+	overflow-y: scroll;
+	max-height: 300px;
+	width: 100%;
+	padding: 5px;
+	border: 1px solid #cbcbcb;
+}
+
+.changelog dl {
+	margin:10px 0;
+}
+.changelog > dt {
+	border-top:1px solid #cbcbcb;
+	padding:10px 0 0;
+	margin:0;
+}
+.changelog dd {
+	margin:0 0 0 10px;
+}
+.changelog dl dt {
+	width:60px;
+	padding:5px;
+	float:left;
+	clear:left;
+}
+.changelog dl dd {
+	margin:0 0 0 70px;
+	padding:5px;
+}
+
+.changelog ul {
+	margin: 10px 0;
+	padding: 0;
+}
+
+.changelog li {
+	padding: 5px;
+	list-style: none;
+}
+
+.changelog span.locale,
+.changelog span.upgrade,
+.changelog span.new,
+.changelog span.bugfix,
+.changelog span.ui {
+	padding:3px 5px;
+	margin:0 10px 0 0;
+	text-transform: uppercase;
+	-moz-box-shadow: gray 0px 0px 5px;
+	-webkit-box-shadow: lightgray 0px 0px 5px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	content: attr(class);
+}
+.changelog span.locale {
+	background-color: #FF7A23;
+	border-color: #FF7A23;
+}
+.changelog span.upgrade {
+	background-color: #165B60;
+	border-color: #165B60;
+	color: #fff;
+}
+.changelog span.ui {
+	background-color: #2C111D;
+	border-color: #2C111D;
+	color: #fff;
+}
+.changelog span.new {
+	background-color: #C30A4D;
+	border-color: #C30A4D;
+	color: #fff;
+}
+.changelog span.bugfix {
+	background-color: #FFD351;
+	border-color: #FFD351;
+	color: rgba(100,0,0,0.65);
+	text-shadow: rgba(255,255,255,0.9) 0px 1px 0px;
+}
+
+/* DASHBOARD */
+
+#dashboard div.icon {
+	text-align: center;
+	float: left;
+	margin-right: 10px !important;
+	margin-bottom: 10px !important;
+}
+
+#dashboard div.icon a {
+	background-color: #fff;
+	background-position: -30px;
+	display: block;
+	float: left;
+	height: 97px;
+	width: 108px;
+	color: #565656;
+	vertical-align: middle;
+	text-decoration: none;
+	border: 1px solid #CCC;
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-transition-property:
+		background-position,
+		-webkit-border-bottom-left-radius,
+		-webkit-box-shadow;
+	-moz-transition-property:
+		background-position,
+		-moz-border-radius-bottomleft,
+		-moz-box-shadow;
+	-webkit-transition-duration: 0.8s;
+	-moz-transition-duration: 0.8s;
+}
+
+#dashboard div.icon a:hover {
+	background-position: 0;
+	-webkit-border-bottom-left-radius: 50% 20px;
+	-moz-border-radius-bottomleft: 50% 20px;
+	border-bottom-left-radius: 50% 20px;
+	-webkit-box-shadow: -5px 10px 15px rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: -5px 10px 15px rgba(0, 0, 0, 0.25);
+	box-shadow: -5px 10px 15px rgba(0, 0, 0, 0.25);
+	position: relative;
+	z-index: 10;
+}
+
+#dashboard img  { padding: 10px 0; margin: 0 auto; }
+#dashboard span { display: block; text-align: center; }

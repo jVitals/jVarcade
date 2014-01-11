@@ -35,7 +35,7 @@ class com_jvarcadeInstallerScript {
 			$frontendPath = JPATH_ROOT . '/components/com_jvarcade/';
 			
 			$db = JFactory::getDBO();
-        $query = file_get_contents(JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_jvarcade' . DIRECTORY_SEPARATOR . 'install' . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'install_default.sql');
+        $query = file_get_contents(JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_jvarcade' . DIRECTORY_SEPARATOR . 'install' . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'install.defaults.sql');
         $queries = $db->splitSql($query);
         foreach ($queries as $querie) { 
             $db->setQuery($querie);
