@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="search" method="upgrade">
+	<name>Search - jVArcade</name>
+    <version>1.0.1</version>
+    <description>A plugin to extend Joomla's native search function to jVArcade.</description>
+	<author>jVitals Team</author>
+	<authorEmail>admin@jvitals.com</authorEmail>
+	<authorUrl>http://www.jvitals.com</authorUrl>
+	<creationDate>8 May 2012</creationDate>
+	<copyright>(C) All rights reserved. 2007 - 2012 jVitals.com</copyright>
+	<license>GNU /GPLv3</license>
+	<scriptfile>enable.script.php</scriptfile>
+	<files>
+		<filename plugin="jvarcade">jvarcade.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages folder="languages">
+		<language tag="en-GB">en-GB.plg_search_jvarcade.ini</language>
+		<language tag="en-GB">en-GB.plg_search_jvarcade.sys.ini</language>
+	</languages>
+	<params>
+		<param name="search_limit_games" type="text" size="5" default="50" label="PLG_SEARCH_JVARCADE_LIMIT_GAMES" description="PLG_SEARCH_JVARCADE_LIMIT_GAMES_DESC"/>
+		<param name="search_limit_folders" type="text" size="5" default="50" label="PLG_SEARCH_JVARCADE_LIMIT_FOLDERS" description="PLG_SEARCH_JVARCADE_LIMIT_FOLDERS_DESC"/>
+		<param name="search_limit_tags" type="text" size="5" default="50" label="PLG_SEARCH_JVARCADE_LIMIT_TAGS" description="PLG_SEARCH_JVARCADE_LIMIT_TAGS_DESC"/>
+		<param type="spacer" />
+		<param name="Itemid" type="text" size="5" default="0" label="PLG_SEARCH_JVARCADE_ITEMID" description="PLG_SEARCH_JVARCADE_ITEMID_DESC"/>
+	 </params>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="search_limit_games" type="text" size="5" default="50" label="PLG_SEARCH_JVARCADE_LIMIT_GAMES" description="PLG_SEARCH_JVARCADE_LIMIT_GAMES_DESC"/>
+				<field name="search_limit_folders" type="text" size="5" default="50" label="PLG_SEARCH_JVARCADE_LIMIT_FOLDERS" description="PLG_SEARCH_JVARCADE_LIMIT_FOLDERS_DESC"/>
+				<field name="search_limit_tags" type="text" size="5" default="50" label="PLG_SEARCH_JVARCADE_LIMIT_TAGS" description="PLG_SEARCH_JVARCADE_LIMIT_TAGS_DESC"/>
+				<field type="spacer" />
+				<field name="Itemid" type="text" size="5" default="0" label="PLG_SEARCH_JVARCADE_ITEMID" description="PLG_SEARCH_JVARCADE_ITEMID_DESC"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

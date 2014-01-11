@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.2" type="plugin" group="system" method="upgrade">
+	<name>System - jVarcade</name>
+	<creationDate>29 July 2013</creationDate>
+	<author>jVitals Team</author>
+	<copyright>C) All rights reserved. 2013 jVitals.com</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>admin@jvitals.com</authorEmail>
+	<authorUrl>http://www.jvitals.comm</authorUrl>
+	<description>jVArcade system plugin - provides scoring support for certain types of games.</description>
+	<version>2.01</version>
+	<scriptfile>enable.script.php</scriptfile>
+	<files>
+		<filename plugin="jvarcade">jvarcade.php</filename>
+		<filename>index.html</filename>
+	</files>
+</extension>
