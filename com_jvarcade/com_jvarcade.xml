@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/component-install.dtd">
-<extension type="component" version="1.5.0" method="upgrade">
+<extension type="component" version="3.2" method="upgrade">
 	<name>jVArcade</name>
 	<version>2.01</version>
 	<copyright>(C) All rights reserved. 2011-2012 jVitals.com</copyright>
