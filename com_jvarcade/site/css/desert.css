@@ -1,0 +1,519 @@
+/**
+ * @package		jVArcade
+ * @version		2.1
+ * @date		2014-01-12
+ * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
+ * @link		http://jvitals.com
+ */
+
+
+.jva_foldercols, .jva_foldercols th, .jva_foldercols tr, .jva_foldercols td {
+	border: 0px;
+}
+div.jva_foldercols {
+	border: 0 none;
+	display: inline-block;
+	width:100%;
+}
+.jva_column_wrap {
+border: 0 none;
+	width:100%;
+	float: left;
+	margin: 0;
+}
+.jva_columns {
+border: 0 none;
+	
+	float: left;
+	margin: 0;
+}
+/*For IE6 Compatibility */
+#puarcade_wrapper {
+	/* float: left;*/
+	width: 95%;
+	margin: 10px auto;
+	text-align: center;
+}
+
+/* For the "PUArcade by... links
+at the bottom of most pages */
+#pu_footer {
+	width: 97%;
+	text-align: center;
+	font-size: small;
+	font-family: Verdana;
+}
+
+/* Contains the special folder
+links at the top of most pages */
+#pua_header {
+	
+	border-radius: 5px 5px 5px 5px;
+	font-size: 1em;
+	height: 30px;
+	margin: 0 auto;
+	padding: 4px;
+	
+}
+}
+
+#pua_header img {
+	float: left;
+	padding: 3px 3px 0 0;
+}
+
+div#pua_header a {
+	color: #fff ;
+}
+
+div#pua_header a:hover {
+	color: #6CB1C2;
+}
+
+/* The folder display that shows the games inside it */
+.pua_folder {
+background: url("img/profile_menu.png") repeat-y scroll 0 0 #B0966F;
+	margin: 10px;
+	min-height: 310px;
+	padding: 10px;
+}
+
+/* For the special folder links boxes */
+.pua_header_box {
+	background: url("img/profile_menu.png") repeat-y scroll 10% 0 #B0966F;
+	border-radius: 5px 5px 5px 5px !important;
+	float: left;
+	font-size: 1em;
+	height: 26px;
+	line-height: 26px;
+	margin-right: 3px;
+	padding: 2px 6px 2px 1px;
+	text-align: center;
+}
+.pua_header_box img{
+	float: left;
+	margin-right: 5px;
+}
+
+/* for the "see all xx games in this folder link at the bottom of each folder" */
+.pu_AllGames {
+	display: block;
+	color: #fff;
+}
+
+div.pu_AllGames a:link, div.pu_AllGames a:active, div.pu_AllGames a:visited {
+
+	color: #fff !important;
+}
+
+/* Used where the description of a folder is displayed */
+.pua_folder_description {
+	color: #FFFFFF;
+	display: inline-block;
+	width: 100%;
+}
+
+.pua_folder_description_left {
+float: left;
+	width: 60px;
+	margin-right: 10px;
+}
+
+.pua_folder_description_right {
+	color: #CCCCCC;
+text-align: left;
+min-height: 110px;
+}
+
+/* Shows above the game list and score list.
+Gets top left and right corners rounded in javascript. */
+.pu_ListHeader {
+	width: 100%;
+	color: #fff;
+	background: url("img/ttop-bg.png") repeat-x scroll 0 0 #B8B8B8;
+}
+table.pu_ListHeader th {
+	color: #fff;
+	background: url("img/ttop-bg.png") repeat-x scroll 0 0 #B8B8B8;
+	border-bottom:0;
+}
+.pu_Listfooter  {
+	width: 100%;
+	color: #000;
+	background: url("img/header_bar_bg.png") repeat-x scroll 0 0 #B0966F;
+}
+.pu_Listfooter tr, .pu_Listfooter td {
+border:0;
+
+}
+div#tag {
+
+	padding: 5px;
+}
+
+
+.pu_ListHeader a:link, .pu_ListHeader a:visited {
+	color: #fff !important;
+	font-weight:bold !important;
+	text-decoration: none !important;
+}
+
+.pu_ListHeader a img {
+	margin: 0 0 0 4px;
+	border: 0px;
+}
+
+/* Shows below game list and score list.
+Gets bottom left and right corners rounded in javascript*/
+.pu_listbottom {
+	width: 100%;
+	color: #fff;
+	padding: 0 0 0 0.5em;
+	background-color: #135CAE;
+}
+
+div.pua_folder_description a:link, div.pua_folder_description a:visited, div.pua_folder_description a:active {
+	color: #fff !important;
+}
+
+div.pua_folder_description a:hover, div.pu_AllGames a:hover {
+	color: #6CB1C2 !important;
+}
+
+.pua_game_container {
+	display: inline-block;
+	padding: 4px;
+}
+
+.pua_folder_games {
+	background: url("img/profile_menu.png") repeat-y scroll 0 0 #202020;
+	border: 1px solid #222222;
+	border-radius: 5px 5px 5px 5px !important;
+	float: left;
+	margin: 6px 8px;
+	min-height: 120px;
+	min-width: 115px;
+	padding: 6px;
+}
+
+div.pua_folder_games a {
+	color: #6CB1C2;
+	line-height: 93%;
+	display: block;
+}
+
+.pua_folder_games a:hover {
+	color: #FFFFFF !important;
+}
+
+.pua_folder_games h4 {
+	color: #9bae5e;
+	line-height: 93%;
+}
+
+.pua_folder_games img {
+	
+	height: 50px;
+	margin-top: 5px;
+	width: 50px;
+}
+
+.pua_folder h3,.pua_folder h4,.pua_score {
+	color: #CCCCCC !important;
+	font-size: 0.9em;
+	margin: 4px 0 5px;
+	padding: 0;
+	text-align: center;
+}
+
+.pua_socbm img {
+	width: 18px;
+	height: 18px;
+}
+
+.pua_socbm,.pua_folder_games,.pua_header_box,#pua_header,.pu_MediaObject,#FlashTable,.pu_tagcloud,.pu_statsblock
+	{
+	behavior: url(iepngfix.htc);
+}
+
+/* Displays across the top of the game play page */
+.pu_heading {
+	width: 100%;
+	height: 30px;
+	background: url("img/header_bar_bg.png") repeat-x scroll 0 0 #B0966F;
+	padding: 0;
+	line-height: 30px;
+	vertical-align: middle;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: 1.5em;
+	font-weight: bold;
+	/*	Cannot safely clear without breaking the layout */
+
+}
+
+.pua_short_heading {
+	width: 98%;
+	height: 30px;
+	background-color: transparent;
+	line-height: 30px;
+	vertical-align: middle;
+	background-repeat: repeat-x;
+	background-attachment: scroll;
+	padding: 0;
+	text-align: center;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+/* for the pathway/breadcrumbs at the top of
+many pages */
+.pu_pathway {
+	float: none;
+	width: auto;
+	text-align: left;
+	padding-bottom: 20px;
+}
+
+/* positions the rater on the
+game play page */
+.pu_Rater {
+	float: left;
+	margin: -38px 0 0 0px;
+	padding-left: 5px;
+}
+
+.pua_socbm {
+	float: left;
+}
+
+/* contains the actual game */
+.pu_MediaObject {
+	margin: 0 auto;
+	text-align: center!important;
+}
+
+/* contains the scores that display under a game */
+.pu_ScoreUnderGame {
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 12px;
+}
+
+/* Container for the game list and the score list
+This div gets directly updated by the javascript */
+#FlashTable {
+	width: 100%;
+}
+#FlashTable tr {
+	border-top: 2px groove #FFFFFF;
+	text-align: left;
+	background: url("img/row3_bg.png") repeat scroll 0 0 transparent;
+	border-left: 1px solid #CCCCCC;
+	border-right: 1px solid #CCCCCC;
+}
+#FlashTable td{
+padding: 3px 0;
+border: 0;
+}
+#FlashTable a {
+	text-decoration: none;
+}
+
+/* Container to center score and game lists */
+.pu_ListContainer {
+	margin: 0 auto;
+}
+
+/* Adds a margin if more than one content
+block is showing on game play page */
+.pu_AddMargin {
+	width: 15px;
+	height: 5px;
+	float: left;
+}
+
+/* Container for one content block */
+.pu_contentblock {
+	border: 1px solid #CCCCCC;
+	border-radius: 10px 10px 10px 10px;
+	float: left;
+	margin: 0 auto;
+	text-align: left;
+	width: 48%;
+	min-height: 140px;
+}
+.pu_contentblock table{
+
+}
+
+.pu_contentblock a {
+	text-decoration: none;
+}
+
+.pu_contentblock table td {
+	border: 0px;
+	padding: 1px 5px 0;
+}
+
+.pu_contentblock table tr {
+	border: 0px;
+}
+
+/* Container to center the content blocks */
+.pu_block_container {
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	height: auto;
+}
+
+/* Container for the faves and reporting links
+at bottom of game play page*/
+.pu_GamePageBottomLinks {
+	text-align: left;
+}
+
+#comment-block {
+	text-align: left;
+}
+
+#fave {
+	clear: left;
+}
+
+/* Container for the comments link at bottom of
+game play page*/
+div.pu_comments {
+	display: none;
+}
+
+/* Container for social bookmarks shown under games */
+.pu_bookmarks {
+
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 8px;
+}
+
+/* Score results message is shown in this div */
+#pu_message {
+	width: 100%;
+	margin-bottom: 3px;
+	text-align: center;
+	color: #000000;
+	font-weight: bold;
+	font-size: 1.3em
+}
+
+/*****************************************************
+*styles for the star rater                           *
+******************************************************/
+.rating {
+	cursor: pointer;
+	display: block;
+	width: 100px;
+	margin-right: 10px;
+	margin-left: auto;
+	margin-bottom: 3px;
+}
+
+.rating:after {
+	content: '.';
+	display: block;
+	height: 0;
+	width: 0;
+	/*	clear: both;	*/
+	visibility: hidden;
+}
+
+.cancel,.star {
+	float: left;
+	width: 17px;
+	height: 15px;
+	overflow: hidden;
+	text-indent: -999em;
+	cursor: pointer;
+}
+
+.star-left,.star-right {
+	width: 8px
+}
+
+.cancel,.cancel a {
+	background: url(/images/jvarcade/images/stars/delete.gif) no-repeat 0 -16px;
+}
+
+.star,.star a {
+	background: url(/images/jvarcade/images/stars/star.gif) no-repeat 0 0px;
+}
+
+.star-left,.star-left a {
+	background: url(/images/jvarcade/images/stars/star-left.gif) no-repeat 0 0px;
+}
+
+.star-right,.star-right a {
+	background: url(/images/jvarcade/images/stars/star-right.gif) no-repeat 0 0px;
+}
+
+.cancel a,.star a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	background-position: 0 0px;
+}
+
+div.rating div.on a {
+	background-position: 0 -16px;
+}
+
+div.rating div.hover a,div.rating div a:hover {
+	background-position: 0 -32px;
+}
+/***************************
+* End star rating styles
+****************************/
+
+.jvapagenav {
+	border:0px;
+}
+
+.jvapagenav td, .jvapagenav tr, .jvapagenav th {
+	border:0px;
+}
+
+.jvapagenav ul {
+	list-style-type: none !important;
+	padding: 0 !important;
+	display: block;
+	margin: 0 auto !important;
+}
+.jvapagenav ul li {
+	display: block!important;
+	float: left!important;
+}
+
+.gamewarning {
+	text-align: center; 
+	color: red; 
+	padding: 0pt; 
+	margin: 20% 0pt 20pt; 
+	font: 40px Arial bold;
+}
+/***************************
+* Modal styles
+****************************/
+#sbox-content {
+    background-color: #FFFFFF;
+    clear: both;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+}
+
+@-moz-document url-prefix("") {
+.body-overlayed {
+    overflow: hidden;
+}

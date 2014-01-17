@@ -64,7 +64,7 @@
 			<filename>changelog.xml</filename>
 			<filename>config.xml</filename>
 			<filename>controller.php</filename>
-			<filename>toolbar.php</filename>
+			<filename>sidebar.php</filename>
 			<filename>model.php</filename>
 			<filename>install.jvarcade.sql</filename>
 			<filename>uninstall.jvarcade.sql</filename>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_JVARCADE_VIEW_FOLDER_LAYOUT_FOLDER">
+		<message><![CDATA[COM_JVARCADE_VIEW_FOLDER_LAYOUT_FOLDER_DESC]]></message>
+	</layout>
+	<state>
+		<name>COM_JVARCADE_VIEW_FOLDER_LAYOUT_FOLDER</name>
+		<description><![CDATA[COM_JVARCADE_VIEW_FOLDER_LAYOUT_FOLDER_DESC]]></description>
+		<url addpath="/administrator/components/com_jvarcade/elements">
+			<param name="task" type="hidden" default="folder" />
+			<param name="id" type="jvafolderlist" label="COM_JVARCADE_VIEW_FOLDER_NAME" size="15" description="COM_JVARCADE_VIEW_FOLDER_NAME_DESC" />
+		</url>
+	</state>
+	<!-- Add fields to the request variables for the layout. -->
+	<fields addfieldpath="/administrator/components/com_jvarcade/elements" name="request">
+		<fieldset name="request">
+			<field name="task" type="text"
+				default="folder"
+				extension="com_jvarcade"
+				label="COM_JVARCADE_VIEW_FOLDER_TASK"
+				required="true"
+				readonly="true"
+			/>
+			<field name="id" type="jvafolderlist"
+				description="COM_JVARCADE_VIEW_FOLDER_NAME_DESC"
+				extension="com_jvarcade"
+				label="COM_JVARCADE_VIEW_FOLDER_NAME"
+				required="true"
+				addfieldpath="/administrator/components/com_jvarcade/fields"
+				size="15"
+			/>
+		</fieldset>
+	</fields>
+</metadata>

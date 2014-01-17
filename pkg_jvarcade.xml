@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<extension type="package" version="3.2" method="upgrade">
+<extension type="package" version="3.2">
     <name>jVArcade Package</name>
     <creationDate>2014-01-11</creationDate>
     <author>jVitals Team</author>
@@ -8,15 +8,15 @@
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<copyright>(C) All rights reserved. 2011-2014 jVitals.com</copyright>
     <version>2.1</version>
-    <packagename>jVArcade</packagename>
+    <packagename>jvarcade</packagename>
     <description>A Joomla Arcade Component</description>
-    <files>
+    <files folder="packages">
         <file type="component" id="com_jvarcade" >com_jvarcade.zip</file>
-        <file type="plugin" id="plg_jvarcade_atari">plg_jvarcade_atari.zip</file>
-		<file type="plugin" id="plg_jvarcade_c64">plg_jvarcade_c64.zip</file>
-		<file type="plugin" id="plg_jvarcade_gameboy">plg_jvarcade_gameboy.zip</file>
-		<file type="plugin" id="plg_jvarcade_nes">plg_jvarcade_nes.zip</file>
-		<file type="plugin" id="plg_search_jvarcade">plg_search_jvarcade.zip</file>
-		<file type="plugin" id="plg_system_jvaracde">plg_system_jvarcade.zip</file>
+        <file type="plugin" id="atari">plg_jvarcade_atari.zip</file>
+		<file type="plugin" id="c64">plg_jvarcade_c64.zip</file>
+		<file type="plugin" id="gameboy">plg_jvarcade_gameboy.zip</file>
+		<file type="plugin" id="nes">plg_jvarcade_nes.zip</file>
+		<file type="plugin" id="jvarcade">plg_search_jvarcade.zip</file>
+		<file type="plugin" id="jvaracde">plg_system_jvarcade.zip</file>
     </files>
 </extension>

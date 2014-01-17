@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_JVARCADE_VIEW_LATEST_SCORES_LAYOUT_DEFAULT">
+		<message><![CDATA[COM_JVARCADE_VIEW_LATEST_SCORES_LAYOUT_DEFAULT]]></message>
+	</layout>
+	<state>
+		<name>COM_JVARCADE_VIEW_LATEST_SCORES_LAYOUT_DEFAULT</name>
+		<description><![CDATA[COM_JVARCADE_VIEW_LATEST_SCORES_LAYOUT_DEFAULT]]></description>
+		<url>
+			<param name="task" type="hidden" default="latestscores" />
+		</url>
+	</state>
+	<!-- Add fields to the request variables for the layout. -->
+	<fields name="request">
+		<fieldset name="request">
+			<field name="task" type="text"
+				default="latestscores"
+				extension="com_jvarcade"
+				label="COM_JVARCADE_VIEW_FOLDER_TASK"
+				required="true"
+				readonly="true"
+			/>
+		</fieldset>
+	</fields>
+</metadata>

@@ -1,27 +1,24 @@
 <?php
 /**
-* This file is part of the jVArcade distribution. 
-* Detailed copyright and licensing information can be found
-* in the gpl-3.0.txt file which should be included in the distribution.
-* 
-* @version		2.01 2013-07-29 nuclear-head
-* @copyright	2011-2014 jVitals
-* @license		GPLv3 Open Source
-* @link			http://jvitals.com
-* @since		File available since initial release
-*/
+ * @package		jVArcade
+ * @version		2.1
+ * @date		2014-01-12
+ * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
+ * @link		http://jvitals.com
+ */
+
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-
-		jimport('joomla.filesystem.folder');
-		jimport('joomla.filesystem.file');
-		jimport('joomla.archive.archive');
+jimport('joomla.filesystem.folder');
+jimport('joomla.filesystem.file');
+jimport('joomla.archive.archive');
 		
 class com_jvarcadeInstallerScript {		
 		
-		function preflight($type, $parent){
+		function preflight($type, $parent) {
 			
 	
 			
@@ -30,26 +27,32 @@ class com_jvarcadeInstallerScript {
 		}//End Preflight
 		
 		
-		function install($parent){
+		function install($parent) {
 			$backendPath = JPATH_ROOT . '/administrator/components/com_jvarcade/';
 			$frontendPath = JPATH_ROOT . '/components/com_jvarcade/';
-			
+			$table = '#__jvarcade_settings';
 			$db = JFactory::getDBO();
-        $query = file_get_contents(JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_jvarcade' . DIRECTORY_SEPARATOR . 'install' . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'install.defaults.sql');
-        $queries = $db->splitSql($query);
-        foreach ($queries as $querie) { 
-            $db->setQuery($querie);
-            $db->query();
-            $error = $db->getErrorNum();
-                    if ($error) { 
-                      JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_FAILED'), 'error');
-				} else {
-					JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_OK'), 'message');
-				}
-                    
-        }
 			
-			// ONLY FOR FRESH INSTALL - MOVE FOLDERS
+			$db->setQuery('SELECT COALESCE(COUNT(*), 0) FROM ' . $db->quoteName($table));
+			$records_exist = @$db->loadResult();
+			if (!(int)$records_exist) {
+					$query = file_get_contents(JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_jvarcade' . DIRECTORY_SEPARATOR . 'install' . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'install.defaults.sql');
+        			$queries = $db->splitSql($query);
+        				foreach ($queries as $querie) { 
+            			$db->setQuery($querie);
+            			$db->query();
+            			$error = $db->getErrorNum();
+                    		if ($error) { 
+                      			JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_FAILED'), 'error');
+							} else {
+								JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_OK'), 'message');
+							}
+						}
+        	} else {
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_OK'), 'message');
+			}
+			
+		// ONLY FOR FRESH INSTALL - MOVE FOLDERS
 		
 		if (!JFolder::exists(JPATH_ROOT . '/images/jvarcade')) {
 
@@ -88,7 +91,7 @@ class com_jvarcadeInstallerScript {
 		
 	}//end install function
 	
-	function uninstall($parent){
+	function uninstall($parent) {
 		
 		
 		
@@ -96,7 +99,8 @@ class com_jvarcadeInstallerScript {
 	}//end uninstall function
 	
 	
-	function postflight ($type, $parent){
+	function postflight ($type, $parent) {
+		
 		
 		
 		

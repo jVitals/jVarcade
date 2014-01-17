@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelog component="jVArcade">
+  <version number="3.0">
+  	<date>2014-01-10</date>
+  	<description>Initial Joomla 3.x compatible release</description></version>
+  <version number="2.01">
+    <date>2013-07-29</date>
+    <description><![CDATA[ Bugfix release ]]></description>
+    <list>
+      <item type="bugfix"><![CDATA[ Fixed issue where toolbar.jvarcade.php caused 'Cannot modify header information - headers already sent' error in some cases ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed issue where game description was not showing in category/popular/latest games lists -- thanks to pgkerr ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed issue where 'Show scores on games in folder view' was also affecting Flat view -- thanks to pgkerr ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed issue with some games having trouble to submit score ]]></item>
+      <item type="locale"><![CDATA[ Added Finnish translation -- thanks to Mnova ]]></item>
+      <item type="upgrade"><![CDATA[ Added rel="nofollow" to the sort urls in the frontend ]]></item>
+      <item type="upgrade"><![CDATA[ Added Alt and Title attributes for game images to match the game title -- thanks to pgkerr ]]></item>
+    </list>
+  </version>
+  <version number="2.0">
+    <date>2013-03-04</date>
+    <description><![CDATA[ Small fixes and features ]]></description>
+    <list>
+      <item type="new"><![CDATA[ Added setting for title max chars in front end ]]></item>
+      <item type="new"><![CDATA[ Added meta description to front pages ]]></item>
+      <item type="new"><![CDATA[ Added 'Highest Score' column to Latest Scores View ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed issue where sometimes the game installer didn't detect correctly the game archive type ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed issue with 'Show top scores under game' setting not working ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed wrong link to game page in the 'Latest scores page' thumbnail ]]></item>
+      <item type="bugfix"><![CDATA[ Changed the Yesterday and Today language strings to be translatable ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed issue with saving scores when some of the submit parameters contain new lines ]]></item>
+      <item type="upgrade"><![CDATA[ Fixed multiple Strict Standards warning ]]></item>
+      <item type="upgrade"><![CDATA[ sh404SEF plugin - use only the sef_ext folder scheme ]]></item>
+    </list>
+  </version>
+  <version number="1.0.09">
+    <date>2012-10-10</date>
+    <description><![CDATA[ Minor /feature/ release ]]></description>
+    <list>
+      <item type="new"><![CDATA[ Open game in new window with shadowbox ]]></item>
+      <item type="new"><![CDATA[ Added new view - Latest scores ]]></item>
+      <item type="upgrade"><![CDATA[ Ratings feature added also to the game scores view ]]></item>
+      <item type="upgrade"><![CDATA[ Setting to order the folders in home page when in folder/non-flat/ mode. ]]></item>
+    </list>
+  </version>
+  <version number="1.0.08">
+    <date>2012-06-05</date>
+    <description><![CDATA[ Major Release ]]></description>
+    <list>
+      <item type="new"><![CDATA[ Added feature for mulptiple games installation at once ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed pagination not showing in the folder view ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed issues with default CB and JomSocial avatars ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed javascript issues with IE and issues preventing the popup warning for games with inappropriate content ]]></item>
+      <item type="bugfix"><![CDATA[ Do not displaye deleted Joomla users in Leaderboard ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed issue where start or end time in Edit Contest in the back end were causing save issues when the date was Today or Yesterday ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed possible timezone issues ]]></item>
+      <item type="upgrade"><![CDATA[ Show avatars and links to user profiles in Global Leaderboard and in Contest Leaderboards ]]></item>
+    </list>
+  </version>
+  <version number="1.0.07">
+    <date>2012-05-08</date>
+    <description><![CDATA[ Minor release ]]></description>
+    <list>
+      <item type="new"><![CDATA[ Added Joomla search plugin for jVArcade games. ]]></item>
+      <item type="bugfix"><![CDATA[ Removed the possibility to edit the game system name which may prevent saving scores. ]]></item>
+      <item type="bugfix"><![CDATA[ Don't update the system game name field when updating. ]]></item>
+      <item type="upgrade"><![CDATA[ Added plugins for NES, GameBoy and Atari games. ]]></item>
+    </list>
+  </version>
+  <version number="1.0.06">
+    <date>2012-02-29</date>
+    <description><![CDATA[ Major release ]]></description>
+    <list>
+      <item type="new"><![CDATA[ Added changelog feature ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed issue when scores table ordering was not respecting the 'Reverse score' game setting ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed incorrect message that the game doesn't save score in the game listings when 'Show scores on games in folder view' is set to Yes in Frontend Settings ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed image paths to be compatible with windows servers ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed issue with non-latin game descriptions ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed uploading mochi games when filename has space in it ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed forgotten links to com_puarcade ]]></item>
+      <item type="bugfix"><![CDATA[ Fixed bug where guest scores are not taken into account in Global Leaderboard. Fixed possible bug with Leaderboard not recalculated. ]]></item>
+      <item type="locale"><![CDATA[ Added Russian translation ]]></item>
+      <item type="upgrade"><![CDATA[ Added setting to load or not load jQuery ]]></item>
+      <item type="upgrade"><![CDATA[ Display the DB errors in the jVArcade installer ]]></item>
+      <item type="upgrade"><![CDATA[ Fixed the default ordering in folders and some special folders to be alphabetical ]]></item>
+      <item type="ui"><![CDATA[ Fixed layout issues with some templates ]]></item>
+      <item type="ui"><![CDATA[ Fixed wrong display when home page has more than 1 column ]]></item>
+    </list>
+  </version>
+  
+</changelog>

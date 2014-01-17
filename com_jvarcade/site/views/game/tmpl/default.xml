@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_JVARCADE_VIEW_GAME_LAYOUT_DEFAULT">
+		<message><![CDATA[COM_JVARCADE_VIEW_GAME_LAYOUT_DEFAULT]]></message>
+	</layout>
+	<state>
+		<name>COM_JVARCADE_VIEW_GAME_LAYOUT_DEFAULT</name>
+		<description><![CDATA[COM_JVARCADE_VIEW_GAME_LAYOUT_DEFAULT_DESC]]></description>
+		<url>
+			<param name="task" type="hidden" default="game" />
+			<param name="id" type="text" default="" label="COM_JVARCADE_VIEW_GAME_ID" description="COM_JVARCADE_VIEW_GAME_ID_DESC" />
+		</url>
+	</state>
+	<!-- Add fields to the request variables for the layout. -->
+	<fields name="request">
+		<fieldset name="request">
+			<field name="task" type="text"
+				default="game"
+				extension="com_jvarcade"
+				label="COM_JVARCADE_VIEW_FOLDER_TASK"
+				required="true"
+				readonly="true"
+			/>
+			<field name="id" type="text"
+				default=""
+				extension="com_jvarcade"
+				label="COM_JVARCADE_VIEW_GAME_ID"
+				description="COM_JVARCADE_VIEW_GAME_ID_DESC"
+				required="true"
+			/>
+		</fieldset>
+	</fields>
+</metadata>

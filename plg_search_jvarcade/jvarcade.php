@@ -1,15 +1,13 @@
 <?php
 /**
-* This file is part of the jVArcade distribution. 
-* Detailed copyright and licensing information can be found
-* in the gpl-3.0.txt file which should be included in the distribution.
-*  
-* @version		1.0.0 2012-05-08 nuclear-head
-* @copyright	2007 - 2012 jVitals
-* @license		GPLv3 Open Source
-* @link			http://jvitals.com
-* @since		File available since initial release
-*/
+ * @package		jVArcade
+ * @version		2.1
+ * @date		2014-01-12
+ * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
+ * @link		http://jvitals.com
+ */
+
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
