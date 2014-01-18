@@ -18,6 +18,9 @@ CAUSE: Unknown. Pending further investigation. Seems tohave something to do with
 <p>BUG: Filter for list in administration manage games view does not work.<br>
 CAUSE: Unknown. Pending further investigation.</p>
 
+<p>BUG: With SEF enabled games that use gamedata sometimes dont load properly EG: Yeti 8 - Jungle Swing. This occurs even with .htaccess lines added as per forums.<br>
+CAUSE: Unknown. Pending further investigation.</p>
+
 <p><b>Updates:</b></p>
 
 <p>Replaced jstella atari applet with javartari330 in the atari plugin.<br>
