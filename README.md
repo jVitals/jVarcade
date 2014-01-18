@@ -18,13 +18,17 @@ CAUSE: Unknown. Pending further investigation. Seems tohave something to do with
 <p>BUG: Filter for list in administration manage games view does not work.<br>
 CAUSE: Unknown. Pending further investigation.</p>
 
+<p>BUG: New version notice displayed in administration even though defined version is greater than hosted.<br>
+CAUSE: Unknown. Pending further investigation. Suspect some maths needed to be done for greater than or possibly two version compares dependant on joomla version.</p>
+
 <p><b>Updates:</b></p>
 
 <p>Replaced jstella atari applet with javartari330 in the atari plugin.<br>
 Added support for Commodore 64 .prg with use of jac64 applet in the c64 plugin.<br>
 Added support for game downloading with administration options for group permission and enable/disable.<br>
 Used hard coded width and height in /views/game/default.php for games that use atari,c64,nes applets to prevent issues with config files not setting attributes when uploading.<br>
-Rounded corners no longer uses javascript/jquey. Added rounded.corners.css to prevent script conflicts.</p>
+Rounded corners no longer uses javascript/jquey. Added rounded.corners.css to prevent script conflicts.<br>
+Removed migration from puarcade. Note: Migration coding left in place for possible adaption to migration from Joomla 2.5</p>
 
 <p><b>Fixes:</b></p>
 
