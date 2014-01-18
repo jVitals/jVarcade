@@ -127,7 +127,7 @@ class jvaHelper {
 		$archivename = JPath::clean($archivename);
 
 		// do the unpacking of the archive
-		$result = JArchive::extract( $archivename, $extractdir);
+		$result = JArchive::extract($archivename, $extractdir);
 
 		if ( $result === false ) {
 			return false;
@@ -167,6 +167,7 @@ class jvaHelper {
 		 */
 		
 		return $retval;
+		
 	}
 	
 	public static function detectPackageType($dir) {
@@ -260,7 +261,7 @@ class jvaHelper {
 			$info = substr($version_info, $version_info_pos + 1);
 		}
 		
-		if ($version == JVA_VERSION) {
+		if ($version <= JVA_VERSION) {
 			return false;
 		}
 		
