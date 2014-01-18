@@ -18,9 +18,6 @@ CAUSE: Unknown. Pending further investigation. Seems tohave something to do with
 <p>BUG: Filter for list in administration manage games view does not work.<br>
 CAUSE: Unknown. Pending further investigation.</p>
 
-<p>BUG: New version notice displayed in administration even though defined version is greater than hosted.<br>
-CAUSE: Unknown. Pending further investigation. Suspect some maths needed to be done for greater than or possibly two version compares dependant on joomla version.</p>
-
 <p><b>Updates:</b></p>
 
 <p>Replaced jstella atari applet with javartari330 in the atari plugin.<br>
@@ -33,6 +30,4 @@ Removed migration from puarcade. Note: Migration coding left in place for possib
 <p><b>Fixes:</b></p>
 
 <p>Rewrite reportgame function for changed database tables.<br>
-Fixed issue of incorrect row being selected when you publish/unpublish with icons(tick/red circle) in administration list views.<br>
-</p>
-
+Fixed issue of incorrect row being selected when you publish/unpublish with icons(tick/red circle) in administration list view
