@@ -2,6 +2,9 @@ jVArcade 2.1
 
 Arcade games component for Joomla 3.2
 
+<p><b>Install Note:</b></p>
+<p>Install and enable jvfixscript and enable fix backend in settings</p>
+
 <p><b>Known Bugs:</b></p>
 
 <p>BUG: Uploading archive in tar format fails when php version is 5.5 + <br>
