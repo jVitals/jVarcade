@@ -3,7 +3,7 @@ jVArcade 2.1
 Arcade games component for Joomla 3.2
 
 <p><b>Install Note:</b></p>
-<p>Install and enable jvfixscript and enable fix backend in settings</p>
+<p>Install and enable jvfixscript and enable fix backend in settings.</p>
 
 <p><b>Known Bugs:</b></p>
 
@@ -13,12 +13,9 @@ FIX: To be addressed by joomla core update <br>
 REFERENCE: https://github.com/joomla/joomla-framework-archive/commit/89d15271ac6e339657ca349d56226d550e94156c</p>
 
 <p>BUG: Score saving for games that post to index.php creates an endless loop <br>
-CAUSE: Unknown. Pending further investigation. Seems tohave something to do with url params. EG: act=Arcade&do=newscore</p>
+CAUSE: Unknown. Pending further investigation. Seems to have something to do with url params. EG: act=Arcade&do=newscore</p>
 
 <p>BUG: Filter for list in administration manage games view does not work.<br>
-CAUSE: Unknown. Pending further investigation.</p>
-
-<p>BUG: With SEF enabled games that use gamedata folder sometimes dont load properly EG: Yeti 8 - Jungle Swing. This occurs even with .htaccess lines added as per forums.<br>
 CAUSE: Unknown. Pending further investigation.</p>
 
 <p><b>Updates:</b></p>
