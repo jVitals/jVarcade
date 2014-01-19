@@ -12,11 +12,9 @@ CAUSE: JArchive tar adapter issue. <br>
 FIX: To be addressed by joomla core update <br>
 REFERENCE: https://github.com/joomla/joomla-framework-archive/commit/89d15271ac6e339657ca349d56226d550e94156c</p>
 
-<p>BUG: Score saving for games that post to index.php creates an endless loop <br>
-CAUSE: Unknown. Pending further investigation. Seems to have something to do with url params. EG: act=Arcade&do=newscore</p>
+<p>BUG: https://github.com/jVitals/jVarcade/issues/1</p>
 
-<p>BUG: Filter for list in administration manage games view does not work.<br>
-CAUSE: Unknown. Pending further investigation.</p>
+<p>BUG: https://github.com/jVitals/jVarcade/issues/2</p>
 
 <p><b>Updates:</b></p>
 
