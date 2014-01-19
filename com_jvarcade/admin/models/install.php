@@ -219,8 +219,8 @@ class jvarcadeModelInstall extends JModelLegacy {
 						$gamedatasrc = $package['dir'] . '/' . 'gamedata' . '/' . $config['name'];
 						$gamedatadest = JPATH_SITE . '/' . 'arcade' . '/' . 'gamedata' . '/' . $config['name'];
 						if (JFolder::exists($gamedatasrc)) {
-							@JFolder::create(JPATH_SITE . '/' . 'arcade', 0755);
-							@JFolder::create(JPATH_SITE . '/' . 'arcade' . '/' . 'gamedata', 0755);
+							//@JFolder::create(JPATH_SITE . '/' . 'arcade', 0755);
+							//@JFolder::create(JPATH_SITE . '/' . 'arcade' . '/' . 'gamedata', 0755);
 							JFolder::move($gamedatasrc, $gamedatadest);
 						}
 					}

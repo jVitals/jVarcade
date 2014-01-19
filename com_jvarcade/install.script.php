@@ -52,6 +52,12 @@ class com_jvarcadeInstallerScript {
 				JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_OK'), 'message');
 			}
 			
+		// Create /arcade/gamedata directory. This prevents menu item with alias arcade being created which breaks gamedata rewrite rules
+		
+		if (!JFolder::exists(JPATH_ROOT . '/arcade')) {
+			@JFolder::create(JPATH_ROOT . '/arcade', 0775);
+			@JFolder::create(JPATH_ROOT . '/arcade/gamedata', 0775);
+		}
 		// ONLY FOR FRESH INSTALL - MOVE FOLDERS
 		
 		if (!JFolder::exists(JPATH_ROOT . '/images/jvarcade')) {
@@ -73,11 +79,12 @@ class com_jvarcadeInstallerScript {
 			}
 		}
 		
-		
 		// (RE)CREATE THE CATCH FILES IN THE JOOMLA ROOT
 		
 		JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_FILECOPY'), 'message');
 		$copyfiles = array(
+			JPATH_ROOT . '/arcade/index.html' => '<html><body bgcolor="#FFFFFF"></body></html>',
+			JPATH_ROOT . '/arcade/gamedata/index.html' => '<html><body bgcolor="#FFFFFF"></body></html>',
 			JPATH_ROOT . '/newscore.php' => '<?php require_once \'./index.php\';',
 			JPATH_ROOT . '/arcade.php' => '<?php require_once \'./index.php\';',
 			JPATH_ROOT . '/crossdomain.xml' => '<?xml version="1.0"?>' . "\n" . '<!DOCTYPE cross-domain-policy SYSTEM "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd">' . "\n" . '<cross-domain-policy>' . "\n\t" . '<allow-access-from domain="www.mochiads.com" />' . "\n\t" . '<allow-access-from domain="x.mochiads.com" />' . "\n\t" . '<allow-access-from domain="xs.mochiads.com" />' . "\n" . '</cross-domain-policy>' . "\n",
