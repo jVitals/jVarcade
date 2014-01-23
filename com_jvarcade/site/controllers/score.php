@@ -78,19 +78,21 @@ class jvarcadeControllerScore extends JControllerLegacy {
 		
 	}
 
-	function index() {
+	function v3() {
 		
 		// V3 support
-		$act = strtolower(JRequest::getWord( 'act', '' ));
-		if($act == 'arcade') {
+	//$act = strtolower(JRequest::getWord( 'act', '' ));
+		//if($act == 'arcade') {
 			$this->startSession();
 			$this->handleV3ScoreSubmit();
-		}
-
+		//}
+	}
+	
+	function v32() {
 		// V32 support
-		$auto = strtolower(JRequest::getWord('autocom', ''));
+		//$auto = strtolower(JRequest::getWord('autocom', ''));
 		$sessdo = strtolower(JRequest::getWord('do', ''));
-		if($auto == 'arcade'){
+		//if($auto == 'arcade'){
 			$this->startSession();
 			switch($sessdo) {
 				case 'sessionstart' :
@@ -103,8 +105,10 @@ class jvarcadeControllerScore extends JControllerLegacy {
 					$this->handleV32ScoreSubmit();
 					break;
 			}
-		}
-		
+		//}
+	}
+	
+	function pnflash() {
 		// pnflashgames support (it seems they can be submitted either by get or post data)
 		$module = strtolower(JRequest::getWord('module', ''));
 		$arcade = strtolower(JRequest::getWord('arcade', ''));

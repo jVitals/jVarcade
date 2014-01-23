@@ -883,10 +883,13 @@ class jvarcadeController extends JControllerLegacy {
 						$message = JText::_('COM_JVARCADE_SCORE_PROBLEM');
 						break;
 				}
+				
 				$message .= ' <a href="' . JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game_id . '&fid=' . $folderid . '&Itemid=' . $Itemid) . '">' . JText::_('COM_JVARCADE_PLAY_AGAIN') . '</a>';
 				// it's not clear what to do with the message.. shall we redirect?
-				echo $message;
+				
 				//$mainframe->redirect(JRoute::_('index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid), $message);
+				echo $message;
+				
 				exit;
 				break;
 				

@@ -18,6 +18,8 @@ if (!defined('DS')) {
 jimport( 'cms.plugin.plugin' );
 
 class plgSystemJvarcade extends JPlugin {
+	var $url = '';
+	var $u = '';
 	
 	function plgSystemJvarcade(&$subject, $config) {
 		parent::__construct($subject, $config);
@@ -66,28 +68,48 @@ class plgSystemJvarcade extends JPlugin {
 			$task = 'arcade';
 		}
 		
+		if (strpos($_SERVER['REQUEST_URI'], 'index2.php') !== false) {
+			$redirect = true;
+			$task = 'pnflash';
+		}
+		
 		// Catch any non-standart score submits to /index.php
 		if(	!in_array(JRequest::getWord('task', '' ), array('storepnscore', 'storescore', 'newscore', 'arcade', 'index'))
 			&& ((strtolower(JRequest::getWord('act', '' )) == 'arcade')
-				||	(strtolower(JRequest::getWord('autocom', '')) == 'arcade')
-				||	(strtolower(JRequest::getWord('module', '')) == 'pnflashgames')
-				||	(strtolower(JRequest::getWord('arcade', '')) == 'storescore')
-				||	(strtolower(JRequest::getWord('func', '')) == 'storescore')
+				//||	(strtolower(JRequest::getWord('autocom', '')) == 'arcade')
+				//||	(strtolower(JRequest::getWord('module', '')) == 'pnflashgames')
+				//||	(strtolower(JRequest::getWord('arcade', '')) == 'storescore')
+				//||	(strtolower(JRequest::getWord('func', '')) == 'storescore')
 			)
 		) {
 			$redirect = true;
-			$task = 'index';
+			$task = 'v3';
 		}
 		
+		if(	!in_array(JRequest::getWord('task', '' ), array('storepnscore', 'storescore', 'newscore', 'arcade', 'index'))
+		&& ((strtolower(JRequest::getWord('autocom', '' )) == 'arcade'))) {
+			$redirect = true;
+			$task = 'v32';
+		}
+		
+		/*if(	!in_array(JRequest::getWord('task', '' ), array('storepnscore', 'storescore', 'newscore', 'arcade', 'index'))
+		&& ((strtolower(JRequest::getWord('module', '')) == 'pnflashgames')
+				||	(strtolower(JRequest::getWord('arcade', '')) == 'storescore')
+				||	(strtolower(JRequest::getWord('func', '')) == 'storescore')
+		)
+		) {
+			$redirect = true;
+			$task = 'pnflash';
+		}*/
 		// If we are good to go
 		if ($redirect) {
 		
 			$params = array();
 			
 			// the absence of this parameter was causing issues in one case
-			if ( !(isset($_POST['pn_modvalue']) || isset($_GET['pn_modvalue'])) && (strpos($_SERVER['HTTP_REFERER'], 'pn_modvalue') !== false) ) {
+			/*if ( !(isset($_POST['pn_modvalue']) || isset($_GET['pn_modvalue'])) && (strpos($_SERVER['HTTP_REFERER'], 'pn_modvalue') !== false) ) {
 				$params[] = 'pn_modvalue=com_jvarcade';
-			}
+			}*/
 			
 			// get all the POST and GET parameters and append them to the redirect url
 			// skip huge parameters containing ### as they break the other parameters needed for the task detection
@@ -107,9 +129,31 @@ class plgSystemJvarcade extends JPlugin {
 				}
 				unset($_GET[$k]);
 			}
+		
+			$url = JUri::root(true) . '/index.php?option=com_jvarcade&task=score.' . $task . '&' . implode('&', $params);
 			
-			header('Location: ' . JURI::root(true) . '/index.php?option=com_jvarcade&task=score.' . $task . '&' . implode('&', $params));
-			jexit();		
+		if ($task == 'v3') {
+			$u = JUri::getInstance($url);
+			$u->delVar('act');
+			header('Location: ' . $u->toString());
+			jexit();
+			
+		}
+		
+		if ($task == 'v32') {
+			$u = JUri::getInstance($url);
+			$u->delVar('autocom');
+			header('Location: ' . $u->toString());
+			jexit();
+		}
+			
+		
+		if ($task == 'arcade' || 'newscore' || 'pnflash') {
+			header('Location:' . $url);
+			jexit();
+		}
+			
+				
 		}
 
 	}
