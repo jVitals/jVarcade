@@ -113,8 +113,9 @@ class jvarcadeControllerScore extends JControllerLegacy {
 		$module = strtolower(JRequest::getWord('module', ''));
 		$arcade = strtolower(JRequest::getWord('arcade', ''));
 		$func = strtolower(JRequest::getWord('func', ''));
-		if ($module == 'pnflashgames' || $arcade == 'storescore' || $func == 'storeScore') {
+		if ($module == 'pnflashgames' || $arcade == 'storescore' || $func == 'storescore') {
 			$this->startSession();
+			
 			$this->handlePnflashScoreSubmit();
 		}
 	}
@@ -259,7 +260,13 @@ class jvarcadeControllerScore extends JControllerLegacy {
 		$score = JRequest::getInt('score', null);
 		$gamedata = JRequest::getString ('gameData', '');
 		
-		$this->redirectpage('index.php?option=com_jvarcade&task=storepnscore&func=storeScore&gid=' . $gid . '&score=' . $score . '&gameData=' . $gamedata);
+		$this->_session->set('session_endtime', time(), 'jvarcade');
+		$this->_session->set('session_g', $gid, 'jvarcade');
+		$this->_session->set('session_func', $func, 'jvarcade');
+		$this->_session->set('session_score', $score, 'jvarcade');
+		$this->_session->set('session_gdata', $gamedata, 'jvarcade');
+		
+		$this->redirectpage('index.php?option=com_jvarcade&task=storepnscore&' . $this->sname . '=' . strip_tags($this->sid));
 	}
 	
 	/* END HELPER FUNCTIONS */

@@ -68,11 +68,6 @@ class plgSystemJvarcade extends JPlugin {
 			$task = 'arcade';
 		}
 		
-		if (strpos($_SERVER['REQUEST_URI'], 'index2.php') !== false) {
-			$redirect = true;
-			$task = 'pnflash';
-		}
-		
 		// Catch any non-standart score submits to /index.php
 		if(	!in_array(JRequest::getWord('task', '' ), array('storepnscore', 'storescore', 'newscore', 'arcade', 'index'))
 			&& ((strtolower(JRequest::getWord('act', '' )) == 'arcade')
@@ -92,15 +87,11 @@ class plgSystemJvarcade extends JPlugin {
 			$task = 'v32';
 		}
 		
-		/*if(	!in_array(JRequest::getWord('task', '' ), array('storepnscore', 'storescore', 'newscore', 'arcade', 'index'))
-		&& ((strtolower(JRequest::getWord('module', '')) == 'pnflashgames')
-				||	(strtolower(JRequest::getWord('arcade', '')) == 'storescore')
-				||	(strtolower(JRequest::getWord('func', '')) == 'storescore')
-		)
-		) {
+		if(	!in_array(JRequest::getWord('task', '' ), array('storepnscore', 'storescore', 'newscore', 'arcade', 'index'))
+		&& ((strtolower(JRequest::getWord('module', '')) == 'pnflashgames'))) {
 			$redirect = true;
 			$task = 'pnflash';
-		}*/
+		}
 		// If we are good to go
 		if ($redirect) {
 		
@@ -149,7 +140,9 @@ class plgSystemJvarcade extends JPlugin {
 			
 		
 		if ($task == 'arcade' || 'newscore' || 'pnflash') {
-			header('Location:' . $url);
+			$u = JUri::getInstance($url);
+			$u->delVar('module');
+			header('Location: ' . $u->toString());
 			jexit();
 		}
 			

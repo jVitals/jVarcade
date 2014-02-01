@@ -688,7 +688,8 @@ class jvarcadeController extends JControllerLegacy {
 		if (!$ajaxscore) {
 			$message .= ' <a href="' . JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game_id . '&fid=' . $folderid . '&Itemid=' . $Itemid) . '">' . JText::_('COM_JVARCADE_PLAY_AGAIN') . '</a>';
 			// Redirect to scores page for the game
-			$mainframe->redirect(JRoute::_('index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid, false), $message);
+			$mainframe->enqueueMessage($message);
+			$mainframe->redirect(JRoute::_('index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid, false));
 		} else {
 			$message .= ' <a href="' . JRoute::_('index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid, false) . '" target="_blank">' . JText::_('COM_JVARCADE_SEE_SCORE_FOR_GAME') . '</a>';
 			echo $message;
@@ -725,11 +726,19 @@ class jvarcadeController extends JControllerLegacy {
 		$isNewChampion = false;
 		$ishighscore = false;
 		
-		$game_id = JRequest::getInt('gid', 0);
-		$func = JRequest::getString('func');
-		$gameData = JRequest::getString('gameData');
-		$score = JRequest::getInt('score', 0);
-		$endtime = time();
+		// GET GAME RELATED SESSION VARIABLES
+		$game_id = (int)$session->get('session_g', 0, 'jvarcade');
+		$score = (int)$session->get('session_score', 0, 'jvarcade');
+		$endtime = (int)$session->get('session_endtime', ($starttime + 1), 'jvarcade');
+		$endtime = $endtime ? $endtime : ($starttime + 1) ;
+		$func = $session->get('session_func', '', 'jvarcade');
+		$gameData = $session->get('session_gdata', '', 'jvarcade');
+		
+		//$game_id = JRequest::getInt('gid', 0);
+		//$func = JRequest::getString('func');
+		//$gameData = JRequest::getString('gameData');
+		//$score = JRequest::getInt('score', 0);
+		//$endtime = time();
 		$starttime = $session->get('session_starttime', 0, 'jvarcade');
 		
 		// GET GAME DETAILS
@@ -886,9 +895,10 @@ class jvarcadeController extends JControllerLegacy {
 				
 				$message .= ' <a href="' . JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game_id . '&fid=' . $folderid . '&Itemid=' . $Itemid) . '">' . JText::_('COM_JVARCADE_PLAY_AGAIN') . '</a>';
 				// it's not clear what to do with the message.. shall we redirect?
+				$mainframe->enqueueMessage($message);
 				
-				$mainframe->redirect(JRoute::_('index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid), $message);
-				echo $message;
+				$mainframe->redirect(JRoute::_('index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid));
+				//echo $message;
 				
 				exit;
 				break;
