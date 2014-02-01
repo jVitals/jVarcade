@@ -108,7 +108,7 @@ defined('_JEXEC') or die('Restricted access');
             width="<?php echo $this->game['width']; ?>"
             height="<?php echo $this->game['height']; ?>" 
     id="<?php echo $this->game['filename']; ?>" align="">
-  <param name="movie" value="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=arcade~storescore|no_html~1&amp;pn_script=index2.php&amp;pn_modvar=option&amp;pn_modvalue=com_jvarcade&amp;pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>&amp;pn_domain=jVArcade" />
+  <param name="movie" value="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>" />
   <param name="quality" value="high" />
   <param name="wmode" value="opaque" />
   <param name="bgcolor" value="<?php echo $this->game['background']; ?>" />
@@ -118,7 +118,7 @@ defined('_JEXEC') or die('Restricted access');
   <param name="expressinstall" value="Scripts/expressInstall.swf" />
   <!-- Next object tag is for non-IE browsers. So hide it from IE using IECC. -->
   <!--[if !IE]>-->
-  <object type="application/x-shockwave-flash" data="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=arcade~storescore|no_html~1&amp;pn_script=index2.php&amp;pn_modvar=option&amp;pn_modvalue=com_jvarcade&amp;pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>&amp;pn_domain=jVArcade"
+  <object type="application/x-shockwave-flash" data="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>"
   style="width: <?php echo $this->game['width']; ?>px; height: <?php echo $this->game['height']; ?>px;"
   width="<?php echo $this->game['width']; ?>" 
   height="<?php echo $this->game['height']; ?>">
@@ -374,7 +374,7 @@ defined('_JEXEC') or die('Restricted access');
         
 			if ($this->config->enable_dload == 1 && $this->can_dload) : 
 				?>
-            	<a href="#" onclick="jQuery.jva.downloadGame(<?php echo $this->game['id']; ?>); return false;">
+            	<a href="javascript:void(0)" onclick="jQuery.jva.downloadGame(<?php echo $this->game['id']; ?>); return false;">
 				<img src="<?php echo JVA_IMAGES_SITEPATH; ?>dlg.png" /></a>
              <?php endif; ?>
              

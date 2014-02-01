@@ -128,7 +128,7 @@
 
 		
 		downloadGame: function(id) {
-			location.href = 'index.php?option=com_jvarcade&amp;task=downloadgame&amp;id=' + id;
+			location.href = 'index.php?option=com_jvarcade&task=downloadgame&id=' + id;
 		},
 		
 		showAddToContestPopup: function(game_id) {

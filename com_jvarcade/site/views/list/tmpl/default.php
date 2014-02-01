@@ -92,7 +92,7 @@ defined('_JEXEC') or die('Restricted access');
 				</td>
 				<?php endif; ?>
                 <?php if ($this->config->enable_dload == 1 && $this->can_dload) : ?>
-                <td width="8%"><center><a href="#" onclick="jQuery.jva.downloadGame(<?php echo $game['id']; ?>); return false;"><img src="<?php echo JVA_IMAGES_SITEPATH; ?>dl.png" /></a></td><?php endif; ?>
+                <td width="8%"><center><a href="javascript:void(0)" onclick="jQuery.jva.downloadGame(<?php echo $game['id']; ?>); return false;"><img src="<?php echo JVA_IMAGES_SITEPATH; ?>dl.png" /></a></td><?php endif; ?>
 			</tr>
 		<?php endforeach; ?>
 		</table>
