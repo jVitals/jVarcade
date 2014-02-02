@@ -12,10 +12,6 @@ CAUSE: JArchive tar adapter issue. <br>
 FIX: To be addressed by joomla core update <br>
 REFERENCE: https://github.com/joomla/joomla-framework-archive/commit/89d15271ac6e339657ca349d56226d550e94156c</p>
 
-<p>BUG: https://github.com/jVitals/jVarcade/issues/1</p>
-
-<p>BUG: https://github.com/jVitals/jVarcade/issues/2</p>
-
 <p><b>Updates:</b></p>
 
 <p>Replaced jstella atari applet with javartari330 in the atari plugin.<br>
