@@ -44,21 +44,18 @@ JHtml::_('formbehavior.chosen', 'select');
 <form action="index.php" method="post" name="adminForm" id="adminForm">
 
 	<table>
-		<tr>
-			<td>
-				<b><?php echo JText::_('COM_JVARCADE_FILTER'); ?>:</b>
-				<input type="text" name="filter_title" id="filter_title" value="<?php echo htmlspecialchars($this->lists['filter_title'], ENT_QUOTES, 'UTF-8');?>" class="text_area" onchange="document.adminForm.submit();" />
-			</td>
-			<td>
-				<button class="btn hasTooltip js-stools-btn-clear" onclick="this.form.submit();"><?php echo JText::_('COM_JVARCADE_GO'); ?></button>
-				<button class="btn hasTooltip js-stools-btn-clear" onclick="document.getElementById('filter_title').value='';this.form.getElementById('filter_name').value='';this.form.submit();"><?php echo JText::_('COM_JVARCADE_RESET'); ?></button>
-			</td>
-			<td nowrap="nowrap">
-				<b><?php echo JText::_('COM_JVARCADE_FOLDERS'); ?>:</b>
+		<div id="filter-bar" class="btn-toolbar">
+			<div class="filter-search btn-group pull-left">
+				<input type="text" name="filter_title" id="filter_title" placeholder="<?php echo JText::_('Enter Game Title'); ?>" value="<?php echo htmlspecialchars($this->lists['filter_title'], ENT_QUOTES, 'UTF-8');?>" class="hasTooltip" title="<?php echo JHtml::tooltipText('Search Game Title'); ?>" />
+			</div>
+			<div class="btn-group pull-left">
+				<button type="submit" class="btn hasTooltip" title="<?php echo JHtml::tooltipText('JSEARCH_FILTER_SUBMIT'); ?>"><i class="icon-search"></i></button>
+				<button type="button" class="btn hasTooltip" title="<?php echo JHtml::tooltipText('JSEARCH_FILTER_CLEAR'); ?>" onclick="document.id('filter_title').value='';this.form.getElementById('filter_name').value='';this.form.submit();"><i class="icon-remove"></i></button>
+			</div>
+			<div class="btn-group pull-left">
 				<?php echo $this->lists['folders'];?>
-			</td>
-		</tr>
-
+			</div>
+		</div>
 	</table>
 
 	<table  class="table table-striped">
@@ -116,4 +113,5 @@ JHtml::_('formbehavior.chosen', 'select');
 	<input type="hidden" name="boxchecked" value="0" />
 	<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
 	<input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['order_Dir']; ?>" />
+	<?php echo JHtml::_('form.token'); ?>
 </form>

@@ -72,6 +72,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 	function setSearchFields($searchfields) {
 		foreach ($searchfields as $key => $value) {
 			$this->_searchfields[str_replace('filter_', '', $key)] = $value;
+			//var_dump($value);
 		}
 	}
 	
@@ -407,7 +408,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		if (isset($this->_searchfields) && is_array($this->_searchfields) && count($this->_searchfields) > 0) {
 			foreach ($this->_searchfields as $name => $value) {
 				if ($value != '') {
-					$escaped = $this->dbo->Quote( '%'.$this->dbo->getEscaped($value, true ).'%', true );
+					$escaped = $this->dbo->Quote( '%'.$this->dbo->escape($value, true ).'%', true );
 					$where[] = $name . ' LIKE ' . $escaped;
 				}
 			}
