@@ -1,15 +1,13 @@
 <?php
 /**
-* JComments plugin for jVArcade component
-* Detailed copyright and licensing information can be found
-* in the gpl-3.0.txt file which should be included in the distribution.
-* 
-* @version	  $Id: 1.0.01 2011-05-11 nuclear-head $
-* @copyright  2011 jVitals
-* @license    GPLv3 Open Source
-* @link       http://jvitals.com
-* @package	  jVArcade
-*/
+ * @plugin		JComments plugin for jVArcade
+ * @package		jVArcade
+ * @version		2.1
+ * @date		2014-01-12
+ * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
+ * @link		http://jvitals.com
+ */
 
 class jc_com_jvarcade extends JCommentsPlugin {
 	function getObjectInfo($id, $language = null) {
