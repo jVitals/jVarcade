@@ -162,7 +162,7 @@ class jvarcadeViewGame extends JViewLegacy {
 			if (file_exists($jcommentspath) && file_exists($jcommentsplugin)) {
 				require_once($jcommentspath);
 				echo $start;
-				echo JComments::showComments($this->game['id'], 'com_jvarcade', $this->game['gamename']); 
+				echo JComments::show($this->game['id'], 'com_jvarcade', $this->game['gamename']); 
 				echo $end;
 			}
 		} elseif ($this->config->comments == 3 && $this->componentEnabled($this->comment_data, 'com_jacomment')) {
