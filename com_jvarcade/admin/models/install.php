@@ -129,7 +129,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 			if ($archives && is_array($archives) && count($archives)) {
 				$tmp_package = false;
 				foreach ($archives as $archive) {
-					$tmp_package = jvaHelper::unpack($pkg['dir'] . DS . $archive);
+					$tmp_package = jvaHelper::unpack($pkg['dir'] . '/' . $archive);
 					if (!$tmp_package) {
 						$errormsg[] = $archive . ': ' . JText::_('COM_JVARCADE_UPLOADARCHIVE_NOPACKAGE');
 					} else {
@@ -227,14 +227,14 @@ class jvarcadeModelInstall extends JModelLegacy {
 					
 					// cleanup
 					if ($package['packagefile'] && is_file($package['packagefile'])) JFile::delete($package['packagefile']);
-					if ($package['extractdir'] && is_file($package['extractdir'])) JFolder::delete($package['extractdir']);
+					if ($package['extractdir']) JFolder::delete($package['extractdir']);
 				}
 			}
 		}
 		
 		// GENERAL CLEANUP
 		if ($pkg['packagefile'] && is_file($pkg['packagefile'])) JFile::delete($pkg['packagefile']);
-		if ($pkg['extractdir'] && is_file($pkg['extractdir'])) JFolder::delete($pkg['extractdir']);
+		if ($pkg['extractdir']) JFolder::delete($pkg['extractdir']);
 		
 		// Redirect and show messages
 		$msg = (count($errormsg) ? implode('<br />', $errormsg) : JText::sprintf('COM_JVARCADE_UPLOADARCHIVE_SUCCESS'));
