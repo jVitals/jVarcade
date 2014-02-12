@@ -26,7 +26,7 @@ class plgSystemJvarcade extends JPlugin {
 	}
 
 	function onAfterInitialise() {
-	
+		$app = JFactory::getApplication();
 		$redirect = false;
 		
 		// First check if the needed files are there. If not we create them and put content in them.
@@ -124,9 +124,9 @@ class plgSystemJvarcade extends JPlugin {
 			$url = JUri::root(true) . '/index.php?option=com_jvarcade&task=score.' . $task . '&' . implode('&', $params);
 			
 		if ($task == 'v3') {
-			$u = JUri::getInstance($url);
-			$u->delVar('act');
-			header('Location: ' . $u->toString());
+			$parts = parse_url($url);
+    		parse_str($parts['query'], $query);
+			$app->redirect(JUri::root(true) . '/index.php?option=com_jvarcade&task=score.' . $task . '&gname=' . $query['gname'] .'&gscore=' . $query['gscore']);
 			jexit();
 			
 		}
@@ -134,7 +134,7 @@ class plgSystemJvarcade extends JPlugin {
 		if ($task == 'v32') {
 			$u = JUri::getInstance($url);
 			$u->delVar('autocom');
-			header('Location: ' . $u->toString());
+			$app->redirect($u->toString());
 			jexit();
 		}
 			
@@ -142,7 +142,7 @@ class plgSystemJvarcade extends JPlugin {
 		if ($task == 'arcade' || 'newscore' || 'pnflash') {
 			$u = JUri::getInstance($url);
 			$u->delVar('module');
-			header('Location: ' . $u->toString());
+			$app->redirect($u->toString());
 			jexit();
 		}
 			
