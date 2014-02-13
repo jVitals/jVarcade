@@ -393,7 +393,7 @@ class jvarcadeHtml {
 		if (JVA_COMPATIBLE_MODE == '15') {
 			return JHTML::_('select.booleanlist',  $name, $attributes, $value);
 		} else {
-			return '<fieldset class="radio">' . JHTML::_('select.booleanlist',  $name, $attributes, $value) . '</fieldset>';
+			return '<fieldset class="radio inputbox btn-group">' . JHTML::_('select.booleanlist',  $name, $attributes, $value) . '</fieldset>';
 		}
 	}
 

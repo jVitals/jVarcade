@@ -97,7 +97,7 @@ class jvarcadeViewSettings extends JViewLegacy {
 				$result = '<input class="inputbox" type="text" name="' . $arr['optname'] . '" id="' . $arr['optname'] . '" value="' . $arr['value'] . '" style="width:50%;" />';
 				break;
 			case 'yesno' :
-				$result = JHTML::_('jvarcade.html.booleanlist',  $arr['optname'], 'class="inputbox" size="1"', $arr['value']);
+				$result = JHTML::_('jvarcade.html.booleanlist',  $arr['optname'], 'size="1"', $arr['value']);
 				break;
 			default :
 				$result = '';
