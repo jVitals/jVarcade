@@ -38,19 +38,13 @@ defined('_JEXEC') or die('Restricted access');
 			if (is_array($this->folders)) {
 				foreach ($this->folders as $k => $obj) {
 					$checked = JHTML::_('grid.id', $k, $obj->id, false, 'cid');
-					$img = ($obj->published ? 'tick.png' : 'publish_x.png');
-					$imgtag = (JVA_COMPATIBLE_MODE == '16') ? JHTML::_('image','admin/'.$img, '', array('border' => 0), true) : JHTML::_('image.administrator', $img, '/images/');
-			?>
+					?>
 					<tr class="<?php echo "row$i"; ?>">
 						<td style="text-align: center;"><?php echo $checked; ?></td>
 						<td style="text-align: center;"><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&c&task=editfolder&id=' . $obj->id); ?>"><?php echo $obj->name; ?></a></td>
 						<td style="text-align: center;"><?php echo $this->showPerms($obj->viewpermissions); ?></td>
 						<td style="text-align: center;"><?php echo ((int)$obj->parentid ? $obj->parentname : JText::_('COM_JVARCADE_FOLDERS_TOP_PARENT')); ?></td>
-						<td style="text-align: center;">
-							<a href="javascript:void(0);"	onclick="return listItemTask('cb<?php echo $i;?>','<?php echo (!$obj->published ? 'folderPublishYes' : 'folderPublishNo'); ?>')">
-								<?php echo $imgtag; ?>
-							</a>
-						</td>
+						<td style="text-align: center;"><?php echo JHtml::_('jgrid.published', $obj->published, $i, 'folder'); ?></td>
 					</tr>
 			<?php
 					if ($i == 0) {

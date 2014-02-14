@@ -43,12 +43,12 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 
-	function scorePublishYes() {
+	function scorePublish() {
 		$model = $this->getModel('Common');
 		$model->scorePublish(1);
 	}
 	
-	function scorePublishNo() {
+	function scoreUnpublish() {
 		$model = $this->getModel('Common');
 		$model->scorePublish(0);
 	}
@@ -66,12 +66,12 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 
-	function folderPublishYes() {
+	function folderPublish() {
 		$model = $this->getModel('Common');
 		$model->folderPublish(1);
 	}
 	
-	function folderPublishNo() {
+	function folderUnpublish() {
 		$model = $this->getModel('Common');
 		$model->folderPublish(0);
 	}
@@ -118,12 +118,12 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 
-	function gamePublishYes() {
+	function gamePublish() {
 		$model = $this->getModel('Common');
 		$model->gamePublish(1);
 	}
 	
-	function gamePublishNo() {
+	function gameUnpublish() {
 		$model = $this->getModel('Common');
 		$model->gamePublish(0);
 	}
@@ -174,12 +174,12 @@ class jvarcadeController extends JControllerLegacy {
 		$this->editcontest();
 	}
 
-	function contestPublishYes() {
+	function contestPublish() {
 		$model = $this->getModel('Common');
 		$model->contestPublish(1);
 	}
 	
-	function contestPublishNo() {
+	function contestUnpublish() {
 		$model = $this->getModel('Common');
 		$model->contestPublish(0);
 	}
@@ -337,12 +337,12 @@ class jvarcadeController extends JControllerLegacy {
 		$this->editcontentrating();
 	}
 
-	function contentratingPublishYes() {
+	function contentratingPublish() {
 		$model = $this->getModel('Common');
 		$model->contentratingPublish(1);
 	}
 	
-	function contentratingPublishNo() {
+	function contentratingUnpublish() {
 		$model = $this->getModel('Common');
 		$model->contentratingPublish(0);
 	}

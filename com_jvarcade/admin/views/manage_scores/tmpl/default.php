@@ -41,8 +41,6 @@ defined('_JEXEC') or die('Restricted access');
 				foreach ($this->scores as $k => $obj) {
 					$url = 'http://tools.whois.net/whoisbyip/?host=' . $obj->ip;
 					$checked = JHTML::_('grid.id', $k, $obj->id, false, 'cid');
-					$img = ($obj->published ? 'tick.png' : 'publish_x.png');
-					$imgtag = (JVA_COMPATIBLE_MODE == '16') ? JHTML::_('image','admin/'.$img, '', array('border' => 0), true) : JHTML::_('image.administrator', $img, '/images/');
 			?>
 					<tr class="<?php echo "row$i"; ?>">
 						<td style="text-align: left;"><?php echo $checked; ?></td>
@@ -51,11 +49,7 @@ defined('_JEXEC') or die('Restricted access');
 						<td style="text-align: left;"><?php echo $obj->score; ?></td>
 						<td style="text-align: left;"><a target="_blank" href="<?php echo $url; ?>"><?php echo $obj->ip; ?></a></td>
 						<td style="text-align: left;"><?php echo jvaHelper::formatDate($obj->date); ?></td>
-						<td style="text-align: left;">
-							<a href="javascript:void(0);"	onclick="return listItemTask('cb<?php echo $i;?>','<?php echo (!$obj->published ? 'scorePublishYes' : 'scorePublishNo'); ?>')">
-								<?php echo $imgtag; ?>
-							</a>
-						</td>
+						<td style="text-align: center;"><?php echo JHtml::_('jgrid.published', $obj->published, $i, 'score'); ?></td>
 					</tr>
 			<?php
 					if ($i == 0) {

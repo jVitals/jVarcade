@@ -76,8 +76,6 @@ JHtml::_('formbehavior.chosen', 'select');
 			if (is_array($this->games)) {
 				foreach ($this->games as $k => $obj) {
 					$checked = JHTML::_('grid.id', $k, $obj->id, false, 'cid');
-					$img = ($obj->published ? 'tick.png' : 'publish_x.png');
-					$imgtag = (JVA_COMPATIBLE_MODE == '16') ? JHTML::_('image','admin/'.$img, '', array('border' => 0), true) : JHTML::_('image.administrator', $img, '/images/');
 					$imgscore = ($obj->scoring ? 'tick.png' : 'publish_x.png');
 					$imgtagscore = (JVA_COMPATIBLE_MODE == '16') ? JHTML::_('image','admin/'.$imgscore, '', array('border' => 0), true) : JHTML::_('image.administrator', $imgscore, '/images/');
 			?>
@@ -85,14 +83,10 @@ JHtml::_('formbehavior.chosen', 'select');
 						<td style="text-align: center;"><?php echo $checked; ?></td>
 						<td style="text-align: center;"><?php echo $obj->id; ?></td>
 						<td style="text-align: center;"><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&c&task=editgame&id=' . $obj->id); ?>"><?php echo $obj->title; ?></a></td>
-						<td style="text-align: center;"><?php echo $imgtag; ?></td>
+						<td style="text-align: center;"><?php echo $imgtagscore; ?></td>
 						<td style="text-align: center;"><?php echo $obj->numplayed; ?></td>
 						<td style="text-align: center;"><?php echo $obj->name; ?></td>
-						<td style="text-align: center;">
-							<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i;?>','<?php echo (!$obj->published ? 'gamePublishYes' : 'gamePublishNo'); ?>')">
-								<?php echo $imgtag; ?>
-							</a>
-						</td>
+						<td style="text-align: center;"><?php echo JHtml::_('jgrid.published', $obj->published, $i, 'game'); ?></td>
 					</tr>
 			<?php
 					if ($i == 0) {

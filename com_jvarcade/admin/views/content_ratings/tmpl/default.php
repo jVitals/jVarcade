@@ -35,8 +35,6 @@ defined('_JEXEC') or die('Restricted access');
 			if (is_array($this->ratings)) {
 				foreach ($this->ratings as $k => $obj) {
 					$checked = JHTML::_('grid.id', $k, $obj->id, false, 'cid');
-					$imgpublish = ($obj->published ? 'tick.png' : 'publish_x.png');
-					$imgpublishtag = (JVA_COMPATIBLE_MODE == '16') ? JHTML::_('image','admin/'.$imgpublish, '', array('border' => 0), true) : JHTML::_('image.administrator', $imgpublish, '/images/');
 					$imgwarntag = (JVA_COMPATIBLE_MODE == '16') ? JHTML::_('image','admin/icon-16-notice-note.png', '', array('border' => 0), true) : JHTML::_('image.administrator', 'warning.png', '../includes/js/ThemeOffice/');
 					$imgwarntag = ((int)$obj->warningrequired ? $imgwarntag : '');
 			?>
@@ -45,11 +43,7 @@ defined('_JEXEC') or die('Restricted access');
 						<td style="text-align: center;"><?php echo $obj->id; ?></td>
 						<td style="text-align: center;"><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&c&task=editcontentrating&id=' . $obj->id); ?>"><?php echo $obj->name; ?></a></td>
 						<td style="text-align: center;"><?php echo $imgwarntag; ?></td>
-						<td style="text-align: center;">
-							<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i;?>','<?php echo (!$obj->published ? 'contentratingPublishYes' : 'contentratingPublishNo'); ?>')">
-								<?php echo $imgpublishtag; ?>
-							</a>
-						</td>
+						<td style="text-align: center;"><?php echo JHtml::_('jgrid.published', $obj->published, $i, 'contentrating'); ?></td>
 					</tr>
 			<?php
 					if ($i == 0) {
