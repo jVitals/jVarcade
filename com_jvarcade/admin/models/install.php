@@ -227,14 +227,14 @@ class jvarcadeModelInstall extends JModelLegacy {
 					
 					// cleanup
 					if ($package['packagefile'] && is_file($package['packagefile'])) JFile::delete($package['packagefile']);
-					if ($package['extractdir']) JFolder::delete($package['extractdir']);
+					if ($package['extractdir'] && is_dir($package['extractdir'])) JFolder::delete($package['extractdir']);
 				}
 			}
 		}
 		
 		// GENERAL CLEANUP
 		if ($pkg['packagefile'] && is_file($pkg['packagefile'])) JFile::delete($pkg['packagefile']);
-		if ($pkg['extractdir']) JFolder::delete($pkg['extractdir']);
+		if ($pkg['extractdir'] && is_dir($package['extractdir'])) JFolder::delete($pkg['extractdir']);
 		
 		// Redirect and show messages
 		$msg = (count($errormsg) ? implode('<br />', $errormsg) : JText::sprintf('COM_JVARCADE_UPLOADARCHIVE_SUCCESS'));
