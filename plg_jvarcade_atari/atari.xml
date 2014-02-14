@@ -11,7 +11,7 @@
 	<version>1.0.1</version>
 	<scriptfile>enable.script.php</scriptfile>
 	<files>
-		<filename plugin="atari">javatari330.jar</filename>
+		<filename plugin="atari">javatari40.jar</filename>
 		<filename>index.html</filename>
 	</files>
 </extension>

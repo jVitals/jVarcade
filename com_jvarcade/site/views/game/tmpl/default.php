@@ -298,7 +298,7 @@ defined('_JEXEC') or die('Restricted access');
 			
 			<!-- Atari 2600 emulation for playing Atari 2600 ROMS courtesy of javatari http://javatari.org/ -->
             <center>
-			<applet archive="<?php echo $this->baseurl . '/plugins/jvarcade/' . (JVA_COMPATIBLE_MODE != '15' ? 'atari/' : '') . 'javatari330.jar'; ?>" code="org.javatari.main.AppletStandalone" height="603" width="654">
+			<applet archive="<?php echo $this->baseurl . '/plugins/jvarcade/' . (JVA_COMPATIBLE_MODE != '15' ? 'atari/' : '') . 'javatari40.jar'; ?>" code="org.javatari.main.AppletStandalone" height="603" width="654">
             <param name="background" value="16777215" />
 				<param name="arg0" value="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>" />
 				<param name="arg1" value="-screen_cartridge_change=false" />
