@@ -14,7 +14,7 @@ REFERENCE: https://github.com/joomla/joomla-framework-archive/commit/89d15271ac6
 
 <p><b>Updates:</b></p>
 
-<p>Replaced jstella atari applet with javartari330 in the atari plugin.<br>
+<p>Replaced jstella atari applet with javartari in the atari plugin.<br>
 Added support for Commodore 64 .prg with use of jac64 applet in the c64 plugin.<br>
 Added support for game downloading with administration options for group permission and enable/disable.<br>
 Used hard coded width and height in /views/game/default.php for games that use atari,c64,nes applets to prevent issues with config files not setting attributes when uploading.<br>
