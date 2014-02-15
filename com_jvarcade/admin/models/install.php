@@ -245,7 +245,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 	
 	function parseConfigMochi($dir) {
 		$files = JFolder::files($dir, '\.json');
-		$config = $dir . DS . $files[0];
+		$config = $dir . '/' . $files[0];
 		$obj = json_decode(file_get_contents($config));
 		return array(
 			'name' => $obj->slug,
