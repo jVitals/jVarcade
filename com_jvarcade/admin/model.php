@@ -370,7 +370,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			}
 			if (!$uploaderr) {
 				jimport('joomla.filesystem.file');
-				$uploaded = JFile::upload($imgfile['tmp_name'], JVA_IMAGES_INCPATH . 'folders' . DS . $folderid . $imgext);
+				$uploaded = JFile::upload($imgfile['tmp_name'], JVA_IMAGES_INCPATH . 'folders/' . $folderid . $imgext);
 				if ($uploaded) {
 					$this->dbo->setQuery('UPDATE #__jvarcade_folders SET ' . 
 											$this->dbo->quoteName('imagename') . ' = ' . $this->dbo->Quote($folderid . $imgext) . 
@@ -455,10 +455,10 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$this->dbo->setQuery('SELECT filename, imagename, gamename FROM #__jvarcade_games WHERE ' . $this->dbo->quoteName('id') . ' IN (' . implode(',', $id) . ')');
 		$games = $this->dbo->loadObjectList();
 		foreach($games as $game) {
-			if (JFile::exists(JVA_GAMES_INCPATH . DS . $game->filename)) @JFile::delete(JVA_GAMES_INCPATH . $game->filename);
-			if (JFile::exists(JVA_IMAGES_INCPATH . 'games' . DS . $game->imagename)) @JFile::delete(JVA_IMAGES_INCPATH . 'games' . DS . $game->imagename);
-			if (JFolder::exists(JPATH_SITE . DS . 'arcade' . DS . 'gamedata' . DS . $game->gamename)) {
-				@JFolder::delete(JPATH_SITE . DS . 'arcade' . DS . 'gamedata' . DS . $game->gamename);
+			if (JFile::exists(JVA_GAMES_INCPATH . '/' . $game->filename)) @JFile::delete(JVA_GAMES_INCPATH . $game->filename);
+			if (JFile::exists(JVA_IMAGES_INCPATH . 'games/' . $game->imagename)) @JFile::delete(JVA_IMAGES_INCPATH . 'games/' . $game->imagename);
+			if (JFolder::exists(JPATH_SITE . '/arcade/gamedata/' . $game->gamename)) {
+				@JFolder::delete(JPATH_SITE . '/arcade/gamedata/' . $game->gamename);
 			}
 		}
 		
@@ -568,7 +568,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			}
 			if (!$uploaderr) {
 				jimport('joomla.filesystem.file');
-				$uploaded = JFile::upload($imgfile['tmp_name'], JVA_IMAGES_INCPATH . 'games' . DS . $gameid . '_' . $imgfile['name']);
+				$uploaded = JFile::upload($imgfile['tmp_name'], JVA_IMAGES_INCPATH . 'games/' . $gameid . '_' . $imgfile['name']);
 				if ($uploaded) {
 					$this->dbo->setQuery('UPDATE #__jvarcade_games SET ' . 
 											$this->dbo->quoteName('imagename') . ' = ' . $this->dbo->Quote($gameid . '_' . $imgfile['name']) . 
@@ -739,7 +739,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			}
 			if (!$uploaderr) {
 				jimport('joomla.filesystem.file');
-				$uploaded = JFile::upload($imgfile['tmp_name'], JVA_IMAGES_INCPATH . 'contests' . DS . $contestid . '_' . $imgfile['name']);
+				$uploaded = JFile::upload($imgfile['tmp_name'], JVA_IMAGES_INCPATH . 'contests/' . $contestid . '_' . $imgfile['name']);
 				if ($uploaded) {
 					$this->dbo->setQuery('UPDATE #__jvarcade_contest SET ' . 
 											$this->dbo->quoteName('imagename') . ' = ' . $this->dbo->Quote($contestid . '_' . $imgfile['name']) . 
@@ -907,7 +907,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			}
 			if (!$uploaderr) {
 				jimport('joomla.filesystem.file');
-				$uploaded = JFile::upload($imgfile['tmp_name'], JVA_IMAGES_INCPATH . 'contentrating' . DS . $contentratingid . '_' . $imgfile['name']);
+				$uploaded = JFile::upload($imgfile['tmp_name'], JVA_IMAGES_INCPATH . 'contentrating/' . $contentratingid . '_' . $imgfile['name']);
 				if ($uploaded) {
 					$this->dbo->setQuery('UPDATE #__jvarcade_contentrating SET ' . 
 											$this->dbo->quoteName('imagename') . ' = ' . $this->dbo->Quote($contentratingid . '_' . $imgfile['name']) . 
