@@ -689,7 +689,7 @@ class jvarcadeController extends JControllerLegacy {
 			$message .= ' <a href="' . JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game_id . '&fid=' . $folderid . '&Itemid=' . $Itemid) . '">' . JText::_('COM_JVARCADE_PLAY_AGAIN') . '</a>';
 			// Redirect to scores page for the game
 			$mainframe->enqueueMessage($message);
-			$mainframe->redirect(JRoute::_('index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid, false));
+			$mainframe->redirect(JUri::root(true). '/index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid);
 		} else {
 			$message .= ' <a href="' . JRoute::_('index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid, false) . '" target="_blank">' . JText::_('COM_JVARCADE_SEE_SCORE_FOR_GAME') . '</a>';
 			echo $message;
@@ -897,7 +897,7 @@ class jvarcadeController extends JControllerLegacy {
 				// it's not clear what to do with the message.. shall we redirect?
 				$mainframe->enqueueMessage($message);
 				
-				$mainframe->redirect(JRoute::_('index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid));
+				$mainframe->redirect(JUri::root(true). '/index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid);
 				//echo $message;
 				
 				exit;
