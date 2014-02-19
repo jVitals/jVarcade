@@ -132,7 +132,7 @@ JHtml::_('formbehavior.chosen', 'select');
 				<td>
 				<td>
 				<fieldset class="adminform">
-		<h3><?php echo JText::_('COM_JVARCADE_CONTESTSLINK_CONTESTSFORGAME'); ?></h3>
+		<legend><?php echo JText::_('COM_JVARCADE_CONTESTSLINK_CONTESTSFORGAME'); ?></legend>
 			<?php if ((int)$this->game->id) : ?>
 			<input class="btn hasTooltip js-stools-btn-clear" type="button" onclick="jQuery.jva.showAddToContestPopup(<?php echo $this->game->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_CONTESTSLINK_ADDTOCONTESTS'); ?>" >
 			<input class="btn hasTooltip js-stools-btn-clear" type="button" onclick="jQuery.jva.deleteGameFromContestMulti(<?php echo $this->game->id; ?>, 'game');" value="<?php echo JText::_('COM_JVARCADE_CONTESTSLINK_REMOVESELECTED'); ?>" >
@@ -155,7 +155,7 @@ JHtml::_('formbehavior.chosen', 'select');
 	<td>
 	<div style="float:right;">
 		<fieldset class="adminform">
-		<h3><?php echo JText::_('COM_JVARCADE_MAINTENANCE_GAME'); ?></h3>
+		<legend><?php echo JText::_('COM_JVARCADE_MAINTENANCE_GAME'); ?></legend>
 			<input class="btn hasTooltip js-stools-btn-clear" type="button" onclick="jQuery.jva.doMaintenance('deleteallscores','game',<?php echo $this->game->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_GAME_DELETEALLSCORES'); ?>">
 			<div class="clr" style="margin-top:10px;"></div>
 			<input class="btn hasTooltip js-stools-btn-clear" type="button" onclick="jQuery.jva.doMaintenance('deleteguestscores','game',<?php echo $this->game->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_GAME_DELETEGUESTSCORES'); ?>" >

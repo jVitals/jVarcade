@@ -60,7 +60,7 @@ JHtml::_('formbehavior.chosen', 'select');
 	<input type="hidden" name="boxchecked" value="0" />
 	<table>
 	<tr>
-	<td width = 60% valign = top padding = 5px>
+	<td width = 40% valign = top padding = 5px>
 	<div style="float:left;">
 		<fieldset class="adminform">
 			<table class="adminform">
@@ -81,7 +81,7 @@ JHtml::_('formbehavior.chosen', 'select');
 				<tr><td><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_FILE_DESC'); ?></td></tr>
 				<tr>
 					<td>
-						<input class="input_box" id="install_package" name="install_package" type="file" size="57" />
+						<input class="input_box" id="install_package" name="install_package" type="file" size="35" />
 						<button class="btn btn-primary" type="submit" id="install_package_but" onclick="setinstalltype('upload');"><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_UPLOAD_BUTTON'); ?></button>
 					</td>
 				</tr>
@@ -99,10 +99,10 @@ JHtml::_('formbehavior.chosen', 'select');
 		</fieldset>
 	</div>
 	</td>
-	<td>
+	<td border = 1>
 	<div style="float:right;">
 		<fieldset class="adminform">
-		<h5><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_LEGEND_TITLE'); ?></h5>
+		<legend><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_LEGEND_TITLE'); ?></legend>
 		<?php echo $this->legend; ?>
 		</fieldset>
 	</div>
