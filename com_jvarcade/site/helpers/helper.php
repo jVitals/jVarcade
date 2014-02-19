@@ -219,19 +219,13 @@ class jvaHelper {
 		
 		if ($dorequest) {
 			$JVersion = new JVersion();
-			require_once (JPATH_ROOT . '/' . 'components' . '/' . 'com_jvarcade' . '/' . 'include' . '/' . 'Snoopy.class.php');
 			
-			$s = new Snoopy();
-			$s->read_timeout = 90;
-			@$s->fetch('http://www.jvitals.com/index.php?option=com_jvitalsversions&task=version_info&format=raw&com=jvarcade&myversion=' . urlencode(JVA_VERSION) . '&jversion=' . urlencode($JVersion->getShortVersion()));
-			$response = trim($s->results);
-			if ($s->error || $s->status != 200) {
-				return false;
-			}
+			$http = JHttpFactory::getHttp();
+			$response = $http->get('http://www.jvitals.com/index.php?option=com_jvitalsversions&task=version_info&format=raw&com=jvarcade&myversion=' . urlencode(JVA_VERSION) . '&jversion=' . urlencode($JVersion->getShortVersion()), array(), 90);
 			
-			$response = json_decode($response, true);
-			$message = rawurldecode($response['message']);
-			$version_info = rawurldecode($response['version']) . ($message ? ':' . $message : '');
+			$response = explode(',', $response->body);
+			$message = trim(substr(rawurldecode($response[5]), 11), '}"');
+			$version_info = trim(substr(rawurldecode($response[3]), 11), '"') . ($message ? ':' . $message : '');
 			
 			$fp = @fopen($tmpfile, "wb");
 			if ($fp) {
@@ -261,7 +255,7 @@ class jvaHelper {
 			$info = substr($version_info, $version_info_pos + 1);
 		}
 		
-		if ($version <= JVA_VERSION) {
+		if ($version == JVA_VERSION) {
 			return false;
 		}
 		
