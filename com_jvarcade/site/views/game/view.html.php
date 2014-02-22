@@ -94,7 +94,7 @@ class jvarcadeViewGame extends JViewLegacy {
 		$this->comment_data = $db->loadAssocList('option');
 		
 		// events
-		$dispatcher = JDispatcher::getInstance();
+		$dispatcher = JEventDispatcher::getInstance();
 		$result = $dispatcher->trigger('onPUABeforeFlashGame', array($game['id'], $game['title'], (int)$user->id, ((int)$user->id ? $user->username : $this->config->guest_name) ));
 		
 		parent::display($tpl);

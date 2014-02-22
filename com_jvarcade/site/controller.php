@@ -501,7 +501,7 @@ class jvarcadeController extends JControllerLegacy {
 		$scores_model = $this->getModel('Scores');
 		$games_model = $this->getModel('Games');
 
-		$dispatcher = JDispatcher::getInstance();
+		$dispatcher = JEventDispatcher::getInstance();
 		$my = JFactory::getUser();
 		$session = JFactory::getSession();
 		

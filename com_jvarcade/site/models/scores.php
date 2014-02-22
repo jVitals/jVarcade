@@ -105,7 +105,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		if ($res == 1) {
 			$this->setUpdateLeaderBoard();
 			if ($trigger) {
-				$dispatcher = JDispatcher::getInstance();
+				$dispatcher = JEventDispatcher::getInstance();
 				// trigger the contest score event
 				$dispatcher->trigger('onPUAScoreSaved', array($game_id, $game_title, $userid, $username, $score));
 			}
