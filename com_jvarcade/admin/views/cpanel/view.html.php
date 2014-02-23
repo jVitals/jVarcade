@@ -51,7 +51,7 @@ class jvarcadeViewCpanel extends JViewLegacy {
 		if (!$sysplg_installed) {
 			$mainframe->enqueueMessage(JText::_('COM_JVARCADE_PLUGINS_WARNING'), 'error');
 		}
-		$plugins = JPluginHelper::getPlugin('puarcade');
+		$plugins = JPluginHelper::getPlugin('jvarcade');
 		$this->assignRef('plugins', $plugins);
 		
 		// changelog

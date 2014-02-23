@@ -73,13 +73,13 @@ defined('_JEXEC') or die('Restricted access');
 							<td bgcolor="#FFFFFF">GNU GPLv3</td>
 						</tr>
 						<tr>
-							<td bgcolor="#FFFFFF"><strong><?php echo JText::_('COM_JVARCADE_PLUGINS_ENABLED'); ?></strong></td>
+							<td bgcolor="#FFFFFF" valign="top"><strong><?php echo JText::_('COM_JVARCADE_PLUGINS_ENABLED'); ?></strong></td>
 							<td bgcolor="#FFFFFF">
 							<?php if ($this->sysplg_installed): ?>
 								jVArcade System Plugin<br/>
 							<?php endif; ?>
 							<?php foreach($this->plugins as $plugin) : ?>
-								<?php if (JPluginHelper::isEnabled('puarcade', $plugin->name)): ?>
+								<?php if (JPluginHelper::isEnabled('jvarcade', $plugin->name)): ?>
 									<?php echo $plugin->name; ?><br/>
 								<?php endif; ?>
 							<?php endforeach; ?>
