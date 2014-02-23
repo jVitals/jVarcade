@@ -1223,14 +1223,14 @@ class jvarcadeModelCommon extends JModelLegacy {
 		if (!$filefound) $dorequest = true;
 		
 		if ($dorequest) {
-			require_once (JPATH_ROOT . '/' . 'components' . '/' . 'com_jvarcade' . '/' . 'include' . '/' . 'Snoopy.class.php');
 			
-			$s = new Snoopy();
-			$s->read_timeout = 90;
-			@$s->fetch('http://www.jvitals.com/index.php?option=com_jvitalsversions&task=changelog&format=raw&com=jvarcade');
-			$response = trim($s->results);
-			if ($s->error || $s->status != 200) {
+			$http = JHttpFactory::getHttp();
+			$response = $http->get('http://www.jvitals.com/index.php?option=com_jvitalsversions&task=changelog&format=raw&com=jvarcade', array(), 90);
+			$response = $response->body;
+			
+			if ($response->code != 200) {
 				return false;
+					
 			}
 			
 			$fp = @fopen($tmpfile, "wb");
