@@ -1207,7 +1207,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$tmp_path = $config->get('tmp_path');
 		$filename = 'jvarcade-changelog.xml';
 		$tmpfile = $tmp_path . '/' . $filename;
-		$default_file = JPATH_ROOT . '/' . 'administrator' . '/' . 'components' . '/' . 'com_jvarcade' . '/' . 'changelog.xml';
+		$default_file = JPATH_ROOT . '/administrator/components/com_jvarcade/changelog.xml';
 		
 		$dorequest = false;
 		$filefound = false;
@@ -1228,10 +1228,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			$response = $http->get('http://www.jvitals.com/index.php?option=com_jvitalsversions&task=changelog&format=raw&com=jvarcade', array(), 90);
 			$response = $response->body;
 			
-			if ($response->code != 200) {
-				return false;
-					
-			}
+			
 			
 			$fp = @fopen($tmpfile, "wb");
 			if ($fp) {
