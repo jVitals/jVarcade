@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog component="jVArcade">
-  <version number="3.0">
-  	<date>2014-01-10</date>
-  	<description>Initial Joomla 3.x compatible release</description></version>
+  <version number="2.1">
+    <date>2014-02-25</date>
+    <description><![CDATA[ Major release ]]></description>
+    <list>
+      <item type="new"><![CDATA[ New feature to download games ]]></item>
+      <item type="new"><![CDATA[ Support for Commodore 64(.prg) games ]]></item>
+      <item type="upgrade"><![CDATA[ Added compatibility for Joomla! 3.x ]]></item>
+      <item type="upgrade"><![CDATA[ Update atari plugin to use the javatari emulator(v4.0) from http://javatari.org ]]></item>
+    </list>
+  </version>
   <version number="2.01">
     <date>2013-07-29</date>
     <description><![CDATA[ Bugfix release ]]></description>
