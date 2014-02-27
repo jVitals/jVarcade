@@ -68,7 +68,7 @@ if(file_exists(JPATH_ROOT . DS . 'components' . DS . 'com_jvarcade' . DS . 'incl
 						// keywords
 						switch(true) {
 							case $phrase == 'exact' :
-								$searchText = strtolower($db->Quote('%' . $db->getEscaped($text, true) . '%', false));
+								$searchText = strtolower($db->Quote('%' . $db->escape($text, true) . '%', false));
 								$query .= ' AND (LOWER(g.title) LIKE ' . $searchText . ' OR LOWER(g.gamename) LIKE ' . $searchText . ' OR LOWER(g.description) LIKE ' . $searchText . ')';
 								break;
 								
@@ -78,7 +78,7 @@ if(file_exists(JPATH_ROOT . DS . 'components' . DS . 'com_jvarcade' . DS . 'incl
 								$words = explode(' ', $text);
 								$wheres = array();
 								foreach ($words as $w) {
-									$word = strtolower($db->Quote('%' . $db->getEscaped($w, true) . '%', false));
+									$word = strtolower($db->Quote('%' . $db->escape($w, true) . '%', false));
 									$wheres2 = 'LOWER(g.title) LIKE ' . $word;
 									$wheres2 .= ' OR LOWER(g.gamename) LIKE ' . $word;
 									$wheres2 .= ' OR LOWER(g.description) LIKE ' . $word;
@@ -142,7 +142,7 @@ if(file_exists(JPATH_ROOT . DS . 'components' . DS . 'com_jvarcade' . DS . 'incl
 						// keywords
 						switch(true) {
 							case $phrase == 'exact' :
-								$searchText = strtolower($db->Quote('%' . $db->getEscaped($text, true) . '%', false));
+								$searchText = strtolower($db->Quote('%' . $db->escape($text, true) . '%', false));
 								$query .= ' AND (LOWER(name) LIKE ' . $searchText . ' OR LOWER(description) LIKE ' . $searchText . ')';
 								break;
 								
@@ -152,7 +152,7 @@ if(file_exists(JPATH_ROOT . DS . 'components' . DS . 'com_jvarcade' . DS . 'incl
 								$words = explode(' ', $text);
 								$wheres = array();
 								foreach ($words as $w) {
-									$word = strtolower($db->Quote('%' . $db->getEscaped($w, true) . '%', false));
+									$word = strtolower($db->Quote('%' . $db->escape($w, true) . '%', false));
 									$wheres2 = 'LOWER(name) LIKE ' . $word;
 									$wheres2 .= ' OR LOWER(description) LIKE ' . $word;
 									$wheres[] = '( ' . $wheres2 . ' )';
@@ -210,7 +210,7 @@ if(file_exists(JPATH_ROOT . DS . 'components' . DS . 'com_jvarcade' . DS . 'incl
 						// keywords
 						switch(true) {
 							case $phrase == 'exact' :
-								$searchText = strtolower($db->Quote('%' . $db->getEscaped($text, true) . '%', false));
+								$searchText = strtolower($db->Quote('%' . $db->escape($text, true) . '%', false));
 								$query .= ' WHERE (LOWER(tag) LIKE ' . $searchText . ')';
 								break;
 								
@@ -220,7 +220,7 @@ if(file_exists(JPATH_ROOT . DS . 'components' . DS . 'com_jvarcade' . DS . 'incl
 								$words = explode(' ', $text);
 								$wheres = array();
 								foreach ($words as $w) {
-									$word = strtolower($db->Quote('%' . $db->getEscaped($w, true) . '%', false));
+									$word = strtolower($db->Quote('%' . $db->escape($w, true) . '%', false));
 									$wheres[] = ' LOWER(tag) LIKE ' . $word;
 								}
 								$query .= ' WHERE (' . implode(($phrase == 'all' ? ') AND (' : ' OR '), $wheres ) . ')';
