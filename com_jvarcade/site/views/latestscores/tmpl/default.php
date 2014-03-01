@@ -43,10 +43,11 @@ defined('_JEXEC') or die('Restricted access');
 	<div id="FlashTable">
 		<table width="100%" cellpadding="0" cellspacing="0" border="0">
 		<?php foreach ($this->scores as $score) : ?>
+		<?php $alt = htmlspecialchars(stripslashes($score['title'])); ?>
 			<tr class="sectiontableentry">
 				<td width="10%">
 					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $score['gameid'], false); ?>">
-						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $score['imagename']; ?>" border="0" height="50" width="50" alt="" />
+						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $score['imagename']; ?>" border="0" height="50" width="50" alt="<?php echo $alt;?>" title="<?php echo $alt;?>" />
 					</a>
 				</td>
 				<td width="10%">

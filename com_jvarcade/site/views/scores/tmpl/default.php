@@ -21,7 +21,7 @@ defined('_JEXEC') or die('Restricted access');
 	
 <?php endif; ?>
 
-	<div class="pu_heading" style="text-align: center;"><?php echo jvaHelper::truncate(stripslashes($this->game['title']), (int)$this->config->truncate_title) . ' ' . JText::_('COM_JVARCADE_SCORES'); ?></div>
+	<div class="pu_heading" style="text-align: center;"><?php echo stripslashes($this->game['title']) . ' ' . JText::_('COM_JVARCADE_SCORES'); ?></div>
 	<div class="pu_ListContainer">
 		<table class="pu_ListHeader">
 			<tr>

@@ -50,7 +50,7 @@ defined('_JEXEC') or die('Restricted access');
 	<div id="FlashTable">
 		<table width="100%" cellpadding="0" cellspacing="0" border="0">
 		<?php foreach ($this->games as $game) : ?>
-			<?php $alt = htmlspecialchars(jvaHelper::truncate(stripslashes($game['title']), (int)$this->config->truncate_title), ENT_QUOTES, 'UTF-8'); ?>
+			<?php $alt = htmlspecialchars(stripslashes($game['title'])); ?>
 			<tr class="sectiontableentry">
 				<td width="10%">
 					<center><?php echo $game['game_id']; ?></center>

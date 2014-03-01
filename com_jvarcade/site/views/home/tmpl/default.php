@@ -48,14 +48,14 @@ defined('_JEXEC') or die('Restricted access');
 			<div class="pua_game_container">
 			<?php if (array_key_exists('games', $folder) && is_array($folder['games']) && count($folder['games'])) : ?>
 			<?php foreach ($folder['games'] as $game) : ?>
-				<?php $alt = htmlspecialchars(jvaHelper::truncate(stripslashes($game['title']), (int)$this->config->truncate_title), ENT_QUOTES, 'UTF-8'); ?>
+				<?php $alt = htmlspecialchars(stripslashes($game['title'])); ?>
 				<div class="pua_folder_games">
-				<?php $game_url = JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game['id']); ?>
+				<?php $game_url = JUri::root(true) . '/index.php?option=com_jvarcade&task=game&id=' . $game['id']; ?>
 				<?php if ($game['window'] == 2 || ($game['window'] == 0 && $this->config->window == 2)) : ?>
-					<a href="#" onclick="window.open('<?php echo $game_url; ?>','jVArcade','width=<?php echo $game['width']; ?>,height=<?php echo $game['height']; ?>')">
+					<a href="javascript:void(0);" onclick="window.open('<?php echo $game_url; ?>','jVArcade','width=<?php echo $game['width']; ?>,height=<?php echo $game['height']; ?>')">
 						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $game['imagename']; ?>" alt="<?php echo $alt; ?>" title="<?php echo $alt; ?>" />
 					</a>
-					<a href="#" onclick="window.open('<?php echo $game_url; ?>','jVArcade','width=<?php echo $game['width']; ?>,height=<?php echo $game['height']; ?>')">
+					<a href="javascript:void(0);" onclick="window.open('<?php echo $game_url; ?>','jVArcade','width=<?php echo $game['width']; ?>,height=<?php echo $game['height']; ?>')">
 						<?php echo jvaHelper::truncate(stripslashes($game['title']), (int)$this->config->truncate_title); ?>
 					</a>
 				<?php else : ?>
