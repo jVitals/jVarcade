@@ -269,7 +269,7 @@ defined('_JEXEC') or die('Restricted access');
 			<!-- GameBoy emulation for playing GB ROMS courtesy of JavaBoy http://www.millstone.demon.co.uk/download/javaboy/ -->
 			
 			<applet code="JavaBoy.class" archive="<?php echo $this->baseurl . '/plugins/jvarcade/gameboy/jb.jar'; ?>" width="320" height="288">
-				<param name="ROMIMAGE" value="<?php echo '/images/jvarcade/games/'. $this->game['filename']; ?>" />
+				<param name="ROMIMAGE" value="<?php echo $this->baseurl . '/images/jvarcade/games/'. $this->game['filename']; ?>" />
 				<param name="SOUND" value="off" />
 				<param name="SAVERAMURL" value="<?php echo $this->baseurl; ?>/index.php?option=com_jvarcade&amp;arcade=savegbram" />
 				<param name="LOADRAMURL" value="<?php echo $this->baseurl; ?>/index.php?option=com_jvarcade&amp;arcade=loadgbram" />
