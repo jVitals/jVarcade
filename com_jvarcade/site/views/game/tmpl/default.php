@@ -216,7 +216,7 @@ defined('_JEXEC') or die('Restricted access');
 					$gamesize = 24592;
 				}
 			?>
-			<applet name="vNES" code="vNES.class" archive="<?php echo $this->baseurl . '/plugins/jvarcade/' . (JVA_COMPATIBLE_MODE != '15' ? 'nes/' : '') . 'vnes.jar'; ?>" width="512" height="480">
+			<applet name="vNES" code="vNES.class" archive="<?php echo $this->baseurl . '/plugins/jvarcade/nes/vnes.jar'; ?>" width="512" height="480">
 				<param name="sound" value="on" />
 				<param name="timeemulation" value="on"/ >
 				<param name="fps" value="off" />
@@ -268,8 +268,8 @@ defined('_JEXEC') or die('Restricted access');
 
 			<!-- GameBoy emulation for playing GB ROMS courtesy of JavaBoy http://www.millstone.demon.co.uk/download/javaboy/ -->
 			
-			<applet code="JavaBoy.class" archive="<?php echo $this->baseurl . '/plugins/jvarcade/' . (JVA_COMPATIBLE_MODE != '15' ? 'gameboy/' : '') . 'jb.jar'; ?>" width="320" height="288">
-				<param name="ROMIMAGE" value="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>" />
+			<applet code="JavaBoy.class" archive="<?php echo $this->baseurl . '/plugins/jvarcade/gameboy/jb.jar'; ?>" width="320" height="288">
+				<param name="ROMIMAGE" value="<?php echo '/images/jvarcade/games/'. $this->game['filename']; ?>" />
 				<param name="SOUND" value="off" />
 				<param name="SAVERAMURL" value="<?php echo $this->baseurl; ?>/index.php?option=com_jvarcade&amp;arcade=savegbram" />
 				<param name="LOADRAMURL" value="<?php echo $this->baseurl; ?>/index.php?option=com_jvarcade&amp;arcade=loadgbram" />
@@ -298,7 +298,7 @@ defined('_JEXEC') or die('Restricted access');
 			
 			<!-- Atari 2600 emulation for playing Atari 2600 ROMS courtesy of javatari http://javatari.org/ -->
             <center>
-			<applet archive="<?php echo $this->baseurl . '/plugins/jvarcade/' . (JVA_COMPATIBLE_MODE != '15' ? 'atari/' : '') . 'javatari40.jar'; ?>" code="org.javatari.main.AppletStandalone" height="603" width="654">
+			<applet archive="<?php echo $this->baseurl . '/plugins/jvarcade/atari/javatari40.jar'; ?>" code="org.javatari.main.AppletStandalone" height="603" width="654">
             <param name="background" value="16777215" />
 				<param name="arg0" value="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>" />
 				<param name="arg1" value="-screen_cartridge_change=false" />
@@ -327,7 +327,7 @@ defined('_JEXEC') or die('Restricted access');
             <?php elseif(stristr($this->game['filename'], '.prg')) : ?>
             <!-- Commodore 64 emulation for playing C64 .prg files courtesy of http://jac64.sourceforge.net -->
 			<center>
-			<applet id="c64" name="c64" code="C64Applet.class" archive="<?php echo $this->baseurl . '/plugins/jvarcade/' . (JVA_COMPATIBLE_MODE != '15' ? 'c64/' : '') . 'c64small.jar'; ?>" WIDTH="768" HEIGHT ="568" MAYSCRIPT>
+			<applet id="c64" name="c64" code="C64Applet.class" archive="<?php echo $this->baseurl . '/plugins/jvarcade/c64/c64small.jar'; ?>" WIDTH="768" HEIGHT ="568" MAYSCRIPT>
 				<param name="soundOn" value="1">
 				<param name="doubleScreen" value="1">
                 <param name="freescale" value="0">
