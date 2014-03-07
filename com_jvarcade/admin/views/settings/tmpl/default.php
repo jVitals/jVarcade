@@ -12,58 +12,55 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 JHtml::_('formbehavior.chosen', 'select');
+// JHtml::_('behavior.framework');
 ?>
-<?php if(!empty( $this->sidebar)): ?>
-<div id="j-sidebar-container" class="span2">
-	<?php echo $this->sidebar; ?>
-</div>
-<div id="j-main-container" class="span10">
-<?php else : ?>
-<div id="j-main-container">
-<?php endif;?>
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>" name="adminForm" id="adminForm" method="post">
+<style>
+.control-label {width: 30%!important;}
+</style>
+<form action="<?php echo JRoute::_('index.php?option=com_config'); ?>" name="adminForm" id="adminForm" method="post">
 	<input type="hidden" name="config_save" value="1" />
 	<input type="hidden" name="option" value="com_jvarcade" />
 	<input type="hidden" name="task" value="settings" />
-	<?php echo JHtml::_('bootstrap.startTabSet', 'jvsetstabset', array('active' => '1'));?>
-	<?php 
-		$grp = 1;
-		foreach ($this->conf as $group => $conf) : 
-			//$groupname = JText::_('COM_JVARCADE_GRP_' . strtoupper($group));
-			echo JHtml::_('bootstrap.addTab', 'jvsetstabset', $grp , JText::_('COM_JVARCADE_GRP_' . strtoupper($group)));
-	?>
-	<div >
-	<fieldset class="adminform">
-	<table class="admintable" width="80%">
-		<colgroup>
-			<col width="200"/>
-			<col width="*"/>
-		</colgroup>
-		<tbody>
-			<?php foreach ($conf as $arr) : 
-				$label = JText::_('COM_JVARCADE_OPT_' . strtoupper($arr['optname']));
-				$description = '';
-				if (trim($arr['description'])) $description = '<p>' . JText::_(trim($arr['description'])) . '</p>';
-			?>
-			<tr>
-				<td class="key<?php echo ($description ? ' hasTip': ''); ?>" valign="top" nowrap="nowrap" <?php echo ($description ? 'title="'.htmlspecialchars($label .'::'.$description, ENT_QUOTES, 'UTF-8').'" style="vertical-align:top;"' : ''); ?>>
-					<?php echo $label; ?>
-				</td>
-				<td>
-					<?php echo $this->showSetting($arr); ?>
-				</td>
-			</tr>
-			<?php echo $this->showCommentsLegend($arr['optname']); ?>
-			<?php endforeach; ?>
-		</tbody>
-	</table>
-	</fieldset>
-	
+	<div class="row-fluid">
+		<?php if(!empty($this->sidebar)): ?>
+		<div id="j-sidebar-container" class="span2">
+			<?php echo $this->sidebar; ?>
+		</div>
+		<div id="j-main-container" class="span10">
+		<?php else : ?>
+		<div id="j-main-container">
+		<?php endif;?>
+		<?php echo JHtml::_('bootstrap.startTabSet', 'jvsetstabset', array('active' => 'jvsetstabset_1'));?>
+		<?php $grp = 1; foreach ($this->conf as $group => $conf) : ?>
+			<?php echo JHtml::_('bootstrap.addTab', 'jvsetstabset', 'jvsetstabset_' . $grp, JText::_('COM_JVARCADE_GRP_' . strtoupper($group))); ?>
+			<div class="row-fluid">
+				<div class="span6">
+					<fieldset class="form-horizontal">
+						<?php foreach ($conf as $arr) : 
+							$label = JText::_('COM_JVARCADE_OPT_' . strtoupper($arr['optname']));
+							$description = (trim($arr['description'])) ? JText::_(trim($arr['description'])) : '';
+						?>
+						<div class="control-group">
+							<div class="control-label">
+								<label data-original-title="<strong><?php echo $label; ?></strong><?php echo ($description ? '<br />' . $description : ''); ?>" id="<?php echo $arr['optname']; ?>-lbl" for="<?php echo $arr['optname']; ?>" <?php echo ($description ? 'class="hasTooltip"': ''); ?> title=""><?php echo $label; ?></label>
+							</div>
+							<div class="controls">
+								<?php echo $this->showSetting($arr); ?>
+							</div>
+						</div>
+						<?php endforeach; ?>
+					</fieldset>
+				</div>
+				<?php if($group == 'integration'): ?>
+				<div class="span6">
+					<fieldset class="form-horizontal">
+						<?php echo $this->showCommentsLegend($arr['optname']); ?>
+					</fieldset>
+				</div>
+				<?php endif;?>
+			</div>
+			<?php echo JHtml::_('bootstrap.endTab'); $grp ++; ?>
+		<?php endforeach;?>
+		<?php echo JHtml::_('bootstrap.endTabSet');?>
 	</div>
-	<?php
-		echo JHtml::_('bootstrap.endTab');
-			$grp ++;
-		endforeach;
-	?>
-	<?php echo JHtml::_('bootstrap.endTabSet');?>
 </form>
