@@ -27,7 +27,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 	function __construct() {
 		parent::__construct();
 		$this->dbo = JFactory::getDBO();
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
 		$this->return_arr = array('errnum' => 0, 'msg' => '');
 		
 		$this->dbo->setQuery('SELECT games_dir, games_images_dir FROM #__puarcade_config LIMIT 1');

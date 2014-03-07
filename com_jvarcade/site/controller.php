@@ -109,14 +109,14 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	function contestregister() {
-		$mainframe = JFactory::getApplication();
-		$id = (int)$mainframe->input->get('id');
-		$type = (int)$mainframe->input->get('type');
+		$app = JFactory::getApplication();
+		$id = (int)$app->input->get('id');
+		$type = (int)$app->input->get('type');
 		$user = JFactory::getUser();
 		$user_id = (int)$user->id;
 		$model = $this->getModel('Scores');
 		$model->ContestMembership($id, $user_id, $type);
-		$mainframe->redirect(JRoute::_('index.php?option=com_jvarcade&task=contestdetail&id=' . $id, false));
+		$app->redirect(JRoute::_('index.php?option=com_jvarcade&task=contestdetail&id=' . $id, false));
 	}
 	
 	// GAME PAGE RELATED
@@ -154,10 +154,10 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	function savetag() {
-		$mainframe = JFactory::getApplication();
+		$app = JFactory::getApplication();
 		$user = JFactory::getUser();
 		$model = $this->getModel('Games');
-		$id = (int)$mainframe->input->get('id');
+		$id = (int)$app->input->get('id');
 		
 		$ret = 0;
 		if ((int)$user->id && (int)$id) {
@@ -180,8 +180,8 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	function savefave() {
-		$mainframe = JFactory::getApplication();
-		$game_id = (int)$mainframe->input->get('id');
+		$app = JFactory::getApplication();
+		$game_id = (int)$app->input->get('id');
 		$user = JFactory::getUser();
 		$model = $this->getModel('Games');
 		$res = '';
@@ -198,8 +198,8 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	function delfave() {
-		$mainframe = JFactory::getApplication();
-		$game_id = (int)$mainframe->input->get('id');
+		$app = JFactory::getApplication();
+		$game_id = (int)$app->input->get('id');
 		$user = JFactory::getUser();
 		$model = $this->getModel('Games');
 
@@ -217,9 +217,9 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	function rategame() {
-		$mainframe = JFactory::getApplication();
-		$game_id = (int)$mainframe->input->get('gid');
-		$rating = (float)$mainframe->input->get('rating');
+		$app = JFactory::getApplication();
+		$game_id = (int)$app->input->get('gid');
+		$rating = (float)$app->input->get('rating');
 		$user = JFactory::getUser();
 		
 		$this->db->setQuery('SELECT COALESCE(count(*), 0) as count, COALESCE(total_votes, 0) as total_votes, COALESCE(total_value, 0) as total_value, used_ids 
@@ -276,8 +276,8 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	function reportgame() {
-		$mainframe = JFactory::getApplication();
-		$game_id = (int)$mainframe->input->get('id');
+		$app = JFactory::getApplication();
+		$game_id = (int)$app->input->get('id');
 		$my = JFactory::getUser();
 		$user_id_from = $my->id;
 		$ret = 'Error repoting game';
@@ -346,8 +346,8 @@ class jvarcadeController extends JControllerLegacy {
 	}*/
 	
 	function downloadgame(){
-		$mainframe = JFactory::getApplication();
-		$game_id = (int)$mainframe->input->get('id');
+		$app = JFactory::getApplication();
+		$game_id = (int)$app->input->get('id');
 		$gd_folder = './arcade/gamedata/'.$gdata['gamename'].'';
 		$this->db->setQuery('SELECT gamename, imagename, filename, title, height, width, description, background, mochi, author FROM #__jvarcade_games WHERE id =' . $game_id);
 		$gdata = $this->db->loadAssoc();
@@ -482,7 +482,7 @@ class jvarcadeController extends JControllerLegacy {
 		#5 - No game ID
 		########################################################
 		
-		$mainframe = JFactory::getApplication();
+		$app = JFactory::getApplication();
 
 		$Itemid = JRequest::getInt('Itemid',0);
 		if (!$Itemid) {
@@ -688,8 +688,8 @@ class jvarcadeController extends JControllerLegacy {
 		if (!$ajaxscore) {
 			$message .= ' <a href="' . JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game_id . '&fid=' . $folderid . '&Itemid=' . $Itemid) . '">' . JText::_('COM_JVARCADE_PLAY_AGAIN') . '</a>';
 			// Redirect to scores page for the game
-			$mainframe->enqueueMessage($message);
-			$mainframe->redirect(JUri::root(true). '/index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid);
+			$app->enqueueMessage($message);
+			$app->redirect(JUri::root(true). '/index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid);
 		} else {
 			$message .= ' <a href="' . JRoute::_('index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid, false) . '" target="_blank">' . JText::_('COM_JVARCADE_SEE_SCORE_FOR_GAME') . '</a>';
 			echo $message;
@@ -700,7 +700,7 @@ class jvarcadeController extends JControllerLegacy {
 	
 	function storepnscore() {
 	
-		$mainframe = JFactory::getApplication();
+		$app = JFactory::getApplication();
 
 		$Itemid = JRequest::getInt('Itemid',0);
 		if (!$Itemid) {
@@ -895,9 +895,9 @@ class jvarcadeController extends JControllerLegacy {
 				
 				$message .= ' <a href="' . JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game_id . '&fid=' . $folderid . '&Itemid=' . $Itemid) . '">' . JText::_('COM_JVARCADE_PLAY_AGAIN') . '</a>';
 				// it's not clear what to do with the message.. shall we redirect?
-				$mainframe->enqueueMessage($message);
+				$app->enqueueMessage($message);
 				
-				$mainframe->redirect(JUri::root(true). '/index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid);
+				$app->redirect(JUri::root(true). '/index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid);
 				//echo $message;
 				
 				exit;

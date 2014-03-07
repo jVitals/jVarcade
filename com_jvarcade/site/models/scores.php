@@ -310,7 +310,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 	}
 	
 	function registerScore($game_id, $game_title, $userid, $username, $score, $reverse) {
-		$mainframe = JFactory::getApplication();
+		$app = JFactory::getApplication();
 		$dispatcher = JDispatcher::getInstance();
 		$player_ip = JRequest::getString('REMOTE_ADDR', '', 'SERVER');
 		$contests = $this->getContestsByGame($game_id);
@@ -358,11 +358,11 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 						$dispatcher->trigger('onPUAScoreSaved', array($game_id, $game_title, $userid, $username, $score, $contest_id, $contest_name));
 						$this->setUpdateLeaderBoard($contest_id);
 						// ADD TO MSG QUEUE INFO THAT SCORE WAS SAVED FOR THIS CONTEST
-						$mainframe->enqueueMessage(JText::sprintf('COM_JVARCADE_SCORE_SAVED_FOR_CONTEST', $contest_name, $current_score));
+						$app->enqueueMessage(JText::sprintf('COM_JVARCADE_SCORE_SAVED_FOR_CONTEST', $contest_name, $current_score));
 					} elseif (!$goodscore) {
-						$mainframe->enqueueMessage(JText::sprintf('COM_JVARCADE_SCORE_NOTGOOD_FOR_CONTEST', $contest_name, $oldscore, $current_score));
+						$app->enqueueMessage(JText::sprintf('COM_JVARCADE_SCORE_NOTGOOD_FOR_CONTEST', $contest_name, $oldscore, $current_score));
 					} else {
-						$mainframe->enqueueMessage(JText::sprintf('COM_JVARCADE_SCORE_TECHPROBLEM_CONTEST', $contest_name, $current_score));
+						$app->enqueueMessage(JText::sprintf('COM_JVARCADE_SCORE_TECHPROBLEM_CONTEST', $contest_name, $current_score));
 					}
 				}
 			}

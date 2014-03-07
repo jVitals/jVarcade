@@ -26,11 +26,11 @@ class jvarcadeModelCommon extends JModelLegacy {
 	function __construct() {
 		parent::__construct();
 		$this->dbo = JFactory::getDBO();
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
         global $option;
  
         // Get pagination request variables
-		$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
+		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
         $limitstart = JRequest::getVar('limitstart', 0, '', 'int');
  
         // In case limit has been changed, adjust it
@@ -42,8 +42,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 	}
 	
 	function getDBerr() {
-		$mainframe = JFactory::getApplication('site');
-		$mainframe->enqueueMessage($this->dbo->getErrorMsg(), 'error');
+		$app = JFactory::getApplication('site');
+		$app->enqueueMessage($this->dbo->getErrorMsg(), 'error');
 	}
 	
 	function getTotal(){
@@ -135,7 +135,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 	}
 	
 	function configSave() {
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
 		$config_save = (int)JRequest::getVar('config_save', 0);
 		if ($config_save) {
 			$confdb = $this->getConf();
@@ -157,7 +157,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 					WHERE " . $this->dbo->quoteName('optname') . " = " . $this->dbo->Quote($optname) . "");
 				$this->dbo->query();
 			}
-			$mainframe->redirect('index.php?option=com_jvarcade&task=settings');
+			$app->redirect('index.php?option=com_jvarcade&task=settings');
 			exit;
 		}
 	}
@@ -232,18 +232,18 @@ class jvarcadeModelCommon extends JModelLegacy {
 
 
 	function deleteScore() {
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
 		$id = JRequest::getVar('cid', 'scores');
 		if (!is_array($id)) $id = array($id);
 		JArrayHelper::toInteger($id, array(0));
 		$query = "DELETE FROM #__jvarcade WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
 		$this->dbo->query();
-		$mainframe->redirect('index.php?option=com_jvarcade&c&task=manage_scores');
+		$app->redirect('index.php?option=com_jvarcade&c&task=manage_scores');
 	}
 	
 	function scorePublish($published) {
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
 		$id = JRequest::getVar('cid');
 		if (!is_array($id)) $id = array($id);
 		JArrayHelper::toInteger($id, array(0));
@@ -251,7 +251,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
 		$this->dbo->query();
-		$mainframe->redirect('index.php?option=com_jvarcade&c&task=manage_scores');
+		$app->redirect('index.php?option=com_jvarcade&c&task=manage_scores');
 
 	}
 	
@@ -294,33 +294,33 @@ class jvarcadeModelCommon extends JModelLegacy {
 	}
 	
 	function deleteFolder() {
-		$mainframe = JFactory::getApplication('site');
-		$id = $mainframe->input->get('cid', null, 'folders', array());
+		$app = JFactory::getApplication('site');
+		$id = $app->input->get('cid', null, 'folders', array());
 		if (!is_array($id)) $id = array($id);
 		JArrayHelper::toInteger($id, array(0));
 		$query = "DELETE FROM #__jvarcade_folders WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
 		$this->dbo->query();
-		$mainframe->redirect('index.php?option=com_jvarcade&c&task=manage_folders');
+		$app->redirect('index.php?option=com_jvarcade&c&task=manage_folders');
 	}
 	
 	function folderPublish($published) {
-		$mainframe = JFactory::getApplication('site');
-		$id = $mainframe->input->get('cid', null, null);
+		$app = JFactory::getApplication('site');
+		$id = $app->input->get('cid', null, null);
 		if (!is_array($id)) $id = array($id);
 		JArrayHelper::toInteger($id, array(0));
 		$query = "UPDATE #__jvarcade_folders SET " . $this->dbo->quoteName('published') . " = " . $this->dbo->Quote((int)$published) . "
 			WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
 		$this->dbo->query();
-		$mainframe->redirect('index.php?option=com_jvarcade&c&task=manage_folders');
+		$app->redirect('index.php?option=com_jvarcade&c&task=manage_folders');
 
 	}
 	
 	function saveFolder() {
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
 	
-		$task = $mainframe->input->get('task');
+		$task = $app->input->get('task');
 		$post = JRequest::get('post');
 		$viewpermissions = JRequest::getVar('viewpermissions', array());
 		$imgfile = JRequest::getVar('image', null, 'files', 'array');
@@ -380,7 +380,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 					$uploaderr = JText::sprintf('COM_JVARCADE_UPLOAD_ERROR_MOVING', $imgfile['name']);
 				}
 			} 
-			if ($uploaderr) $mainframe->enqueueMessage($uploaderr, 'notice');
+			if ($uploaderr) $app->enqueueMessage($uploaderr, 'notice');
 		}
 		
 		if ($task == 'applyfolder') {
@@ -389,7 +389,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			$url = 'index.php?option=com_jvarcade&task=manage_folders';
 		}
 		
-		$mainframe->redirect($url, JText::_('COM_JVARCADE_FOLDERS_SAVE_SUCCESS'));
+		$app->redirect($url, JText::_('COM_JVARCADE_FOLDERS_SAVE_SUCCESS'));
 	}
 
 	function getGames($id = 0) {
@@ -446,7 +446,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 	function deleteGame() {
 		jimport('joomla.filesystem.file');
 		jimport('joomla.filesystem.folder');
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
 		$id = JRequest::getVar('cid', 'games');
 		if (!is_array($id)) $id = array($id);
 		JArrayHelper::toInteger($id, array(0));
@@ -485,11 +485,11 @@ class jvarcadeModelCommon extends JModelLegacy {
 
 		}
 		
-		$mainframe->redirect('index.php?option=com_jvarcade&c&task=manage_games');
+		$app->redirect('index.php?option=com_jvarcade&c&task=manage_games');
 	}
 	
 	function gamePublish($published) {
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
 		$id = JRequest::getVar('cid');
 		if (!is_array($id)) $id = array($id);
 		JArrayHelper::toInteger($id, array(0));
@@ -497,12 +497,12 @@ class jvarcadeModelCommon extends JModelLegacy {
 			WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
 		$this->dbo->query();
-		$mainframe->redirect('index.php?option=com_jvarcade&c&task=manage_games');
+		$app->redirect('index.php?option=com_jvarcade&c&task=manage_games');
 
 	}
 	
 	function saveGame() {
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
 		$task = JRequest::getVar('task');
 		$post = JRequest::get('post');
 		// here we take the raw result because we want to preserve the html code
@@ -578,7 +578,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 					$uploaderr = JText::sprintf('COM_JVARCADE_UPLOAD_ERROR_MOVING', $imgfile['name']);
 				}
 			} 
-			if ($uploaderr) $mainframe->enqueueMessage($uploaderr, 'notice');
+			if ($uploaderr) $app->enqueueMessage($uploaderr, 'notice');
 		}
 		
 		// Process game file upload
@@ -599,7 +599,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 					$uploaderr2 = JText::sprintf('COM_JVARCADE_UPLOAD_ERROR_MOVING', $gamefile['name']);
 				}
 			} 
-			if ($uploaderr2) $mainframe->enqueueMessage($uploaderr2, 'notice');
+			if ($uploaderr2) $app->enqueueMessage($uploaderr2, 'notice');
 		}
 		
 		if ($task == 'applygame') {
@@ -608,7 +608,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 			$url = 'index.php?option=com_jvarcade&task=manage_games';
 		}
 		
-		$mainframe->redirect($url, JText::_('COM_JVARCADE_GAMES_SAVE_SUCCESS'));
+		$app->enqueueMessage(JText::_('COM_JVARCADE_GAMES_SAVE_SUCCESS'));
+		$app->redirect($url);
 	}
 
 	function getContests($id = 0) {
@@ -644,7 +645,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 	}
 	
 	function contestPublish($published) {
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
 		$id = JRequest::getVar('cid');
 		if (!is_array($id)) $id = array($id);
 		JArrayHelper::toInteger($id, array(0));
@@ -652,12 +653,12 @@ class jvarcadeModelCommon extends JModelLegacy {
 			WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
 		$this->dbo->query();
-		$mainframe->redirect('index.php?option=com_jvarcade&c&task=contests');
+		$app->redirect('index.php?option=com_jvarcade&c&task=contests');
 
 	}
 	
 	function deleteContest() {
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
 		$id = JRequest::getVar('cid', 'contests');
 		if (!is_array($id)) $id = array($id);
 		JArrayHelper::toInteger($id, array(0));
@@ -683,11 +684,11 @@ class jvarcadeModelCommon extends JModelLegacy {
 			}
 		}
 		
-		$mainframe->redirect('index.php?option=com_jvarcade&c&task=manage_games');
+		$app->redirect('index.php?option=com_jvarcade&c&task=manage_games');
 	}
 	
 	function saveContest() {
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
 		$task = JRequest::getVar('task');
 		$post = JRequest::get('post');
 		$imgfile = JRequest::getVar('image', null, 'files', 'array');
@@ -749,7 +750,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 					$uploaderr = JText::sprintf('COM_JVARCADE_UPLOAD_ERROR_MOVING', $imgfile['name']);
 				}
 			} 
-			if ($uploaderr) $mainframe->enqueueMessage($uploaderr, 'notice');
+			if ($uploaderr) $app->enqueueMessage($uploaderr, 'notice');
 		}
 		
 		if ($task == 'applycontest') {
@@ -758,7 +759,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 			$url = 'index.php?option=com_jvarcade&task=contests';
 		}
 		
-		$mainframe->redirect($url, JText::_('COM_JVARCADE_CONTESTS_SAVE_SUCCESS'));
+		$app->enqueueMessage(JText::_('COM_JVARCADE_CONTESTS_SAVE_SUCCESS'));
+		$app->redirect($url);
 	}
 	
 	function addGameToContest($game_ids = array(), $contest_ids = array()) {
@@ -849,7 +851,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 	}
 	
 	function contentratingPublish($published) {
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
 		$id = JRequest::getVar('cid');
 		if (!is_array($id)) $id = array($id);
 		JArrayHelper::toInteger($id, array(0));
@@ -857,12 +859,12 @@ class jvarcadeModelCommon extends JModelLegacy {
 			WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
 		$this->dbo->query();
-		$mainframe->redirect('index.php?option=com_jvarcade&c&task=content_ratings');
+		$app->redirect('index.php?option=com_jvarcade&c&task=content_ratings');
 
 	}
 	
 	function saveContentRating() {
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
 		$task = JRequest::getVar('task');
 		$post = JRequest::get('post');
 		$imgfile = JRequest::getVar('image', null, 'files', 'array');
@@ -917,7 +919,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 					$uploaderr = JText::sprintf('COM_JVARCADE_UPLOAD_ERROR_MOVING', $imgfile['name']);
 				}
 			} 
-			if ($uploaderr) $mainframe->enqueueMessage($uploaderr, 'notice');
+			if ($uploaderr) $app->enqueueMessage($uploaderr, 'notice');
 		}
 		
 		if ($task == 'applycontentrating') {
@@ -926,11 +928,12 @@ class jvarcadeModelCommon extends JModelLegacy {
 			$url = 'index.php?option=com_jvarcade&task=content_ratings';
 		}
 		
-		$mainframe->redirect($url, JText::_('COM_JVARCADE_CONTENT_RATINGS_SAVE_SUCCESS'));
+		$app->enqueueMessage(JText::_('COM_JVARCADE_CONTENT_RATINGS_SAVE_SUCCESS'));
+		$app->redirect($url);
 	}
 	
 	function deleteContentRating() {
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
 		$id = JRequest::getVar('cid');
 		if (!is_array($id)) $id = array($id);
 		JArrayHelper::toInteger($id, array(0));
@@ -938,7 +941,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$query = "DELETE FROM #__jvarcade_contentrating WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
 		$this->dbo->query();
-		$mainframe->redirect('index.php?option=com_jvarcade&c&task=content_ratings');
+		$app->redirect('index.php?option=com_jvarcade&c&task=content_ratings');
 	}
 	
 	function regenerateLeaderBoard($contest_id = 0) {

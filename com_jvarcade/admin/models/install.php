@@ -38,7 +38,9 @@ class jvarcadeModelInstall extends JModelLegacy {
 		} elseif ($installtype == 'upload') {
 			$this->_installFromUpload();
 		}
-		$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive', JText::_('COM_JVARCADE_UPLOADARCHIVE_INSTALLMETHOD_ERROR'), 'error');
+		
+		$this->app->enqueueMessage(JText::_('COM_JVARCADE_UPLOADARCHIVE_INSTALLMETHOD_ERROR'), 'error');
+		$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive');
 		jexit();
 	}
 	
@@ -54,7 +56,8 @@ class jvarcadeModelInstall extends JModelLegacy {
 		}
 		
 		if ($errormsg) {
-			$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive', $errormsg, 'error');
+			$this->app->enqueueMessage($errormsg, 'error');
+			$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive');
 			jexit();
 		}
 		
@@ -91,7 +94,8 @@ class jvarcadeModelInstall extends JModelLegacy {
 		}
 		
 		if ($errormsg) {
-			$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive', $errormsg, 'error');
+			$this->app->enqueueMessage($errormsg, 'error');
+			$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive');
 			exit;
 		}
 		
@@ -103,7 +107,8 @@ class jvarcadeModelInstall extends JModelLegacy {
 		// Unpack the downloaded package file
 		$package = jvaHelper::unpack($tmp_dest);
 		if (!$package) {
-			$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive', JText::_('COM_JVARCADE_UPLOADARCHIVE_NOPACKAGE'), 'error');
+			$this->app->enqueueMessage(JText::_('COM_JVARCADE_UPLOADARCHIVE_NOPACKAGE'), 'error');
+			$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive');
 			exit;
 		}
 		
@@ -113,7 +118,8 @@ class jvarcadeModelInstall extends JModelLegacy {
 	private function _doAcctualInstall($pkg) {
 		
 		if (!$pkg) {
-			$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive', JText::_('COM_JVARCADE_UPLOADARCHIVE_NOPACKAGE'), 'error');
+			$this->app->enqueueMessage(JText::_('COM_JVARCADE_UPLOADARCHIVE_NOPACKAGE'), 'error');
+			$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive');
 			jexit();
 		}
 		
@@ -238,8 +244,9 @@ class jvarcadeModelInstall extends JModelLegacy {
 		
 		// Redirect and show messages
 		$msg = (count($errormsg) ? implode('<br />', $errormsg) : JText::sprintf('COM_JVARCADE_UPLOADARCHIVE_SUCCESS'));
-		$msg_type = count($errormsg) ? 'error' : 'info';
-		$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive', $msg, $msg_type);
+		$msg_type = count($errormsg) ? 'error' : 'message';
+		$this->app->enqueueMessage($msg, $msg_type);
+		$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive');
 		jexit();
 	}
 	

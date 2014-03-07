@@ -134,10 +134,10 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	// Ensures to write session to disk before redirecting
 	
 	function redirectPage($url, $sef = false) {
-		$mainframe = JFactory::getApplication();
+		$app = JFactory::getApplication();
 		if ($sef) $url = JRoute::_($url, false);
 		session_write_close();
-		$mainframe->redirect($url);
+		$app->redirect($url);
 		jexit();
 	}
 	
@@ -266,7 +266,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 		$this->_session->set('session_score', $score, 'jvarcade');
 		$this->_session->set('session_gdata', $gamedata, 'jvarcade');
 		
-		$this->redirectpage('index.php?option=com_jvarcade&task=storepnscore&' . $this->sname . '=' . strip_tags($this->sid));
+		$this->redirectPage('index.php?option=com_jvarcade&task=storepnscore&' . $this->sname . '=' . strip_tags($this->sid));
 	}
 	
 	/* END HELPER FUNCTIONS */
