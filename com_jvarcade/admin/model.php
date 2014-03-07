@@ -389,7 +389,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 			$url = 'index.php?option=com_jvarcade&task=manage_folders';
 		}
 		
-		$app->redirect($url, JText::_('COM_JVARCADE_FOLDERS_SAVE_SUCCESS'));
+		$app->enqueueMessage(JText::_('COM_JVARCADE_FOLDERS_SAVE_SUCCESS'));
+		$app->redirect($url);
 	}
 
 	function getGames($id = 0) {
