@@ -11,7 +11,6 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-
 ?>
 <?php if(!empty( $this->sidebar)): ?>
 <div id="j-sidebar-container" class="span2">
@@ -21,29 +20,34 @@ defined('_JEXEC') or die('Restricted access');
 <?php else : ?>
 <div id="j-main-container">
 <?php endif;?>
-<form action="index.php" method="post" name="adminForm" id="adminForm" >
-<table class="table table-striped">
+<form action="index.php" method="post" name="adminForm" id="adminForm">
+	<table class="table table-striped">
+		<thead>
 			<tr>
 				<th width="20"><?php echo JHtml::_('grid.checkall'); ?></th>
-				<th style="text-align: center;" class="title"><?php echo JHTML::_('grid.sort', 'COM_JVARCADE_CONTENT_RATINGS_ID', 'id', @$this->lists['order_Dir'], @$this->lists['order'] ); ?></th>
-				<th style="text-align: center;" class="title"><?php echo JHTML::_('grid.sort', 'COM_JVARCADE_CONTENT_RATINGS_NAME', 'name', @$this->lists['order_Dir'], @$this->lists['order'] ); ?></th>
-				<th style="text-align: center;"><?php echo JHTML::_('grid.sort', 'COM_JVARCADE_CONTENT_RATINGS_WARNING_DISPLAYED', 'warningrequired', @$this->lists['order_Dir'], @$this->lists['order'] ); ?></th>
-				<th style="text-align: center;"><?php echo JHTML::_('grid.sort', 'COM_JVARCADE_CONTENT_RATINGS_PUBLISHED', 'published', @$this->lists['order_Dir'], @$this->lists['order'] ); ?></th>
+				<th style="text-align: center;"><?php echo JHTML::_('grid.sort', 'COM_JVARCADE_CONTESTS_ID', 'id', @$this->lists['order_Dir'], @$this->lists['order'] ); ?></th>
+				<th style="text-align: center;"><?php echo JHTML::_('grid.sort', 'COM_JVARCADE_CONTESTS_NAME', 'name', @$this->lists['order_Dir'], @$this->lists['order'] ); ?></th>
+				<th style="text-align: center;"><?php echo JHTML::_('grid.sort', 'COM_JVARCADE_CONTESTS_START', 'startdatetime', @$this->lists['order_Dir'], @$this->lists['order'] ); ?></th>
+				<th style="text-align: center;"><?php echo JHTML::_('grid.sort', 'COM_JVARCADE_CONTESTS_END', 'enddatetime', @$this->lists['order_Dir'], @$this->lists['order'] ); ?></th>
+				<th style="text-align: center;"><?php echo JHTML::_('grid.sort', 'COM_JVARCADE_CONTESTS_GAMECOUNT', 'maxplaycount', @$this->lists['order_Dir'], @$this->lists['order'] ); ?></th>
+				<th style="text-align: center;"><?php echo JHTML::_('grid.sort', 'COM_JVARCADE_CONTESTS_PUBLISHED', 'published', @$this->lists['order_Dir'], @$this->lists['order'] ); ?></th>
 			</tr>
+		</thead>
+		<tbody>
 	<?php
 			$i = 0;
-			if (is_array($this->ratings)) {
-				foreach ($this->ratings as $k => $obj) {
+			if (is_array($this->contests)) {
+				foreach ($this->contests as $k => $obj) {
 					$checked = JHTML::_('grid.id', $k, $obj->id, false, 'cid');
-					$imgwarntag = (JVA_COMPATIBLE_MODE == '16') ? JHTML::_('image','admin/icon-16-notice-note.png', '', array('border' => 0), true) : JHTML::_('image.administrator', 'warning.png', '../includes/js/ThemeOffice/');
-					$imgwarntag = ((int)$obj->warningrequired ? $imgwarntag : '');
-			?>
+					?>
 					<tr class="<?php echo "row$i"; ?>">
 						<td style="text-align: center;"><?php echo $checked; ?></td>
 						<td style="text-align: center;"><?php echo $obj->id; ?></td>
-						<td style="text-align: center;"><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&c&task=editcontentrating&id=' . $obj->id); ?>"><?php echo $obj->name; ?></a></td>
-						<td style="text-align: center;"><?php echo $imgwarntag; ?></td>
-						<td style="text-align: center;"><?php echo JHtml::_('jgrid.published', $obj->published, $i, 'contentrating'); ?></td>
+						<td style="text-align: center;"><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&c&task=editcontest&id=' . $obj->id); ?>"><?php echo $obj->name; ?></a></td>
+						<td style="text-align: center;"><?php echo jvaHelper::formatDate($obj->startdatetime); ?></td>
+						<td style="text-align: center;"><?php echo jvaHelper::formatDate($obj->enddatetime); ?></td>
+						<td style="text-align: center;"><?php echo $obj->maxplaycount; ?></td>
+						<td style="text-align: center;"><?php echo JHtml::_('jgrid.published', $obj->published, $i, 'contest'); ?></td>
 					</tr>
 			<?php
 					if ($i == 0) {
@@ -57,9 +61,10 @@ defined('_JEXEC') or die('Restricted access');
 			<tr>
 				<td colspan="8" class="erPagination"><?php echo $this->pagination->getListFooter(); ?></td>
 			</tr>
+		</tbody>
 	</table>
 	<input type="hidden" name="option" value="com_jvarcade" />
-	<input type="hidden" name="task" value="content_ratings" />
+	<input type="hidden" name="task" value="contests" />
 	<input type="hidden" name="boxchecked" value="0" />
 	<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
 	<input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['order_Dir']; ?>" />
