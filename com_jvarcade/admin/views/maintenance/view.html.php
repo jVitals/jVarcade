@@ -12,13 +12,11 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-//jimport('joomla.application.component.view');
-
 class jvarcadeViewMaintenance extends JViewLegacy {
 
 	function display($tpl = null) {
-		$mainframe = JFactory::getApplication();
-		$task = $mainframe->input->get('task', 'maintenance');
+		$app = JFactory::getApplication();
+		$task = $app->input->get('task', 'maintenance');
 		$this->assignRef('task', $task);
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_MAINTENANCE'), 'jvamaintenance');

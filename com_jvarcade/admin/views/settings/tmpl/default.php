@@ -12,7 +12,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 JHtml::_('formbehavior.chosen', 'select');
-// JHtml::_('behavior.framework');
+JHtml::_('bootstrap.tooltip');
 ?>
 <style>
 .control-label {width: 30%!important;}

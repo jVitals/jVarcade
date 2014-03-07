@@ -39,7 +39,6 @@ $jsconstants .= 'var JVA_CONTESTLINK_ADDGAME_URL = \'' . JRoute::_('index.php?op
 $jsconstants .= 'var JVA_CONTESTLINK_ADDCONTESTGAMES_URL = \'' . JRoute::_('index.php?option=com_jvarcade&task=addcontestgames&tmpl=component&',false) . '\';' . "\n";
 $jsconstants .= 'var JVA_MAIN_URL = JVA_HOST_NAME + \'index.php\';' . "\n";
 $jsconstants .= 'var JVA_MAX_MIGRATION_STEPS = 12;' . "\n";
-
 $jsconstants .= 'var COM_JVARCADE_CONTESTSLINK_DELETE_WARNING = \'' . JText::_('COM_JVARCADE_CONTESTSLINK_DELETE_WARNING') . '\';' . "\n";
 $jsconstants .= 'var COM_JVARCADE_CONTESTSLINK_GAME_EMPTY = \'' . JText::_('COM_JVARCADE_CONTESTSLINK_GAME_EMPTY') . '\';' . "\n";
 $jsconstants .= 'var COM_JVARCADE_CONTESTSLINK_SAVE_EMPTY = \'' . JText::_('COM_JVARCADE_CONTESTSLINK_SAVE_EMPTY') . '\';' . "\n";
@@ -65,17 +64,13 @@ $jsconstants .= 'var COM_JVARCADE_MAINTENANCE_CONTEST_DESC_DELETEGUESTSCORES = \
 $jsconstants .= 'var COM_JVARCADE_MAINTENANCE_CONTEST_DESC_DELETEZEROSCORES = \'' . JText::_('COM_JVARCADE_MAINTENANCE_CONTEST_DESC_DELETEZEROSCORES') . '\';' . "\n";
 $jsconstants .= 'var COM_JVARCADE_MAINTENANCE_CONTEST_DESC_RECALCULATELEADERBOARD = \'' . JText::_('COM_JVARCADE_MAINTENANCE_CONTEST_DESC_RECALCULATELEADERBOARD') . '\';' . "\n";
 $jsconstants .= 'var COM_JVARCADE_MAINTENANCE_MIGRATION_FAILURE = \'' . JText::_('COM_JVARCADE_MAINTENANCE_MIGRATION_FAILURE') . '\';' . "\n";
-
 $document->addScriptDeclaration($jsconstants);
-
-JHtml::_('behavior.tooltip');
-
-$task = JRequest::getVar('task', 'cpanel');
 
 // check for new version 
 jvaHelper::checkForNewVersion();
 
 // Create the controller
+$task = JRequest::getVar('task', 'cpanel');
 $controller = new jvarcadeController();
 $controller->execute($task);
 $controller->redirect();
