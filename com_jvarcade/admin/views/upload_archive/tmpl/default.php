@@ -14,16 +14,8 @@ defined('_JEXEC') or die('Restricted access');
 
 JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
-
+JHtml::_('bootstrap.tooltip');
 ?>
-<?php if(!empty( $this->sidebar)): ?>
-<div id="j-sidebar-container" class="span2">
-	<?php echo $this->sidebar; ?>
-</div>
-<div id="j-main-container" class="span10">
-<?php else : ?>
-<div id="j-main-container">
-<?php endif;?>
 <script language="JavaScript">
 	
 	function setinstalltype(t) {
@@ -51,28 +43,49 @@ JHtml::_('formbehavior.chosen', 'select');
 		jQuery('#install_directory_but').click(function() { setinstalltype('folder'); });
 	});
 </script>
-
+<style>
+.control-label {width: 30%!important;}
+</style>
 <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF']; ?>" name="adminForm" id="adminForm" method="post" onsubmit="return checkInstallForm(this);" >
 	<input type="hidden" name="field_save" value="1" />
 	<input type="hidden" name="option" value="com_jvarcade" />
 	<input type="hidden" name="task" value="doInstall" />
 	<input type="hidden" name="installtype" id="installtype_fld" value="upload" />
 	<input type="hidden" name="boxchecked" value="0" />
-	<table>
-	<tr>
-	<td width = 40% valign = top padding = 5px>
-	<div style="float:left;">
-		<fieldset class="adminform">
-			<table class="adminform">
-				<tr>
-					<td class="key"><label for="folderid"><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_FOLDER'); ?></label></td>
-					<td><?php echo $this->list_folders();?></td>
-				</tr>
-				<tr>
-					<td class="key"><label for="published"><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_PUBLISHED'); ?></label></td>
-					<td><?php echo JHTML::_('jvarcade.html.booleanlist',  'published', 'class="inputbox" size="1"', $this->published);?></td>
-				</tr>
-			</table>
+	<div class="row-fluid">
+		<?php if(!empty( $this->sidebar)): ?>
+		<div id="j-sidebar-container" class="span2">
+		<?php echo $this->sidebar; ?>
+		</div>
+		<div id="j-main-container" class="span10">
+		<?php else : ?>
+		<div id="j-main-container">
+		<?php endif;?>
+			<div class="row-fluid">
+				<div class="span6">
+					<fieldset class="form-horizontal">
+					<div class="control-group">
+							<div class="control-label">
+								<label class="hasTooltip" data-original-title="<strong><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_FOLDER'); ?></strong>"><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_FOLDER'); ?></label>
+							</div>
+							<div class="controls">
+								<?php echo $this->list_folders();?><br>
+							</div>
+					</div>
+					</fieldset>
+					<fieldset class="form-horizontal">
+					<div class="control-group">
+							<div class="control-label">
+								<label class="hasTooltip" data-original-title="<strong><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_PUBLISHED'); ?></strong>"><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_PUBLISHED'); ?></label>
+							</div>
+							<div class="controls">
+								<?php echo $this->publish_state();//echo JHtml::_('jvarcade.html.booleanlist',  'published', 'size="1"', $this->published, 'JYES', 'JNO', 'publish');?>
+							</div>
+					</div>
+					</fieldset>
+				
+			
+			
 			<table>
 				<th><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_CHOOSE'); ?></th>
 			</table>
@@ -96,18 +109,15 @@ JHtml::_('formbehavior.chosen', 'select');
 					</td>
 				</tr>
 			</table>
-		</fieldset>
-	</div>
-	</td>
-	<td border = 1>
-	<div style="float:right;">
+		</div>
+	
+	<div class="span6" style="float:right;">
 		<fieldset class="adminform">
 		<legend><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_LEGEND_TITLE'); ?></legend>
 		<?php echo $this->legend; ?>
 		</fieldset>
 	</div>
-	</td>
-	</tr>
-	</table>
 	<div class="clr"></div>
+	</div>
+</div>
 </form>

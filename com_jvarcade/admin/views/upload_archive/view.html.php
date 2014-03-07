@@ -21,8 +21,8 @@ class jvarcadeViewupload_archive extends JViewLegacy {
 	function display($tpl = null) {
 		$config = JFactory::getConfig();
 		$model = $this->getModel();
-		$mainframe = JFactory::getApplication();
-		$task = $mainframe->input->get('task', 'upload_archive');
+		$app = JFactory::getApplication();
+		$task = $app->input->getCmd('task', 'upload_archive');
 		$this->assignRef('task', $task);
 		$published = 1;
 		$this->assignRef('published', $published);
@@ -54,6 +54,12 @@ class jvarcadeViewupload_archive extends JViewLegacy {
 		}
 		$list .= '</select>';
 		return $list;
+	}
+	
+	function publish_state(){
+		$option = JHtml::_('jvarcade.html.booleanlist',  'published', 'size="1"', 1, 'JYES', 'JNO', 'publish');
+		$option = str_replace(array('<div class="controls">', '</div>'), '', $option);
+		return $option;
 	}
 	
 }
