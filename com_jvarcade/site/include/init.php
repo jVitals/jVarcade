@@ -22,16 +22,13 @@ require_once (JVA_HELPERS_INCPATH . 'helper.php');
 $conf = jvarcadeModelCommon::getInst();
 $config = $conf->getConf();
 
-// Javascript includes and declarations
-JHTML::_('behavior.modal', 'a.modal');
-$document = JFactory::getDocument();
-if((int)$config->load_jquery) {
-	$document->addScript(JVA_JS_SITEPATH . 'jquery-1.6.2.min.js');
-	$document->addScript(JVA_JS_SITEPATH . 'jquery-noconflict.js');
-	$document->addScript(JVA_JS_SITEPATH . 'jquery-ui-1.8.16.min.js');
-	$document->addScript(JVA_JS_SITEPATH . 'jquery.js');
-}
+// define time/date formats
+define('COM_JVARCADE_DATE_FORMAT', $config->date_format);
+define('COM_JVARCADE_TIME_FORMAT', $config->time_format);
+define('COM_JVARCADE_TIMEZONE', $config->timezone);
 
+// Javascript includes and declarations
+$document = JFactory::getDocument();
 $document->addScript(JVA_JS_SITEPATH . 'jquery.jva.js');
 $jsconstants = 'var JVA_HOST_NAME = \'' . JURI::base() . '\';' . "\n";
 $jsconstants .= 'var JVA_AJAX_URL = \'' . JURI::base() . '\';' . "\n";
@@ -47,11 +44,8 @@ JPluginHelper::importPlugin('jvarcade', null, true, $dispatcher);
 // Load styles
 $css = (strlen($config->template) && $config->template && file_exists(JVA_CSS_INCPATH . $config->template . '.css')) ? $config->template : 'default' ;
 $document->addStyleSheet(JVA_CSS_SITEPATH . $css . '.css');
-$document->addStyleSheet(JVA_CSS_SITEPATH . 'smoothness/jquery-ui-1.8.16.css');
-if((int)$config->roundcorners){
+if((int)$config->roundcorners) {
 	$document->addStyleSheet(JVA_CSS_SITEPATH . '/smoothness/round.corners.css');
 }
-define('COM_JVARCADE_DATE_FORMAT', $config->date_format);
-define('COM_JVARCADE_TIME_FORMAT', $config->time_format);
-define('COM_JVARCADE_TIMEZONE', $config->timezone);
+
 ?>

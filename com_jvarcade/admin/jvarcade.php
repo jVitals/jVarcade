@@ -19,21 +19,18 @@ require_once (dirname(__FILE__) . '/models/migration.php');
 require_once (dirname(__FILE__) . '/controller.php');
 require_once (JPATH_ROOT . '/components/com_jvarcade/include/define.php');
 require_once (JVA_HELPERS_INCPATH . 'helper.php');
+
 $model = JModelLegacy::getInstance('common', 'jvarcadeModel');
 $config = $model->getConfObj();
+
 define('COM_JVARCADE_DATE_FORMAT', $config->date_format);
 define('COM_JVARCADE_TIME_FORMAT', $config->time_format);
 define('COM_JVARCADE_TIMEZONE', $config->timezone);
 
 $document = JFactory::getDocument();
 $document->addStyleSheet(JUri::root() . 'administrator/components/com_jvarcade/css/'. 'style.css');
-$document->addStyleSheet(JVA_CSS_SITEPATH . 'smoothness/jquery-ui-1.8.16.css');
 
 // Javascript includes and declarations
-
-$document->addScript(JVA_JS_SITEPATH . 'jquery-1.6.2.min.js');
-$document->addScript(JVA_JS_SITEPATH . 'jquery-noconflict.js');
-$document->addScript(JVA_JS_SITEPATH . 'jquery-ui-1.8.16.min.js');
 $document->addScript(JVA_JS_SITEPATH . 'jquery.jva.js');
 
 $jsconstants  = 'var JVA_HOST_NAME = \'' . JUri::base() . '\';' . "\n";
@@ -71,8 +68,7 @@ $jsconstants .= 'var COM_JVARCADE_MAINTENANCE_MIGRATION_FAILURE = \'' . JText::_
 
 $document->addScriptDeclaration($jsconstants);
 
-JHTML::_('behavior.modal', 'a.modal');
-JHTML::_('behavior.tooltip');
+JHtml::_('behavior.tooltip');
 
 $task = JRequest::getVar('task', 'cpanel');
 

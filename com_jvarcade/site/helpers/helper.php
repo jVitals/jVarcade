@@ -383,24 +383,23 @@ class jvaHelper {
 
 class jvarcadeHtml {
 
-	public static function booleanlist ($name, $attributes, $value) {
-		if (JVA_COMPATIBLE_MODE == '15') {
-			return JHTML::_('select.booleanlist',  $name, $attributes, $value);
+	public static function booleanlist ($name, $attributes, $value, $yes, $no, $id) {
+		if (JVA_COMPATIBLE_MODE == '16') {
+			return '<fieldset id="' . $name . '" class="radio btn-group btn-group-yesno">' . JHtml::_('select.booleanlist',  $name, $attributes, $value, $yes, $no, $id) . '</fieldset>';
 		} else {
-			return '<fieldset class="radio inputbox btn-group">' . JHTML::_('select.booleanlist',  $name, $attributes, $value) . '</fieldset>';
+			return '';
 		}
 	}
 
 	public static function radiolist ($item, $name, $attributes, $name1, $name2, $value, $id) {
-		if (JVA_COMPATIBLE_MODE == '15') {
-			return JHTML::_('select.radiolist',  $item, $name, $attributes, $name1, $name2, $value, $id);
+		if (JVA_COMPATIBLE_MODE == '16') {
+			return '<fieldset id="' . $name . '"  class="radio">' . JHtml::_('select.radiolist',  $item, $name, $attributes, $name1, $name2, $value, $id) . '</fieldset>';
 		} else {
-			return '<fieldset class="radio">' . JHTML::_('select.radiolist',  $item, $name, $attributes, $name1, $name2, $value, $id) . '</fieldset>';
 		}
 	}
 	
 	public static function sort($title, $order, $direction = 'asc', $selected = 0, $sort_url, $new_direction = 'asc', $task = null) {
-		$linktitle = JVA_COMPATIBLE_MODE == '15' ? JText::_( 'Click to sort this column' ) : JText::_('JGLOBAL_CLICK_TO_SORT_THIS_COLUMN');
+		$linktitle = JText::_('JGLOBAL_CLICK_TO_SORT_THIS_COLUMN');
 		$direction = strtolower($direction);
 		$images = array('sort_asc.png', 'sort_desc.png');
 		$index = intval($direction == 'desc');
@@ -417,7 +416,7 @@ class jvarcadeHtml {
 		$html .= JText::_($title);
 
 		if ($order == $selected) {
-			$html .= JVA_COMPATIBLE_MODE == '15' ? JHTML::_('image.administrator',  $images[$index], '/images/', null, null) : JHTML::_('image','system/'.$images[$index], '', null, true);
+			$html .= JHtml::_('image','system/'.$images[$index], '', null, true);
 		}
 		
 		$html .= '</a>';
@@ -449,12 +448,6 @@ class jvarcadeHtml {
 				$ret = JHtml::_('select.genericlist', $options, $name, array('list.attr' => $attribs, 'list.select' => $selected ));
 			}
 			
-		} elseif(JVA_COMPATIBLE_MODE == '15') {
-		
-			if (is_array($options) && count($options)) {
-				array_unshift($options, JHtml::_('select.option', 0, 'Guest'));
-				$ret = JHTML::_('select.genericlist', $options, $name, $attribs, 'value', 'text', $selected, $name );
-			}
 		}
 		
 		return $ret;
