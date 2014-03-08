@@ -110,7 +110,7 @@ defined('_JEXEC') or die('Restricted access');
 		</div>
 		
 		<?php if ($this->config->foldercols >= 1) : ?>
-			</div>
+			</div><div>
 			<?php if(!($i%(int)$this->config->foldercols)) : ?>
 			</div><div>
 			<?php endif; ?>
@@ -129,5 +129,3 @@ defined('_JEXEC') or die('Restricted access');
 	<?php include_once(JVA_TEMPLATES_INCPATH . 'footer.php'); ?>
 	
 </div>
-<?php
-?>
