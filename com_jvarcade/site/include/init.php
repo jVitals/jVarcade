@@ -29,6 +29,7 @@ define('COM_JVARCADE_TIMEZONE', $config->timezone);
 
 // Javascript includes and declarations
 $document = JFactory::getDocument();
+JHtml::_('behavior.modal', 'a.modal');
 $document->addScript(JVA_JS_SITEPATH . 'jquery.jva.js');
 $jsconstants = 'var JVA_HOST_NAME = \'' . JURI::base() . '\';' . "\n";
 $jsconstants .= 'var JVA_AJAX_URL = \'' . JURI::base() . '\';' . "\n";

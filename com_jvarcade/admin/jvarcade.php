@@ -31,6 +31,7 @@ $document = JFactory::getDocument();
 $document->addStyleSheet(JUri::root() . 'administrator/components/com_jvarcade/css/'. 'style.css');
 
 // Javascript includes and declarations
+JHtml::_('behavior.modal', 'a.modal');
 $document->addScript(JVA_JS_SITEPATH . 'jquery.jva.js');
 
 $jsconstants  = 'var JVA_HOST_NAME = \'' . JUri::base() . '\';' . "\n";
