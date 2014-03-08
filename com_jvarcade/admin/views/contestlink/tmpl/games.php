@@ -22,7 +22,6 @@ defined('_JEXEC') or die('Restricted access');
 			<th style="text-align: center;" class="title"><?php echo JText::_('COM_JVARCADE_GAMES_ID'); ?></th>
 			<th style="text-align: center;" class="title"><?php echo JText::_('COM_JVARCADE_GAMES_TITLE'); ?></th>
 			<th style="text-align: center;"><?php echo JText::_('COM_JVARCADE_GAMES_NUMPLAYED'); ?></th>
-			<th style="text-align: center;"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -37,11 +36,6 @@ defined('_JEXEC') or die('Restricted access');
 					<td style="text-align: center;"><?php echo $obj->id; ?></td>
 					<td style="text-align: center;"><a target="_blank" href="<?php echo JRoute::_('index.php?option=com_jvarcade&c&task=editgame&id=' . $obj->id); ?>"><?php echo $obj->title; ?></a></td>
 					<td style="text-align: center;"><?php echo $obj->numplayed; ?></td>
-					<td style="text-align: center;">
-						<a href="javascript:void(0);" onclick="jQuery.jva.deleteGameFromContest(<?php echo $this->contest_id; ?>, <?php echo $obj->id; ?>, 'contest')">
-							<?php echo $imgtag; ?>
-						</a>
-					</td>
 				</tr>
 		<?php
 				if ($i == 0) {

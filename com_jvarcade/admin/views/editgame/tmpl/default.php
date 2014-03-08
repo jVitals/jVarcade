@@ -220,7 +220,6 @@ JHtml::_('bootstrap.tooltip');
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'jveditgame', 'contestforgame', JText::_('COM_JVARCADE_CONTESTSLINK_CONTESTSFORGAME')); ?>
 		<div class="row-fluid">
-			<div class="span6">
 				<fieldset class="form-horizontal">
 					<?php if ((int)$this->game->id) : ?>
 					<input class="btn hasTooltip js-stools-btn-clear" type="button" onclick="jQuery.jva.showAddToContestPopup(<?php echo $this->game->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_CONTESTSLINK_ADDTOCONTESTS'); ?>" >
@@ -234,7 +233,6 @@ JHtml::_('bootstrap.tooltip');
 					</script>
 					<?php endif; ?>
 				</fieldset>
-			</div>
 		</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'jveditgame', 'maintenance', JText::_('COM_JVARCADE_MAINTENANCE_GAME')); ?>
@@ -254,13 +252,11 @@ JHtml::_('bootstrap.tooltip');
 				<input class="btn hasTooltip js-stools-btn-clear" type="button" onclick="jQuery.jva.clearMaintenance();" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_CLEARMESSAGES'); ?>" >
 				<div class="clr" style="margin-top:10px;"></div>
 		</fieldset>
-	
-	
 		<fieldset class="form-horizontal">
 			<div id="maintenance-msg"></div>
 		</fieldset>
-
-	<div class="clr"></div>
+		<div class="clr"></div>
+		</div>
 	</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
 	<?php echo JHtml::_('bootstrap.endTabSet');?>

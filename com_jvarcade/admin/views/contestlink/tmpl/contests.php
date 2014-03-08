@@ -25,7 +25,6 @@ defined('_JEXEC') or die('Restricted access');
 			<th style="text-align: center;"><?php echo JText::_('COM_JVARCADE_CONTESTS_END'); ?></th>
 			<th style="text-align: center;"><?php echo JText::_('COM_JVARCADE_CONTESTS_SLOTS'); ?></th>
 			<th style="text-align: center;"><?php echo JText::_('COM_JVARCADE_CONTESTS_GAMECOUNT'); ?></th>
-			<th style="text-align: center;"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -43,11 +42,6 @@ defined('_JEXEC') or die('Restricted access');
 					<td style="text-align: center;"><?php echo jvaHelper::formatDate($obj->enddatetime); ?></td>
 					<td style="text-align: center;"><?php echo $obj->islimitedtoslots; ?></td>
 					<td style="text-align: center;"><?php echo $obj->maxplaycount; ?></td>
-					<td style="text-align: center;">
-						<a href="javascript:void(0);" onclick="jQuery.jva.deleteGameFromContest(<?php echo $obj->id; ?>, <?php echo $this->game_id; ?>, 'game')">
-							<?php echo $imgtag; ?>
-						</a>
-					</td>
 				</tr>
 		<?php
 				if ($i == 0) {
