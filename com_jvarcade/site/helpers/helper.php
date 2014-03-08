@@ -385,7 +385,7 @@ class jvarcadeHtml {
 
 	public static function booleanlist ($name, $attributes, $value, $yes, $no, $id) {
 		if (JVA_COMPATIBLE_MODE == '16') {
-			return '<fieldset id="' . $name . '" class="radio btn-group btn-group-yesno">' . JHtml::_('select.booleanlist',  $name, $attributes, $value, $yes, $no, $id) . '</fieldset>';
+			return '<fieldset id="' . $name . '" class="radio btn-group btn-group-yesno">' . str_replace(array('<div class="controls">', '</div>'), '',JHtml::_('select.booleanlist',  $name, $attributes, $value, $yes, $no, $id)) . '</fieldset>';
 		} else {
 			return '';
 		}
@@ -393,7 +393,7 @@ class jvarcadeHtml {
 
 	public static function radiolist ($item, $name, $attributes, $name1, $name2, $value, $id) {
 		if (JVA_COMPATIBLE_MODE == '16') {
-			return '<fieldset id="' . $name . '"  class="radio">' . JHtml::_('select.radiolist',  $item, $name, $attributes, $name1, $name2, $value, $id) . '</fieldset>';
+			return '<fieldset id="' . $name . '"  class="radio">' . str_replace(array('<div class="controls">', '</div>'), '',JHtml::_('select.radiolist',  $item, $name, $attributes, $name1, $name2, $value, $id)) . '</fieldset>';
 		} else {
 		}
 	}

@@ -157,7 +157,7 @@ JHtml::_('bootstrap.tooltip');
 								<label class="hasTooltip" data-original-title="<strong><?php echo htmlspecialchars(JText::_('COM_JVARCADE_GAMES_REVERSE_SCORE') . '</strong><br>' . JText::_('COM_JVARCADE_GAMES_REVERSE_SCORE_DESC'), ENT_QUOTES, 'UTF-8'); ?>"><?php echo JText::_('COM_JVARCADE_GAMES_REVERSE_SCORE'); ?></label>
 							</div>
 							<div class="controls">
-								<?php echo $this->rev_score(); ?>
+								<?php echo JHtml::_('jvarcade.html.booleanlist',  'reverse_score', 'size="1"', $this->game->reverse_score, 'JYES', 'JNO', 'grevscore'); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -167,7 +167,7 @@ JHtml::_('bootstrap.tooltip');
 								<label class="hasTooltip" data-original-title="<?php echo htmlspecialchars(JText::_('COM_JVARCADE_GAMES_SCORING') . '</strong><br>' . JText::_('COM_JVARCADE_GAMES_SCORING_DESC'), ENT_QUOTES, 'UTF-8'); ?>"><?php echo JText::_('COM_JVARCADE_GAMES_SCORING'); ?></label>
 							</div>
 							<div class="controls">
-								<?php echo $this->score_enabled(); ?>
+								<?php echo JHtml::_('jvarcade.html.booleanlist',  'scoring', 'size="1"', $this->game->scoring, 'JYES', 'JNO', 'gscoring'); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -177,7 +177,7 @@ JHtml::_('bootstrap.tooltip');
 								<label for="published"><?php echo JText::_('COM_JVARCADE_GAMES_PUBLISHED'); ?></label>
 							</div>
 							<div class="controls">
-								<?php echo $this->game_published();?>
+								<?php echo JHtml::_('jvarcade.html.booleanlist',  'published', 'size="1"', $this->game->published, 'JYES', 'JNO', 'gpublished');?>
 							</div>
 						</div>
 					</fieldset>
@@ -187,7 +187,7 @@ JHtml::_('bootstrap.tooltip');
 								<label for="mochi"><?php echo JText::_('COM_JVARCADE_GAMES_MOCHI'); ?></label>
 							</div>
 							<div class="controls">
-								<?php echo $this->game_mochi();?>
+								<?php echo JHtml::_('jvarcade.html.booleanlist',  'mochi', 'size="1"', $this->game->mochi, 'JYES', 'JNO', 'mochi');?>
 							</div>
 						</div>
 					</fieldset>
@@ -197,7 +197,7 @@ JHtml::_('bootstrap.tooltip');
 								<label for="ajaxscore" class="hasToolTip" data-original-title="<strong><?php echo htmlspecialchars(JText::_('COM_JVARCADE_GAMES_AJAXSCORE') . '</strong><br>' . JText::_('COM_JVARCADE_GAMES_AJAXSCORE_DESC'), ENT_QUOTES, 'UTF-8'); ?>"><?php echo JText::_('COM_JVARCADE_GAMES_AJAXSCORE'); ?></label>
 							</div>
 							<div class="controls">
-								<?php echo $this->ajax_score(); ?>
+								<?php echo JHtml::_('jvarcade.html.booleanlist', 'ajaxscore', 'size="1"', $this->game->ajaxscore, 'JYES', 'JNO', 'ajaxscore'); ?>
 							</div>
 						</div>
 					</fieldset>

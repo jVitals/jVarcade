@@ -128,8 +128,7 @@ class jvarcadeViewSettings extends JViewLegacy {
 				break;
 		}
 		
-		// strip this div as some of the JHtml methods add it and break our layout
-		$result = str_replace(array('<div class="controls">', '</div>'), '', $result);
+		
 		return $result;
 	}
 	

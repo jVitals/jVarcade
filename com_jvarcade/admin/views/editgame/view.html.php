@@ -95,34 +95,4 @@ class jvarcadeVieweditgame extends JViewLegacy {
 		return $list;
 	}
 	
-	function rev_score() {
-		$option = JHtml::_('jvarcade.html.booleanlist',  'reverse_score', 'size="1"', $this->game->reverse_score, 'JYES', 'JNO', 'grevscore');
-		$option = str_replace(array('<div class="controls">', '</div>'), '', $option);
-		return $option;
-	}
-	
-	function score_enabled() {
-		$option = JHtml::_('jvarcade.html.booleanlist',  'scoring', 'size="1"', $this->game->scoring, 'JYES', 'JNO', 'gscoring');
-		$option = str_replace(array('<div class="controls">', '</div>'), '', $option);
-		return $option;
-	}
-	
-	function game_published() {
-		$option = JHtml::_('jvarcade.html.booleanlist',  'published', 'size="1"', $this->game->published, 'JYES', 'JNO', 'gpublished');
-		$option = str_replace(array('<div class="controls">', '</div>'), '', $option);
-		return $option;
-	}
-	
-	function game_mochi() {
-		$option = JHtml::_('jvarcade.html.booleanlist',  'mochi', 'size="1"', $this->game->mochi, 'JYES', 'JNO', 'mochi');
-		$option = str_replace(array('<div class="controls">', '</div>'), '', $option);
-		return $option;
-	}
-	
-	function ajax_score() {
-		$option = JHtml::_('jvarcade.html.booleanlist', 'ajaxscore', 'size="1"', $this->game->ajaxscore, 'JYES', 'JNO', 'ajaxscore');
-		$option = str_replace(array('<div class="controls">', '</div>'), '', $option);
-		return $option;
-	}
-	
 }

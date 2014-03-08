@@ -15,7 +15,7 @@ JHtml::_('formbehavior.chosen', 'select');
 JHtml::_('bootstrap.tooltip');
 ?>
 <style>
-.control-label {width: 30%!important;}
+.control-label {width: 40%!important;}
 </style>
 <form action="<?php echo JRoute::_('index.php?option=com_config'); ?>" name="adminForm" id="adminForm" method="post">
 	<input type="hidden" name="config_save" value="1" />
