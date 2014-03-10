@@ -40,7 +40,7 @@ class com_jvarcadeInstallerScript {
         			$queries = $db->splitSql($query);
         				foreach ($queries as $querie) { 
             			$db->setQuery($querie);
-            			$db->query();
+            			$db->execute();
             			$error = $db->getErrorNum();
                     		if ($error) { 
                       			JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_FAILED'), 'error');

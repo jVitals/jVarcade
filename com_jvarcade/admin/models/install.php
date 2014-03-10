@@ -200,7 +200,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 										$this->db->Quote($config['background']) . "," . $this->db->Quote((int)$published) . "," . $this->db->Quote((int)$config['reverse_score']) . "," . 
 										$this->db->Quote((int)$config['scoring']) . "," . $this->db->Quote((int)$folderid) . "," . $this->db->Quote((int)$config['mochi']) . ")"
 					);
-					if(!$this->db->query()) {
+					if(!$this->db->execute()) {
 						$errormsg[] = $config['name'] . ': ' . $this->db->getErrorMsg();
 					} else {
 						$gameid = $this->db->insertid();

@@ -22,13 +22,13 @@ class plgJvarcadeC64InstallerScript {
 		// I activate the plugin
 		$db = JFactory::getDbo();
 		$tableExtensions = $db->quoteName("#__extensions");
-		$columnElement   = $db->quoteName("element");
-		$columnType      = $db->quoteName("type");
-		$columnEnabled   = $db->quoteName("enabled");
+		$columnElement = $db->quoteName("element");
+		$columnType = $db->quoteName("type");
+		$columnEnabled = $db->quoteName("enabled");
      
 		// Enable plugin
 		$db->setQuery("UPDATE $tableExtensions SET $columnEnabled=1 WHERE $columnElement='c64' AND $columnType='plugin'");
-		$db->query();
+		$db->execute();
        
 	} 
 }

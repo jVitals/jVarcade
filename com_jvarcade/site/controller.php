@@ -269,7 +269,7 @@ class jvarcadeController extends JControllerLegacy {
 			}
 			
 			$this->db->setQuery($sql);
-			$this->db->Query();
+			$this->db->execute();
 
 			echo "Vote accepted.";
 		}
@@ -330,7 +330,7 @@ class jvarcadeController extends JControllerLegacy {
 
 			// send message to super admins
 			$this->db->setQuery('SELECT id FROM #__users WHERE gid = 25');
-			$users = $this->db->loadResultArray();
+			$users = $this->db->loadColumn();
 			// Joomla PM
 			require_once (JPATH_SITE . '/administrator/components/com_messages/tables/message.php');
 			foreach ($users as $user_id) {

@@ -22,14 +22,14 @@ class plgSystemJvarcadeInstallerScript {
 		// I activate the plugin
 		$db = JFactory::getDbo();
 		$tableExtensions = $db->quoteName("#__extensions");
-		$columnElement   = $db->quoteName("element");
-		$columnType      = $db->quoteName("type");
-		$columnEnabled   = $db->quoteName("enabled");
-		$columnFolder	  = $db->quoteName("folder");
+		$columnElement = $db->quoteName("element");
+		$columnType = $db->quoteName("type");
+		$columnEnabled = $db->quoteName("enabled");
+		$columnFolder = $db->quoteName("folder");
      
 		// Enable plugin
 		$db->setQuery("UPDATE $tableExtensions SET $columnEnabled=1 WHERE $columnElement='jvarcade' AND $columnType='plugin' AND $columnFolder='system'");
-		$db->query();
+		$db->execute();
        
 	} 
 }

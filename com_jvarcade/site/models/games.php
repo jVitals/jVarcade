@@ -360,7 +360,7 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 	function increaseNumplayed($game_id) {
 		$query = 'UPDATE #__jvarcade_games SET ' . $this->dbo->quoteName('numplayed') . ' = ' . $this->dbo->quoteName('numplayed') . '+1 WHERE id = ' . $this->dbo->Quote($game_id);
 		$this->dbo->setQuery($query);
-		$this->dbo->query();
+		$this->dbo->execute();
 	}
 	
 	// FAVOURITES RELATED
@@ -380,14 +380,14 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 	function saveFavourite($game_id, $user_id) {
 		$query = 'INSERT INTO #__jvarcade_faves (userid, gid) VALUES (' . $this->dbo->Quote((int)$user_id) . ',' . $this->dbo->Quote((int)$game_id) . ')';
 		$this->dbo->setQuery($query);
-		$res = $this->dbo->query();
+		$res = $this->dbo->execute();
 		return $res;
 	}
 
 	function delFavourite($game_id, $user_id) {
 		$query = 'DELETE FROM #__jvarcade_faves WHERE userid = ' . $this->dbo->Quote((int)$user_id) . ' AND gid = ' . $this->dbo->Quote((int)$game_id);
 		$this->dbo->setQuery($query);
-		$res = $this->dbo->query();
+		$res = $this->dbo->execute();
 		return $res;
 	}
 	
@@ -407,13 +407,13 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 	function updateTagCount($gameid, $tag) {
 		$query = 'UPDATE #__jvarcade_tags SET ' . $this->dbo->quoteName('count') . ' = ' . $this->dbo->quoteName('count') . '+1 WHERE gameid = ' . $this->dbo->Quote($gameid) . ' AND tag = ' . $this->dbo->Quote($tag);
 		$this->dbo->setQuery($query);
-		$this->dbo->query();
+		$this->dbo->execute();
 	}
 
 	function addTag($gameid, $tag) {
 		$query = 'INSERT INTO #__jvarcade_tags (gameid, tag, ' . $this->dbo->quoteName('count') . ') VALUES (' . $this->dbo->Quote($gameid) . ', ' . $this->dbo->Quote($tag) . ', 1)';
 		$this->dbo->setQuery($query);
-		$this->dbo->query();
+		$this->dbo->execute();
 		return $this->dbo->insertid();
 	}
 	

@@ -155,7 +155,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			foreach ($conf as $optname => $value) {
 				$this->dbo->setQuery("UPDATE #__jvarcade_settings SET " . $this->dbo->quoteName('value') . " = " . $this->dbo->Quote($value) . " 
 					WHERE " . $this->dbo->quoteName('optname') . " = " . $this->dbo->Quote($optname) . "");
-				$this->dbo->query();
+				$this->dbo->execute();
 			}
 			$app->redirect('index.php?option=com_jvarcade&task=settings');
 			exit;
@@ -197,7 +197,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		if (isset($this->_searchfields) && is_array($this->_searchfields) && count($this->_searchfields) > 0) {
 			foreach ($this->_searchfields as $name => $value) {
 				if ($value != '') {
-					$escaped = $this->dbo->Quote( '%'.$this->dbo->getEscaped($value, true ).'%', false );
+					$escaped = $this->dbo->Quote( '%'.$this->dbo->escape($value, true ).'%', false );
 					$where[] = $name . ' LIKE ' . $escaped;
 				}
 			}
@@ -238,7 +238,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		JArrayHelper::toInteger($id, array(0));
 		$query = "DELETE FROM #__jvarcade WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
-		$this->dbo->query();
+		$this->dbo->execute();
 		$app->redirect('index.php?option=com_jvarcade&c&task=manage_scores');
 	}
 	
@@ -250,7 +250,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$query = "UPDATE #__jvarcade SET " . $this->dbo->quoteName('published') . " = " . $this->dbo->Quote((int)$published) . "
 			WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
-		$this->dbo->query();
+		$this->dbo->execute();
 		$app->redirect('index.php?option=com_jvarcade&c&task=manage_scores');
 
 	}
@@ -271,7 +271,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		if (isset($this->_searchfields) && is_array($this->_searchfields) && count($this->_searchfields) > 0) {
 			foreach ($this->_searchfields as $name => $value) {
 				if ($value != '') {
-					$escaped = $this->dbo->Quote( '%'.$this->dbo->getEscaped($value, true ).'%', false );
+					$escaped = $this->dbo->Quote( '%'.$this->dbo->escape($value, true ).'%', false );
 					$where[] = $name . ' LIKE ' . $escaped;
 				}
 			}
@@ -300,7 +300,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		JArrayHelper::toInteger($id, array(0));
 		$query = "DELETE FROM #__jvarcade_folders WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
-		$this->dbo->query();
+		$this->dbo->execute();
 		$app->redirect('index.php?option=com_jvarcade&c&task=manage_folders');
 	}
 	
@@ -312,7 +312,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$query = "UPDATE #__jvarcade_folders SET " . $this->dbo->quoteName('published') . " = " . $this->dbo->Quote((int)$published) . "
 			WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
-		$this->dbo->query();
+		$this->dbo->execute();
 		$app->redirect('index.php?option=com_jvarcade&c&task=manage_folders');
 
 	}
@@ -341,7 +341,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 				" . $this->dbo->quoteName('viewpermissions') . " = " . $this->dbo->Quote(implode(',', $viewpermissions)) . "
 			WHERE " . $this->dbo->quoteName('id') . " = " . (int)$post['id'];
 			$this->dbo->setQuery($query);
-			$this->dbo->query();
+			$this->dbo->execute();
 		} else {
 			$query = "INSERT INTO #__jvarcade_folders " . 
 						"(" . $this->dbo->quoteName('name') . ", " . $this->dbo->quoteName('alias') . ", " . $this->dbo->quoteName('description') . ", " . $this->dbo->quoteName('published') . ", " . 
@@ -349,7 +349,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 					"VALUES (" . $this->dbo->Quote($post['name']) . "," . $this->dbo->Quote($post['alias']) . "," . $this->dbo->Quote($post['description']) . "," . $this->dbo->Quote((int)$post['published']) . "," . 
 							$this->dbo->Quote((int)$post['parentid']) . "," . $this->dbo->Quote(implode(',', $viewpermissions)) . ")";
 			$this->dbo->setQuery($query);
-			$this->dbo->query();
+			$this->dbo->execute();
 			$folderid = (int)$this->dbo->insertid();
 		}
 		
@@ -375,7 +375,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 					$this->dbo->setQuery('UPDATE #__jvarcade_folders SET ' . 
 											$this->dbo->quoteName('imagename') . ' = ' . $this->dbo->Quote($folderid . $imgext) . 
 										' WHERE ' . $this->dbo->quoteName('id') . ' = ' . (int)$folderid);
-					$this->dbo->query();
+					$this->dbo->execute();
 				} else {
 					$uploaderr = JText::sprintf('COM_JVARCADE_UPLOAD_ERROR_MOVING', $imgfile['name']);
 				}
@@ -466,23 +466,23 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$query = "DELETE FROM #__jvarcade_games WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
 		
-		if ($this->dbo->query()) {
+		if ($this->dbo->execute()) {
 			$this->dbo->setQuery("DELETE FROM #__jvarcade WHERE " . $this->dbo->quoteName('gameid') . " IN (" . implode(',', $id) . ")");
-			$this->dbo->query();
+			$this->dbo->execute();
 			$this->dbo->setQuery("DELETE FROM #__jvarcade_contestgame WHERE " . $this->dbo->quoteName('gameid') . " IN (" . implode(',', $id) . ")");
-			$this->dbo->query();
+			$this->dbo->execute();
 			$this->dbo->setQuery("DELETE FROM #__jvarcade_contestscore WHERE " . $this->dbo->quoteName('gameid') . " IN (" . implode(',', $id) . ")");
-			$this->dbo->query();
+			$this->dbo->execute();
 			$this->dbo->setQuery("DELETE FROM #__jvarcade_faves WHERE " . $this->dbo->quoteName('gid') . " IN (" . implode(',', $id) . ")");
-			$this->dbo->query();
+			$this->dbo->execute();
 			$this->dbo->setQuery("DELETE FROM #__jvarcade_gamedata WHERE " . $this->dbo->quoteName('gameid') . " IN (" . implode(',', $id) . ")");
-			$this->dbo->query();
+			$this->dbo->execute();
 			$this->dbo->setQuery("DELETE FROM #__jvarcade_lastvisited WHERE " . $this->dbo->quoteName('gameid') . " IN (" . implode(',', $id) . ")");
-			$this->dbo->query();
+			$this->dbo->execute();
 			$this->dbo->setQuery("DELETE FROM #__jvarcade_ratings WHERE " . $this->dbo->quoteName('gameid') . " IN (" . implode(',', $id) . ")");
-			$this->dbo->query();
+			$this->dbo->execute();
 			$this->dbo->setQuery("DELETE FROM #__jvarcade_tags WHERE " . $this->dbo->quoteName('gameid') . " IN (" . implode(',', $id) . ")");
-			$this->dbo->query();
+			$this->dbo->execute();
 
 		}
 		
@@ -497,7 +497,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$query = "UPDATE #__jvarcade_games SET " . $this->dbo->quoteName('published') . " = " . $this->dbo->Quote((int)$published) . "
 			WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
-		$this->dbo->query();
+		$this->dbo->execute();
 		$app->redirect('index.php?option=com_jvarcade&c&task=manage_games');
 
 	}
@@ -535,7 +535,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 				" . $this->dbo->quoteName('mochi') . " = " . $this->dbo->Quote((int)$post['mochi']) . "
 			WHERE " . $this->dbo->quoteName('id') . " = " . (int)$post['id'];
 			$this->dbo->setQuery($query);
-			if (!$this->dbo->query()) $this->getDBerr();
+			if (!$this->dbo->execute()) $this->getDBerr();
 		} else {
 			$query = "INSERT INTO #__jvarcade_games " . 
 					  "(" . $this->dbo->quoteName('gamename') . ", " . $this->dbo->quoteName('title') . ", " . $this->dbo->quoteName('description') . ", " . 
@@ -549,7 +549,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 								$this->dbo->Quote((int)$post['scoring']) . "," . $this->dbo->Quote((int)$post['folderid']) . "," . $this->dbo->Quote((int)$post['window']) . "," . 
 								$this->dbo->Quote((int)$post['contentratingid']) . "," . $this->dbo->Quote((int)$post['ajaxscore']) . "," . $this->dbo->Quote((int)$post['mochi']) . ")";
 			$this->dbo->setQuery($query);
-			if (!$this->dbo->query()) $this->getDBerr();
+			if (!$this->dbo->execute()) $this->getDBerr();
 			$gameid = (int)$this->dbo->insertid();
 		}
 		
@@ -574,7 +574,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 					$this->dbo->setQuery('UPDATE #__jvarcade_games SET ' . 
 											$this->dbo->quoteName('imagename') . ' = ' . $this->dbo->Quote($gameid . '_' . $imgfile['name']) . 
 										' WHERE ' . $this->dbo->quoteName('id') . ' = ' . (int)$gameid);
-					if (!$this->dbo->query()) $this->getDBerr();
+					if (!$this->dbo->execute()) $this->getDBerr();
 				} else {
 					$uploaderr = JText::sprintf('COM_JVARCADE_UPLOAD_ERROR_MOVING', $imgfile['name']);
 				}
@@ -595,7 +595,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 					$this->dbo->setQuery('UPDATE #__jvarcade_games SET ' . 
 											$this->dbo->quoteName('filename') . ' = ' . $this->dbo->Quote($gamefile['name']) . 
 										' WHERE ' . $this->dbo->quoteName('id') . ' = ' . (int)$gameid);
-					if (!$this->dbo->query()) $this->getDBerr();
+					if (!$this->dbo->execute()) $this->getDBerr();
 				} else {
 					$uploaderr2 = JText::sprintf('COM_JVARCADE_UPLOAD_ERROR_MOVING', $gamefile['name']);
 				}
@@ -629,7 +629,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		if (isset($this->_searchfields) && is_array($this->_searchfields) && count($this->_searchfields) > 0) {
 			foreach ($this->_searchfields as $name => $value) {
 				if ($value != '') {
-					$escaped = $this->dbo->Quote( '%'.$this->dbo->getEscaped($value, true ).'%', true );
+					$escaped = $this->dbo->Quote( '%'.$this->dbo->escape($value, true ).'%', true );
 					$where[] = $name . ' LIKE ' . $escaped;
 				}
 			}
@@ -653,7 +653,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$query = "UPDATE #__jvarcade_contest SET " . $this->dbo->quoteName('published') . " = " . $this->dbo->Quote((int)$published) . "
 			WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
-		$this->dbo->query();
+		$this->dbo->execute();
 		$app->redirect('index.php?option=com_jvarcade&c&task=contests');
 
 	}
@@ -667,21 +667,21 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$query = "DELETE FROM #__jvarcade_contest WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
 		
-		if ($this->dbo->query()) {
+		if ($this->dbo->execute()) {
 			$this->dbo->setQuery("DELETE FROM #__jvarcade_contestgame WHERE " . $this->dbo->quoteName('contestid') . " IN (" . implode(',', $id) . ")");
-			$this->dbo->query();
+			$this->dbo->execute();
 			$this->dbo->setQuery("DELETE FROM #__jvarcade_contestmember WHERE " . $this->dbo->quoteName('contestid') . " IN (" . implode(',', $id) . ")");
-			$this->dbo->query();
+			$this->dbo->execute();
 			$this->dbo->setQuery("DELETE FROM #__jvarcade_contenstscore WHERE " . $this->dbo->quoteName('contestid') . " IN (" . implode(',', $id) . ")");
-			$this->dbo->query();
+			$this->dbo->execute();
 			
 			$this->dbo->setQuery("SELECT id FROM #__jvarcade_leaderboard WHERE " . $this->dbo->quoteName('contestid') . " IN (" . implode(',', $id) . ")");
-			$ids = $this->dbo->loadResultArray();
+			$ids = $this->dbo->loadColumn();
 			if (is_array($ids) && count($ids)) {
 				$this->dbo->setQuery("DELETE FROM #__jvarcade_leaderboard WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $ids) . ")");
-				$this->dbo->query();
+				$this->dbo->execute();
 				$this->dbo->setQuery("DELETE FROM #__jvarcade_leaderboarddetail WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $ids) . ")");
-				$this->dbo->query();
+				$this->dbo->execute();
 			}
 		}
 		
@@ -711,7 +711,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 				" . $this->dbo->quoteName('maxplaycount') . " = " . $this->dbo->Quote((int)$post['maxplaycount']) . "
 			WHERE " . $this->dbo->quoteName('id') . " = " . (int)$post['id'];
 			$this->dbo->setQuery($query);
-			$this->dbo->query();
+			$this->dbo->execute();
 		} else {
 			$query = "INSERT INTO #__jvarcade_contest " . 
 					  "(" . $this->dbo->quoteName('name') . ", " . $this->dbo->quoteName('description') . ", " . $this->dbo->quoteName('startdatetime') . ", " . 
@@ -721,7 +721,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 								$this->dbo->Quote($post['enddatetime']) . "," . $this->dbo->Quote((int)$post['islimitedtoslots']) . "," . $this->dbo->Quote((int)$post['published']) . "," . 
 								$this->dbo->Quote((int)$post['hasadvertisedstarted']) . "," . $this->dbo->Quote((int)$post['hasadvertisedended']) . "," . $this->dbo->Quote((int)$post['maxplaycount']) . ")";
 			$this->dbo->setQuery($query);
-			$this->dbo->query();
+			$this->dbo->execute();
 			$contestid = (int)$this->dbo->insertid();
 		}
 		
@@ -746,7 +746,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 					$this->dbo->setQuery('UPDATE #__jvarcade_contest SET ' . 
 											$this->dbo->quoteName('imagename') . ' = ' . $this->dbo->Quote($contestid . '_' . $imgfile['name']) . 
 										' WHERE ' . $this->dbo->quoteName('id') . ' = ' . (int)$contestid);
-					$this->dbo->query();
+					$this->dbo->execute();
 				} else {
 					$uploaderr = JText::sprintf('COM_JVARCADE_UPLOAD_ERROR_MOVING', $imgfile['name']);
 				}
@@ -781,7 +781,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			}
 			$query .= implode(', ',$q);
 			$this->dbo->setQuery($query);
-			if($this->dbo->query()) {
+			if($this->dbo->execute()) {
 				return true;
 			}
 		}
@@ -816,7 +816,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			foreach ($game_ids as $game_id) {
 				foreach ($contest_ids as $contest_id) {
 					$this->dbo->setQuery('DELETE FROM #__jvarcade_contestgame WHERE ' . $this->dbo->quoteName('gameid') . ' = ' . (int)$game_id . ' AND ' . $this->dbo->quoteName('contestid') . ' = ' . (int)$contest_id);
-					if (!(int)$this->dbo->query()) {
+					if (!(int)$this->dbo->execute()) {
 						$return = false;
 					}
 				}
@@ -859,7 +859,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$query = "UPDATE #__jvarcade_contentrating SET " . $this->dbo->quoteName('published') . " = " . $this->dbo->Quote((int)$published) . "
 			WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
-		$this->dbo->query();
+		$this->dbo->execute();
 		$app->redirect('index.php?option=com_jvarcade&c&task=content_ratings');
 
 	}
@@ -882,7 +882,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 				" . $this->dbo->quoteName('published') . " = " . $this->dbo->Quote((int)$post['published']) . "
 			WHERE " . $this->dbo->quoteName('id') . " = " . $contentratingid;
 			$this->dbo->setQuery($query);
-			$this->dbo->query();
+			$this->dbo->execute();
 		} else {
 			$query = "INSERT INTO #__jvarcade_contentrating " . 
 					  "(" . $this->dbo->quoteName('name') . ", " . $this->dbo->quoteName('description') . ", " . 
@@ -890,7 +890,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 					"VALUES (" . $this->dbo->Quote($post['name']) . "," . $this->dbo->Quote($post['description']) . "," .
 								$this->dbo->Quote((int)$post['warningrequired']) . "," . $this->dbo->Quote((int)$post['published']) . ")";
 			$this->dbo->setQuery($query);
-			$this->dbo->query();
+			$this->dbo->execute();
 			$contentratingid = (int)$this->dbo->insertid();
 		}
 		
@@ -915,7 +915,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 					$this->dbo->setQuery('UPDATE #__jvarcade_contentrating SET ' . 
 											$this->dbo->quoteName('imagename') . ' = ' . $this->dbo->Quote($contentratingid . '_' . $imgfile['name']) . 
 										' WHERE ' . $this->dbo->quoteName('id') . ' = ' . (int)$contentratingid);
-					$this->dbo->query();
+					$this->dbo->execute();
 				} else {
 					$uploaderr = JText::sprintf('COM_JVARCADE_UPLOAD_ERROR_MOVING', $imgfile['name']);
 				}
@@ -941,7 +941,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		
 		$query = "DELETE FROM #__jvarcade_contentrating WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
-		$this->dbo->query();
+		$this->dbo->execute();
 		$app->redirect('index.php?option=com_jvarcade&c&task=content_ratings');
 	}
 	
@@ -949,7 +949,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		//First clear out the old data
 		$query = 'DELETE FROM #__jvarcade_leaderboard WHERE ' . $this->dbo->quoteName('contestid') . ' = ' . (int)$contest_id;
 		$this->dbo->setQuery($query);
-		if (!$this->dbo->query()){
+		if (!$this->dbo->execute()){
 			return false;
 		}
 		
@@ -1020,7 +1020,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		}
 
 		$this->dbo->setQuery('INSERT INTO #__jvarcade_leaderboard(' . $this->dbo->quoteName('contestid') . ', ' . $this->dbo->quoteName('userid') . ', ' . $this->dbo->quoteName('points') . ') VALUES ' . implode(',', $qarr));
-		if (!count($qarr) || $this->dbo->query()) {
+		if (!count($qarr) || $this->dbo->execute()) {
 			$global_conf = JFactory::getConfig();
 			$path = $global_conf->get('tmp_path') . '/' . 'lb_' . $contest_id . '.txt';
 			if (file_exists($path)) unlink($path);
@@ -1145,9 +1145,9 @@ class jvarcadeModelCommon extends JModelLegacy {
 				break;
 		}
 		if ($sql) {
-			$this->dbo->debug(0);
+			$this->dbo->setDebug(0);
 			$this->dbo->setQuery($sql);
-			if ($this->dbo->query()) {
+			if ($this->dbo->execute()) {
 				$result = 1;
 			}
 		}

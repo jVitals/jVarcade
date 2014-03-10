@@ -65,7 +65,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 	
 	function deleteScore($id) {
 		$this->dbo->setQuery('DELETE FROM #__jvarcade WHERE ' . $this->dbo->quoteName('id') . ' = ' . $this->dbo->Quote($id));
-		return $this->dbo->query();
+		return $this->dbo->execute();
 	}
 	
 	function saveScore($game_id, $game_title, $userid, $username, $score, $highestscore, $trigger) {
@@ -82,7 +82,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 									$this->dbo->quoteName('ip') . ' = ' . $this->dbo->Quote($player_ip) . ', ' . 
 									$this->dbo->quoteName('date') . ' = ' . $this->dbo->Quote(date('Y-m-d H:i:s')) . 
 								' WHERE ' . $this->dbo->quoteName('id') . ' = ' . $this->dbo->Quote($scoreid));
-			if (!$scoreid || !$this->dbo->query()) {
+			if (!$scoreid || !$this->dbo->execute()) {
 				$res = 0;
 			} else {
 				$res = 1;
@@ -92,7 +92,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 									$this->dbo->quoteName('ip') . ', ' . $this->dbo->quoteName('gameid') . ', ' . $this->dbo->quoteName('date') . ') ' . 
 								' VALUES (' . $this->dbo->Quote($userid) . ',' . $this->dbo->Quote($score) . ',' . $this->dbo->Quote($player_ip) . ',' . 
 											$this->dbo->Quote($game_id) . ',' . $this->dbo->Quote(date('Y-m-d H:i:s')) . ')');
-			if (!$this->dbo->query()) {
+			if (!$this->dbo->execute()) {
 				$res = 0;
 			} else {
 				$scoreid = $this->dbo->insertid();
@@ -135,7 +135,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		}
 		$this->dbo->setquery($sql);
 
-		if (!$this->dbo->query()) {
+		if (!$this->dbo->execute()) {
 			return false;
 		}
 		return true;
@@ -299,13 +299,13 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 			if (!(int)$this->dbo->loadResult()) {
 				$sql = 'INSERT INTO #__jvarcade_contestmember (contestid, userid) VALUES (' . (int)$contest_id . ', ' . (int) $user_id . ')';
 				$this->dbo->setQuery($sql);
-				$this->dbo->query();
+				$this->dbo->execute();
 			}
 		} else {
 			// unregister
 			$sql = 'DELETE FROM #__jvarcade_contestmember WHERE contestid = ' . (int)$contest_id . ' AND userid = ' . (int) $user_id;
 			$this->dbo->setQuery($sql);
-			$this->dbo->query();
+			$this->dbo->execute();
 		}
 	}
 	
@@ -354,7 +354,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 						$this->dbo->setQuery($sql);
 					}
 					
-					if ($this->dbo->query() && $goodscore) {
+					if ($this->dbo->execute() && $goodscore) {
 						$dispatcher->trigger('onPUAScoreSaved', array($game_id, $game_title, $userid, $username, $score, $contest_id, $contest_name));
 						$this->setUpdateLeaderBoard($contest_id);
 						// ADD TO MSG QUEUE INFO THAT SCORE WAS SAVED FOR THIS CONTEST
@@ -403,7 +403,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		//First clear out the old data
 		$query = 'DELETE FROM #__jvarcade_leaderboard WHERE ' . $this->dbo->quoteName('contestid') . ' = ' . (int)$contest_id;
 		$this->dbo->setQuery($query);
-		if (!$this->dbo->query()){
+		if (!$this->dbo->execute()){
 			return false;
 		}
 		
@@ -474,7 +474,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		}
 
 		$this->dbo->setQuery('INSERT INTO #__jvarcade_leaderboard(' . $this->dbo->quoteName('contestid') . ', ' . $this->dbo->quoteName('userid') . ', ' . $this->dbo->quoteName('points') . ') VALUES ' . implode(',', $qarr));
-		if (!count($qarr) || $this->dbo->Query()) {
+		if (!count($qarr) || $this->dbo->execute()) {
 			$path = $this->global_conf->get('tmp_path') . '/' . 'lb_' . $contest_id . '.txt';
 			unlink($path);
 			return true;

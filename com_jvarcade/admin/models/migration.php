@@ -141,7 +141,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 			// create the temp table
 			$query = 'DROP TABLE IF EXISTS `#__tmp_contentrating`';
 			$this->dbo->setQuery($query);
-			$this->dbo->query();
+			$this->dbo->execute();
 			
 			$query =
 			'CREATE TABLE `#__tmp_contentrating` (
@@ -151,7 +151,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 			UNIQUE(`jva_id`)
 			) Type=MyISAM';
 			$this->dbo->setQuery($query);
-			$this->dbo->query();
+			$this->dbo->execute();
 			
 			if (is_array($results) && count($results)) {
 				foreach ($results as $result) {
@@ -162,7 +162,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 					. $this->dbo->Quote($result->description) . ', '
 					. $this->dbo->Quote($result->warningrequired) . ', '
 					. $this->dbo->Quote($result->published) . ')');
-					$this->dbo->query();
+					$this->dbo->execute();
 					if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 					
 					// update and copy the image
@@ -170,14 +170,14 @@ class jvarcadeModelMigration extends JModelLegacy {
 					if ($result->imagename && file_exists($this->old_imagepath . $result->imagename)) {
 						$imagename = $jva_id . '_' . $result->imagename;
 						$this->dbo->setQuery('UPDATE #__jvarcade_contentrating SET imagename = ' . $this->dbo->Quote($imagename) . ' WHERE id = ' . (int)$jva_id);
-						$this->dbo->query();
+						$this->dbo->execute();
 						if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 						@copy($this->old_imagepath . $result->imagename, $this->new_imagepath . 'contentrating' . '/' . $imagename);
 					}
 					
 					// insert in the temp table
 					$this->dbo->setQuery('INSERT INTO #__tmp_contentrating (pua_id, jva_id) VALUES(' . (int)$result->id . ', ' . (int)$jva_id . ')');
-					$this->dbo->query();
+					$this->dbo->execute();
 					if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 				}
 			}
@@ -194,7 +194,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 			// create the temp table
 			$query = 'DROP TABLE IF EXISTS `#__tmp_contest`';
 			$this->dbo->setQuery($query);
-			$this->dbo->query();
+			$this->dbo->execute();
 			
 			$query =
 			'CREATE TABLE `#__tmp_contest` (
@@ -204,7 +204,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 			UNIQUE(`jva_id`)
 			) Type=MyISAM';
 			$this->dbo->setQuery($query);
-			$this->dbo->query();
+			$this->dbo->execute();
 			
 			if (is_array($results) && count($results)) {
 				foreach ($results as $result) {
@@ -222,7 +222,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 					. $this->dbo->Quote($result->hasadvertisedstarted) . ', '
 					. $this->dbo->Quote($result->hasadvertisedended) . ', '
 					. $this->dbo->Quote($result->maxplaycount) . ')');
-					$this->dbo->query();
+					$this->dbo->execute();
 					if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 					
 					// update and copy the image
@@ -230,14 +230,14 @@ class jvarcadeModelMigration extends JModelLegacy {
 					if ($result->imagename && file_exists($this->old_imagepath . $result->imagename)) {					
 						$imagename = $jva_id . '_' . $result->imagename;
 						$this->dbo->setQuery('UPDATE #__jvarcade_contest SET imagename = ' . $this->dbo->Quote($imagename) . ' WHERE id = ' . (int)$jva_id);
-						$this->dbo->query();
+						$this->dbo->execute();
 						if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 						@copy($this->old_imagepath . $result->imagename, $this->new_imagepath . 'contests' . '/' . $imagename);
 					}
 					
 					// insert in the temp table
 					$this->dbo->setQuery('INSERT INTO #__tmp_contest (pua_id, jva_id) VALUES(' . (int)$result->id . ', ' . (int)$jva_id . ')');
-					$this->dbo->query();
+					$this->dbo->execute();
 					if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 				}
 			}
@@ -256,7 +256,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 			// create the temp table
 			$query = 'DROP TABLE IF EXISTS `#__tmp_folders`';
 			$this->dbo->setQuery($query);
-			$this->dbo->query();
+			$this->dbo->execute();
 			
 			$query =
 			'CREATE TABLE `#__tmp_folders` (
@@ -266,7 +266,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 			UNIQUE(`jva_id`)
 			) Type=MyISAM';
 			$this->dbo->setQuery($query);
-			$this->dbo->query();
+			$this->dbo->execute();
 			
 			if (is_array($results) && count($results)) {
 				foreach ($results as $result) {
@@ -287,7 +287,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 						. $this->dbo->Quote($result->published) . ', '
 						. $this->dbo->Quote((int)$parentid) . ', '
 						. $this->dbo->Quote($result->viewpermissions) . ')');
-						$this->dbo->query();
+						$this->dbo->execute();
 						if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 						
 						// update and copy the image
@@ -295,7 +295,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 						if ($result->imagename && file_exists($this->old_imagepath . $result->imagename)) {
 							$imagename = $jva_id . '_' . $result->imagename;
 							$this->dbo->setQuery('UPDATE #__jvarcade_folders SET imagename = ' . $this->dbo->Quote($imagename) . ' WHERE id = ' . (int)$jva_id);
-							$this->dbo->query();
+							$this->dbo->execute();
 							if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 							@copy($this->old_imagepath . $result->imagename, $this->new_imagepath . 'folders/' . $imagename);
 						}
@@ -304,7 +304,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 					// insert in the temp table
 					$folders[(int)$pua_id] = (int)$jva_id;
 					$this->dbo->setQuery('INSERT INTO #__tmp_folders (pua_id, jva_id) VALUES(' . (int)$pua_id . ', ' . (int)$jva_id . ')');
-					$this->dbo->query();
+					$this->dbo->execute();
 					if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 				}
 			}
@@ -325,7 +325,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 			// create the temp table
 			$query = 'DROP TABLE IF EXISTS `#__tmp_games`';
 			$this->dbo->setQuery($query);
-			$this->dbo->query();
+			$this->dbo->execute();
 			
 			$query =
 			'CREATE TABLE `#__tmp_games` (
@@ -335,7 +335,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 			UNIQUE(`jva_id`)
 			) Type=MyISAM';
 			$this->dbo->setQuery($query);
-			$this->dbo->query();
+			$this->dbo->execute();
 			
 			if (is_array($results) && count($results)) {
 				foreach ($results as $i => $result) {
@@ -371,7 +371,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 						. $this->dbo->Quote($contentratingid) . ', ' 
 						. $this->dbo->Quote($result->mochi) . ', ' 
 						. $this->dbo->Quote($result->author) . ')');
-						$this->dbo->query();
+						$this->dbo->execute();
 						if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 						
 						// update and copy the image
@@ -379,7 +379,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 						if ($result->imagename && file_exists($this->old_fileimagepath . $result->imagename)) {
 							$imagename = $jva_id . '_' . $result->imagename;
 							$this->dbo->setQuery('UPDATE #__jvarcade_games SET imagename = ' . $this->dbo->Quote($imagename) . ' WHERE id = ' . (int)$jva_id);
-							$this->dbo->query();
+							$this->dbo->execute();
 							if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 							@copy($this->old_fileimagepath . $result->imagename, $this->new_imagepath . 'games' . '/' . $imagename);
 						}
@@ -390,7 +390,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 					// insert in the temp table
 					$folders[(int)$pua_id] = (int)$jva_id;
 					$this->dbo->setQuery('INSERT INTO #__tmp_games (pua_id, jva_id) VALUES(' . (int)$pua_id . ', ' . (int)$jva_id . ')');
-					$this->dbo->query();
+					$this->dbo->execute();
 					if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 					
 					if ($i%500 == 0) set_time_limit(30);
@@ -416,7 +416,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 					if (!$fav_exists) {
 						// insert the record
 						$this->dbo->setQuery('INSERT INTO #__jvarcade_faves(userid, gid) VALUES (' . $this->dbo->Quote($result->userid) . ', ' . $this->dbo->Quote($gameid) . ')');
-						$this->dbo->query();
+						$this->dbo->execute();
 						if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 					}
 					if ($i%500 == 0) set_time_limit(30);
@@ -442,7 +442,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 					if (!$tag_exists) {
 						// insert the record
 						$this->dbo->setQuery('INSERT INTO #__jvarcade_tags(tag, count, gameid) VALUES (' . $this->dbo->Quote($result->tag) . ', ' . $this->dbo->Quote($result->count) . ', ' . $this->dbo->Quote($gameid) . ')');
-						$this->dbo->query();
+						$this->dbo->execute();
 						if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 					}
 					if ($i%500 == 0) set_time_limit(30);
@@ -476,7 +476,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 												. 'used_ids = ' . $this->dbo->Quote($result->used_ids)
 											. ' WHERE gameid = ' . $this->dbo->Quote($gameid));
 					}
-					$this->dbo->query();
+					$this->dbo->execute();
 					if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 					if ($i%500 == 0) set_time_limit(30);
 				}
@@ -511,7 +511,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 											. ' WHERE gameid = ' . $this->dbo->Quote($gameid)
 											. ' AND userid = ' . $this->dbo->Quote($result->userid));
 					}
-					$this->dbo->query();
+					$this->dbo->execute();
 					if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 					if ($i%500 == 0) set_time_limit(30);
 				}
@@ -538,7 +538,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 					if (!$id_exists) {
 						// insert the record
 						$this->dbo->setQuery('INSERT INTO #__jvarcade_contestgame (contestid, gameid) VALUES (' . $this->dbo->Quote($contestid) . ', ' . $this->dbo->Quote($gameid) . ')');
-						$this->dbo->query();
+						$this->dbo->execute();
 						if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 					}
 					if ($i%500 == 0) set_time_limit(30);
@@ -564,7 +564,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 					if (!$id_exists) {
 						// insert the record
 						$this->dbo->setQuery('INSERT INTO #__jvarcade_contestmember (contestid, userid, dateregistered) VALUES (' . $this->dbo->Quote($contestid) . ', ' . $this->dbo->Quote($result->userid) . ', ' . $this->dbo->Quote($result->dateregistered) . ')');
-						$this->dbo->query();
+						$this->dbo->execute();
 						if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 					}
 					if ($i%500 == 0) set_time_limit(30);
@@ -604,7 +604,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 											. ' AND userid = ' . $this->dbo->Quote($result->userid)
 											. ' AND contestid = ' . $this->dbo->Quote($contestid));
 					}
-					$this->dbo->query();
+					$this->dbo->execute();
 					if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 					if ($i%500 == 0) set_time_limit(30);
 				}
@@ -628,7 +628,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 				if(in_array($name, array('games_dir', 'games_images_dir', 'comments', 'installed_version', 'TagPerms'))) continue;
 				$optname = isset($changes[$name]) ? $changes[$name] : $name;
 				$this->dbo->setQuery('UPDATE #__jvarcade_settings SET value = ' . $this->dbo->Quote($value) . ' WHERE optname = ' . $this->dbo->Quote($optname));
-				$this->dbo->query();
+				$this->dbo->execute();
 				if ($this->dbo->getErrorMsg()) $this->setMsg($this->dbo->getErrorMsg(), 'warn');
 			}
 		}
