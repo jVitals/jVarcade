@@ -19,11 +19,11 @@ class jvarcadeVieweditcontest extends JViewLegacy {
 	function display($tpl = null) {
 		
 		$model = $this->getModel();
-		$mainframe = JFactory::getApplication();
-		$task = $mainframe->input->get('task', 'editcontest');
+		$app = JFactory::getApplication();
+		$task = $app->input->get('task', 'editcontest');
 		$this->assignRef('task', $task);
 
-		$contestid = JRequest::getVar('id', 0);
+		$contestid = $app->input->getInt('id', 0);
 		if (is_array($contestid)) $contestid = $contestid[0];
 		
 		if ($task == 'addcontest') {

@@ -19,20 +19,20 @@ class jvarcadeViewContestlink extends JViewLegacy {
 	function display($tpl = null) {
 
 		$model = $this->getModel();
-		
-		$task = JRequest::getVar('task', 'showcontestgames');
+		$app = JFactory::getApplication();
+		$task = $app->input->getWord('task', 'showcontestgames');
 		$this->assignRef('task', $task);
 		
 		if ($task == 'showcontestgames') {
 		
-			$contest_id = JRequest::getVar('contest_id', 0);
+			$contest_id = $app->input->getInt('contest_id', 0);
 			$games = $model->getContestGames($contest_id);
 			$this->assignRef('contest_id', $contest_id);
 			$this->assignRef('games', $games);
 
 		} else if ($task == 'showgamecontests') {
 		
-			$game_id = JRequest::getVar('game_id', 0);
+			$game_id = $app->input->getInt('game_id', 0);
 			$contests = $model->getGameContests($game_id);
 			$this->assignRef('game_id', $game_id);
 			$this->assignRef('contests', $contests);

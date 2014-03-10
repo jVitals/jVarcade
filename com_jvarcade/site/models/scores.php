@@ -69,7 +69,8 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 	}
 	
 	function saveScore($game_id, $game_title, $userid, $username, $score, $highestscore, $trigger) {
-		$player_ip = JRequest::getString('REMOTE_ADDR', '', 'SERVER');
+		$app = JFactory::getApplication();
+		$player_ip = $app->input->server->get('REMOTE_ADDR', '0.0.0.0', 'raw');
 		$res = 0;
 		
 		if ($highestscore != 0) {
@@ -311,8 +312,8 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 	
 	function registerScore($game_id, $game_title, $userid, $username, $score, $reverse) {
 		$app = JFactory::getApplication();
+		$player_ip = $app->input->server->get('REMOTE_ADDR', '0.0.0.0', 'raw');
 		$dispatcher = JDispatcher::getInstance();
-		$player_ip = JRequest::getString('REMOTE_ADDR', '', 'SERVER');
 		$contests = $this->getContestsByGame($game_id);
 		$current_score = $score;
 		

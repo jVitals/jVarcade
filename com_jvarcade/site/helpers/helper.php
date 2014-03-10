@@ -399,6 +399,7 @@ class jvarcadeHtml {
 	}
 	
 	public static function sort($title, $order, $direction = 'asc', $selected = 0, $sort_url, $new_direction = 'asc', $task = null) {
+		$app = JFactory::getApplication();
 		$linktitle = JText::_('JGLOBAL_CLICK_TO_SORT_THIS_COLUMN');
 		$direction = strtolower($direction);
 		$images = array('sort_asc.png', 'sort_desc.png');
@@ -410,7 +411,7 @@ class jvarcadeHtml {
 			$direction = ($direction == 'desc') ? 'asc' : 'desc';
 		}
 		
-		$sort_url .= ((int)JRequest::getVar('limitstart') ? '&limitstart=' . JRequest::getVar('limitstart')  : '') . '&filter_order=' . $order . '&filter_order_Dir=' . $direction;
+		$sort_url .= ($app->input->getInt('limitstart', 0) ? '&limitstart=' . $app->input->getInt('limitstart', 0)  : '') . '&filter_order=' . $order . '&filter_order_Dir=' . $direction;
 		
 		$html = '<a href="' . JRoute::_($sort_url) . '" rel="nofollow" title="' . $linktitle . '">';
 		$html .= JText::_($title);

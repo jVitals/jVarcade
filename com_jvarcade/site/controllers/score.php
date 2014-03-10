@@ -38,10 +38,10 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	*/
 
 	function arcade() {
-	
+		$app = JFactory::getApplication();
 		// V3 game
 		if (isset($_REQUEST['sessdo'])) {
-			$sessdo = strtolower(JRequest::getString ('sessdo', ''));
+			$sessdo = strtolower($app->input->getString('sessdo', ''));
 			if ($sessdo != '') {
 				$this->startSession();
 				// work out what we are going to do with this request
@@ -64,7 +64,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 
 		// V32 game
 		if (isset($_REQUEST['do'])) {
-			$sessdo = strtolower(JRequest::getString ('do', ''));
+			$sessdo = strtolower($app->input->getString('do', ''));
 			if($sessdo == 'verifyscore') {
 				$this->handleV32ScoreRequest();
 			}
@@ -79,20 +79,21 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	}
 
 	function v3() {
-		
+		$app = JFactory::getApplication();
 		// V3 support
-	//$act = strtolower(JRequest::getWord( 'act', '' ));
-		//if($act == 'arcade') {
+		// $act = strtolower($app->input->getWord( 'act', '' ));
+		// if($act == 'arcade') {
 			$this->startSession();
 			$this->handleV3ScoreSubmit();
-		//}
+		// }
 	}
 	
 	function v32() {
+		$app = JFactory::getApplication();
 		// V32 support
-		//$auto = strtolower(JRequest::getWord('autocom', ''));
-		$sessdo = strtolower(JRequest::getWord('do', ''));
-		//if($auto == 'arcade'){
+		// $auto = strtolower($app->input->getWord('autocom', ''));
+		$sessdo = strtolower($app->input->getWord('do', ''));
+		// if($auto == 'arcade'){
 			$this->startSession();
 			switch($sessdo) {
 				case 'sessionstart' :
@@ -105,14 +106,15 @@ class jvarcadeControllerScore extends JControllerLegacy {
 					$this->handleV32ScoreSubmit();
 					break;
 			}
-		//}
+		// }
 	}
 	
 	function pnflash() {
+		$app = JFactory::getApplication();
 		// pnflashgames support (it seems they can be submitted either by get or post data)
-		$module = strtolower(JRequest::getWord('module', ''));
-		$arcade = strtolower(JRequest::getWord('arcade', ''));
-		$func = strtolower(JRequest::getWord('func', ''));
+		$module = strtolower($app->input->getWord('module', ''));
+		$arcade = strtolower($app->input->getWord('arcade', ''));
+		$func = strtolower($app->input->getWord('func', ''));
 		if ($module == 'pnflashgames' || $arcade == 'storescore' || $func == 'storescore') {
 			$this->startSession();
 			
@@ -144,12 +146,13 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	// Handle PhpBB games
 	
 	function handlePhpbbScoreSubmit() {
-		$game_name = JRequest::getString('game_name', '');
-		$gamename = JRequest::getString('gamename', '');
-		$gname  = JRequest::getString('gname', '');
-		$gscore = JRequest::getInt('gscore', 0);
-		$score = JRequest::getInt('score', 0);
-		$ajaxscore = JRequest::getInt('ajaxscore', 0);
+		$app = JFactory::getApplication();
+		$game_name = $app->input->getString('game_name', '');
+		$gamename = $app->input->getString('gamename', '');
+		$gname  = $app->input->getString('gname', '');
+		$gscore = $app->input->getInt('gscore', 0);
+		$score = $app->input->getInt('score', 0);
+		$ajaxscore = $app->input->getInt('ajaxscore', 0);
 		
 		if (strlen($gamename) > strlen($game_name) && strlen($gamename) > strlen($gname)){
 			$jva_gname = $gamename;
@@ -177,7 +180,8 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	// Handle V3 games
 	
 	function handleV3SessionStart() {
-		$gname = JRequest::getString('gamename', '');
+		$app = JFactory::getApplication();
+		$gname = $app->input->getString('gamename', '');
 		$starttime = mktime();
 		$randnum = rand(1,10);
 		$this->_session->set('session_g', $gname, 'jvarcade');
@@ -189,8 +193,9 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	}
 	
 	function handleV3ScoreRequest() {
-		$score = JRequest::getInt('score', 0);
-		$fakekey = JRequest::getString('fakekey', '');
+		$app = JFactory::getApplication();
+		$score = $app->input->getInt('score', 0);
+		$fakekey = $app->input->getString('fakekey', '');
 		$mtime = microtime();
 		$this->_session->set('session_score',$score, 'jvarcade');
 		// old signal..
@@ -201,12 +206,13 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	}
 	
 	function handleV3ScoreSubmit() {
+		$app = JFactory::getApplication();
 		if (isset( $_REQUEST['gscore'])) {
-			$score = JRequest::getInt('gscore',0);
+			$score = $app->input->getInt('gscore',0);
 			$this->_session->set('session_score', $score, 'jvarcade');
 		}
 		if (isset( $_REQUEST['gname'])) {
-			$gname = JRequest::getString('gname','');
+			$gname = $app->input->getString('gname','');
 			$this->_session->set('session_g',$gname, 'jvarcade');
 		}
 		$this->_session->set('session_endtime', time(), 'jvarcade');
@@ -216,17 +222,18 @@ class jvarcadeControllerScore extends JControllerLegacy {
 
 	// Handle V32 games
 	
-	function handleV32ScoreRequest () {
+	function handleV32ScoreRequest() {
 		// select the random elements and pass back to the game for its encryption routine (cant do this unless we can save them away)
 		//$this->randchar_1 = rand(1,10);
 		//$this->randchar_2 = rand(1,10);
 		echo "&randchar=" . $this->randchar_1 . "&randchar2=" . $this->randchar_2 . "&savescore=1&blah=OK";
 	}
 	
-	function handleV32ScoreSubmit () {
-		$gscore_real = JRequest::getInt('gscore', 0);
-		$gscore = JRequest::getInt('enscore', 0);
-		$gname = JRequest::getString('gname', '');
+	function handleV32ScoreSubmit() {
+		$app = JFactory::getApplication();
+		$gscore_real = $app->input->getInt('gscore', 0);
+		$gscore = $app->input->getInt('enscore', 0);
+		$gname = $app->input->getString('gname', '');
 
 		// secure scoring
 		if ($this->securescoring ) {
@@ -254,11 +261,12 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	
 	// Handle Pnflash games
 	
-	function handlePnflashScoreSubmit () {
-		$gid = JRequest::getInt('gid' , 0);
-		$func = JRequest::getString('func', '');
-		$score = JRequest::getInt('score', null);
-		$gamedata = JRequest::getString ('gameData', '');
+	function handlePnflashScoreSubmit() {
+		$app = JFactory::getApplication();
+		$gid = $app->input->getInt('gid' , 0);
+		$func = $app->input->getString('func', '');
+		$score = $app->input->getInt('score', null);
+		$gamedata = $app->input->getString('gameData', '');
 		
 		$this->_session->set('session_endtime', time(), 'jvarcade');
 		$this->_session->set('session_g', $gid, 'jvarcade');

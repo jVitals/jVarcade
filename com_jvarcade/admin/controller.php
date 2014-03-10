@@ -217,11 +217,14 @@ class jvarcadeController extends JControllerLegacy {
 	}
 
 	function savegametocontest() {
-		$game_ids = JRequest::getVar('game_ids', '');
-		$contest_ids = JRequest::getVar('contest_ids', '');
+		$app = JFactory::getApplication();
+		$game_ids = $app->input->getString('game_ids', '');
+		$contest_ids = $app->input->getString('contest_id', '');
 		if ($game_ids && $contest_ids) {
 			$game_ids = explode(',', $game_ids);
+			JArrayHelper::toInteger($game_ids);
 			$contest_ids = explode(',', $contest_ids);
+			JArrayHelper::toInteger($contest_ids);
 			$model = $this->getModel('Common');
 			if($model->addGameToContest($game_ids, $contest_ids)) {
 				echo JText::_('COM_JVARCADE_CONTESTSLINK_SAVE_SUCCESS');
@@ -251,11 +254,14 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	function deletegamefromcontest() {
-		$game_ids = JRequest::getVar('game_id', '');
-		$contest_ids = JRequest::getVar('contest_id', '');
+		$app = JFactory::getApplication();
+		$game_ids = $app->input->getString('game_id', '');
+		$contest_ids = $app->input->getString('contest_id', '');
 		if ($game_ids && $contest_ids) {
 			$game_ids = explode(',', $game_ids);
+			JArrayHelper::toInteger($game_ids);
 			$contest_ids = explode(',', $contest_ids);
+			JArrayHelper::toInteger($contest_ids);
 			$model = $this->getModel('Common');
 			if($model->deleteGameFromContest($game_ids, $contest_ids)) {
 				echo 1;
@@ -291,14 +297,15 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	function domaintenance() {
-		$service = JRequest::getVar('service', '');
-		$context = JRequest::getVar('context', '');
-		$gameid = (int)JRequest::getVar('gameid', 0);
-		$contestid = (int)JRequest::getVar('contestid', 0);
+		$app = JFactory::getApplication();
+		$service = $app->input->getWord('service', '');
+		$context = $app->input->getWord('context', '');
+		$gameid = $app->input->getInt('gameid', 0);
+		$contestid = $app->input->getInt('contestid', 0);
 		$model = $this->getModel('Common');
 		$jsonDATA = $model->doMaintenance($service, $context, $gameid, $contestid);
-		JRequest::setVar('tmpl', 'component');
-		JRequest::setVar('format', 'raw');
+		$app->input->set('tmpl', 'component');
+		$app->input->set('format', 'raw');
 		$doc = JFactory::getDocument();
 		$doc->setMimeEncoding('application/json', false);
 		echo json_encode($jsonDATA);
@@ -306,11 +313,12 @@ class jvarcadeController extends JControllerLegacy {
 	}
 
 	function domigration() {
-		$step = (int)JRequest::getVar('step', '');
+		$app = JFactory::getApplication();
+		$step = $app->input->getInt('step', 0);
 		$model = $this->getModel('Migration');
 		$jsonDATA = $model->doMigration($step);
-		JRequest::setVar('tmpl', 'component');
-		JRequest::setVar('format', 'raw');
+		$app->input->set('tmpl', 'component');
+		$app->input->set('format', 'raw');
 		$doc = JFactory::getDocument();
 		$doc->setMimeEncoding('application/json', false);
 		echo json_encode($jsonDATA);

@@ -69,26 +69,26 @@ class plgSystemJvarcade extends JPlugin {
 		}
 		
 		// Catch any non-standart score submits to /index.php
-		if(	!in_array(JRequest::getWord('task', '' ), array('storepnscore', 'storescore', 'newscore', 'arcade', 'index'))
-			&& ((strtolower(JRequest::getWord('act', '' )) == 'arcade')
-				//||	(strtolower(JRequest::getWord('autocom', '')) == 'arcade')
-				//||	(strtolower(JRequest::getWord('module', '')) == 'pnflashgames')
-				//||	(strtolower(JRequest::getWord('arcade', '')) == 'storescore')
-				//||	(strtolower(JRequest::getWord('func', '')) == 'storescore')
+		if(!in_array($app->input->getWord('task', '' ), array('storepnscore', 'storescore', 'newscore', 'arcade', 'index'))
+			&& ((strtolower($app->input->getWord('act', '' )) == 'arcade')
+				//|| (strtolower($app->input->getWord('autocom', '')) == 'arcade')
+				//|| (strtolower($app->input->getWord('module', '')) == 'pnflashgames')
+				//|| (strtolower($app->input->getWord('arcade', '')) == 'storescore')
+				//|| (strtolower($app->input->getWord('func', '')) == 'storescore')
 			)
 		) {
 			$redirect = true;
 			$task = 'v3';
 		}
 		
-		if(	!in_array(JRequest::getWord('task', '' ), array('storepnscore', 'storescore', 'newscore', 'arcade', 'index'))
-		&& ((strtolower(JRequest::getWord('autocom', '' )) == 'arcade'))) {
+		if(!in_array($app->input->getWord('task', '' ), array('storepnscore', 'storescore', 'newscore', 'arcade', 'index'))
+		&& ((strtolower($app->input->getWord('autocom', '' )) == 'arcade'))) {
 			$redirect = true;
 			$task = 'v32';
 		}
 		
-		if(	!in_array(JRequest::getWord('task', '' ), array('storepnscore', 'storescore', 'newscore', 'arcade', 'index'))
-		&& ((strtolower(JRequest::getWord('module', '')) == 'pnflashgames'))) {
+		if(!in_array($app->input->getWord('task', '' ), array('storepnscore', 'storescore', 'newscore', 'arcade', 'index'))
+		&& ((strtolower($app->input->getWord('module', '')) == 'pnflashgames'))) {
 			$redirect = true;
 			$task = 'pnflash';
 		}

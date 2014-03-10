@@ -19,15 +19,14 @@ class jvarcadeViewContestlink extends JViewLegacy {
 	function display($tpl = null) {
 
 		$model = $this->getModel();
-		$mainframe = JFactory::getApplication();
-		$task = $mainframe->input->get('task', 'addgametocontest');
+		$app = JFactory::getApplication();
+		$task = $app->input->get('task', 'addgametocontest');
 		$this->assignRef('task', $task);
 		
 		if ($task == 'addgametocontest') {
-		
-			$game_id = JRequest::getVar('cid', 'contests');
-			if (!is_array($game_id)) $game_id = array($game_id);
-			JArrayHelper::toInteger($game_id, array(0));
+			
+			$game_id = array_unique($app->input->get('cid', array(), 'array'));
+			JArrayHelper::toInteger($game_id);
 			$game_titles = $model->getGameTitles($game_id);
 			$game_titles = implode(',', $game_titles);
 			$this->assignRef('game_titles', $game_titles);
@@ -42,10 +41,9 @@ class jvarcadeViewContestlink extends JViewLegacy {
 			$this->assignRef('contestlist', $contestlist);
 
 		} else if ($task == 'addcontestgames') {
-		
-			$contest_id = JRequest::getVar('cid', 'contests');
-			if (!is_array($contest_id)) $contest_id = array($contest_id);
-			JArrayHelper::toInteger($contest_id, array(0));
+			
+			$contest_id = array_unique($app->input->get('cid', array(), 'array'));
+			JArrayHelper::toInteger($contest_id);
 			$this->assignRef('contest_id', implode(',', $contest_id));
 			
 			$gamesobj = $model->getGameIdTitles();

@@ -19,17 +19,17 @@ class jvarcadeViewManage_games extends JViewLegacy {
 
 	function display($tpl = null) {
 	
-		$mainframe = JFactory::getApplication('site');
+		$app = JFactory::getApplication('site');
 		
-		$task = JRequest::getVar('task', 'manage_games');
+		$task = $app->input->getWord('task', 'manage_games');
 		$this->assignRef('task', $task);
 		$lists = array();
 		
 		$search = '';
 		$searchfields = array('filter_title', 'filter_name');
 		
-		$filter_order = $mainframe->getUserStateFromRequest('com_jvarcade.manage_games.filter_order', 'filter_order', 'g.id', 'cmd' );
-		$filter_order_Dir = $mainframe->getUserStateFromRequest('com_jvarcade.manage_games.filter_order_Dir', 'filter_order_Dir', '', 'word' );
+		$filter_order = $app->getUserStateFromRequest('com_jvarcade.manage_games.filter_order', 'filter_order', 'g.id', 'cmd' );
+		$filter_order_Dir = $app->getUserStateFromRequest('com_jvarcade.manage_games.filter_order_Dir', 'filter_order_Dir', '', 'word' );
 		$filter_order_Dir = $filter_order_Dir ? $filter_order_Dir : 'DESC';
 		// ensure filter_order has a valid value.
 		if (!in_array($filter_order, array('g.id', 'g.title', 'g.scoring', 'g.numplayed', 'f.name', 'g.published'))) {
@@ -37,7 +37,7 @@ class jvarcadeViewManage_games extends JViewLegacy {
 		}
 
 		foreach ($searchfields as $field) {
-			$search = $mainframe->getUserStateFromRequest('com_jvarcade.manage_games.' . $field, $field, '', 'string');
+			$search = $app->getUserStateFromRequest('com_jvarcade.manage_games.' . $field, $field, '', 'string');
 			if (strpos($search, '"') !== false) {
 				$search = str_replace(array('=', '<'), '', $search);
 			}

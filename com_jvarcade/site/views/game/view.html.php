@@ -21,8 +21,8 @@ class jvarcadeViewGame extends JViewLegacy {
 	
 	function display($tpl = null) {
 		
-		$mainframe = JFactory::getApplication();
-		$pathway = $mainframe->getPathway();
+		$app = JFactory::getApplication();
+		$pathway = $app->getPathway();
 		$doc = JFactory::getDocument();
 		$user = JFactory::getUser();
 		$this->assignRef('user', $user);
@@ -32,13 +32,13 @@ class jvarcadeViewGame extends JViewLegacy {
 		// vars
 		$scheme = (strpos(JURI::root(), 'https://') !== false) ? 'https://' : 'http://';
     	$this->assignRef('scheme', $scheme);
-		$sitename = $mainframe->get('sitename');
+		$sitename = $app->get('sitename');
 		$this->assignRef('sitename', $sitename);
-		$folder_id = (int)JRequest::getInt('fid');
+		$folder_id = $app->input->getInt('fid', 0);
 		$this->assignRef('folder_id', $folder_id);
 
 		// game
-		$game_id = (int)$mainframe->input->get('id');
+		$game_id = (int)$app->input->get('id');
 		$game = $model->getGame($game_id);
 		$game['current_vote'] = ($game['total_value'] > 0 && $game['total_votes'] > 0) ? round($game['total_value']/$game['total_votes'], 1) : 0;
 		$this->assignRef('game', $game);

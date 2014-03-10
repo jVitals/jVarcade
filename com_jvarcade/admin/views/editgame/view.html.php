@@ -21,12 +21,12 @@ class jvarcadeVieweditgame extends JViewLegacy {
 	function display($tpl = null) {
 		
 		$model = $this->getModel();
-		
-		$task = JRequest::getVar('task', 'editgame');
+		$app = JFactory::getApplication();
+		$task = $app->input->getWord('task', 'editgame');
 		$this->assignRef('task', $task);
 
-		$gameid = JRequest::getVar('id', 'game');
-		if (is_array($gameid)) $gameid = $gameid[0];
+		$gameid = array_unique($app->input->get('id', array(), 'array'));
+		$gameid = (int)$gameid[0];
 		
 		if ($task == 'addgame') {
 			$game = new stdClass();

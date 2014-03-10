@@ -161,7 +161,7 @@ class jvarcadeController extends JControllerLegacy {
 		
 		$ret = 0;
 		if ((int)$user->id && (int)$id) {
-			$tag = JRequest::getString('tag', '');
+			$tag = $app->input->getString('tag', '');
 			if (strlen($tag)) {
 				$count = $model->getTagCount($id, $tag);
 				if ($count) {
@@ -484,10 +484,10 @@ class jvarcadeController extends JControllerLegacy {
 		
 		$app = JFactory::getApplication();
 
-		$Itemid = JRequest::getInt('Itemid',0);
+		$Itemid = $app->input->getInt('Itemid', 0);
 		if (!$Itemid) {
 			$Itemid = $this->getJvarcadeItemID();
-			JRequest::setVar('Itemid', $Itemid, 'GET');
+			$app->input->set('Itemid', $Itemid);
 			
 		}
 		
@@ -702,10 +702,10 @@ class jvarcadeController extends JControllerLegacy {
 	
 		$app = JFactory::getApplication();
 
-		$Itemid = JRequest::getInt('Itemid',0);
+		$Itemid = $app->input->getInt('Itemid',0);
 		if (!$Itemid) {
 			$Itemid = $this->getJvarcadeItemID();
-			JRequest::setVar('Itemid', $Itemid, 'GET');
+			$app->input->set('Itemid', $Itemid);
 			
 		}
 	
@@ -734,10 +734,10 @@ class jvarcadeController extends JControllerLegacy {
 		$func = $session->get('session_func', '', 'jvarcade');
 		$gameData = $session->get('session_gdata', '', 'jvarcade');
 		
-		//$game_id = JRequest::getInt('gid', 0);
-		//$func = JRequest::getString('func');
-		//$gameData = JRequest::getString('gameData');
-		//$score = JRequest::getInt('score', 0);
+		//$game_id = $app->input->getInt('gid', 0);
+		//$func = $app->input->getString('func', '');
+		//$gameData = $app->input->getString('gameData');
+		//$score = $app->input->getInt('score', 0);
 		//$endtime = time();
 		$starttime = $session->get('session_starttime', 0, 'jvarcade');
 		

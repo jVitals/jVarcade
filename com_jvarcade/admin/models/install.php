@@ -32,7 +32,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 		jimport('joomla.filesystem.archive');
 		jimport('joomla.filesystem.path');
 		
-		$installtype = JRequest::getWord('installtype');
+		$installtype = $this->app->input->getWord('installtype', '');
 		if ($installtype == 'folder') {
 			$this->_installFromFolder();
 		} elseif ($installtype == 'upload') {
@@ -46,7 +46,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 	
 	private function _installFromFolder() {
 		// Get the path to the package to install
-		$p_dir = JRequest::getString('install_directory');
+		$p_dir = $this->app->input->getString('install_directory', '');
 		$p_dir = JPath::clean($p_dir);
 		$errormsg = '';
 		
@@ -73,7 +73,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 	private function _installFromUpload() {
 		
 		// Get the uploaded file information
-		$userfile = JRequest::getVar('install_package', null, 'files', 'array');
+		$userfile = $this->app->input->files->get('install_package');
 		$errormsg = '';
 		
 		// Make sure that file uploads are enabled in php
@@ -123,8 +123,8 @@ class jvarcadeModelInstall extends JModelLegacy {
 			jexit();
 		}
 		
-		$folderid = (int)JRequest::getInt('folderid', 1);
-		$published = (int)JRequest::getInt('published', 0);
+		$folderid = $this->app->input->getInt('folderid', 1);
+		$published = $this->app->input->getInt('published', 0);
 		$packages = array();
 		$errormsg = array();
 		

@@ -31,7 +31,7 @@ class jvarcadeModelCommon extends JModelLegacy {
  
         // Get pagination request variables
 		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
-        $limitstart = JRequest::getVar('limitstart', 0, '', 'int');
+        $limitstart = $app->input->getInt('limitstart', 0);
  
         // In case limit has been changed, adjust it
         $limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
@@ -136,17 +136,18 @@ class jvarcadeModelCommon extends JModelLegacy {
 	
 	function configSave() {
 		$app = JFactory::getApplication('site');
-		$config_save = (int)JRequest::getVar('config_save', 0);
+		$filter = new JFilterInput();
+		$config_save = $app->input->getInt('config_save', 0);
 		if ($config_save) {
 			$confdb = $this->getConf();
 			$conf = array();
 			foreach ($confdb as $obj) {
-				$confvalue = JRequest::getVar($obj['optname'], '', 'POST', 'none', 2);
+				$confvalue = $app->input->get($obj['optname'], '', 'raw');
 				if ($obj['optname'] == 'TagPerms' && is_array($confvalue)) $confvalue = implode(',', $confvalue);
 				if ($obj['optname'] == 'DloadPerms' && is_array($confvalue)) $confvalue = implode(',', $confvalue);
 				if (strpos($obj['optname'],'alias') !== false) $confvalue = str_replace(array(' '), array(''), trim($confvalue));
 				if (strlen(trim($confvalue))) {
-					$conf[$obj['optname']] = trim($confvalue);
+					$conf[$obj['optname']] = $filter->clean(trim($confvalue), 'string');
 				} else {
 					$conf[$obj['optname']] = $obj['value'];
 				}
@@ -233,9 +234,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 
 	function deleteScore() {
 		$app = JFactory::getApplication('site');
-		$id = JRequest::getVar('cid', 'scores');
-		if (!is_array($id)) $id = array($id);
-		JArrayHelper::toInteger($id, array(0));
+		$id = array_unique($app->input->get('cid', array(0), 'array'));
+		JArrayHelper::toInteger($id);
 		$query = "DELETE FROM #__jvarcade WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
 		$this->dbo->execute();
@@ -244,9 +244,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 	
 	function scorePublish($published) {
 		$app = JFactory::getApplication('site');
-		$id = JRequest::getVar('cid');
-		if (!is_array($id)) $id = array($id);
-		JArrayHelper::toInteger($id, array(0));
+		$id = array_unique($app->input->get('cid', array(0), 'array'));
+		JArrayHelper::toInteger($id);
 		$query = "UPDATE #__jvarcade SET " . $this->dbo->quoteName('published') . " = " . $this->dbo->Quote((int)$published) . "
 			WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
@@ -319,11 +318,11 @@ class jvarcadeModelCommon extends JModelLegacy {
 	
 	function saveFolder() {
 		$app = JFactory::getApplication('site');
-	
 		$task = $app->input->get('task');
 		$post = JRequest::get('post');
-		$viewpermissions = JRequest::getVar('viewpermissions', array());
-		$imgfile = JRequest::getVar('image', null, 'files', 'array');
+		$viewpermissions = $app->input->get('viewpermissions', array(), 'array');
+		JArrayHelper::toInteger($viewpermissions);
+		$imgfile = $app->input->files->get('image');
 		$uploaderr = '';
 		$post['alias'] = isset($post['alias']) && $post['alias'] ? $post['alias'] : $post['name'];
 		$post['alias'] = str_replace(array(' '), array(''), trim($post['alias']));
@@ -448,10 +447,9 @@ class jvarcadeModelCommon extends JModelLegacy {
 		jimport('joomla.filesystem.file');
 		jimport('joomla.filesystem.folder');
 		$app = JFactory::getApplication('site');
-		$id = JRequest::getVar('cid', 'games');
-		if (!is_array($id)) $id = array($id);
-		JArrayHelper::toInteger($id, array(0));
-		
+		$id = array_unique($app->input->get('cid', array(0), 'array'));
+		JArrayHelper::toInteger($id);
+
 		// Delete the game file and image as well as the gamedata folder if exists
 		$this->dbo->setQuery('SELECT filename, imagename, gamename FROM #__jvarcade_games WHERE ' . $this->dbo->quoteName('id') . ' IN (' . implode(',', $id) . ')');
 		$games = $this->dbo->loadObjectList();
@@ -491,9 +489,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 	
 	function gamePublish($published) {
 		$app = JFactory::getApplication('site');
-		$id = JRequest::getVar('cid');
-		if (!is_array($id)) $id = array($id);
-		JArrayHelper::toInteger($id, array(0));
+		$id = array_unique($app->input->get('cid', array(0), 'array'));
+		JArrayHelper::toInteger($id);
 		$query = "UPDATE #__jvarcade_games SET " . $this->dbo->quoteName('published') . " = " . $this->dbo->Quote((int)$published) . "
 			WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
@@ -504,13 +501,13 @@ class jvarcadeModelCommon extends JModelLegacy {
 	
 	function saveGame() {
 		$app = JFactory::getApplication('site');
-		$task = JRequest::getVar('task');
+		$task = $app->input->getWord('task', '');
 		$post = JRequest::get('post');
 		// here we take the raw result because we want to preserve the html code
-		$description = JRequest::getVar('description', '', 'post', 'none', 2);
-		//~ $viewpermissions = JRequest::getVar('viewpermissions', array());
-		$imgfile = JRequest::getVar('image', null, 'files', 'array');
-		$gamefile = JRequest::getVar('file', null, 'files', 'array');
+		$description = $app->input->get('description', '', 'raw');
+		// $viewpermissions = $app->input->get('viewpermissions', array(), 'array');
+		$imgfile = $app->input->files->get('image');
+		$gamefile = $app->input->files->get('file');
 		$uploaderr = '';
 		$uploaderr2 = '';
 		
@@ -647,9 +644,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 	
 	function contestPublish($published) {
 		$app = JFactory::getApplication('site');
-		$id = JRequest::getVar('cid');
-		if (!is_array($id)) $id = array($id);
-		JArrayHelper::toInteger($id, array(0));
+		$id = array_unique($app->input->get('cid', array(0), 'array'));
+		JArrayHelper::toInteger($id);
 		$query = "UPDATE #__jvarcade_contest SET " . $this->dbo->quoteName('published') . " = " . $this->dbo->Quote((int)$published) . "
 			WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
@@ -660,9 +656,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 	
 	function deleteContest() {
 		$app = JFactory::getApplication('site');
-		$id = JRequest::getVar('cid', 'contests');
-		if (!is_array($id)) $id = array($id);
-		JArrayHelper::toInteger($id, array(0));
+		$id = array_unique($app->input->get('cid', array(0), 'array'));
+		JArrayHelper::toInteger($id);
 		
 		$query = "DELETE FROM #__jvarcade_contest WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
@@ -690,9 +685,9 @@ class jvarcadeModelCommon extends JModelLegacy {
 	
 	function saveContest() {
 		$app = JFactory::getApplication('site');
-		$task = JRequest::getVar('task');
+		$task = $app->input->getWord('task', '');
 		$post = JRequest::get('post');
-		$imgfile = JRequest::getVar('image', null, 'files', 'array');
+		$imgfile = $app->input->files->get('image');
 		$uploaderr = '';
 		
 		// Process data
@@ -853,9 +848,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 	
 	function contentratingPublish($published) {
 		$app = JFactory::getApplication('site');
-		$id = JRequest::getVar('cid');
-		if (!is_array($id)) $id = array($id);
-		JArrayHelper::toInteger($id, array(0));
+		$id = array_unique($app->input->get('cid', array(0), 'array'));
+		JArrayHelper::toInteger($id);
 		$query = "UPDATE #__jvarcade_contentrating SET " . $this->dbo->quoteName('published') . " = " . $this->dbo->Quote((int)$published) . "
 			WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);
@@ -866,9 +860,9 @@ class jvarcadeModelCommon extends JModelLegacy {
 	
 	function saveContentRating() {
 		$app = JFactory::getApplication('site');
-		$task = JRequest::getVar('task');
+		$task = $app->input->getWord('task', '');
 		$post = JRequest::get('post');
-		$imgfile = JRequest::getVar('image', null, 'files', 'array');
+		$imgfile = $app->input->files->get('image');
 		$uploaderr = '';
 		
 		// Process data
@@ -935,9 +929,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 	
 	function deleteContentRating() {
 		$app = JFactory::getApplication('site');
-		$id = JRequest::getVar('cid');
-		if (!is_array($id)) $id = array($id);
-		JArrayHelper::toInteger($id, array(0));
+		$id = array_unique($app->input->get('cid', array(0), 'array'));
+		JArrayHelper::toInteger($id);
 		
 		$query = "DELETE FROM #__jvarcade_contentrating WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
 		$this->dbo->setQuery($query);

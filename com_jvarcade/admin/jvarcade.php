@@ -71,7 +71,7 @@ $document->addScriptDeclaration($jsconstants);
 jvaHelper::checkForNewVersion();
 
 // Create the controller
-$task = JRequest::getVar('task', 'cpanel');
+$task = JFactory::getApplication()->input->getCmd('task', 'cpanel');
 $controller = new jvarcadeController();
 $controller->execute($task);
 $controller->redirect();
