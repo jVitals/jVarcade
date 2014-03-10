@@ -15,20 +15,21 @@ defined('_JEXEC') or die('Restricted access');
 //jimport('joomla.application.component.model');
 
 class jvarcadeModelCommon extends JModelLegacy {
-	private $dbo;
-	var $_pagination = null;
-	var $_conf = null;
-	var $_confobj = null;
-	var $_orderby = null;
-	var $_orderdir = null;
-	var $_searchfields = null;
+	protected $dbo;
+	protected $filterobj = null;
+	protected $_pagination = null;
+	protected $_conf = null;
+	protected $_confobj = null;
+	protected $_orderby = null;
+	protected $_orderdir = null;
+	protected $_searchfields = null;
 	
 	function __construct() {
 		parent::__construct();
 		$this->dbo = JFactory::getDBO();
 		$app = JFactory::getApplication('site');
         global $option;
- 
+		
         // Get pagination request variables
 		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
         $limitstart = $app->input->getInt('limitstart', 0);
@@ -38,6 +39,8 @@ class jvarcadeModelCommon extends JModelLegacy {
  
         $this->setState('limit', $limit);
         $this->setState('limitstart', $limitstart);
+		
+		$this->filterobj = new JFilterInput(null, null, 1, 1);
 
 	}
 	
@@ -136,7 +139,6 @@ class jvarcadeModelCommon extends JModelLegacy {
 	
 	function configSave() {
 		$app = JFactory::getApplication('site');
-		$filter = new JFilterInput();
 		$config_save = $app->input->getInt('config_save', 0);
 		if ($config_save) {
 			$confdb = $this->getConf();
@@ -147,7 +149,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 				if ($obj['optname'] == 'DloadPerms' && is_array($confvalue)) $confvalue = implode(',', $confvalue);
 				if (strpos($obj['optname'],'alias') !== false) $confvalue = str_replace(array(' '), array(''), trim($confvalue));
 				if (strlen(trim($confvalue))) {
-					$conf[$obj['optname']] = $filter->clean(trim($confvalue), 'string');
+					$conf[$obj['optname']] = $this->filterobj->clean(trim($confvalue), 'html');
 				} else {
 					$conf[$obj['optname']] = $obj['value'];
 				}
@@ -328,6 +330,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			'published' => 'int',
 			'parentid' => 'int',
 		));
+		$post['description'] = $this->filterobj->clean((string)$post['description'], 'html');
 		JArrayHelper::toInteger($post['viewpermissions']);
 		$imgfile = $app->input->files->get('image');
 		$uploaderr = '';
@@ -527,6 +530,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			'mochi' => 'int',
 			'published' => 'int',
 		));
+		$post['description'] = $this->filterobj->clean((string)$post['description'], 'html');
 		$imgfile = $app->input->files->get('image');
 		$gamefile = $app->input->files->get('file');
 		$uploaderr = '';
@@ -719,6 +723,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			'maxplaycount' => 'int',
 			'published' => 'int',
 		));
+		$post['description'] = $this->filterobj->clean((string)$post['description'], 'html');
 		$imgfile = $app->input->files->get('image');
 		$uploaderr = '';
 		
@@ -900,6 +905,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			'warningrequired' => 'int',
 			'published' => 'int',
 		));
+		$post['description'] = $this->filterobj->clean((string)$post['description'], 'html');
 		$imgfile = $app->input->files->get('image');
 		$uploaderr = '';
 		
