@@ -36,6 +36,7 @@ class jvarcadeViewEditfolder extends JViewLegacy {
 			$folder->id = 0;
 			$folder->parentid = 0;
 			$folder->name = '';
+			$folder->alias = '';
 			$folder->description = '';
 			$folder->imagename = '';
 			$folder->viewpermissions = '';

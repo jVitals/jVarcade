@@ -319,9 +319,16 @@ class jvarcadeModelCommon extends JModelLegacy {
 	function saveFolder() {
 		$app = JFactory::getApplication('site');
 		$task = $app->input->get('task');
-		$post = JRequest::get('post');
-		$viewpermissions = $app->input->get('viewpermissions', array(), 'array');
-		JArrayHelper::toInteger($viewpermissions);
+		$post = $app->input->getArray(array(
+			'id' => 'int',
+			'name' => 'string',
+			'alias' => 'string',
+			'description' => 'raw',
+			'viewpermissions' => 'array',
+			'published' => 'int',
+			'parentid' => 'int',
+		));
+		JArrayHelper::toInteger($post['viewpermissions']);
 		$imgfile = $app->input->files->get('image');
 		$uploaderr = '';
 		$post['alias'] = isset($post['alias']) && $post['alias'] ? $post['alias'] : $post['name'];
@@ -337,7 +344,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 				" . $this->dbo->quoteName('description') . " = " . $this->dbo->Quote($post['description']) . ",
 				" . $this->dbo->quoteName('published') . " = " . $this->dbo->Quote((int)$post['published']) . ",
 				" . $this->dbo->quoteName('parentid') . " = " . $this->dbo->Quote((int)$post['parentid']) . ",
-				" . $this->dbo->quoteName('viewpermissions') . " = " . $this->dbo->Quote(implode(',', $viewpermissions)) . "
+				" . $this->dbo->quoteName('viewpermissions') . " = " . $this->dbo->Quote(implode(',', $post['viewpermissions'])) . "
 			WHERE " . $this->dbo->quoteName('id') . " = " . (int)$post['id'];
 			$this->dbo->setQuery($query);
 			$this->dbo->execute();
@@ -346,7 +353,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 						"(" . $this->dbo->quoteName('name') . ", " . $this->dbo->quoteName('alias') . ", " . $this->dbo->quoteName('description') . ", " . $this->dbo->quoteName('published') . ", " . 
 							$this->dbo->quoteName('parentid') . ", " . $this->dbo->quoteName('viewpermissions') . ") " . 
 					"VALUES (" . $this->dbo->Quote($post['name']) . "," . $this->dbo->Quote($post['alias']) . "," . $this->dbo->Quote($post['description']) . "," . $this->dbo->Quote((int)$post['published']) . "," . 
-							$this->dbo->Quote((int)$post['parentid']) . "," . $this->dbo->Quote(implode(',', $viewpermissions)) . ")";
+							$this->dbo->Quote((int)$post['parentid']) . "," . $this->dbo->Quote(implode(',', $post['viewpermissions'])) . ")";
 			$this->dbo->setQuery($query);
 			$this->dbo->execute();
 			$folderid = (int)$this->dbo->insertid();
@@ -502,10 +509,24 @@ class jvarcadeModelCommon extends JModelLegacy {
 	function saveGame() {
 		$app = JFactory::getApplication('site');
 		$task = $app->input->getWord('task', '');
-		$post = JRequest::get('post');
-		// here we take the raw result because we want to preserve the html code
-		$description = $app->input->get('description', '', 'raw');
-		// $viewpermissions = $app->input->get('viewpermissions', array(), 'array');
+		$post = $app->input->getArray(array(
+			'id' => 'int',
+			'title' => 'string',
+			'gamename' => 'string',
+			'description' => 'raw',
+			'width' => 'int',
+			'height' => 'int',
+			'numplayed' => 'int',
+			'background' => 'string',
+			'reverse_score' => 'int',
+			'scoring' => 'int',
+			'folderid' => 'int',
+			'window' => 'int',
+			'contentratingid' => 'int',
+			'ajaxscore' => 'int',
+			'mochi' => 'int',
+			'published' => 'int',
+		));
 		$imgfile = $app->input->files->get('image');
 		$gamefile = $app->input->files->get('file');
 		$uploaderr = '';
@@ -517,7 +538,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			$gameid = (int)$post['id'];
 			$query = "UPDATE #__jvarcade_games SET 
 				" . $this->dbo->quoteName('title') . " = " . $this->dbo->Quote($post['title']) . ",
-				" . $this->dbo->quoteName('description') . " = " . $this->dbo->Quote($description) . ",
+				" . $this->dbo->quoteName('description') . " = " . $this->dbo->Quote($post['description']) . ",
 				" . $this->dbo->quoteName('height') . " = " . $this->dbo->Quote((int)$post['height']) . ",
 				" . $this->dbo->quoteName('width') . " = " . $this->dbo->Quote((int)$post['width']) . ",
 				" . $this->dbo->quoteName('numplayed') . " = " . $this->dbo->Quote((int)$post['numplayed']) . ",
@@ -686,7 +707,18 @@ class jvarcadeModelCommon extends JModelLegacy {
 	function saveContest() {
 		$app = JFactory::getApplication('site');
 		$task = $app->input->getWord('task', '');
-		$post = JRequest::get('post');
+		$post = $app->input->getArray(array(
+			'id' => 'int',
+			'name' => 'string',
+			'description' => 'raw',
+			'startdatetime' => 'string',
+			'enddatetime' => 'string',
+			'islimitedtoslots' => 'int',
+			'hasadvertisedstarted' => 'int',
+			'hasadvertisedended' => 'int',
+			'maxplaycount' => 'int',
+			'published' => 'int',
+		));
 		$imgfile = $app->input->files->get('image');
 		$uploaderr = '';
 		
@@ -861,7 +893,13 @@ class jvarcadeModelCommon extends JModelLegacy {
 	function saveContentRating() {
 		$app = JFactory::getApplication('site');
 		$task = $app->input->getWord('task', '');
-		$post = JRequest::get('post');
+		$post = $app->input->getArray(array(
+			'id' => 'int',
+			'name' => 'string',
+			'description' => 'raw',
+			'warningrequired' => 'int',
+			'published' => 'int',
+		));
 		$imgfile = $app->input->files->get('image');
 		$uploaderr = '';
 		
