@@ -16,35 +16,35 @@ jimport('joomla.application.component.model');
 
 class jvarcadeModelGames extends jvarcadeModelCommon {
 
-	var $_folders = null;
-	var $_games = null;
-	var $_games_count = null;
-	var $parents = array();
+	private $folders = null;
+	private $games = null;
+	private $games_count = null;
+	private $parents = array();
 	
 	
 	// FOLDERS RELATED
 	
-	function getFolders($parent_id = null) {
-		if (!$this->_folders) {
+	public function getFolders($parent_id = null) {
+		if (!$this->folders) {
 			$this->_loadFolders($parent_id);
 		}
-		return $this->_folders;
+		return $this->folders;
 	}
 	
 	private function _loadFolders($parent_id) {	
-		if (!$this->_folders) {
+		if (!$this->folders) {
 			$and = !is_null($parent_id) ? ' AND ' . $this->dbo->quoteName('parentid') . ' = ' . $this->dbo->Quote((int)$parent_id) : '';
 			$this->dbo->setQuery('SELECT * FROM #__jvarcade_folders ' . 
 								'WHERE ' . $this->dbo->quoteName('published') . ' = ' . $this->dbo->Quote(1) .
 								$and .
 								' ORDER BY id DESC');
-			$this->_folders = $this->dbo->loadAssocList('id');
-			return (boolean)$this->_folders;
+			$this->folders = $this->dbo->loadAssocList('id');
+			return (boolean)$this->folders;
 		}
 		return true;
 	}
 	
-	function getFoldersHome() {
+	public function getFoldersHome() {
 		$conf = $this->getConf();
 		$order = (int)$conf->homepage_order == 1 ? 'name' : 'id' ;
 		$dir = (int)$conf->homepage_order_dir == 1 ? 'ASC' : 'DESC' ;
@@ -53,18 +53,18 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 		return $folders;
 	}
 	
-	function getFolder($folder_id) {
+	public function getFolder($folder_id) {
 		$this->dbo->setQuery('SELECT id, name, parentid FROM #__jvarcade_folders WHERE id = ' . (int)$folder_id);
 		return $this->dbo->loadAssoc();
 	}
 	
-	function getParents($folder_id) {
+	public function getParents($folder_id) {
 		$this->loadParents($folder_id);
 		ksort($this->parents);
 		return $this->parents;
 	}
 	
-	function loadParents($folder_id) {
+	public function loadParents($folder_id) {
 		if ($folder_id) {
 			$result = $this->getFolder($folder_id);
 			$this->parents[$result['id']] = $result;
@@ -76,18 +76,18 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 	
 	// VARIOUS LISTINGS
 
-	function getAllGames() {
-		if (!$this->_games) {
+	public function getAllGames() {
+		if (!$this->games) {
 			$this->_loadAllGames();
 		}
-		return $this->_games;
+		return $this->games;
 	}	
 
 	private function _loadAllGames() {
-		if (!$this->_games) {
+		if (!$this->games) {
 
-			if ($this->_orderby) {
-				$orderby = ' ORDER BY ' .  $this->_orderby  . ' ' .  ($this->_orderdir ? $this->_orderdir : '');
+			if ($this->orderby) {
+				$orderby = ' ORDER BY ' .  $this->orderby  . ' ' .  ($this->orderdir ? $this->orderdir : '');
 			} else {
 				$orderby = ' ORDER BY game_id DESC';
 			}
@@ -99,21 +99,21 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 					' WHERE g.' . $this->dbo->quoteName('published') . ' = ' . $this->dbo->Quote(1) .
 					$orderby;
 			$this->dbo->setQuery($sql, $this->getState('limitstart'), $this->getState('limit'));
-			$this->_games = $this->dbo->loadAssocList();
-			return (boolean)$this->_games;
+			$this->games = $this->dbo->loadAssocList();
+			return (boolean)$this->games;
 		}
 		return true;
 	}
 	
-	function getRandomGames($folder_ids) {
-		if (!$this->_games && is_array($folder_ids) && count($folder_ids)) {
+	public function getRandomGames($folder_ids) {
+		if (!$this->games && is_array($folder_ids) && count($folder_ids)) {
 			$this->_loadRandomGames($folder_ids);
 		}
-		return $this->_games;
+		return $this->games;
 	}	
 
 	private function _loadRandomGames($folder_ids) {	
-		if (!$this->_games && is_array($folder_ids) && count($folder_ids)) {
+		if (!$this->games && is_array($folder_ids) && count($folder_ids)) {
 			$statements = array();
 			foreach ($folder_ids as $id) {
 				$statements[] = '(SELECT * FROM #__jvarcade_games ' . 
@@ -124,8 +124,8 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 			if (count($statements)) {
 				$sql = implode(' UNION  ', $statements);
 				$this->dbo->setQuery($sql);
-				$this->_games = $this->dbo->loadAssocList();
-				return (boolean)$this->_games;
+				$this->games = $this->dbo->loadAssocList();
+				return (boolean)$this->games;
 			} else {
 				return false;
 			}
@@ -133,18 +133,18 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 		return true;
 	}
 
-	function getNewestGames() {
-		if (!$this->_games) {
+	public function getNewestGames() {
+		if (!$this->games) {
 			$this->_loadNewestGames();
 		}
-		return $this->_games;
+		return $this->games;
 	}	
 
 	private function _loadNewestGames() {
-		if (!$this->_games) {
+		if (!$this->games) {
 
-			if ($this->_orderby) {
-				$orderby = ' ORDER BY ' .  $this->_orderby  . ' ' .  ($this->_orderdir ? $this->_orderdir : '');
+			if ($this->orderby) {
+				$orderby = ' ORDER BY ' .  $this->orderby  . ' ' .  ($this->orderdir ? $this->orderdir : '');
 			} else {
 				$orderby = ' ORDER BY game_id DESC';
 			}
@@ -158,24 +158,24 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 					'  LIMIT 0,20 ) a ' . 
 					$orderby;
 			$this->dbo->setQuery($sql, $this->getState('limitstart'), $this->getState('limit'));
-			$this->_games = $this->dbo->loadAssocList();
-			return (boolean)$this->_games;
+			$this->games = $this->dbo->loadAssocList();
+			return (boolean)$this->games;
 		}
 		return true;
 	}
 
-	function getPopularGames() {
-		if (!$this->_games) {
+	public function getPopularGames() {
+		if (!$this->games) {
 			$this->_loadPopularGames();
 		}
-		return $this->_games;
+		return $this->games;
 	}	
 
 	private function _loadPopularGames() {	
-		if (!$this->_games) {
+		if (!$this->games) {
 
-			if ($this->_orderby) {
-				$orderby = ' ORDER BY ' .  $this->_orderby  . ' ' .  ($this->_orderdir ? $this->_orderdir : '');
+			if ($this->orderby) {
+				$orderby = ' ORDER BY ' .  $this->orderby  . ' ' .  ($this->orderdir ? $this->orderdir : '');
 			} else {
 				$orderby = ' ORDER BY numplayed DESC';
 			}
@@ -189,21 +189,21 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 					'  LIMIT 0,20) a ' . 
 					$orderby;
 			$this->dbo->setQuery($sql, $this->getState('limitstart'), $this->getState('limit'));
-			$this->_games = $this->dbo->loadAssocList();
-			return (boolean)$this->_games;
+			$this->games = $this->dbo->loadAssocList();
+			return (boolean)$this->games;
 		}
 		return true;
 	}
 
-    function getPagedRandomGames($folder_ids) { 
-        if (!$this->_games && is_array($folder_ids) && count($folder_ids)) { 
+    public function getPagedRandomGames($folder_ids) { 
+        if (!$this->games && is_array($folder_ids) && count($folder_ids)) { 
             $this->_getPagedRandomGames($folder_ids); 
         } 
-        return $this->_games; 
+        return $this->games; 
     }    
 
     private function _getPagedRandomGames($folder_ids) {    
-        if (!$this->_games && is_array($folder_ids) && count($folder_ids)) { 
+        if (!$this->games && is_array($folder_ids) && count($folder_ids)) { 
             $statements = array(); 
             foreach ($folder_ids as $id) { 
                 $statements[] = '(SELECT g.*, g.id as game_id, g.description as game_desc, c.imagename as rating_image, c.name as rating_name, c.description as rating_desc ' .
@@ -217,8 +217,8 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
             if (count($statements)) { 
                 $sql = implode(' UNION  ', $statements); 
                 $this->dbo->setQuery($sql, $this->getState('limitstart'), $this->getState('limit')); 
-                $this->_games = $this->dbo->loadAssocList();
-                return (boolean)$this->_games; 
+                $this->games = $this->dbo->loadAssocList();
+                return (boolean)$this->games; 
             } else { 
                 return false; 
             } 
@@ -226,18 +226,18 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
         return true; 
     }
 
-	function getFavouriteGames() {
-		if (!$this->_games) {
+	public function getFavouriteGames() {
+		if (!$this->games) {
 			$this->_loadFavouriteGames();
 		}
-		return $this->_games;
+		return $this->games;
 	}	
 
 	private function _loadFavouriteGames() {	
-		if (!$this->_games) {
+		if (!$this->games) {
 
-			if ($this->_orderby) {
-				$orderby = ' ORDER BY ' .  $this->_orderby  . ' ' .  ($this->_orderdir ? $this->_orderdir : '');
+			if ($this->orderby) {
+				$orderby = ' ORDER BY ' .  $this->orderby  . ' ' .  ($this->orderdir ? $this->orderdir : '');
 			} else {
 				$orderby = ' ORDER BY game_id DESC';
 			}
@@ -251,16 +251,16 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 					' WHERE g.' . $this->dbo->quoteName('published') . ' = ' . $this->dbo->Quote(1) .
 					$orderby;
 			$this->dbo->setQuery($sql, $this->getState('limitstart'), $this->getState('limit'));
-			$this->_games = $this->dbo->loadAssocList();
-			return (boolean)$this->_games;
+			$this->games = $this->dbo->loadAssocList();
+			return (boolean)$this->games;
 		}
 		return true;
 	}
 
-	function getFolderGames($folder_id) {
+	public function getFolderGames($folder_id) {
 
-		if ($this->_orderby) {
-			$orderby = ' ORDER BY '. $this->_orderby . ' ' . ($this->_orderdir ? $this->_orderdir : '');
+		if ($this->orderby) {
+			$orderby = ' ORDER BY '. $this->orderby . ' ' . ($this->orderdir ? $this->orderdir : '');
 		} else {
 			$orderby = ' ORDER BY game_id DESC';
 		}
@@ -279,10 +279,10 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 		return $this->dbo->loadAssocList();
 	}
 
-	function getGamesByTag($tag) {
+	public function getGamesByTag($tag) {
 
-		if ($this->_orderby) {
-			$orderby = ' ORDER BY ' .  $this->_orderby  . ' ' .  ($this->_orderdir ? $this->_orderdir : '');
+		if ($this->orderby) {
+			$orderby = ' ORDER BY ' .  $this->orderby  . ' ' .  ($this->orderdir ? $this->orderdir : '');
 		} else {
 			$orderby = 'ORDER BY game_id DESC';
 		}
@@ -302,7 +302,7 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 
 	// GAME DATA
 
-	function getGame($game_id) {
+	public function getGame($game_id) {
 		$sql = 'SELECT g.*, c.imagename as rating_image, c.name as rating_name, c.description as rating_desc, c.warningrequired, ' . 
 				' 		COALESCE(r.total_votes, 0) as total_votes, COALESCE(r.total_value, 0) as total_value, ' .
 				' 		f.viewpermissions ' .
@@ -316,7 +316,7 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 		return $this->dbo->loadAssoc();
 	}
 	
-	function getGameByName($game_name) {
+	public function getGameByName($game_name) {
 		$sql = 'SELECT g.*, c.imagename as rating_image, c.name as rating_name, c.description as rating_desc, ' . 
 				' 		COALESCE(r.total_votes, 0) as total_votes, COALESCE(r.total_value, 0) as total_value ' .
 				' FROM #__jvarcade_games g ' .
@@ -328,23 +328,23 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 		return $this->dbo->loadAssoc();
 	}
 
-	function getGamesCountByFolder() {
-		if (!$this->_games_count) {
+	public function getGamesCountByFolder() {
+		if (!$this->games_count) {
 			$this->_loadGamesCountByFolder();
 		}
-		return $this->_games_count;
+		return $this->games_count;
 	}
 	
 	private function _loadGamesCountByFolder() {	
-		if (!$this->_games_count) {
+		if (!$this->games_count) {
 			$this->dbo->setQuery('SELECT folderid, COUNT(*) as count FROM #__jvarcade_games WHERE ' . $this->dbo->quoteName('published') . ' = ' . $this->dbo->Quote(1) . ' GROUP BY folderid');
-			$this->_games_count = $this->dbo->loadAssocList('folderid');
-			return (boolean)$this->_games_count;
+			$this->games_count = $this->dbo->loadAssocList('folderid');
+			return (boolean)$this->games_count;
 		}
 		return true;
 	}
 
-	function getHighestScore($game_id, $reverse, $userid = null) {
+	public function getHighestScore($game_id, $reverse, $userid = null) {
 		$order = $reverse ? 'ASC' : 'DESC' ;
 		$this->dbo->setQuery('SELECT p.id, p.score, p.userid, u.name, u.username' . 
 							' FROM #__jvarcade p' .  
@@ -357,7 +357,7 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 		return $this->dbo->loadAssoc();
 	}
 	
-	function increaseNumplayed($game_id) {
+	public function increaseNumplayed($game_id) {
 		$query = 'UPDATE #__jvarcade_games SET ' . $this->dbo->quoteName('numplayed') . ' = ' . $this->dbo->quoteName('numplayed') . '+1 WHERE id = ' . $this->dbo->Quote($game_id);
 		$this->dbo->setQuery($query);
 		$this->dbo->execute();
@@ -365,26 +365,26 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 	
 	// FAVOURITES RELATED
 	
-	function getGameFavCount($game_id, $user_id = 0) {
+	public function getGameFavCount($game_id, $user_id = 0) {
 		$query = 'SELECT count(*) as count FROM #__jvarcade_faves WHERE gid = ' . $this->dbo->Quote((int)$game_id) . ((int)$user_id ? ' AND userid = ' . $this->dbo->Quote((int)$user_id) : '');
 		$this->dbo->setQuery($query );
 		return $this->dbo->loadResult();
 	}
 	
-	function getMyFavCount($user_id) {
+	public function getMyFavCount($user_id) {
 		$query = 'SELECT count(*) as count FROM #__jvarcade_faves WHERE userid = ' . $this->dbo->Quote((int)$user_id);
 		$this->dbo->setQuery($query );
 		return $this->dbo->loadResult();
 	}
 	
-	function saveFavourite($game_id, $user_id) {
+	public function saveFavourite($game_id, $user_id) {
 		$query = 'INSERT INTO #__jvarcade_faves (userid, gid) VALUES (' . $this->dbo->Quote((int)$user_id) . ',' . $this->dbo->Quote((int)$game_id) . ')';
 		$this->dbo->setQuery($query);
 		$res = $this->dbo->execute();
 		return $res;
 	}
 
-	function delFavourite($game_id, $user_id) {
+	public function delFavourite($game_id, $user_id) {
 		$query = 'DELETE FROM #__jvarcade_faves WHERE userid = ' . $this->dbo->Quote((int)$user_id) . ' AND gid = ' . $this->dbo->Quote((int)$game_id);
 		$this->dbo->setQuery($query);
 		$res = $this->dbo->execute();
@@ -393,24 +393,24 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 	
 	// TAG DATA
 
-	function getTagData($id) {
+	public function getTagData($id) {
 		$this->dbo->setQuery('SELECT tag,count FROM #__jvarcade_tags WHERE gameid = ' . $this->dbo->Quote((int)$id) . ' ORDER BY RAND() LIMIT 40');
 		return $this->dbo->loadObjectList();
 	}
 	
-	function getTagCount($gameid, $tag) {
+	public function getTagCount($gameid, $tag) {
 		$query = 'SELECT coalesce(' . $this->dbo->quoteName('count') . ', 0) FROM #__jvarcade_tags WHERE gameid = ' . $this->dbo->Quote($gameid) . ' AND tag = ' . $this->dbo->Quote($tag);
 		$this->dbo->setQuery($query);
 		return $this->dbo->loadResult();
 	}
 	
-	function updateTagCount($gameid, $tag) {
+	public function updateTagCount($gameid, $tag) {
 		$query = 'UPDATE #__jvarcade_tags SET ' . $this->dbo->quoteName('count') . ' = ' . $this->dbo->quoteName('count') . '+1 WHERE gameid = ' . $this->dbo->Quote($gameid) . ' AND tag = ' . $this->dbo->Quote($tag);
 		$this->dbo->setQuery($query);
 		$this->dbo->execute();
 	}
 
-	function addTag($gameid, $tag) {
+	public function addTag($gameid, $tag) {
 		$query = 'INSERT INTO #__jvarcade_tags (gameid, tag, ' . $this->dbo->quoteName('count') . ') VALUES (' . $this->dbo->Quote($gameid) . ', ' . $this->dbo->Quote($tag) . ', 1)';
 		$this->dbo->setQuery($query);
 		$this->dbo->execute();
@@ -419,15 +419,15 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 	
 	// PERMISSIONS
 	
-	function canTagPerms(&$user) {
+	public function canTagPerms(&$user) {
 		return (jvaHelper::isSuperAdmin($user) || jvaHelper::checkPerms(jvaHelper::userGroups($user), explode(',', $this->config->TagPerms)));
 	}
 	
-	function canDloadPerms(&$user) {
+	public function canDloadPerms(&$user) {
 		return (jvaHelper::isSuperAdmin($user) || jvaHelper::checkPerms(jvaHelper::userGroups($user), explode(',', $this->config->DloadPerms)));
 	}
 	
-	function folderPerms(&$user, $perms) {
+	public function folderPerms(&$user, $perms) {
 		return (jvaHelper::isSuperAdmin($user) || jvaHelper::checkPerms(jvaHelper::userGroups($user), explode(',', $perms)));
 	}
 

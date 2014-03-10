@@ -15,16 +15,18 @@ defined('_JEXEC') or die('Restricted access');
 //jimport('joomla.application.component.model');
 
 class jvarcadeModelInstall extends JModelLegacy {
-	private $dbo;
+	private $db;
+	private $app;
+	private $config;
 	
-	function __construct() {
+	public function __construct() {
 		parent::__construct();
 		$this->db = JFactory::getDBO();
 		$this->app = JFactory::getApplication();
 		$this->config = JFactory::getConfig();
 	}
 	
-	function installPackage() {
+	public function installPackage() {
 		jimport('joomla.installer.installer');
 		jimport('joomla.installer.helper');
 		jimport('joomla.filesystem.file');
@@ -250,7 +252,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 		jexit();
 	}
 	
-	function parseConfigMochi($dir) {
+	public function parseConfigMochi($dir) {
 		$files = JFolder::files($dir, '\.json');
 		$config = $dir . '/' . $files[0];
 		$obj = json_decode(file_get_contents($config));
@@ -270,7 +272,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 		);
 	}
 	
-	function parseConfigPnflash($dir) {
+	public function parseConfigPnflash($dir) {
 		$files = JFolder::files($dir, '\.ini');
 		$config = $dir . '/' . $files[0];
 		$arr = parse_ini_file($config);
@@ -298,7 +300,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 		);
 	}
 	
-	function parseConfigPnflashtxt($dir) {
+	public function parseConfigPnflashtxt($dir) {
 		$files = JFolder::files($dir, '\.txt');
 		$config = $dir . '/' . $files[0];
 		$string = file_get_contents($config);
@@ -338,7 +340,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 		);
 	}
 	
-	function parseConfigIbpro($dir) {
+	public function parseConfigIbpro($dir) {
 		$files = JFolder::files($dir, '\.php');
 		$file = $dir . '/' . $files[0];
 		@require_once($file);

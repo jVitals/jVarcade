@@ -15,17 +15,17 @@ defined('_JEXEC') or die('Restricted access');
 //jimport('joomla.application.component.controller');
 
 class jvarcadeControllerScore extends JControllerLegacy {
-	var $global_conf;
-	var $config;
-	var $db;
-	var $_session;
-	var $sname;
-	var $sid;
-	var $securescoring = 1; // use secure scoring for v32 (it uses the encoded score)
-	var $randchar_1 = 1; // these variables will be randomly overwritten (at some future version)...
-	var $randchar_2 = 1;
+	private $global_conf;
+	private $config;
+	private $db;
+	private $session;
+	private $sname;
+	private $sid;
+	private $securescoring = 1; // use secure scoring for v32 (it uses the encoded score)
+	private $randchar_1 = 1; // these variables will be randomly overwritten (at some future version)...
+	private $randchar_2 = 1;
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct();
 		$this->global_conf = JFactory::getConfig();
 		$this->db = JFactory::getDBO();
@@ -37,7 +37,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	   THE GAMES SUBMIT TO (arcade.php, newscore.php, index.php)
 	*/
 
-	function arcade() {
+	public function arcade() {
 		$app = JFactory::getApplication();
 		// V3 game
 		if (isset($_REQUEST['sessdo'])) {
@@ -71,14 +71,14 @@ class jvarcadeControllerScore extends JControllerLegacy {
 		}
 	}
 
-	function newscore() {
+	public function newscore() {
 		$this->startSession();
 		$this->handlePhpbbScoreSubmit();
 		jexit();
 		
 	}
 
-	function v3() {
+	public function v3() {
 		$app = JFactory::getApplication();
 		// V3 support
 		// $act = strtolower($app->input->getWord( 'act', '' ));
@@ -88,7 +88,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 		// }
 	}
 	
-	function v32() {
+	public function v32() {
 		$app = JFactory::getApplication();
 		// V32 support
 		// $auto = strtolower($app->input->getWord('autocom', ''));
@@ -109,7 +109,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 		// }
 	}
 	
-	function pnflash() {
+	public function pnflash() {
 		$app = JFactory::getApplication();
 		// pnflashgames support (it seems they can be submitted either by get or post data)
 		$module = strtolower($app->input->getWord('module', ''));
@@ -127,15 +127,15 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	   FROM THE OLD HELPER CLASS 
 	*/
 	
-	function startSession() {
-		$this->_session = JFactory::getSession();
-		$this->sid = $this->_session->getId();
-		$this->sname = $this->_session->getName();
+	public function startSession() {
+		$this->session = JFactory::getSession();
+		$this->sid = $this->session->getId();
+		$this->sname = $this->session->getName();
 	}
 	
 	// Ensures to write session to disk before redirecting
 	
-	function redirectPage($url, $sef = false) {
+	public function redirectPage($url, $sef = false) {
 		$app = JFactory::getApplication();
 		if ($sef) $url = JRoute::_($url, false);
 		session_write_close();
@@ -145,7 +145,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	
 	// Handle PhpBB games
 	
-	function handlePhpbbScoreSubmit() {
+	public function handlePhpbbScoreSubmit() {
 		$app = JFactory::getApplication();
 		$game_name = $app->input->getString('game_name', '');
 		$gamename = $app->input->getString('gamename', '');
@@ -168,10 +168,10 @@ class jvarcadeControllerScore extends JControllerLegacy {
 			$jva_gscore = $score;
 		}
 
-		$this->_session->set('session_endtime', time(), 'jvarcade');
-		$this->_session->set('session_score', strip_tags($jva_gscore), 'jvarcade');
-		$this->_session->set('session_g', strip_tags($jva_gname), 'jvarcade');
-		$this->_session->set('ajaxscore', $ajaxscore, 'jvarcade');
+		$this->session->set('session_endtime', time(), 'jvarcade');
+		$this->session->set('session_score', strip_tags($jva_gscore), 'jvarcade');
+		$this->session->set('session_g', strip_tags($jva_gname), 'jvarcade');
+		$this->session->set('ajaxscore', $ajaxscore, 'jvarcade');
 		
 		$this->redirectPage('index.php?option=com_jvarcade&task=storescore&' . strip_tags($this->sname) . '=' . strip_tags($this->sid));
 	}
@@ -179,25 +179,25 @@ class jvarcadeControllerScore extends JControllerLegacy {
 
 	// Handle V3 games
 	
-	function handleV3SessionStart() {
+	public function handleV3SessionStart() {
 		$app = JFactory::getApplication();
 		$gname = $app->input->getString('gamename', '');
 		$starttime = mktime();
 		$randnum = rand(1,10);
-		$this->_session->set('session_g', $gname, 'jvarcade');
-		$this->_session->set('session_starttime', $starttime, 'jvarcade');
-		$this->_session->set('session_randnum', $randnum, 'jvarcade');
+		$this->session->set('session_g', $gname, 'jvarcade');
+		$this->session->set('session_starttime', $starttime, 'jvarcade');
+		$this->session->set('session_randnum', $randnum, 'jvarcade');
 		// return signal back to flash game
 		echo "&connStatus=1&initbar=$randnum&gametime=$starttime&lastid=$gname&result=OK";
 		jexit();
 	}
 	
-	function handleV3ScoreRequest() {
+	public function handleV3ScoreRequest() {
 		$app = JFactory::getApplication();
 		$score = $app->input->getInt('score', 0);
 		$fakekey = $app->input->getString('fakekey', '');
 		$mtime = microtime();
-		$this->_session->set('session_score',$score, 'jvarcade');
+		$this->session->set('session_score',$score, 'jvarcade');
 		// old signal..
 		// echo '&validate=1&microone='. $score .'|'. $fakekey .'&val=x';
 		// return signal to be returned back.
@@ -205,31 +205,31 @@ class jvarcadeControllerScore extends JControllerLegacy {
 		jexit();
 	}
 	
-	function handleV3ScoreSubmit() {
+	public function handleV3ScoreSubmit() {
 		$app = JFactory::getApplication();
 		if (isset( $_REQUEST['gscore'])) {
 			$score = $app->input->getInt('gscore',0);
-			$this->_session->set('session_score', $score, 'jvarcade');
+			$this->session->set('session_score', $score, 'jvarcade');
 		}
 		if (isset( $_REQUEST['gname'])) {
 			$gname = $app->input->getString('gname','');
-			$this->_session->set('session_g',$gname, 'jvarcade');
+			$this->session->set('session_g',$gname, 'jvarcade');
 		}
-		$this->_session->set('session_endtime', time(), 'jvarcade');
+		$this->session->set('session_endtime', time(), 'jvarcade');
 		$this->redirectPage('index.php?option=com_jvarcade&task=storescore&' . $this->sname . '=' . strip_tags($this->sid));
 	}
 
 
 	// Handle V32 games
 	
-	function handleV32ScoreRequest() {
+	public function handleV32ScoreRequest() {
 		// select the random elements and pass back to the game for its encryption routine (cant do this unless we can save them away)
 		//$this->randchar_1 = rand(1,10);
 		//$this->randchar_2 = rand(1,10);
 		echo "&randchar=" . $this->randchar_1 . "&randchar2=" . $this->randchar_2 . "&savescore=1&blah=OK";
 	}
 	
-	function handleV32ScoreSubmit() {
+	public function handleV32ScoreSubmit() {
 		$app = JFactory::getApplication();
 		$gscore_real = $app->input->getInt('gscore', 0);
 		$gscore = $app->input->getInt('enscore', 0);
@@ -251,9 +251,9 @@ class jvarcadeControllerScore extends JControllerLegacy {
 			$gscore = $gscore_real;
 		}
 		
-		$this->_session->set('session_endtime', time(), 'jvarcade');
-		$this->_session->set('session_score', $gscore, 'jvarcade');
-		$this->_session->set('session_g', $gname, 'jvarcade');
+		$this->session->set('session_endtime', time(), 'jvarcade');
+		$this->session->set('session_score', $gscore, 'jvarcade');
+		$this->session->set('session_g', $gname, 'jvarcade');
 
 		$this->redirectPage('index.php?option=com_jvarcade&task=storescore&' . $this->sname . '=' . strip_tags($this->sid));
 	}
@@ -261,18 +261,18 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	
 	// Handle Pnflash games
 	
-	function handlePnflashScoreSubmit() {
+	public function handlePnflashScoreSubmit() {
 		$app = JFactory::getApplication();
 		$gid = $app->input->getInt('gid' , 0);
 		$func = $app->input->getString('func', '');
 		$score = $app->input->getInt('score', null);
 		$gamedata = $app->input->getString('gameData', '');
 		
-		$this->_session->set('session_endtime', time(), 'jvarcade');
-		$this->_session->set('session_g', $gid, 'jvarcade');
-		$this->_session->set('session_func', $func, 'jvarcade');
-		$this->_session->set('session_score', $score, 'jvarcade');
-		$this->_session->set('session_gdata', $gamedata, 'jvarcade');
+		$this->session->set('session_endtime', time(), 'jvarcade');
+		$this->session->set('session_g', $gid, 'jvarcade');
+		$this->session->set('session_func', $func, 'jvarcade');
+		$this->session->set('session_score', $score, 'jvarcade');
+		$this->session->set('session_gdata', $gamedata, 'jvarcade');
 		
 		$this->redirectPage('index.php?option=com_jvarcade&task=storepnscore&' . $this->sname . '=' . strip_tags($this->sid));
 	}

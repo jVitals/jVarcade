@@ -15,23 +15,23 @@ defined('_JEXEC') or die('Restricted access');
 //jimport('joomla.application.component.model');
 
 class jvarcadeModelScores extends jvarcadeModelCommon {
-	var $_contests = null;
+	private $contests = null;
 	
 	// SCORES
 	
-	function gameScoreCount($game_id) {
+	public function gameScoreCount($game_id) {
 
 		$query = 'SELECT COUNT(*) as count from #__jvarcade WHERE gameid = ' . $this->dbo->Quote((int)$game_id) . ' AND published = ' . $this->dbo->Quote(1);
 		$this->dbo->setQuery($query );
 		return  $this->dbo->loadResult();
 	}
 	
-	function getScores($game_id, $reverse) {
+	public function getScores($game_id, $reverse) {
 		
 		$def_ord = $reverse ? 'ASC' : 'DESC' ;
 		
-		if ($this->_orderby) {
-			$orderby = ' ORDER BY ' . $this->_orderby . ' ' . ($this->_orderdir ? $this->_orderdir : '');
+		if ($this->orderby) {
+			$orderby = ' ORDER BY ' . $this->orderby . ' ' . ($this->orderdir ? $this->orderdir : '');
 		} else {
 			$orderby = ' ORDER BY p.score ' . $def_ord;
 		}
@@ -46,9 +46,9 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		return  $this->dbo->loadAssocList();
 	}
 	
-	function getLatestScores() {
-		if ($this->_orderby) {
-			$orderby = ' ORDER BY ' . $this->_orderby . ' ' . ($this->_orderdir ? $this->_orderdir : '');
+	public function getLatestScores() {
+		if ($this->orderby) {
+			$orderby = ' ORDER BY ' . $this->orderby . ' ' . ($this->orderdir ? $this->orderdir : '');
 		} else {
 			$orderby = ' ORDER BY p.date DESC ';
 		}
@@ -63,12 +63,12 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		return  $this->dbo->loadAssocList();
 	}
 	
-	function deleteScore($id) {
+	public function deleteScore($id) {
 		$this->dbo->setQuery('DELETE FROM #__jvarcade WHERE ' . $this->dbo->quoteName('id') . ' = ' . $this->dbo->Quote($id));
 		return $this->dbo->execute();
 	}
 	
-	function saveScore($game_id, $game_title, $userid, $username, $score, $highestscore, $trigger) {
+	public function saveScore($game_id, $game_title, $userid, $username, $score, $highestscore, $trigger) {
 		$app = JFactory::getApplication();
 		$player_ip = $app->input->server->get('REMOTE_ADDR', '0.0.0.0', 'raw');
 		$res = 0;
@@ -115,7 +115,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		return $res;
 	}
 	
-	function savePNGame($game_id, $userid, $gameData) {
+	public function savePNGame($game_id, $userid, $gameData) {
 
 		$this->dbo->setQuery('SELECT count(*) as count FROM #__jvarcade_gamedata WHERE ' . 
 							$this->dbo->quoteName('userid') . ' =' . $this->dbo->Quote($userid) . ' AND ' . 
@@ -142,7 +142,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		return true;
 	}
 
-	function loadPNGame($game_id, $userid) {
+	public function loadPNGame($game_id, $userid) {
 		$this->dbo->setquery('SELECT gamedata FROM #__jvarcade_gamedata WHERE ' . 
 							$this->dbo->quoteName('gameid') . ' = ' . $this->dbo->Quote($game_id) . ' AND ' . 
 							$this->dbo->quoteName('userid') . ' = ' . $this->dbo->Quote($userid));
@@ -154,7 +154,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		return urlencode($gameData);
 	}
 	
-	function GetScoreXML($game_id, $order = 'DESC', $limit = 10) {
+	public function GetScoreXML($game_id, $order = 'DESC', $limit = 10) {
 
 		$query = 'SELECT j.score, j.date, u.username ' . 
 				' FROM #__jvarcade j ' . 
@@ -183,7 +183,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 
 	// CONTESTS
 	
-	function getContestsByGame($game_id) {
+	public function getContestsByGame($game_id) {
 		
 		$level = (JVA_COMPATIBLE_MODE == '15') ? $this->user->gid  : implode(',', $this->user->groups);
 		
@@ -204,7 +204,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 
 	}
 	
-	function getAllContests() {
+	public function getAllContests() {
 		$this->dbo->setQuery('SELECT c.id, c.name, c.description, c.imagename, c.minaccesslevelrequired,' .
 								' c.startdatetime as startdatetime , c.enddatetime as enddatetime' .
 							' FROM #__jvarcade_contest c' . 
@@ -218,7 +218,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		return $this->dbo->loadAssocList('id');
 	}
 
-	//~ function getAllContestsCount() {
+	//~ public function getAllContestsCount() {
 		//~ $this->dbo->setQuery('SELECT COUNT(*) as count ' .
 							//~ ' FROM #__jvarcade_contest c' . 
 								//~ ' LEFT JOIN  #__jvarcade_contestmember m ON m.contestid = c.id' . 
@@ -231,7 +231,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		//~ return $this->dbo->loadResult();
 	//~ }
 
-	function getAllContestsCount() {
+	public function getAllContestsCount() {
 		$this->dbo->setQuery('SELECT COUNT(*) as count ' .
 							' FROM #__jvarcade_contest ' . 
 							' WHERE published = ' . $this->dbo->Quote(1) . 
@@ -239,18 +239,18 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		return $this->dbo->loadResult();
 	}
 
-	function getContests() {
-		if (!$this->_contests) {
+	public function getContests() {
+		if (!$this->contests) {
 			$this->_loadContests();
 		}
-		return $this->_contests;
+		return $this->contests;
 	}	
 
 	private function _loadContests() {	
-		if (!$this->_contests) {
+		if (!$this->contests) {
 
-			if ($this->_orderby) {
-				$orderby = ' ORDER BY ' .  $this->_orderby  . ' ' .  ($this->_orderdir ? $this->_orderdir : '');
+			if ($this->orderby) {
+				$orderby = ' ORDER BY ' .  $this->orderby  . ' ' .  ($this->orderdir ? $this->orderdir : '');
 			} else {
 				$orderby = ' ORDER BY id DESC';
 			}
@@ -267,32 +267,32 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 					' WHERE ' . $this->dbo->quoteName('published') . ' = ' . $this->dbo->Quote(1) .
 					$orderby;
 			$this->dbo->setQuery($sql, $this->getState('limitstart'), $this->getState('limit'));
-			$this->_contests = $this->dbo->loadAssocList();
-			return (boolean)$this->_contests;
+			$this->contests = $this->dbo->loadAssocList();
+			return (boolean)$this->contests;
 		}
 		return true;
 	}
 	
 	
-	function getContest($contest_id) {
+	public function getContest($contest_id) {
 		$sql = 'SELECT * FROM #__jvarcade_contest WHERE id = ' . (int)$contest_id;
 		$this->dbo->setQuery($sql);
 		return $this->dbo->loadObject();
 	}
 
-	function getContestGames($contest_id) {
+	public function getContestGames($contest_id) {
 		$sql = 'SELECT g.* FROM #__jvarcade_games g JOIN #__jvarcade_contestgame cg ON g.id = cg.gameid WHERE cg.contestid = ' . (int)$contest_id . ' ORDER BY g.id DESC';
 		$this->dbo->setQuery($sql);
 		return $this->dbo->loadObjectList();
 	}
 
-	function getContestMembers($contest_id) {
+	public function getContestMembers($contest_id) {
 		$sql = 'SELECT cm.userid, cm.dateregistered, u.name, u.username FROM #__jvarcade_contestmember cm JOIN #__users u ON cm.userid = u.id WHERE cm.contestid = ' . (int)$contest_id;
 		$this->dbo->setQuery($sql);
 		return $this->dbo->loadObjectList('userid');
 	}
 	
-	function ContestMembership($contest_id, $user_id, $type) {
+	public function ContestMembership($contest_id, $user_id, $type) {
 		if ($type) {
 			// register
 			$sql = 'SELECT userid FROM #__jvarcade_contestmember WHERE contestid = ' . (int)$contest_id . ' AND userid = ' . (int) $user_id;
@@ -310,7 +310,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		}
 	}
 	
-	function registerScore($game_id, $game_title, $userid, $username, $score, $reverse) {
+	public function registerScore($game_id, $game_title, $userid, $username, $score, $reverse) {
 		$app = JFactory::getApplication();
 		$player_ip = $app->input->server->get('REMOTE_ADDR', '0.0.0.0', 'raw');
 		$dispatcher = JDispatcher::getInstance();
@@ -373,7 +373,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 	
 	// LEADERBOARD
 
-	function getLeaderBoard($contest_id = 0) {
+	public function getLeaderBoard($contest_id = 0) {
 		$sql = 'SELECT l.*, u.name, u.username FROM #__jvarcade_leaderboard l LEFT JOIN #__users u ON l.userid = u.id 
 				WHERE l.contestid = ' . (int)$contest_id . ' 
 					AND ((l.userid IS NOT NULL AND u.id IS NOT NULL)
@@ -383,7 +383,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		return $this->dbo->loadObjectList();
 	}
 	
-	function setUpdateLeaderBoard($contest_id = 0) {
+	public function setUpdateLeaderBoard($contest_id = 0) {
 		$path = $this->global_conf->get('tmp_path') . '/' . 'lb_' . $contest_id . '.txt';
 		if (!is_file($path)) {
 			touch($path);
@@ -391,7 +391,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		}
 	}
 	
-	function checkUpdateLeaderBoard($contest_id = 0) {
+	public function checkUpdateLeaderBoard($contest_id = 0) {
 		$path = $this->global_conf->get('tmp_path') . '/' . 'lb_' . $contest_id . '.txt';
 		if (is_file($path) && (((int)file_get_contents($path) + ((int)$this->config->updatelb*60)) < mktime())) {
 			return true;
@@ -400,7 +400,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		
 	}
 	
-	function regenerateLeaderBoard($contest_id = 0) {
+	public function regenerateLeaderBoard($contest_id = 0) {
 		//First clear out the old data
 		$query = 'DELETE FROM #__jvarcade_leaderboard WHERE ' . $this->dbo->quoteName('contestid') . ' = ' . (int)$contest_id;
 		$this->dbo->setQuery($query);

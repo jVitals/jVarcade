@@ -14,11 +14,11 @@ defined('_JEXEC') or die('Restricted access');
 
 
 class jvarcadeController extends JControllerLegacy {
-	var $_name = 'jvarcade';
-	var $global_conf = null;
-	var $config = null;
+	private $global_conf = null;
+	private $db = null;
+	private $config = null;
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct();
 		$this->global_conf = JFactory::getConfig();
 		$this->db = JFactory::getDBO();
@@ -26,7 +26,7 @@ class jvarcadeController extends JControllerLegacy {
 		$this->config = $conf->getConf();
 	}
 	/*
-	function keepalive() {
+	public function keepalive() {
 		$session = JFactory::getSession();
 		$session->set('keepalive', time(), 'jvarcade');
 		echo $session->get('keepalive', 0, 'jvarcade');
@@ -34,10 +34,7 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	*/
 	
-	
-	
-	
-	function home ($cachable = false, $urlparams = false) {
+	public function home ($cachable = false, $urlparams = false) {
 		$document = JFactory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Games');
@@ -51,31 +48,31 @@ class jvarcadeController extends JControllerLegacy {
 	
 	// LISTINGS
 	
-	function newest() {
+	public function newest() {
 		$this->listgames();
 	}
 
-	function popular() {
+	public function popular() {
 		$this->listgames();
 	}
 
-	function favourite() {
+	public function favourite() {
 		$this->listgames();
 	}
 
-	function folder() {
+	public function folder() {
 		$this->listgames();
 	}
 
-	function showtag() {
+	public function showtag() {
 		$this->listgames();
 	}
 
-	function random() {
+	public function random() {
 		$this->listgames();
 	}
 
-	function listgames($cachable = false, $urlparams = false) {
+	public function listgames($cachable = false, $urlparams = false) {
 		$document = JFactory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Games');
@@ -86,7 +83,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 
-	function contests($cachable = false, $urlparams = false) {
+	public function contests($cachable = false, $urlparams = false) {
 		$document = JFactory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Scores');
@@ -97,7 +94,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 
-	function contestdetail($cachable = false, $urlparams = false) {
+	public function contestdetail($cachable = false, $urlparams = false) {
 		$document = JFactory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Scores');
@@ -108,7 +105,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display($cachable = false, $urlparams = false);
 	}
 	
-	function contestregister() {
+	public function contestregister() {
 		$app = JFactory::getApplication();
 		$id = (int)$app->input->get('id');
 		$type = (int)$app->input->get('type');
@@ -121,7 +118,7 @@ class jvarcadeController extends JControllerLegacy {
 	
 	// GAME PAGE RELATED
 	
-	function game($cachable = false, $urlparams = false) {
+	public function game($cachable = false, $urlparams = false) {
 		$document = JFactory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Games');
@@ -142,7 +139,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
-	function gametags($cachable = false, $urlparams = false) {
+	public function gametags($cachable = false, $urlparams = false) {
 		$document = JFactory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Games');
@@ -153,7 +150,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
-	function savetag() {
+	public function savetag() {
 		$app = JFactory::getApplication();
 		$user = JFactory::getUser();
 		$model = $this->getModel('Games');
@@ -179,7 +176,7 @@ class jvarcadeController extends JControllerLegacy {
 		exit;
 	}
 	
-	function savefave() {
+	public function savefave() {
 		$app = JFactory::getApplication();
 		$game_id = (int)$app->input->get('id');
 		$user = JFactory::getUser();
@@ -197,7 +194,7 @@ class jvarcadeController extends JControllerLegacy {
 		}
 	}
 	
-	function delfave() {
+	public function delfave() {
 		$app = JFactory::getApplication();
 		$game_id = (int)$app->input->get('id');
 		$user = JFactory::getUser();
@@ -216,7 +213,7 @@ class jvarcadeController extends JControllerLegacy {
 		exit;
 	}
 	
-	function rategame() {
+	public function rategame() {
 		$app = JFactory::getApplication();
 		$game_id = (int)$app->input->get('gid');
 		$rating = (float)$app->input->get('rating');
@@ -275,7 +272,7 @@ class jvarcadeController extends JControllerLegacy {
 		}
 	}
 	
-	function reportgame() {
+	public function reportgame() {
 		$app = JFactory::getApplication();
 		$game_id = (int)$app->input->get('id');
 		$my = JFactory::getUser();
@@ -345,7 +342,7 @@ class jvarcadeController extends JControllerLegacy {
 		
 	}*/
 	
-	function downloadgame(){
+	public function downloadgame(){
 		$app = JFactory::getApplication();
 		$game_id = (int)$app->input->get('id');
 		$gd_folder = './arcade/gamedata/'.$gdata['gamename'].'';
@@ -429,7 +426,7 @@ class jvarcadeController extends JControllerLegacy {
 	
 	// LEADERBOARD
 	
-	function leaderboard($cachable = false, $urlparams = false) {
+	public function leaderboard($cachable = false, $urlparams = false) {
 		$document = JFactory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Scores');
@@ -442,7 +439,7 @@ class jvarcadeController extends JControllerLegacy {
 	
 	// SCORES
 	
-	function scores ($cachable = false, $urlparams = false, $table_only = false) {
+	public function scores ($cachable = false, $urlparams = false, $table_only = false) {
 		$document = JFactory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Scores');
@@ -456,7 +453,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
-	function latestscores ($cachable = false, $urlparams = false) {
+	public function latestscores ($cachable = false, $urlparams = false) {
 		$document = JFactory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Scores');
@@ -470,7 +467,7 @@ class jvarcadeController extends JControllerLegacy {
 		
 	}
 	
-	function storescore() {
+	public function storescore() {
 	
 		########################################################
 		#Return codes:
@@ -698,7 +695,7 @@ class jvarcadeController extends JControllerLegacy {
 	
 	}
 	
-	function storepnscore() {
+	public function storepnscore() {
 	
 		$app = JFactory::getApplication();
 
@@ -943,7 +940,7 @@ class jvarcadeController extends JControllerLegacy {
 		}
 	}
 	
-	function getJvarcadeItemID() {
+	public function getJvarcadeItemID() {
 		$Itemid1 = 0;
 		$Itemid2 = 0;
 		$menu = JFactory::getApplication()->getMenu();

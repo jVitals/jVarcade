@@ -15,10 +15,9 @@ defined('_JEXEC') or die('Restricted access');
 //jimport('joomla.application.component.controller');
 
 class jvarcadeController extends JControllerLegacy {
-	var $_name = 'jvarcade';
-	var $_returl;
+	private $returl;
 	
-	function __construct($config = array()) {
+	public function __construct($config = array()) {
 		parent::__construct($config);
 		$this->config = JFactory::getConfig();
 		$this->baseurl = $this->config->get('config.live_site');
@@ -26,7 +25,7 @@ class jvarcadeController extends JControllerLegacy {
 
 	}
 
-	function settings($cachable = false, $urlparams = false) {
+	public function settings($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$model->configSave();
 		$view = $this->getView('settings', 'html', '');
@@ -35,7 +34,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
-	function manage_scores($cachable = false, $urlparams = false) {
+	public function manage_scores($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('manage_scores', 'html', '');
 		$view->setLayout('default');
@@ -43,22 +42,22 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 
-	function scorePublish() {
+	public function scorePublish() {
 		$model = $this->getModel('Common');
 		$model->scorePublish(1);
 	}
 	
-	function scoreUnpublish() {
+	public function scoreUnpublish() {
 		$model = $this->getModel('Common');
 		$model->scorePublish(0);
 	}
 
-	function deletescore() {
+	public function deletescore() {
 		$model = $this->getModel('Common');
 		$model->deleteScore();
 	}
 	
-	function manage_folders($cachable = false, $urlparams = false) {
+	public function manage_folders($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('manage_folders', 'html', '');
 		$view->setLayout('default');
@@ -66,22 +65,22 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 
-	function folderPublish() {
+	public function folderPublish() {
 		$model = $this->getModel('Common');
 		$model->folderPublish(1);
 	}
 	
-	function folderUnpublish() {
+	public function folderUnpublish() {
 		$model = $this->getModel('Common');
 		$model->folderPublish(0);
 	}
 
-	function deletefolder() {
+	public function deletefolder() {
 		$model = $this->getModel('Common');
 		$model->deleteFolder();
 	}
 	
-	function editfolder($cachable = false, $urlparams = false) {
+	public function editfolder($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('editfolder', 'html', '');
 		$view->setLayout('default');
@@ -89,20 +88,20 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
-	function addfolder() {
+	public function addfolder() {
 		$this->editfolder();
 	}
 	
-	function savefolder() {	
+	public function savefolder() {	
 		$model = $this->getModel('Common');
 		$model->saveFolder();
 	}
 	
-	function applyfolder() {	
+	public function applyfolder() {	
 		$this->savefolder();
 	}
 	
-	function cpanel($cachable = false, $urlparams = false) {
+	public function cpanel($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('cpanel', 'html', '');
 		$view->setLayout('default');
@@ -110,7 +109,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
-	function manage_games($cachable = false, $urlparams = false) {
+	public function manage_games($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('manage_games', 'html', '');
 		$view->setLayout('default');
@@ -118,22 +117,22 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 
-	function gamePublish() {
+	public function gamePublish() {
 		$model = $this->getModel('Common');
 		$model->gamePublish(1);
 	}
 	
-	function gameUnpublish() {
+	public function gameUnpublish() {
 		$model = $this->getModel('Common');
 		$model->gamePublish(0);
 	}
 
-	function deletegame() {
+	public function deletegame() {
 		$model = $this->getModel('Common');
 		$model->deleteGame();
 	}
 	
-	function editgame($cachable = false, $urlparams = false) {
+	public function editgame($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('editgame', 'html', '');
 		$view->setLayout('default');
@@ -141,20 +140,20 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
-	function addgame() {
+	public function addgame() {
 		$this->editgame();
 	}
 	
-	function savegame() {	
+	public function savegame() {	
 		$model = $this->getModel('Common');
 		$model->saveGame();
 	}
 	
-	function applygame() {	
+	public function applygame() {	
 		$this->savegame();
 	}
 
-	function contests($cachable = false, $urlparams = false) {
+	public function contests($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('contests', 'html', '');
 		$view->setLayout('default');
@@ -162,7 +161,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
-	function editcontest($cachable = false, $urlparams = false) {
+	public function editcontest($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('editcontest', 'html', '');
 		$view->setLayout('default');
@@ -170,36 +169,36 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
-	function addcontest() {
+	public function addcontest() {
 		$this->editcontest();
 	}
 
-	function contestPublish() {
+	public function contestPublish() {
 		$model = $this->getModel('Common');
 		$model->contestPublish(1);
 	}
 	
-	function contestUnpublish() {
+	public function contestUnpublish() {
 		$model = $this->getModel('Common');
 		$model->contestPublish(0);
 	}
 
-	function deletecontest() {
+	public function deletecontest() {
 		$model = $this->getModel('Common');
 		$model->deleteContest();
 	}
 	
-	function savecontest() {	
+	public function savecontest() {	
 		$model = $this->getModel('Common');
 		$model->saveContest();
 	}
 	
-	function applycontest() {	
+	public function applycontest() {	
 		$this->savecontest();
 	}
 	
 	// Popup for the manage_games and editgame page
-	function addgametocontest($cachable = false, $urlparams = false) {
+	public function addgametocontest($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('contestlink', 'html', '');
 		$view->setLayout('default');
@@ -208,7 +207,7 @@ class jvarcadeController extends JControllerLegacy {
 	}
 
 	// Popup for the editcontest page
-	function addcontestgames($cachable = false, $urlparams = false) {
+	public function addcontestgames($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('contestlink', 'html', '');
 		$view->setLayout('contestgames');
@@ -216,7 +215,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 
-	function savegametocontest() {
+	public function savegametocontest() {
 		$app = JFactory::getApplication();
 		$game_ids = $app->input->getString('game_ids', '');
 		$contest_ids = $app->input->getString('contest_id', '');
@@ -237,7 +236,7 @@ class jvarcadeController extends JControllerLegacy {
 		exit;
 	}
 	
-	function showcontestgames($cachable = false, $urlparams = false) {
+	public function showcontestgames($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('contestlink', 'raw', '');
 		$view->setLayout('games');
@@ -245,7 +244,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
-	function showgamecontests($cachable = false, $urlparams = false) {
+	public function showgamecontests($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('contestlink', 'raw', '');
 		$view->setLayout('contests');
@@ -253,7 +252,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
-	function deletegamefromcontest() {
+	public function deletegamefromcontest() {
 		$app = JFactory::getApplication();
 		$game_ids = $app->input->getString('game_id', '');
 		$contest_ids = $app->input->getString('contest_id', '');
@@ -275,7 +274,7 @@ class jvarcadeController extends JControllerLegacy {
 	}
 
 
-	function upload_archive($cachable = false, $urlparams = false) {
+	public function upload_archive($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('upload_archive', 'html', '');
 		$view->setLayout('default');
@@ -283,12 +282,12 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
-	function doInstall() {
+	public function doInstall() {
 		$model = $this->getModel('Install');
 		$model->installPackage();
 	}
 	
-	function maintenance($cachable = false, $urlparams = false) {
+	public function maintenance($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('maintenance', 'html', '');
 		$view->setLayout('default');
@@ -296,7 +295,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
-	function domaintenance() {
+	public function domaintenance() {
 		$app = JFactory::getApplication();
 		$service = $app->input->getWord('service', '');
 		$context = $app->input->getWord('context', '');
@@ -312,7 +311,7 @@ class jvarcadeController extends JControllerLegacy {
 		exit;
 	}
 
-	function domigration() {
+	public function domigration() {
 		$app = JFactory::getApplication();
 		$step = $app->input->getInt('step', 0);
 		$model = $this->getModel('Migration');
@@ -325,7 +324,7 @@ class jvarcadeController extends JControllerLegacy {
 		exit;
 	}
 
-	function content_ratings($cachable = false, $urlparams = false) {
+	public function content_ratings($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('content_ratings', 'html', '');
 		$view->setLayout('default');
@@ -333,7 +332,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
-	function editcontentrating($cachable = false, $urlparams = false) {
+	public function editcontentrating($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('editcontentrating', 'html', '');
 		$view->setLayout('default');
@@ -341,31 +340,31 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
-	function addcontentrating() {
+	public function addcontentrating() {
 		$this->editcontentrating();
 	}
 
-	function contentratingPublish() {
+	public function contentratingPublish() {
 		$model = $this->getModel('Common');
 		$model->contentratingPublish(1);
 	}
 	
-	function contentratingUnpublish() {
+	public function contentratingUnpublish() {
 		$model = $this->getModel('Common');
 		$model->contentratingPublish(0);
 	}
 
-	function deletecontentrating() {
+	public function deletecontentrating() {
 		$model = $this->getModel('Common');
 		$model->deleteContentRating();
 	}
 	
-	function savecontentrating() {	
+	public function savecontentrating() {	
 		$model = $this->getModel('Common');
 		$model->saveContentRating();
 	}
 	
-	function applycontentrating() {	
+	public function applycontentrating() {	
 		$this->saveContentRating();
 	}
 	

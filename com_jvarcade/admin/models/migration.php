@@ -17,14 +17,14 @@ defined('_JEXEC') or die('Restricted access');
 
 class jvarcadeModelMigration extends JModelLegacy {
 	private $dbo;
-	var $return_arr;
-	var $old_imagepath;
-	var $old_fileimagepath;
-	var $new_imagepath;
-	var $old_gamepath;
-	var $new_gamepath;
+	private $return_arr;
+	private $old_imagepath;
+	private $old_fileimagepath;
+	private $new_imagepath;
+	private $old_gamepath;
+	private $new_gamepath;
 	
-	function __construct() {
+	public function __construct() {
 		parent::__construct();
 		$this->dbo = JFactory::getDBO();
 		$app = JFactory::getApplication('site');
@@ -40,7 +40,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 		$this->new_gamepath = JVA_GAMES_INCPATH;
 	}
 	
-	function setMsg($msg, $type) {
+	public function setMsg($msg, $type) {
 		switch($type) {
 			case 'error':
 				$error = 1;
@@ -64,7 +64,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 		$this->return_arr['msg'] .= '<p style="color:' . $color . '">' . $msg . '</p>';
 	}
 	
-	function getTemp($table) {
+	public function getTemp($table) {
 		$return = array();
 		$this->dbo->setQuery('SELECT * FROM #__tmp_' . $table);
 		$results = $this->dbo->loadObjectList();
@@ -81,7 +81,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 		
 	}
 	
-	function doMigration($step) {
+	public function doMigration($step) {
 		$step = (int)$step;
 		$this->setMsg($step . '.' . JText::_('COM_JVARCADE_MAINTENANCE_MIGRATION_STEP_' . $step), 'none');
 		switch($step) {
@@ -131,7 +131,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 		return $this->return_arr;
 	}
 	
-	function migrateContentRatings() {
+	public function migrateContentRatings() {
 		$this->dbo->setQuery('SELECT * FROM #__puarcade_contentrating');
 		$results = $this->dbo->loadObjectList();
 		
@@ -184,7 +184,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 		}
 	}
 	
-	function migrateContests() {
+	public function migrateContests() {
 		$this->dbo->setQuery('SELECT * FROM #__puarcade_contest');
 		$results = $this->dbo->loadObjectList();
 		
@@ -244,7 +244,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 		}
 	}
 	
-	function migrateFolders() {
+	public function migrateFolders() {
 		$folders = array();
 		
 		$this->dbo->setQuery('SELECT * FROM #__puarcade_folders ORDER BY id ASC');
@@ -311,7 +311,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 		}
 	}
 
-	function migrateGames() {
+	public function migrateGames() {
 		
 		$this->dbo->setQuery('SELECT * FROM #__puarcade_games');
 		$results = $this->dbo->loadObjectList();
@@ -399,7 +399,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 		}
 	}
 
-	function migrateFavs() {
+	public function migrateFavs() {
 		
 		$this->dbo->setQuery('SELECT * FROM #__puarcade_faves');
 		$results = $this->dbo->loadObjectList();
@@ -425,7 +425,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 		}
 	}
 
-	function migrateTags() {
+	public function migrateTags() {
 		
 		$this->dbo->setQuery('SELECT * FROM #__puarcade_tags');
 		$results = $this->dbo->loadObjectList();
@@ -451,7 +451,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 		}
 	}
 
-	function migrateRatings() {
+	public function migrateRatings() {
 		
 		$this->dbo->setQuery('SELECT * FROM #__puarcade_ratings');
 		$results = $this->dbo->loadObjectList();
@@ -484,7 +484,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 		}
 	}
 
-	function migrateScores() {
+	public function migrateScores() {
 		
 		$this->dbo->setQuery('SELECT * FROM #__puarcade');
 		$results = $this->dbo->loadObjectList();
@@ -519,7 +519,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 		}
 	}
 
-	function migrateContestGame() {
+	public function migrateContestGame() {
 		
 		$this->dbo->setQuery('SELECT * FROM #__puarcade_contestgame');
 		$results = $this->dbo->loadObjectList();
@@ -547,7 +547,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 		}
 	}
 
-	function migrateContestMember() {
+	public function migrateContestMember() {
 		
 		$this->dbo->setQuery('SELECT * FROM #__puarcade_contestmember');
 		$results = $this->dbo->loadObjectList();
@@ -573,7 +573,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 		}
 	}
 
-	function migrateContestScore() {
+	public function migrateContestScore() {
 		
 		$this->dbo->setQuery('SELECT * FROM #__puarcade_contestscore');
 		$results = $this->dbo->loadObjectList();
@@ -612,7 +612,7 @@ class jvarcadeModelMigration extends JModelLegacy {
 		}
 	}
 	
-	function migrateConfig() {
+	public function migrateConfig() {
 		$changes = array(
 			'pu_scorelink' => 'scorelink',
 			'pufoldergames' => 'foldergames',

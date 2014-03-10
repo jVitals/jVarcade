@@ -17,89 +17,87 @@ defined('_JEXEC') or die('Restricted access');
 class jvarcadeModelCommon extends JModelLegacy {
 	protected $dbo;
 	protected $filterobj = null;
-	protected $_pagination = null;
-	protected $_conf = null;
-	protected $_confobj = null;
-	protected $_orderby = null;
-	protected $_orderdir = null;
-	protected $_searchfields = null;
+	protected $pagination = null;
+	protected $conf = null;
+	protected $confobj = null;
+	protected $orderby = null;
+	protected $orderdir = null;
+	protected $searchfields = null;
 	
-	function __construct() {
+	public function __construct() {
 		parent::__construct();
 		$this->dbo = JFactory::getDBO();
 		$app = JFactory::getApplication('site');
-        global $option;
+		global $option;
 		
-        // Get pagination request variables
+		// Get pagination request variables
 		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
-        $limitstart = $app->input->getInt('limitstart', 0);
- 
-        // In case limit has been changed, adjust it
-        $limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
- 
-        $this->setState('limit', $limit);
-        $this->setState('limitstart', $limitstart);
+		$limitstart = $app->input->getInt('limitstart', 0);
+
+		// In case limit has been changed, adjust it
+		$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
+
+		$this->setState('limit', $limit);
+		$this->setState('limitstart', $limitstart);
 		
 		$this->filterobj = new JFilterInput(null, null, 1, 1);
-
 	}
 	
-	function getDBerr() {
+	public function getDBerr() {
 		$app = JFactory::getApplication('site');
 		$app->enqueueMessage($this->dbo->getErrorMsg(), 'error');
 	}
 	
-	function getTotal(){
+	public function getTotal(){
 		$this->dbo->setQuery('SELECT FOUND_ROWS();');
 		$result = $this->dbo->loadResult();
 		return $result;
 	}
 	
-	function getPagination() {
+	public function getPagination() {
 		// Load the content if it doesn't already exist
-		if (empty($this->_pagination)) {
+		if (empty($this->pagination)) {
 			jimport('joomla.html.pagination');
-			$this->_pagination = new JPagination($this->getTotal(), $this->getState('limitstart'), $this->getState('limit') );
+			$this->pagination = new JPagination($this->getTotal(), $this->getState('limitstart'), $this->getState('limit') );
 		}
-		return $this->_pagination;
+		return $this->pagination;
 	}
 	
-	function setOrderBy($orderby) {
-		$this->_orderby = $orderby;
+	public function setOrderBy($orderby) {
+		$this->orderby = $orderby;
 	}
 
-	function setOrderDir($orderdir) {
-		$this->_orderdir = $orderdir;
+	public function setOrderDir($orderdir) {
+		$this->orderdir = $orderdir;
 	}
 
-	function setSearchFields($searchfields) {
+	public function setSearchFields($searchfields) {
 		foreach ($searchfields as $key => $value) {
-			$this->_searchfields[str_replace('filter_', '', $key)] = $value;
-			//var_dump($value);
+			$this->searchfields[str_replace('filter_', '', $key)] = $value;
 		}
 	}
 	
-	function getConf() {
-		if (!$this->_conf) {
+	public function getConf() {
+		if (!$this->conf) {
 			$this->_loadConf();
 		}
-		return $this->_conf;
+		return $this->conf;
 	}
 	
 	private function _loadConf() {
-		if (!$this->_conf) {
+		if (!$this->conf) {
 			$this->dbo->setQuery("SELECT * FROM #__jvarcade_settings ORDER BY " . $this->dbo->quoteName('group') . ", " . $this->dbo->quoteName('ord') . "");
-			$this->_conf = $this->dbo->loadAssocList();
-			return (boolean)$this->_conf;
+			$this->conf = $this->dbo->loadAssocList();
+			return (boolean)$this->conf;
 		}
 		return true;
 	}
 	
-	function getConfObj() {
-		if (!$this->_confobj) {
+	public function getConfObj() {
+		if (!$this->confobj) {
 			$this->_loadConfObj();
 		}
-		return $this->_confobj;
+		return $this->confobj;
 	}
 	
 	private function _loadConfObj() {
@@ -129,15 +127,15 @@ class jvarcadeModelCommon extends JModelLegacy {
 				$obj->tz_diff = ($dateTimeZone->getOffset(new DateTime("now", $dateTimeZone)) - (int)date('Z'))/3600;
 			}
 			
-			$this->_confobj = $loadedconf = $obj;
-			return (boolean)$this->_confobj;
+			$this->confobj = $loadedconf = $obj;
+			return (boolean)$this->confobj;
 		} else {
-			$this->_confobj = $loadedconf;
+			$this->confobj = $loadedconf;
 		}
 		return true;
 	}
 	
-	function configSave() {
+	public function configSave() {
 		$app = JFactory::getApplication('site');
 		$config_save = $app->input->getInt('config_save', 0);
 		if ($config_save) {
@@ -165,31 +163,31 @@ class jvarcadeModelCommon extends JModelLegacy {
 		}
 	}
 	
-	function getContentRatingList() {
+	public function getContentRatingList() {
 		$this->dbo->setQuery('SELECT id, name FROM #__jvarcade_contentrating ORDER BY id');
 		return $this->dbo->loadObjectList();
 	}
 	
-	function getAcl() {
+	public function getAcl() {
 		$query = (JVA_COMPATIBLE_MODE == '15') ? 'SELECT id, name FROM #__core_acl_aro_groups' : 'SELECT id, title as name FROM #__usergroups';
 		$this->dbo->setQuery($query);
 		return $this->dbo->loadAssocList('id');
 	}
 	
-	function getGamesCount() {
+	public function getGamesCount() {
 		$this->dbo->setQuery('SELECT count(*) as count FROM #__jvarcade_games');
 		return $this->dbo->loadResult();
 	}
 
-	function getScoresCount() {
+	public function getScoresCount() {
 		$this->dbo->setQuery('SELECT count(*) as count FROM #__jvarcade');
 		return $this->dbo->loadResult();
 	}
 
-	function getScores() {
+	public function getScores() {
 	
-		if ($this->_orderby) {
-			$orderby = ' ORDER BY ' . $this->_orderby . ' ' . ($this->_orderdir ? $this->_orderdir : '');
+		if ($this->orderby) {
+			$orderby = ' ORDER BY ' . $this->orderby . ' ' . ($this->orderdir ? $this->orderdir : '');
 		} else {
 			$orderby = 'ORDER BY p.date DESC';
 		}
@@ -197,8 +195,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$where = array();
 		$wherestr = '';
 		
-		if (isset($this->_searchfields) && is_array($this->_searchfields) && count($this->_searchfields) > 0) {
-			foreach ($this->_searchfields as $name => $value) {
+		if (isset($this->searchfields) && is_array($this->searchfields) && count($this->searchfields) > 0) {
+			foreach ($this->searchfields as $name => $value) {
 				if ($value != '') {
 					$escaped = $this->dbo->Quote( '%'.$this->dbo->escape($value, true ).'%', false );
 					$where[] = $name . ' LIKE ' . $escaped;
@@ -217,7 +215,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		return $this->dbo->loadObjectList();
 	}
 
-	function getLatestScores() {
+	public function getLatestScores() {
 		$query = "SELECT p.userid, p.score, u.username, g.title " . 
 					"FROM #__jvarcade p " . 
 						"JOIN #__jvarcade_games g ON g.id = p.gameid " . 
@@ -227,14 +225,14 @@ class jvarcadeModelCommon extends JModelLegacy {
 		return $this->dbo->loadObjectList();
 	}
 
-	function getLatestGames() {
+	public function getLatestGames() {
 		$query = "SELECT title, numplayed FROM #__jvarcade_games ORDER by id DESC LIMIT 5 ";
 		$this->dbo->setQuery($query);
 		return $this->dbo->loadObjectList();
 	}
 
 
-	function deleteScore() {
+	public function deleteScore() {
 		$app = JFactory::getApplication('site');
 		$id = array_unique($app->input->get('cid', array(0), 'array'));
 		JArrayHelper::toInteger($id);
@@ -244,7 +242,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$app->redirect('index.php?option=com_jvarcade&c&task=manage_scores');
 	}
 	
-	function scorePublish($published) {
+	public function scorePublish($published) {
 		$app = JFactory::getApplication('site');
 		$id = array_unique($app->input->get('cid', array(0), 'array'));
 		JArrayHelper::toInteger($id);
@@ -256,10 +254,10 @@ class jvarcadeModelCommon extends JModelLegacy {
 
 	}
 	
-	function getFolders($id = 0) {
+	public function getFolders($id = 0) {
 	
-		if ($this->_orderby) {
-			$orderby = ' ORDER BY ' . $this->_orderby . ' ' . ($this->_orderdir ? $this->_orderdir : '');
+		if ($this->orderby) {
+			$orderby = ' ORDER BY ' . $this->orderby . ' ' . ($this->orderdir ? $this->orderdir : '');
 		} else {
 			$orderby = 'ORDER BY f.name DESC';
 		}
@@ -269,8 +267,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 		
 		if ((int)$id) $where[] = 'f.id = ' . (int)$id;
 		
-		if (isset($this->_searchfields) && is_array($this->_searchfields) && count($this->_searchfields) > 0) {
-			foreach ($this->_searchfields as $name => $value) {
+		if (isset($this->searchfields) && is_array($this->searchfields) && count($this->searchfields) > 0) {
+			foreach ($this->searchfields as $name => $value) {
 				if ($value != '') {
 					$escaped = $this->dbo->Quote( '%'.$this->dbo->escape($value, true ).'%', false );
 					$where[] = $name . ' LIKE ' . $escaped;
@@ -289,12 +287,12 @@ class jvarcadeModelCommon extends JModelLegacy {
 		return $return;
 	}
 	
-	function getFolderList() {
+	public function getFolderList() {
 		$this->dbo->setQuery('SELECT id, name FROM #__jvarcade_folders ORDER BY id');
 		return $this->dbo->loadObjectList();
 	}
 	
-	function deleteFolder() {
+	public function deleteFolder() {
 		$app = JFactory::getApplication('site');
 		$id = $app->input->get('cid', null, 'folders', array());
 		if (!is_array($id)) $id = array($id);
@@ -305,7 +303,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$app->redirect('index.php?option=com_jvarcade&c&task=manage_folders');
 	}
 	
-	function folderPublish($published) {
+	public function folderPublish($published) {
 		$app = JFactory::getApplication('site');
 		$id = $app->input->get('cid', null, null);
 		if (!is_array($id)) $id = array($id);
@@ -318,7 +316,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 
 	}
 	
-	function saveFolder() {
+	public function saveFolder() {
 		$app = JFactory::getApplication('site');
 		$task = $app->input->get('task');
 		$post = $app->input->getArray(array(
@@ -402,10 +400,10 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$app->redirect($url);
 	}
 
-	function getGames($id = 0) {
+	public function getGames($id = 0) {
 	
-		if ($this->_orderby) {
-			$orderby = ' ORDER BY ' . $this->_orderby . ' ' . ($this->_orderdir ? $this->_orderdir : '');
+		if ($this->orderby) {
+			$orderby = ' ORDER BY ' . $this->orderby . ' ' . ($this->orderdir ? $this->orderdir : '');
 		} else {
 			$orderby = 'ORDER BY g.id DESC';
 		}
@@ -415,8 +413,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 		
 		if ((int)$id) $where[] = 'g.id = ' . (int)$id;
 		
-		if (isset($this->_searchfields) && is_array($this->_searchfields) && count($this->_searchfields) > 0) {
-			foreach ($this->_searchfields as $name => $value) {
+		if (isset($this->searchfields) && is_array($this->searchfields) && count($this->searchfields) > 0) {
+			foreach ($this->searchfields as $name => $value) {
 				if ($value != '') {
 					$escaped = $this->dbo->Quote( '%'.$this->dbo->escape($value, true ).'%', true );
 					$where[] = $name . ' LIKE ' . $escaped;
@@ -435,7 +433,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		return $return;
 	}
 
-	function getGameTitles($id = array()) {
+	public function getGameTitles($id = array()) {
 		if (is_array($id) && count($id)) {
 			$query = 'SELECT title FROM #__jvarcade_games WHERE id IN (' . implode(',', $id) . ') ORDER BY id DESC';
 			$this->dbo->setQuery($query);
@@ -445,7 +443,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		return array();
 	}
 
-	function getGameIdTitles() {
+	public function getGameIdTitles() {
 		$query = 'SELECT id, title FROM #__jvarcade_games ORDER BY id DESC';
 		$this->dbo->setQuery($query);
 		$return = $this->dbo->loadObjectList();
@@ -453,7 +451,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 
 	}
 	
-	function deleteGame() {
+	public function deleteGame() {
 		jimport('joomla.filesystem.file');
 		jimport('joomla.filesystem.folder');
 		$app = JFactory::getApplication('site');
@@ -497,7 +495,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$app->redirect('index.php?option=com_jvarcade&c&task=manage_games');
 	}
 	
-	function gamePublish($published) {
+	public function gamePublish($published) {
 		$app = JFactory::getApplication('site');
 		$id = array_unique($app->input->get('cid', array(0), 'array'));
 		JArrayHelper::toInteger($id);
@@ -509,7 +507,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 
 	}
 	
-	function saveGame() {
+	public function saveGame() {
 		$app = JFactory::getApplication('site');
 		$task = $app->input->getWord('task', '');
 		$post = $app->input->getArray(array(
@@ -635,10 +633,10 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$app->redirect($url);
 	}
 
-	function getContests($id = 0) {
+	public function getContests($id = 0) {
 	
-		if ($this->_orderby) {
-			$orderby = ' ORDER BY ' . $this->_orderby . ' ' . ($this->_orderdir ? $this->_orderdir : '');
+		if ($this->orderby) {
+			$orderby = ' ORDER BY ' . $this->orderby . ' ' . ($this->orderdir ? $this->orderdir : '');
 		} else {
 			$orderby = 'ORDER BY id DESC';
 		}
@@ -648,8 +646,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 		
 		if ((int)$id) $where[] = 'id = ' . (int)$id;
 		
-		if (isset($this->_searchfields) && is_array($this->_searchfields) && count($this->_searchfields) > 0) {
-			foreach ($this->_searchfields as $name => $value) {
+		if (isset($this->searchfields) && is_array($this->searchfields) && count($this->searchfields) > 0) {
+			foreach ($this->searchfields as $name => $value) {
 				if ($value != '') {
 					$escaped = $this->dbo->Quote( '%'.$this->dbo->escape($value, true ).'%', true );
 					$where[] = $name . ' LIKE ' . $escaped;
@@ -667,7 +665,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		return $return;
 	}
 	
-	function contestPublish($published) {
+	public function contestPublish($published) {
 		$app = JFactory::getApplication('site');
 		$id = array_unique($app->input->get('cid', array(0), 'array'));
 		JArrayHelper::toInteger($id);
@@ -679,7 +677,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 
 	}
 	
-	function deleteContest() {
+	public function deleteContest() {
 		$app = JFactory::getApplication('site');
 		$id = array_unique($app->input->get('cid', array(0), 'array'));
 		JArrayHelper::toInteger($id);
@@ -708,7 +706,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$app->redirect('index.php?option=com_jvarcade&c&task=manage_games');
 	}
 	
-	function saveContest() {
+	public function saveContest() {
 		$app = JFactory::getApplication('site');
 		$task = $app->input->getWord('task', '');
 		$post = $app->input->getArray(array(
@@ -796,7 +794,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$app->redirect($url);
 	}
 	
-	function addGameToContest($game_ids = array(), $contest_ids = array()) {
+	public function addGameToContest($game_ids = array(), $contest_ids = array()) {
 		if (is_array($game_ids) && count($game_ids) && is_array($contest_ids) && count($contest_ids)) {
 			$query = 'INSERT INTO #__jvarcade_contestgame (' . $this->dbo->quoteName('gameid') . ', ' . $this->dbo->quoteName('contestid') . ') VALUES ';
 			$q = array();
@@ -820,7 +818,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		return false;
 	}
 	
-	function getContestGames($contest_id) {
+	public function getContestGames($contest_id) {
 		$this->dbo->setQuery('SELECT g.id, g.title, g.numplayed ' . 
 							' FROM #__jvarcade_contestgame cg ' .
 							'	LEFT JOIN #__jvarcade_games g ON cg.gameid = g.id ' .
@@ -831,7 +829,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 
 	}
 	
-	function getGameContests($game_id) {
+	public function getGameContests($game_id) {
 		$this->dbo->setQuery('SELECT c.* ' . 
 							' FROM #__jvarcade_contestgame cg ' .
 							'	LEFT JOIN #__jvarcade_contest c ON cg.contestid = c.id ' .
@@ -842,7 +840,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 
 	}
 	
-	function deleteGameFromContest($game_ids = array(), $contest_ids = array()) {
+	public function deleteGameFromContest($game_ids = array(), $contest_ids = array()) {
 		$return = true;
 		if (is_array($game_ids) && count($game_ids) && is_array($contest_ids) && count($contest_ids)) {
 			foreach ($game_ids as $game_id) {
@@ -860,10 +858,10 @@ class jvarcadeModelCommon extends JModelLegacy {
 	}
 
 
-	function getContentRatings($id = 0) {
+	public function getContentRatings($id = 0) {
 	
-		if ($this->_orderby) {
-			$orderby = ' ORDER BY ' . $this->_orderby . ' ' . ($this->_orderdir ? $this->_orderdir : '');
+		if ($this->orderby) {
+			$orderby = ' ORDER BY ' . $this->orderby . ' ' . ($this->orderdir ? $this->orderdir : '');
 		} else {
 			$orderby = 'ORDER BY id DESC';
 		}
@@ -883,7 +881,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		return $return;
 	}
 	
-	function contentratingPublish($published) {
+	public function contentratingPublish($published) {
 		$app = JFactory::getApplication('site');
 		$id = array_unique($app->input->get('cid', array(0), 'array'));
 		JArrayHelper::toInteger($id);
@@ -895,7 +893,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 
 	}
 	
-	function saveContentRating() {
+	public function saveContentRating() {
 		$app = JFactory::getApplication('site');
 		$task = $app->input->getWord('task', '');
 		$post = $app->input->getArray(array(
@@ -971,7 +969,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$app->redirect($url);
 	}
 	
-	function deleteContentRating() {
+	public function deleteContentRating() {
 		$app = JFactory::getApplication('site');
 		$id = array_unique($app->input->get('cid', array(0), 'array'));
 		JArrayHelper::toInteger($id);
@@ -982,7 +980,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$app->redirect('index.php?option=com_jvarcade&c&task=content_ratings');
 	}
 	
-	function regenerateLeaderBoard($contest_id = 0) {
+	public function regenerateLeaderBoard($contest_id = 0) {
 		//First clear out the old data
 		$query = 'DELETE FROM #__jvarcade_leaderboard WHERE ' . $this->dbo->quoteName('contestid') . ' = ' . (int)$contest_id;
 		$this->dbo->setQuery($query);
@@ -1058,8 +1056,8 @@ class jvarcadeModelCommon extends JModelLegacy {
 
 		$this->dbo->setQuery('INSERT INTO #__jvarcade_leaderboard(' . $this->dbo->quoteName('contestid') . ', ' . $this->dbo->quoteName('userid') . ', ' . $this->dbo->quoteName('points') . ') VALUES ' . implode(',', $qarr));
 		if (!count($qarr) || $this->dbo->execute()) {
-			$global_conf = JFactory::getConfig();
-			$path = $global_conf->get('tmp_path') . '/' . 'lb_' . $contest_id . '.txt';
+			$globalconf = JFactory::getConfig();
+			$path = $globalconf->get('tmp_path') . '/' . 'lb_' . $contest_id . '.txt';
 			if (file_exists($path)) unlink($path);
 			return true;
 		} else {
@@ -1067,7 +1065,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		}
 	}
 	
-	function showDiagnostics() {
+	public function showDiagnostics() {
 		$msg = array();
 		$conf = $this->getConfObj();
 		$safemode = (@ini_get('safe_mode') ? JText::_('COM_JVARCADE_MAINTENANCE_PHPSAFEMODE_YES') : JText::_('COM_JVARCADE_MAINTENANCE_PHPSAFEMODE_NO'));
@@ -1142,7 +1140,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		return '';
 	}
 	
-	function doMaintenance($service, $context, $gameid, $contestid) {
+	public function doMaintenance($service, $context, $gameid, $contestid) {
 		$result = -1;
 		$message = '';
 		$sql = '';
@@ -1212,7 +1210,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 	}
 
 	// method to get the changelog file
-	function getChangeLog() {
+	public function getChangeLog() {
 		//jimport('joomla.utilities.simplexml');
 		
 
@@ -1243,7 +1241,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		return $output;
 	}
 	
-	function loadChangelogFile() {
+	public function loadChangelogFile() {
 		$config = JFactory::getConfig();
 		$tmp_path = $config->get('tmp_path');
 		$filename = 'jvarcade-changelog.xml';

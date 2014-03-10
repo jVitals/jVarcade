@@ -16,15 +16,15 @@ defined('_JEXEC') or die('Restricted access');
 
 class jvarcadeModelCommon extends JModelLegacy {
 
-	var $config = null;
-	var $global_conf = null;
-	var $dbo = null;
-	var $user = null;
-	var $_pagination = null;
-	var $_orderby = null;
-	var $_orderdir = null;
+	protected $config = null;
+	protected $global_conf = null;
+	protected $dbo = null;
+	protected $user = null;
+	protected $pagination = null;
+	protected $orderby = null;
+	protected $orderdir = null;
 
-	function __construct() {
+	public function __construct() {
 	
 		parent::__construct();
 		$this->dbo = JFactory::getDbo();
@@ -58,29 +58,29 @@ class jvarcadeModelCommon extends JModelLegacy {
 		return $instance;
 	}
 	
-	function getTotal() {
+	public function getTotal() {
 		$this->dbo->setQuery('SELECT FOUND_ROWS();');
 		return (int)$this->dbo->loadResult();
 	}
 	
-	function getPagination() {
+	public function getPagination() {
 		// Load the content if it doesn't already exist
-		if (empty($this->_pagination)) {
+		if (empty($this->pagination)) {
 			jimport('joomla.html.pagination');
-			$this->_pagination = new JPagination($this->getTotal(), $this->getState('limitstart'), $this->getState('limit') );
+			$this->pagination = new JPagination($this->getTotal(), $this->getState('limitstart'), $this->getState('limit') );
 		}
-		return $this->_pagination;
+		return $this->pagination;
 	}
 	
-	function setOrderBy($orderby) {
-		$this->_orderby = $orderby;
+	public function setOrderBy($orderby) {
+		$this->orderby = $orderby;
 	}
 
-	function setOrderDir($orderdir) {
-		$this->_orderdir = $orderdir;
+	public function setOrderDir($orderdir) {
+		$this->orderdir = $orderdir;
 	}
 
-	function getConf() {
+	public function getConf() {
 		if (!$this->config) {
 			$this->_loadConf();
 		}
