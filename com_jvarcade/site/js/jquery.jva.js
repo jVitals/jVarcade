@@ -30,29 +30,6 @@
 			}
 		},
 
-		/*
-		keepalive: function() {
-			$.post(JVA_AJAX_URL, {
-				"option": "com_jvarcade",
-				"task": "keepalive",
-				"tmpl": "component"
-			}, function(data) {
-				setTimeout(jQuery.jva.keepalive, JVA_KEEPALIVE_INTERVAL);
-			});
-		},
-		*/
-		
-		/*roundCorners: function() {
-				jQuery("div.pua_header_box").corner();
-				jQuery("div.pua_folder").corner();
-				jQuery("div.pua_folder_games").corner();
-				jQuery("div.pu_ListContainer").corner("round tr tl");
-				jQuery("div.pu_heading").corner("round tr tl");
-				jQuery("div.pu_listbottom").corner("round br bl");
-				jQuery("tr.pu_heading").corner("round tr tl");
-				jQuery("#pufooter").corner("round br bl");
-		},*/
-
 		showTags: function(id, status, Itemid) {
 			$.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",
