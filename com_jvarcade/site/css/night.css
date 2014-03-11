@@ -502,18 +502,62 @@ div.rating div.hover a,div.rating div a:hover {
 	margin: 20% 0pt 20pt; 
 	font: 40px Arial bold;
 }
+
 /***************************
-* Modal styles
+* Bootstrap Moddal Styles
 ****************************/
-#sbox-content {
+
+div.modal {
+    background-clip: padding-box;
     background-color: #FFFFFF;
-    clear: both;
-    height: 100%;
-    overflow: hidden;
-    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    left: 50%;
+    outline: medium none;
+    position: fixed;
+    top: 10%;
+    width: 580px;
+    z-index: auto;
 }
 
-@-moz-document url-prefix("") {
-.body-overlayed {
-    overflow: hidden;
+.modal-backdrop {
+    background-color: #000000;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: auto;
 }
+
+.modal-backdrop, .modal-backdrop.fade.in {
+    opacity: 0.8;
+}
+
+
+button.close {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 0 none;
+    cursor: pointer;
+}
+
+.close {
+    color: #000000;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 18px;
+    opacity: 0.2;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+
+.close:hover,
+.close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+	opacity: 0.4;
+	filter: alpha(opacity=40);
+}
+
