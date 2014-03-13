@@ -150,7 +150,7 @@
 			}, function(data) {
 				if (window.parent.document.location.href.indexOf('editgame') != -1) {
 					window.parent.jQuery.jva.showGameContests(game_ids);
-					window.parent.SqueezeBox.close();
+					window.parent.jQuery('#contestForGame').modal('hide');
 				} else if (data) {
 					jQuery('body').html('<h1>'+data+'</h1>');
 				}
@@ -173,7 +173,7 @@
 			}, function(data) {
 				if (window.parent.document.location.href.indexOf('editcontest') != -1) {
 					window.parent.jQuery.jva.showContestGames(contest_id);
-					window.parent.SqueezeBox.close();
+					window.parent.jQuery('#gameForContest').modal('hide');
 				} else if (data) {
 					jQuery('body').html('<h1>'+data+'</h1>');
 				}
