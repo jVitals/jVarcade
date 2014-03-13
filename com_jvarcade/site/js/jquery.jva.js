@@ -108,35 +108,30 @@
 			location.href = 'index.php?option=com_jvarcade&task=downloadgame&id=' + id;
 		},
 		
-		showAddToContestPopup: function(game_id) {
-			var url = '';
-			if (typeof game_id != 'undefined') {
-				game_id = 'cid[]=' + game_id;
-				url = JVA_CONTESTLINK_ADDGAME_URL + game_id;
-			} else {
-				var games = jQuery("[name='cid[]']:checked");
-				if (!games.length) {
-					alert(COM_JVARCADE_CONTESTSLINK_GAME_EMPTY);
-				} else {
-					var game_ids = new Array();
-					for (var i=0; i < games.length; i++) {
-						game_ids.push('cid[]=' + games[i].value);
-					}
-					url = JVA_CONTESTLINK_ADDGAME_URL + game_ids.join('&');
-				}
-			}
-			if(url) {
-				jQuery.jva.loadModal(url, 'iframe', 500, 270);
-			}
+		showAddToContestPopup: function() {
+			jQuery('#contestForGame').modal({
+				show: true,
+				backdrop: 'static',
+				});
+			jQuery('#contestForGame').on('show.bs.modal', function (e) {
+				jQuery("body").css("overflow", "hidden");
+			});
+			jQuery('#contestForGame').on('hide.bs.modal', function (e) {
+				jQuery("body").css("overflow", "none");
+			});
 		},
-
-		showAddGamesPopup: function(contest_id) {
-			var url = '';
-			if (typeof contest_id != 'undefined') {
-				contest_id = 'cid[]=' + contest_id;
-				url = JVA_CONTESTLINK_ADDCONTESTGAMES_URL + contest_id;
-				jQuery.jva.loadModal(url, 'iframe', 500, 270);
-			}
+		
+		showAddGamesPopup: function() {
+			jQuery('#gameForContest').modal({
+				show: true,
+				backdrop: 'static',
+				});
+			jQuery('#gameForContest').on('show.bs.modal', function (e) {
+				jQuery("body").css("overflow", "hidden");
+			});
+			jQuery('#gameForContest').on('hide.bs.modal', function (e) {
+				jQuery("body").css("overflow", "none");
+			});
 		},
 		
 		addGameToContest: function() {

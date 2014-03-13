@@ -219,11 +219,12 @@ JHtml::_('bootstrap.tooltip');
 	</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'jveditgame', 'contestforgame', JText::_('COM_JVARCADE_CONTESTSLINK_CONTESTSFORGAME')); ?>
+	<?php echo JHtml::_('bootstrap.renderModal', 'contestForGame', array('url' => JRoute::_('index.php?option=com_jvarcade&task=addgametocontest&tmpl=component&cid=' . $this->game->id, false), 'title' => 'Add Game To Contest', 'height' => '300', 'width' => '500'));?>
 		<div class="row-fluid">
 				<fieldset class="form-horizontal">
 					<?php if ((int)$this->game->id) : ?>
-					<input class="btn hasTooltip js-stools-btn-clear" type="button" onclick="jQuery.jva.showAddToContestPopup(<?php echo $this->game->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_CONTESTSLINK_ADDTOCONTESTS'); ?>" >
-					<input class="btn hasTooltip js-stools-btn-clear" type="button" onclick="jQuery.jva.deleteGameFromContestMulti(<?php echo $this->game->id; ?>, 'game');" value="<?php echo JText::_('COM_JVARCADE_CONTESTSLINK_REMOVESELECTED'); ?>" >
+					<input class="btn btn-primary" type="button" onclick="jQuery.jva.showAddToContestPopup();" value="<?php echo JText::_('COM_JVARCADE_CONTESTSLINK_ADDTOCONTESTS'); ?>" >
+					<input class="btn btn-primary" type="button" onclick="jQuery.jva.deleteGameFromContestMulti(<?php echo $this->game->id; ?>, 'game');" value="<?php echo JText::_('COM_JVARCADE_CONTESTSLINK_REMOVESELECTED'); ?>" >
 					<div class="clr"></div>
 					<div id="gamecontests"></div>
 					<script type="text/javascript">

@@ -218,7 +218,7 @@ class jvarcadeController extends JControllerLegacy {
 	public function savegametocontest() {
 		$app = JFactory::getApplication();
 		$game_ids = $app->input->getString('game_ids', '');
-		$contest_ids = $app->input->getString('contest_id', '');
+		$contest_ids = $app->input->getString('contest_ids', '');
 		if ($game_ids && $contest_ids) {
 			$game_ids = explode(',', $game_ids);
 			JArrayHelper::toInteger($game_ids);
