@@ -13,14 +13,7 @@
 defined('_JEXEC') or die('Restricted access');
 // Deal with the content rating
 ?>
-<?php if ($this->game['warningrequired']): ?>
-<?php $warning =  '<div class="gamewarning">' . trim(strip_tags($this->game['rating_desc'])) . '</div><div align="center">' . JText::sprintf('COM_JVARCADE_WARNING_LEAVE' . ($this->config->window == 2 ? '_POPUP' : ''), JRoute::_('index.php?option=com_jvarcade&task=home'))  . '</div>'; ?>
-<script type="text/javascript">
-	window.addEvent('load', function() {
-		jQuery.jva.loadModal('<?php echo str_replace('\'', '"', $warning); ?>', 'string', 500, 400);
-	});
-</script>
-<?php endif; ?>
+
 
 <div id="puarcade_wrapper">
 	<?php if ($this->config->rate == 1) : ?> 
@@ -100,7 +93,10 @@ defined('_JEXEC') or die('Restricted access');
 		<div class="pu_MediaObject">
 			<center>
 			<?php ob_start(); ?>
-			<?php if (stristr($this->game['filename'], '.swf')) : ?>
+			<?php if (stristr($this->game['filename'], '.swf')) : 
+			$width = $this->game['width']+30;
+			$modalId = 'swfModal';
+			?>
 			
 			<!-- Flash game -->
 			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
@@ -138,52 +134,11 @@ defined('_JEXEC') or die('Restricted access');
   </object>
   <!--<![endif]-->
 </object>
-			<?php 
-				$embed = ob_get_contents(); 
-				ob_end_clean();
-				if ($this->config->window == 2) {
-					$width = $this->game['width']+30;
-					echo JHtml::_('bootstrap.modal', 'swfModal');
-					?>
-					<style>
-					div .modal {
-						/* new custom width */
-						width: <?php echo $width; ?>px;
-						/* must be half of the width */
-   						 margin-left: -<?php echo $width/2; ?>px;
-    					margin-top: -50px;
-					}
-					#swfModal .modal-body {
-						max-height: 800px;
-					}
-					</style>
-					<div class="modal hide" id="swfModal">
-						<div class="pu_heading" style="text-align: center;"><?php echo $this->game['title'] ?>
-							<button type="button" class="close" data-dismiss="modal" >&times;</button>
-						</div>
-						<div class="modal-body"><?php echo $embed; ?></div>
-					</div>
-					<script type="text/javascript">
-					jQuery(document).ready(function($) {
-					 $('#swfModal').modal({
-							backdrop: 'static',
-							keyboard: true
-							});
-					});
-					jQuery('#swfModal').on('show.bs.modal', function (e) {
-						jQuery("body").css("overflow", "hidden");
-					});
-					jQuery('#swfModal').on('hide.bs.modal', function (e) {
-						jQuery("body").css("overflow", "none");
-					});
-					</script>						
-				<?php
-				} else {
-					echo $embed;
-				}
-				?>
+			
 
-			<?php elseif(stristr($this->game['filename'], '.dcr')) : ?>
+			<?php elseif(stristr($this->game['filename'], '.dcr')) : 
+			$width = $this->game['width']+30;
+			$modalId = 'dcrModal'; ?>
 			
 			<!-- Director game -->
 			<object classid="clsid:166B1BCA-3F9C-11CF-8075-444553540000"
@@ -209,53 +164,10 @@ defined('_JEXEC') or die('Restricted access');
 					<noembed></noembed>
 				</comment>
 			</object>
-            <?php 
-				$embed = ob_get_contents(); 
-				ob_end_clean();
-				if ($this->config->window == 2) {
-					$width = $this->game['width']+30;
-					echo JHtml::_('bootstrap.modal', 'dcrModal');
-			?>
-					<style>
-					div .modal {
-						/* new custom width */
-						width: <?php echo $width; ?>px;
-						/* must be half of the width */
-   						 margin-left: -<?php echo $width/2; ?>px;
-    					margin-top: -50px;
-					}
-					#dcrModal .modal-body {
-						max-height: 800px;
-					}
-					</style>
-					<div class="modal hide" id="dcrModal">
-						<div class="pu_heading" style="text-align: center;">
-							<?php echo $this->game['title'] ?>
-							<button type="button" class="close" data-dismiss="modal" >&times;</button>
-						</div>
-						<div class="modal-body"><?php echo $embed; ?></div>
-					</div>
-					<script type="text/javascript">
-					jQuery(document).ready(function($) {
-					 $('#dcrModal').modal({
-							backdrop: 'static',
-							keyboard: true
-							});
-					});
-					jQuery('#dcrModal').on('show.bs.modal', function (e) {
-						jQuery("body").css("overflow", "hidden");
-					});
-					jQuery('#dcrModal').on('hide.bs.modal', function (e) {
-						jQuery("body").css("overflow", "none");
-					});
-					</script>					
-					<?php
-				} else {
-					echo $embed;
-				}
-			?>	
 			
-			<?php elseif(stristr($this->game['filename'], '.nes')) : ?>
+			<?php elseif(stristr($this->game['filename'], '.nes')) : 
+			$width = '560';
+			$modalId = 'nesModal'?>
 			
 			<!-- NES Emulation for playing NES ROMS courtesy of vNES http://www.thatsanderskid.com/programming/vnes -->
 			<center>
@@ -295,54 +207,10 @@ defined('_JEXEC') or die('Restricted access');
   				<param name="p2_start" value="PAGE_UP">
   				<param name="p2_select" value="PAGE_DOWN">
 			</applet>
-            <?php 
-				$embed = ob_get_contents(); 
-				ob_end_clean();
-				if ($this->config->window == 2) {
-					echo JHtml::_('bootstrap.modal', 'nesModal');
-					?>
-					<style>
-					div .modal {
-						/* new custom width */
-						width: 560px;
-						/* must be half of the width */
-   						 margin-left: -280px;
-    					margin-top: -50px;
-					}
-					#nesModal .modal-body {
-						max-height: 800px;
-					}
-					</style>
-					<div class="modal hide" id="nesModal">
-						<div class="pu_heading" style="text-align: center;">
-							<?php echo $this->game['title'] ?>
-							<button type="button" class="close" data-dismiss="modal" >&times;</button>
-						</div>
-						<div class="modal-body">
-							<?php echo $embed; ?>
-						</div>
-					</div>
-					<script type="text/javascript">
-					jQuery(document).ready(function($) {
-					 $('#nesModal').modal({
-							backdrop: 'static',
-							keyboard: true
-							});
-					});
-					jQuery('#nesModal').on('show.bs.modal', function (e) {
-						jQuery("body").css("overflow", "hidden");
-					});
-					jQuery('#nesModal').on('hide.bs.modal', function (e) {
-						jQuery("body").css("overflow", "none");
-					});
-					</script>					
-					<?php
-				} else {
-					echo $embed;
-				}
-			?>
 			
-			<?php elseif(stristr($this->game['filename'], '.gb') || stristr($this->game['filename'], '.gbc')) : ?>
+			<?php elseif(stristr($this->game['filename'], '.gb') || stristr($this->game['filename'], '.gbc')) :
+			$width = '350';
+			$modalId = 'gbModal'?>
 
 			<!-- GameBoy emulation for playing GB ROMS courtesy of JavaBoy http://www.millstone.demon.co.uk/download/javaboy/ -->
 			
@@ -352,54 +220,10 @@ defined('_JEXEC') or die('Restricted access');
 				<param name="SAVERAMURL" value="<?php echo $this->baseurl; ?>/index.php?option=com_jvarcade&amp;arcade=savegbram" />
 				<param name="LOADRAMURL" value="<?php echo $this->baseurl; ?>/index.php?option=com_jvarcade&amp;arcade=loadgbram" />
 			</applet>
-            <?php 
-				$embed = ob_get_contents(); 
-				ob_end_clean();
-				if ($this->config->window == 2) {
-					echo JHtml::_('bootstrap.modal', 'gbModal');
-					?>
-					<style>
-					div .modal {
-						/* new custom width */
-						width: 350px;
-						/* must be half of the width */
-   						 margin-left: -175px;
-    					margin-top: -50px;
-					}
-					#gbModal .modal-body {
-						max-height: 800px;
-					}
-					</style>
-					<div class="modal hide" id="gbModal">
-						<div class="pu_heading" style="text-align: center;">
-							<?php echo $this->game['title'] ?>
-							<button type="button" class="close" data-dismiss="modal" >&times;</button>
-						</div>
-						<div class="modal-body">
-							<?php echo $embed; ?>
-						</div>
-					</div>
-					<script type="text/javascript">
-					jQuery(document).ready(function($) {
-					 $('#gbModal').modal({
-							backdrop: 'static',
-							keyboard: true
-							});
-					});
-					jQuery('#gbModal').on('show.bs.modal', function (e) {
-						jQuery("body").css("overflow", "hidden");
-					});
-					jQuery('#gbModal').on('hide.bs.modal', function (e) {
-						jQuery("body").css("overflow", "none");
-					});
-					</script>					
-					<?php
-				} else {
-					echo $embed;
-				}
-			?>
 			
-			<?php elseif(stristr($this->game['filename'], '.bin')) : ?>
+			<?php elseif(stristr($this->game['filename'], '.bin')) :
+			$width = '700';
+			$modalId = 'atariModal'?>
 			
 			<!-- Atari 2600 emulation for playing Atari 2600 ROMS courtesy of javatari http://javatari.org/ -->
             <center>
@@ -409,54 +233,10 @@ defined('_JEXEC') or die('Restricted access');
 				<param name="arg1" value="-screen_cartridge_change=false" />
 				Your browser does not seem to support applets.
 			</applet>
-            <?php
-				$embed = ob_get_contents(); 
-				ob_end_clean();
-				if ($this->config->window == 2) {
-					echo JHtml::_('bootstrap.modal', 'atariModal');
-					?>
-					<style>
-					div .modal {
-						/* new custom width */
-						width: 700px;
-						/* must be half of the width */
-   						 margin-left: -350px;
-    					margin-top: -50px;
-					}
-					#atariModal .modal-body {
-						max-height: 800px;
-					}
-					</style>
-					<div class="modal hide" id="atariModal">
-						<div class="pu_heading" style="text-align: center;">
-							<?php echo $this->game['title'] ?>
-							<button type="button" class="close" data-dismiss="modal" >&times;</button>
-						</div>
-            			<div class="modal-body">
-							<?php echo $embed; ?>
-						</div>
-					</div>
-					<script type="text/javascript">
-					jQuery(document).ready(function($) {
-					 $('#atariModal').modal({
-							backdrop: 'static',
-							keyboard: true
-							});
-					});
-					jQuery('#atariModal').on('show.bs.modal', function (e) {
-						jQuery("body").css("overflow", "hidden");
-					});
-					jQuery('#atariModal').on('hide.bs.modal', function (e) {
-						jQuery("body").css("overflow", "none");
-					});
-					</script>						
-					<?php
-				} else {
-					echo $embed;
-				}
-			?>
 			
-            <?php elseif(stristr($this->game['filename'], '.prg')) : ?>
+            <?php elseif(stristr($this->game['filename'], '.prg')) : 
+            $width = '815';
+            $modalId = 'c64Modal';?>
             <!-- Commodore 64 emulation for playing C64 .prg files courtesy of http://jac64.sourceforge.net -->
 			<center>
 			<applet id="c64" name="c64" code="C64Applet.class" archive="<?php echo $this->baseurl . '/plugins/jvarcade/c64/c64small.jar'; ?>" WIDTH="768" HEIGHT ="568" MAYSCRIPT>
@@ -470,54 +250,6 @@ defined('_JEXEC') or die('Restricted access');
 			</applet><br />
             <a href="javascript:document.c64.setStick(0)">Joystick 0</a>,
 			<a href="javascript:document.c64.setStick(1)">Joystick 1</a>
-            <?php
-			$embed = ob_get_contents(); 
-				ob_end_clean();
-			if ($this->config->window == 2) {
-				echo JHtml::_('bootstrap.modal', 'c64Modal');
-					?>
-					
-					<style>
-					div .modal {
-						/* new custom width */
-						width: 815px;
-						/* must be half of the width */
-   						 margin-left: -407.5px;
-    					margin-top: -50px;
-					}
-					#c64Modal .modal-body {
-						max-height: 800px;
-					}
-					</style>
-					<div class="modal hide" id="c64Modal">
-						<div class="pu_heading" style="text-align: center;">
-							<?php echo $this->game['title'] ?>
-							<button type="button" class="close" data-dismiss="modal" >&times;</button>
-						</div>
-            			<div class="modal-body">
-							<?php echo $embed; ?>
-						</div>
-					</div>
-					<script type="text/javascript">
-					jQuery(document).ready(function($) {
-					 $('#c64Modal').modal({
-							backdrop: 'static',
-							keyboard: true
-							});
-					});
-					jQuery('#c64Modal').on('show.bs.modal', function (e) {
-						jQuery("body").css("overflow", "hidden");
-					});
-					jQuery('#c64Modal').on('hide.bs.modal', function (e) {
-						jQuery("body").css("overflow", "none");
-					});
-					</script>					
-					<?php
-				} else {
-					echo $embed;
-				}
-			?>
-            
             
 			<?php elseif(stristr($this->game['filename'], '.htm') || stristr($this->game['filename'], '.html') || stristr($this->game['filename'], '.txt')) : ?>
 			
@@ -525,6 +257,135 @@ defined('_JEXEC') or die('Restricted access');
 			<?php include(JPATH_SITE . $this->config->games_dir . $this->game['filename']); ?>
 			
 			<?php endif; ?>
+			
+			<?php 
+				$embed = ob_get_contents(); 
+				ob_end_clean();
+				if ($this->config->window == 2) {
+					echo JHtml::_('bootstrap.modal', $modalId); ?>
+					<style>
+					div .modal {
+						/* new custom width */
+						width: <?php echo $width; ?>px;
+						/* must be half of the width */
+   						 margin-left: -<?php echo $width/2; ?>px;
+    					margin-top: -50px;
+					}
+					<?php echo '#' . $modalId?> .modal-body {
+						max-height: 800px;
+					}
+					</style>
+					<div class="modal hide" id="<?php echo $modalId?>">
+						<div class="pu_heading" style="text-align: center;"><?php echo $this->game['title'] ?>
+							<button type="button" class="close" data-dismiss="modal" >&times;</button>
+						</div>
+						<div class="modal-body"><?php echo $embed; ?></div>
+					</div>
+					 <?php if ($this->game['warningrequired']) {
+						$warning =  '<div class="gamewarning">' . trim(strip_tags($this->game['rating_desc'])) . '</div>';
+						 echo JHtml::_('bootstrap.modal', 'warnModal'); ?>
+						 <style>
+						 	
+						 #warnModal .modal-body {
+						 max-height: 800px;
+						 }
+						 </style>
+						 <div class="modal hide" id="warnModal">
+						<div class="modal-header">Warning</div>
+						 	<div class="modal-body">
+						 		<?php echo $warning; ?>
+						 	</div>
+						 	<div class="modal-footer">
+						 		<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=home') ?>"><button type="button" class="btn btn-primary">Leave This Page</button></a>
+						 	<input type="button" class="btn btn-primary" data-dismiss="modal" value="Continue">
+						 	</div>
+						 </div>
+						 			<script type="text/javascript">
+						 					jQuery(document).ready(function($) {
+						 					 $('#warnModal').modal({
+						 						 show: true,
+						 						 backdrop: 'static',
+						 						 keyboard: false
+						 						 });
+						 					});
+						 					jQuery('#warnModal').on('show.bs.modal', function (e) {
+												jQuery("body").css("overflow", "hidden");
+											});
+											jQuery('#warnModal').on('hide.bs.modal', function (e) {
+												jQuery("body").css("overflow", "none");
+											});
+						 					jQuery('<?php echo '#' . $modalId ?>').on('show.bs.modal', function (e) {
+												jQuery("body").css("overflow", "hidden");
+											});
+											jQuery('<?php echo '#' . $modalId ?>').on('hide.bs.modal', function (e) {
+												jQuery("body").css("overflow", "none");
+											});
+						 					jQuery('#warnModal').on('hide.bs.modal', function (e) {
+						 						jQuery('<?php echo '#'. $modalId ?>').modal({
+														backdrop: 'static',
+														keyboard: true
+														});
+						 					});
+						 			</script>
+						 
+					<?php } else {?>
+					<script type="text/javascript">
+					jQuery(document).ready(function($) {
+					 $('<?php echo '#'. $modalId ?>').modal({
+							backdrop: 'static',
+							keyboard: true
+							});
+					});
+					jQuery('<?php echo '#' . $modalId ?>').on('show.bs.modal', function (e) {
+						jQuery("body").css("overflow", "hidden");
+					});
+					jQuery('<?php echo '#' . $modalId ?>').on('hide.bs.modal', function (e) {
+						jQuery("body").css("overflow", "none");
+					});
+					</script>
+					<?php }?>					
+				<?php
+				} else {
+				if ($this->game['warningrequired']): 
+				$warning =  '<div class="gamewarning">' . trim(strip_tags($this->game['rating_desc'])) . '</div>';
+				echo JHtml::_('bootstrap.modal', 'warnModal');?>
+					<style>
+					#warnModal .modal-body {
+						max-height: 800px;
+					}
+					#warnModal .modal-backdrop, .modal-backdrop.in {
+    					opacity: 100;
+					}
+					</style>
+					<div class="modal hide" id="warnModal">
+						<div class="modal-header">Warning</div>
+            			<div class="modal-body">
+							<?php echo $warning; ?>
+						</div>
+						<div class="modal-footer">
+						<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=home') ?>"><button type="button" class="btn btn-primary">Leave This Page</button></a>
+						<input type="button" class="btn btn-primary" data-dismiss="modal" value="Continue">
+						</div>
+					</div>
+					<script type="text/javascript">
+					jQuery(document).ready(function($) {
+					 $('#warnModal').modal({
+						 show: true,
+						 backdrop: 'static',
+						 keyboard: false
+						 });
+					});
+					jQuery('#warnModal').on('show.bs.modal', function (e) {
+						jQuery("body").css("overflow", "hidden");
+					});
+					jQuery('#warnModal').on('hide.bs.modal', function (e) {
+						jQuery("body").css("overflow", "none");
+					});
+					</script>	
+				<?php endif;
+					echo $embed;
+				}
+				?>
 			
 			</center>
 		</div>
@@ -643,7 +504,7 @@ defined('_JEXEC') or die('Restricted access');
 		</div>
 		
 	<?php endif; ?>
-
+	
 	<?php include_once(JVA_TEMPLATES_INCPATH . 'footer.php'); ?>
 	
 </div>
