@@ -99,41 +99,29 @@ defined('_JEXEC') or die('Restricted access');
 			?>
 			
 			<!-- Flash game -->
-			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-            style="width: <?php echo $this->game['width']; ?>px; height: <?php echo $this->game['height']; ?>px;" 
-            width="<?php echo $this->game['width']; ?>"
-            height="<?php echo $this->game['height']; ?>" 
-    		id="<?php echo $this->game['filename']; ?>" align="">
-  			<param name="movie" value="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>" />
-  			<param name="quality" value="high" />
-  			<param name="wmode" value="opaque" />
-  			<param name="bgcolor" value="<?php echo $this->game['background']; ?>" />
-  			<param name="menu" value="false" />
-  			<param name="swfversion" value="8.0.35.0" />
-  <!-- This param tag prompts users with Flash Player 6.0 r65 and higher to download the latest version of Flash Player. Delete it if you don’t want users to see the prompt. -->
-  	<param name="expressinstall" value="Scripts/expressInstall.swf" />
-  <!-- Next object tag is for non-IE browsers. So hide it from IE using IECC. -->
-  <!--[if !IE]>-->
-  	<object type="application/x-shockwave-flash" data="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>"
-  	style="width: <?php echo $this->game['width']; ?>px; height: <?php echo $this->game['height']; ?>px;"
-  	width="<?php echo $this->game['width']; ?>" 
-  	height="<?php echo $this->game['height']; ?>">
-    <!--<![endif]-->
-    <param name="quality" value="high" />
-    <param name="wmode" value="opaque" />
-    <param name="bgcolor" value="<?php echo $this->game['background']; ?>" />
-    <param name="swfversion" value="8.0.35.0" />
-    <param name="menu" value="false" />
-    <param name="expressinstall" value="Scripts/expressInstall.swf" />
-    <!-- The browser displays the following alternative content for users with Flash Player 6.0 and older. -->
-    <div>
-      <h4>Content on this page requires a newer version of Adobe Flash Player.</h4>
-      <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" width="112" height="33" /></a></p>
-    </div>
-    <!--[if !IE]>-->
-  </object>
-  <!--<![endif]-->
-</object>
+			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" 
+					codebase="<?php echo $this->scheme; ?>download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"
+					width="<?php echo $this->game['width']; ?>" 
+					height="<?php echo $this->game['height']; ?>" 
+					id="<?php echo $this->game['filename']; ?>" align="">
+				<param name="movie" value="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>" />
+				<param name="quality" value="high" /> 
+				<param name="bgcolor" value="<?php echo $this->game['background']; ?>" />
+				<param name="menu" value="false" />
+				<comment>
+					<embed 
+						src="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>"
+						quality="high" bgcolor="<?php echo $this->game['background']; ?>"
+						width="<?php echo $this->game['width']; ?>" 
+						height="<?php echo $this->game['height']; ?>" 
+						name="<?php echo $this->game['filename']; ?>" 
+						menu="false" 
+						type="application/x-shockwave-flash"
+						pluginspage="<?php echo $this->scheme; ?>www.macromedia.com/go/getflashplayer"> 
+					</embed>
+					<noembed></noembed>
+				</comment>
+			</object>		
 			
 
 			<?php elseif(stristr($this->game['filename'], '.dcr')) : 
@@ -147,13 +135,13 @@ defined('_JEXEC') or die('Restricted access');
 					height="<?php echo $this->game['height']; ?>" 
 					id="<?php echo $this->game['filename']; ?>" 
 					align="">
-				<param name="src" value="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=arcade~storescore&amp;pn_modvar=option&amp;pn_modvalue=com_jvarcade&amp;pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>&amp;pn_domain=jVArcade" />
+				<param name="src" value="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>" />
 				<param name="quality" value="high" />
 				<param name="bgcolor" value="<?php echo $this->game['background']; ?>" />
 				<param name="menu" value="false" />
 				<comment> 
 					<embed
-						src="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=arcade~storescore&amp;pn_modvar=option&amp;pn_modvalue=com_jvarcade&amp;pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>&amp;pn_domain=jVArcade"
+						src="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>
 						quality="high" bgcolor="<?php echo $this->game['background']; ?>"
 						width="<?php echo $this->game['width']; ?>"
 						height="<?php echo $this->game['height']; ?>"
