@@ -16,6 +16,7 @@ define('JVA_VERSION', '2.1');
 
 // File system paths
 @define('JVA_CSS_INCPATH', JPATH_ROOT . '/components/com_jvarcade/css/');
+@define('JVA_HOMEVIEW_INCPATH', JPATH_ROOT . '/components/com_jvarcade/views/home/tmpl/');
 @define('JVA_IMAGES_INCPATH', JPATH_ROOT . '/images/jvarcade/images/');
 @define('JVA_JS_INCPATH', JPATH_ROOT . '/components/com_jvarcade/js/');
 @define('JVA_MODELS_INCPATH', JPATH_ROOT . '/components/com_jvarcade/models/');

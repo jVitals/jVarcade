@@ -98,7 +98,7 @@ defined('_JEXEC') or die('Restricted access');
 	
 	<?php include_once(JVA_TEMPLATES_INCPATH . 'pagination.php'); ?>
 	
-	<?php if ($this->config->flat == 0) : ?>
+	<?php if ($this->layout != 'flat') : ?>
 	<br /><center><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&amp;task=home'); ?>"><?php echo JText::_('COM_JVARCADE_CHOOSE_ANOTHER_FOLDER'); ?></a></center>
 	<?php endif; ?>
 

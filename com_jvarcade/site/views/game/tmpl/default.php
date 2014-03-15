@@ -99,6 +99,7 @@ defined('_JEXEC') or die('Restricted access');
 			?>
 			
 			<!-- Flash game -->
+			
 			<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="<?php echo $this->game['width']; ?>" height="<?php echo $this->game['height']; ?>" id="<?php echo $this->game['gamename']; ?>" align="middle">
 				<param name="movie" value="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>" />
 				<param name="quality" value="high" />
@@ -131,7 +132,7 @@ defined('_JEXEC') or die('Restricted access');
 				<!--[if !IE]>-->
 				</object>
 				<!--<![endif]-->
-			</object>		
+			</object>
 			
 
 			<?php elseif(stristr($this->game['filename'], '.dcr')) : 
@@ -311,19 +312,18 @@ defined('_JEXEC') or die('Restricted access');
 											});
 											jQuery('#warnModal').on('hide.bs.modal', function (e) {
 												jQuery("body").css("overflow", "none");
-											});
+						 						jQuery('<?php echo '#'. $modalId ?>').modal({
+														backdrop: 'static',
+														keyboard: true
+														});
+						 					});
 						 					jQuery('<?php echo '#' . $modalId ?>').on('show.bs.modal', function (e) {
 												jQuery("body").css("overflow", "hidden");
 											});
 											jQuery('<?php echo '#' . $modalId ?>').on('hide.bs.modal', function (e) {
 												jQuery("body").css("overflow", "none");
 											});
-						 					jQuery('#warnModal').on('hide.bs.modal', function (e) {
-						 						jQuery('<?php echo '#'. $modalId ?>').modal({
-														backdrop: 'static',
-														keyboard: true
-														});
-						 					});
+						 					
 						 			</script>
 						 
 					<?php } else {?>

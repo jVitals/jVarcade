@@ -219,7 +219,7 @@ JHtml::_('bootstrap.tooltip');
 	</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'jveditgame', 'contestforgame', JText::_('COM_JVARCADE_CONTESTSLINK_CONTESTSFORGAME')); ?>
-	<?php echo JHtml::_('bootstrap.renderModal', 'contestForGame', array('url' => JRoute::_('index.php?option=com_jvarcade&task=addgametocontest&tmpl=component&cid=' . $this->game->id, false), 'title' => 'Add Game To Contest', 'height' => '300', 'width' => '500'));?>
+	<?php echo JHtml::_('bootstrap.renderModal', 'contestForGame', array('url' => JRoute::_('index.php?option=com_jvarcade&task=addgametocontest&tmpl=component&cid=' . $this->game->id, false), 'title' => 'Add Game To Contest', 'height' => '300', 'width' => '600'));?>
 		<div class="row-fluid">
 				<fieldset class="form-horizontal">
 					<?php if ((int)$this->game->id) : ?>

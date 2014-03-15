@@ -31,7 +31,7 @@ INSERT INTO `#__jvarcade_settings` (`optname`,`value`,`group`,`ord`,`type`,`desc
 			('rate', '1', 'frontend', 4, 'yesno', 'COM_JVARCADE_OPTDESC_RATE'),
 			('showstats', '1', 'frontend', 5, 'yesno', 'COM_JVARCADE_OPTDESC_SHOWSTATS'),
 			('showscoresinfolders', '1', 'frontend', 6, 'yesno', 'COM_JVARCADE_OPTDESC_SHOWSCORESINFOLDERS'),
-			('flat', '0', 'frontend', 7, 'yesno', 'COM_JVARCADE_OPTDESC_FLAT'),
+			('homepage_view', 'default', 'frontend', 7, 'select', 'COM_JVARCADE_OPTDESC_HOMEPAGE_VIEW'),
 			('homepage_order', '1', 'frontend', 8, 'select', 'COM_JVARCADE_OPTDESC_HOMEPAGE_ORDER'),
 			('homepage_order_dir', '1', 'frontend', 9, 'select', 'COM_JVARCADE_OPTDESC_HOMEPAGE_ORDER_DIR'),
 			('foldercols', '1', 'frontend', 10, 'text', 'COM_JVARCADE_OPTDESC_FOLDERCOLS'),

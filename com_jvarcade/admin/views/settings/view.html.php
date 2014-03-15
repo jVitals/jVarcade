@@ -78,6 +78,17 @@ class jvarcadeViewSettings extends JViewLegacy {
 				break;
 		}
 		switch ($arr['optname']) {
+			case 'homepage_view' :
+		jimport('joomla.filesystem.folder');
+				jimport('joomla.filesystem.file');
+				$files = JFolder::files(JVA_HOMEVIEW_INCPATH, '.php');
+				$opts = array();
+				foreach ($files as $file) {
+					$file = str_replace('.php', '', $file);
+					$opts[$file] = ucfirst($file);
+				}
+				$result = JHtml::_('select.genericlist', $opts, $arr['optname'], null, 'value', 'text', trim($arr['value']), $arr['optname']);
+				break;
 			case 'homepage_order' :
 				$opts = array(1 => JText::_('COM_JVARCADE_HOMEPAGE_ORDER_1'), 2 => JText::_('COM_JVARCADE_HOMEPAGE_ORDER_2'));
 				$result = JHtml::_('select.genericlist', $opts, $arr['optname'], null, 'value', 'text', trim($arr['value']), $arr['optname']);
@@ -103,7 +114,7 @@ class jvarcadeViewSettings extends JViewLegacy {
 				$opts = array();
 				foreach ($files as $file) {
 					$file = str_replace('.css', '', $file);
-					$opts[$file] = $file;
+					$opts[$file] = ucfirst($file);
 				}
 				$result = JHtml::_('select.genericlist', $opts, $arr['optname'], null, 'value', 'text', trim($arr['value']), $arr['optname']);			
 				break;

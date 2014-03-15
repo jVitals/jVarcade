@@ -15,21 +15,16 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 <div id="puarcade_wrapper">
 	
-	<?php include_once(JVA_TEMPLATES_INCPATH . 'menu.php'); ?>
+	<?php include_once(JVA_TEMPLATES_INCPATH . 'menu.php'); 
+	echo JHtml::_('bootstrap.carousel', 'jvaHome');
+	?>
 	
-	<?php if ($this->config->foldercols > 1) : ?>
-		<?php $i = 1; ?>
-		<div class="jva_foldercols" border="0" width="100%"><div class="jva_column_wrap">
-	<?php endif; ?>
-	
+	<div id="jvaHome" class="carousel slide"><!-- class of slide for animation -->
+  <div class="carousel-inner">
 	<?php if (is_array($this->folders) && count($this->folders)) : ?>
-	<?php foreach ($this->folders as $folder) : ?>
-	
-		<?php if ($this->config->foldercols > 1) : ?>
-			<div class="jva_columns" style="width:<?php echo round(100/$this->config->foldercols); ?>%;">
-		<?php endif; ?>
-		
-		<div class="pua_folder">
+	<?php $n=0; foreach ($this->folders as $folder) : $n++; ?>
+		 <div class="item<?php if($n==1) echo ' active' ?>">
+		 <div class="pua_folder">
 			<div class="pua_folder_description">
 				<div class="pua_folder_description_left">
 					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=folder&id=' . $folder['id']); ?>">
@@ -51,22 +46,12 @@ defined('_JEXEC') or die('Restricted access');
 				<?php $alt = htmlspecialchars(stripslashes($game['title'])); ?>
 				<div class="pua_folder_games">
 				<?php $game_url = JUri::root(true) . '/index.php?option=com_jvarcade&task=game&id=' . $game['id']; ?>
-				<?php if ($game['window'] == 2 || ($game['window'] == 0 && $this->config->window == 2)) : ?>
-					<a href="javascript:void(0);" onclick="window.open('<?php echo $game_url; ?>','jVArcade','width=<?php echo $game['width']; ?>,height=<?php echo $game['height']; ?>')">
-						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $game['imagename']; ?>" alt="<?php echo $alt; ?>" title="<?php echo $alt; ?>" />
-					</a>
-					<a href="javascript:void(0);" onclick="window.open('<?php echo $game_url; ?>','jVArcade','width=<?php echo $game['width']; ?>,height=<?php echo $game['height']; ?>')">
-						<?php echo jvaHelper::truncate(stripslashes($game['title']), (int)$this->config->truncate_title); ?>
-					</a>
-				<?php else : ?>
-					
 					<a href="<?php echo $game_url; ?>">
 						<?php echo jvaHelper::truncate(stripslashes($game['title']), (int)$this->config->truncate_title); ?>
 					</a>
 					<a href="<?php echo $game_url; ?>">
 						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $game['imagename']; ?>" alt="<?php echo $alt; ?>" title="<?php echo $alt; ?>" />
-					</a>					
-				<?php endif; ?>
+					</a>
 				
 				<?php if ($this->config->showscoresinfolders == 1) : ?>
 					
@@ -107,23 +92,30 @@ defined('_JEXEC') or die('Restricted access');
 					<?php echo implode(', ', $tmp); ?>
 			</div>
 			<?php endif; ?>
+			
 		</div>
-		
-		<?php if ($this->config->foldercols >= 1) : ?>
-			</div><div>
-			<?php if(!($i%(int)$this->config->foldercols)) : ?>
-			</div><div>
-			<?php endif; ?>
-			<?php $i++; ?>
-		<?php endif; ?>
-	
-	<?php endforeach; ?>
-	<?php else: ?>
+	</div>
+<?php endforeach; ?>
+ </div><!-- /.carousel-inner -->
+  <!--  Next and Previous controls below
+        href values must reference the id for this carousel -->
+    <a class="carousel-control left" href="#jvaHome" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#jvaHome" data-slide="next">&rsaquo;</a>
+    <div class="num"></div>
+</div>
+<script type="text/javascript">
+	var totalItems = jQuery('.item').length;
+	var currentIndex = jQuery('div.active').index() + 1;
+	jQuery('.num').html('Folder: '+currentIndex+'/'+totalItems+'');
+
+	jQuery('#jvaHome').bind('slid', function() {
+	    currentIndex = jQuery('div.active').index() + 1;
+	   jQuery('.num').html('Folder: '+currentIndex+'/'+totalItems+'');
+	})
+
+	</script>
+<?php else: ?>
 		<?php echo JText::_('COM_JVARCADE_NO_GAMES'); ?>
-	<?php endif; ?>
-	
-	<?php if ($this->config->foldercols > 1) : ?>
-		</div></div>
 	<?php endif; ?>
 
 	<?php include_once(JVA_TEMPLATES_INCPATH . 'footer.php'); ?>

@@ -33,16 +33,17 @@ class jvarcadeController extends JControllerLegacy {
 		exit;
 	}
 	*/
-	
+
 	public function home ($cachable = false, $urlparams = false) {
 		$document = JFactory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Games');
 		$view = $this->getView('home', $viewType);
 		$view->setModel($model, true);
-		$layout = $this->config->flat ? 'flat' : 'default';
+		$layout = (strlen($this->config->homepage_view) && $this->config->homepage_view && file_exists(JVA_HOMEVIEW_INCPATH . $this->config->homepage_view . '.php')) ? $this->config->homepage_view : 'default' ;
 		$view->setLayout($layout);
 		$view->set('config', $this->config);
+		$view->set('layout', $layout);
 		$view->display();
 	}
 	
@@ -318,30 +319,6 @@ class jvarcadeController extends JControllerLegacy {
 		
 		}
 		
-		/*if ((int)$game_id && (int)$my->id) {
-		
-			$this->db->setQuery('SELECT title FROM #__jvarcade_games WHERE id = ' . (int)$game_id);
-			$gametitle = $this->db->loadResult();
-			$subject = "jVArcade - Game '" . $gametitle . "' error notification";
-			$body = "Please investigate the game: '". $gametitle . "' (game ID = ". $game_id . ") It appears to not be loading/running correctly.";
-
-			// send message to super admins
-			$this->db->setQuery('SELECT id FROM #__users WHERE gid = 25');
-			$users = $this->db->loadColumn();
-			// Joomla PM
-			require_once (JPATH_SITE . '/administrator/components/com_messages/tables/message.php');
-			foreach ($users as $user_id) {
-				$msg = new TableMessage($this->db);
-				$msg->send($my->id, $user_id, $subject, $body);
-			}
-			$ret = JText::_('COM_JVARCADE_REPORT_THANKS');
-		}
-		
-		echo $ret;
-		exit;
-		
-	}*/
-	
 	public function downloadgame(){
 		$app = JFactory::getApplication();
 		$game_id = (int)$app->input->get('id');

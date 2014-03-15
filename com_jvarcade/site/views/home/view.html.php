@@ -35,7 +35,7 @@ class jvarcadeViewHome extends JViewLegacy {
 		
 		if ($this->config->title) $doc->setTitle($this->config->title);
 		
-		if ($this->config->flat) {
+		if ($this->layout == 'flat') {
 			// FLAT MODE
 			
 			// Table ordering
