@@ -186,15 +186,15 @@ JHtml::_('formbehavior.chosen', 'select');
 	<div class="row-fluid">
 		<div class="span6">
 			<fieldset class="form-horizontal">
-				<input type="button" onclick="jQuery.jva.doMaintenance('deleteallscores','contest',<?php echo $this->contest->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_CONTEST_DELETEALLSCORES'); ?>" class="btn hasTooltip js-stools-btn-clear">
+				<input type="button" onclick="jQuery.jva.doMaintenance('deleteallscores','contest',<?php echo $this->contest->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_CONTEST_DELETEALLSCORES'); ?>" class="btn btn-primary hasTooltip">
 				<div class="clr" style="margin-top:10px;"></div>
-				<input type="button" onclick="jQuery.jva.doMaintenance('deleteguestscores','contest',<?php echo $this->contest->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_CONTEST_DELETEGUESTSCORES'); ?>" class="btn hasTooltip js-stools-btn-clear">
+				<input type="button" onclick="jQuery.jva.doMaintenance('deleteguestscores','contest',<?php echo $this->contest->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_CONTEST_DELETEGUESTSCORES'); ?>" class="btn btn-primary hasTooltip">
 				<div class="clr" style="margin-top:10px;"></div>
-				<input type="button" onclick="jQuery.jva.doMaintenance('deletezeroscores','contest',<?php echo $this->contest->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_CONTEST_DELETEZEROSCORES'); ?>" class="btn hasTooltip js-stools-btn-clear">
+				<input type="button" onclick="jQuery.jva.doMaintenance('deletezeroscores','contest',<?php echo $this->contest->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_CONTEST_DELETEZEROSCORES'); ?>" class="btn btn-primary hasTooltip">
 				<div class="clr" style="margin-top:10px;"></div>
-				<input type="button" onclick="jQuery.jva.doMaintenance('recalculateleaderboard','contest',<?php echo $this->contest->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_CONTEST_RECALCULATELEADERBOARD'); ?>" class="btn hasTooltip js-stools-btn-clear">
+				<input type="button" onclick="jQuery.jva.doMaintenance('recalculateleaderboard','contest',<?php echo $this->contest->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_CONTEST_RECALCULATELEADERBOARD'); ?>" class="btn btn-primary hasTooltip">
 				<div class="clr" style="margin-top:10px;"></div>
-				<input type="button" onclick="jQuery.jva.clearMaintenance();" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_CLEARMESSAGES'); ?>" class="btn hasTooltip js-stools-btn-clear">
+				<input type="button" onclick="jQuery.jva.clearMaintenance();" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_CLEARMESSAGES'); ?>" class="btn btn-primary hasTooltip">
 				<div class="clr" style="margin-top:10px;"></div>
 			</fieldset>
 			<fieldset class="form-horizontal">

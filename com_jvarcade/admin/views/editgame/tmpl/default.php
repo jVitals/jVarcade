@@ -240,17 +240,17 @@ JHtml::_('bootstrap.tooltip');
 	<div class="row-fluid">
 		<div class="span6">
 			<fieldset class="form-horizontal">
-				<input class="btn hasTooltip js-stools-btn-clear" type="button" onclick="jQuery.jva.doMaintenance('deleteallscores','game',<?php echo $this->game->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_GAME_DELETEALLSCORES'); ?>">
+				<input class="btn btn-primary hasTooltip" type="button" onclick="jQuery.jva.doMaintenance('deleteallscores','game',<?php echo $this->game->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_GAME_DELETEALLSCORES'); ?>">
 				<div class="clr" style="margin-top:10px;"></div>
-				<input class="btn hasTooltip js-stools-btn-clear" type="button" onclick="jQuery.jva.doMaintenance('deleteguestscores','game',<?php echo $this->game->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_GAME_DELETEGUESTSCORES'); ?>" >
+				<input class="btn btn-primary hasTooltip" type="button" onclick="jQuery.jva.doMaintenance('deleteguestscores','game',<?php echo $this->game->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_GAME_DELETEGUESTSCORES'); ?>" >
 				<div class="clr" style="margin-top:10px;"></div>
-				<input class="btn hasTooltip js-stools-btn-clear" type="button" onclick="jQuery.jva.doMaintenance('deletezeroscores','game',<?php echo $this->game->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_GAME_DELETEZEROSCORES'); ?>" >
+				<input class="btn btn-primary hasTooltip" type="button" onclick="jQuery.jva.doMaintenance('deletezeroscores','game',<?php echo $this->game->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_GAME_DELETEZEROSCORES'); ?>" >
 				<div class="clr" style="margin-top:10px;"></div>
-				<input class="btn hasTooltip js-stools-btn-clear" type="button" onclick="jQuery.jva.doMaintenance('clearallratings','game',<?php echo $this->game->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_GAME_CLEARALLRATINGS'); ?>" >
+				<input class="btn btn-primary hasTooltip" type="button" onclick="jQuery.jva.doMaintenance('clearallratings','game',<?php echo $this->game->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_GAME_CLEARALLRATINGS'); ?>" >
 				<div class="clr" style="margin-top:10px;"></div>
-				<input class="btn hasTooltip js-stools-btn-clear" type="button" onclick="jQuery.jva.doMaintenance('deletealltags','game',<?php echo $this->game->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_GAME_DELETEALLTAGS'); ?>" >
+				<input class="btn btn-primary hasTooltip" type="button" onclick="jQuery.jva.doMaintenance('deletealltags','game',<?php echo $this->game->id; ?>);" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_GAME_DELETEALLTAGS'); ?>" >
 				<div class="clr" style="margin-top:10px;"></div>
-				<input class="btn hasTooltip js-stools-btn-clear" type="button" onclick="jQuery.jva.clearMaintenance();" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_CLEARMESSAGES'); ?>" >
+				<input class="btn btn-primary hasTooltip" type="button" onclick="jQuery.jva.clearMaintenance();" value="<?php echo JText::_('COM_JVARCADE_MAINTENANCE_CLEARMESSAGES'); ?>" >
 				<div class="clr" style="margin-top:10px;"></div>
 		</fieldset>
 		<fieldset class="form-horizontal">
