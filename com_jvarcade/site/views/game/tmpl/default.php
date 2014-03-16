@@ -11,7 +11,7 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-// Deal with the content rating
+
 ?>
 
 
@@ -104,9 +104,13 @@ defined('_JEXEC') or die('Restricted access');
 				<param name="movie" value="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>" />
 				<param name="quality" value="high" />
 				<param name="bgcolor" value="<?php echo $this->game['background']; ?>" />
-				<param name="play" value="true" />
+				<param name="play" value="false" />
 				<param name="loop" value="true" />
+				<?php if ($this->config->window == 2) {?>
 				<param name="wmode" value="window" />
+				<?php } else {?>
+				<param name="wmode" value="opaque" />
+				<?php } ?>
 				<param name="scale" value="showall" />
 				<param name="menu" value="false" />
 				<param name="devicefont" value="false" />
@@ -117,9 +121,13 @@ defined('_JEXEC') or die('Restricted access');
 					<param name="movie" value="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>" />
 					<param name="quality" value="high" />
 					<param name="bgcolor" value="<?php echo $this->game['background']; ?>" />
-					<param name="play" value="true" />
+					<param name="play" value="false" />
 					<param name="loop" value="true" />
+					<?php if ($this->config->window == 2) {?>
 					<param name="wmode" value="window" />
+					<?php } else {?>
+					<param name="wmode" value="opaque" />
+					<?php } ?>
 					<param name="scale" value="showall" />
 					<param name="menu" value="false" />
 					<param name="devicefont" value="false" />
