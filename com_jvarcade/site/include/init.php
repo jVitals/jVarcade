@@ -48,5 +48,5 @@ $document->addStyleSheet(JVA_CSS_SITEPATH . $css . '.css');
 if((int)$config->roundcorners) {
 	$document->addStyleSheet(JVA_CSS_SITEPATH . '/smoothness/round.corners.css');
 }
-
+echo JHtml::_('bootstrap.loadCss');
 ?>
