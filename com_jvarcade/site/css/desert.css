@@ -476,23 +476,8 @@ div.rating div.hover a,div.rating div a:hover {
 * End star rating styles
 ****************************/
 
-.jvapagenav {
-	border:0px;
-}
-
-.jvapagenav td, .jvapagenav tr, .jvapagenav th {
-	border:0px;
-}
-
-.jvapagenav ul {
-	list-style-type: none !important;
-	padding: 0 !important;
-	display: block;
-	margin: 0 auto !important;
-}
-.jvapagenav ul li {
-	display: block!important;
-	float: left!important;
+#pagenav ul{
+	list-style-type: none;
 }
 
 .gamewarning {

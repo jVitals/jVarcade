@@ -66,7 +66,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 	public function getPagination() {
 		// Load the content if it doesn't already exist
 		if (empty($this->pagination)) {
-			jimport('joomla.html.pagination');
+			jimport('cms.pagination.pagination');
 			$this->pagination = new JPagination($this->getTotal(), $this->getState('limitstart'), $this->getState('limit') );
 		}
 		return $this->pagination;
