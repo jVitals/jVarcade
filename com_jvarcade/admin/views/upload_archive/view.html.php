@@ -56,10 +56,4 @@ class jvarcadeViewupload_archive extends JViewLegacy {
 		return $list;
 	}
 	
-	function publish_state(){
-		$option = JHtml::_('jvarcade.html.booleanlist',  'published', 'size="1"', 1, 'JYES', 'JNO', 'publish');
-		$option = str_replace(array('<div class="controls">', '</div>'), '', $option);
-		return $option;
-	}
-	
 }

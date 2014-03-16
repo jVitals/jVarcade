@@ -79,7 +79,7 @@ JHtml::_('bootstrap.tooltip');
 								<label class="hasTooltip" data-original-title="<strong><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_PUBLISHED'); ?></strong>"><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_PUBLISHED'); ?></label>
 							</div>
 							<div class="controls">
-								<?php echo $this->publish_state();//echo JHtml::_('jvarcade.html.booleanlist',  'published', 'size="1"', $this->published, 'JYES', 'JNO', 'publish');?>
+								<?php echo JHtml::_('jvarcade.html.booleanlist',  'published', 'size="1"', $this->published, 'JYES', 'JNO', 'publish');?>
 							</div>
 					</div>
 					</fieldset>
