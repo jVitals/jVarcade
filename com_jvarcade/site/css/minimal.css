@@ -481,12 +481,23 @@ div.rating div.hover a,div.rating div a:hover {
 	list-style-type: none;
 }
 
-.gamewarning {
-	text-align: center; 
-	color: red; 
-	padding: 0pt; 
-	margin: 20% 0pt 20pt; 
-	font: 40px Arial bold;
+.jva-label {
+    border-radius: 3px;
+}
+.jva-label, .badge {
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 10.998px;
+    font-weight: bold;
+    line-height: 14px;
+    padding: 2px 4px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+
+.jva-label-danger {
+    background-color: #d9534f;
 }
 
 /***************************

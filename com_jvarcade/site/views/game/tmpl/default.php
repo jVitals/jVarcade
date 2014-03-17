@@ -289,7 +289,7 @@ defined('_JEXEC') or die('Restricted access');
 						<div class="modal-body"><?php echo $embed; ?></div>
 					</div>
 					 <?php if ($this->game['warningrequired']) {
-						$warning =  '<div class="gamewarning">' . trim(strip_tags($this->game['rating_desc'])) . '</div>';
+						$warning =  trim(strip_tags($this->game['rating_desc']));
 						 echo JHtml::_('bootstrap.modal', 'warnModal'); ?>
 						 <style>
 						 	
@@ -298,9 +298,8 @@ defined('_JEXEC') or die('Restricted access');
 						 }
 						 </style>
 						 <div class="modal hide" id="warnModal">
-						<div class="modal-header">Warning</div>
 						 	<div class="modal-body">
-						 		<?php echo $warning; ?>
+						 		<span class="jva-label jva-label-danger"><h4><?php echo $warning; ?></h4></span>
 						 	</div>
 						 	<div class="modal-footer">
 						 		<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=home') ?>"><button type="button" class="btn btn-primary">Leave This Page</button></a>
@@ -353,7 +352,7 @@ defined('_JEXEC') or die('Restricted access');
 				<?php
 				} else {
 				if ($this->game['warningrequired']): 
-				$warning =  '<div class="gamewarning">' . trim(strip_tags($this->game['rating_desc'])) . '</div>';
+				$warning =  trim(strip_tags($this->game['rating_desc']));
 				echo JHtml::_('bootstrap.modal', 'warnModal');?>
 					<style>
 					#warnModal .modal-body {
@@ -364,9 +363,8 @@ defined('_JEXEC') or die('Restricted access');
 					}
 					</style>
 					<div class="modal hide" id="warnModal">
-						<div class="modal-header">Warning</div>
             			<div class="modal-body">
-							<?php echo $warning; ?>
+            			<span class="jva-label jva-label-danger"><h2><?php echo $warning; ?></h2></span>	
 						</div>
 						<div class="modal-footer">
 						<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=home') ?>"><button type="button" class="btn btn-primary">Leave This Page</button></a>
