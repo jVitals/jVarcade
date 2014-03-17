@@ -104,7 +104,7 @@ defined('_JEXEC') or die('Restricted access');
 				<param name="movie" value="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>" />
 				<param name="quality" value="high" />
 				<param name="bgcolor" value="<?php echo $this->game['background']; ?>" />
-				<param name="play" value="false" />
+				<param name="play" value="true" />
 				<param name="loop" value="true" />
 				<?php if ($this->config->window == 2) {?>
 				<param name="wmode" value="window" />
@@ -121,7 +121,6 @@ defined('_JEXEC') or die('Restricted access');
 					<param name="movie" value="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>" />
 					<param name="quality" value="high" />
 					<param name="bgcolor" value="<?php echo $this->game['background']; ?>" />
-					<param name="play" value="false" />
 					<param name="loop" value="true" />
 					<?php if ($this->config->window == 2) {?>
 					<param name="wmode" value="window" />
@@ -294,12 +293,12 @@ defined('_JEXEC') or die('Restricted access');
 						 <style>
 						 	
 						 #warnModal .modal-body {
-						 max-height: 800px;
+						 max-height: 600px;
 						 }
 						 </style>
 						 <div class="modal hide" id="warnModal">
 						 	<div class="modal-body">
-						 		<span class="jva-label jva-label-danger"><h4><?php echo $warning; ?></h4></span>
+						 		<img id="jva-warning-img" src="<?php echo JVA_IMAGES_SITEPATH . 'contentrating/gamewarning.png'?>">
 						 	</div>
 						 	<div class="modal-footer">
 						 		<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=home') ?>"><button type="button" class="btn btn-primary">Leave This Page</button></a>
@@ -356,7 +355,7 @@ defined('_JEXEC') or die('Restricted access');
 				echo JHtml::_('bootstrap.modal', 'warnModal');?>
 					<style>
 					#warnModal .modal-body {
-						max-height: 800px;
+						max-height: 600px;
 					}
 					#warnModal .modal-backdrop, .modal-backdrop.in {
     					opacity: 100;
@@ -364,7 +363,7 @@ defined('_JEXEC') or die('Restricted access');
 					</style>
 					<div class="modal hide" id="warnModal">
             			<div class="modal-body">
-            			<span class="jva-label jva-label-danger"><h2><?php echo $warning; ?></h2></span>	
+            			<img id="jva-warning-img" src="<?php echo JVA_IMAGES_SITEPATH . 'contentrating/gamewarning.png'?>">	
 						</div>
 						<div class="modal-footer">
 						<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=home') ?>"><button type="button" class="btn btn-primary">Leave This Page</button></a>
