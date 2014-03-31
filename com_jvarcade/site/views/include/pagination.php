@@ -15,14 +15,13 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 
 	<?php if ($this->pageNav->getPagesLinks()) : ?>
-	<style>
-		#pagenav ul { list-style-type: none; }
-	</style>
+
 	<div id="pagenav">
 		<ul class="pagination pagination-sm">
-			<li><?php echo $this->pageNav->getPagesLinks(); ?></li>
-			<li><?php echo $this->pageNav->getPagesCounter(); ?></li>
+			<?php echo $this->pageNav->getPagesLinks(); ?>
+			
 		</ul>
+		<?php echo $this->pageNav->getPagesCounter(); ?>
 	</div>
 	<?php endif; ?>
 	

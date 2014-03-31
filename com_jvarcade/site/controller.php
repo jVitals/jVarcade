@@ -81,7 +81,10 @@ class jvarcadeController extends JControllerLegacy {
 		$view->setModel($model, true);
 		$view->setLayout('default');
 		$view->set('config', $this->config);
+		$layout = (strlen($this->config->homepage_view) && $this->config->homepage_view && file_exists(JVA_HOMEVIEW_INCPATH . $this->config->homepage_view . '.php')) ? $this->config->homepage_view : 'default' ;
+		$view->set('layout', $layout);
 		$view->display();
+		
 	}
 
 	public function contests($cachable = false, $urlparams = false) {

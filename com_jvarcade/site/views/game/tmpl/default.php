@@ -14,7 +14,6 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 
-
 <div id="puarcade_wrapper">
 	<?php if ($this->config->rate == 1) : ?> 
 		<?php $document =& JFactory::getDocument(); $document->addScript(JVA_JS_SITEPATH . 'jquery.rating.js'); ?>
@@ -288,7 +287,6 @@ defined('_JEXEC') or die('Restricted access');
 						<div class="modal-body"><?php echo $embed; ?></div>
 					</div>
 					 <?php if ($this->game['warningrequired']) {
-						$warning =  trim(strip_tags($this->game['rating_desc']));
 						 echo JHtml::_('bootstrap.modal', 'warnModal'); ?>
 						 <style>
 						 	
@@ -342,9 +340,11 @@ defined('_JEXEC') or die('Restricted access');
 					});
 					jQuery('<?php echo '#' . $modalId ?>').on('show.bs.modal', function (e) {
 						jQuery("body").css("overflow", "hidden");
+						jQuery("#<?php echo $this->game['gamename']; ?>").css("display", "none");
 					});
 					jQuery('<?php echo '#' . $modalId ?>').on('hide.bs.modal', function (e) {
 						jQuery("body").css("overflow", "none");
+						jQuery("#<?php echo $this->game['gamename']; ?>").css("display", "");
 					});
 					</script>
 					<?php }?>					
