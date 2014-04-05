@@ -47,8 +47,8 @@ class jvarcadeViewManage_scores extends JViewLegacy {
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_MANAGE_SCORES'), 'jvascores');
 		JToolBarHelper::deleteList(JText::_('COM_JVARCADE_SCORES_ASK_DELETE'), 'deletescore', JText::_('COM_JVARCADE_SCORES_DELETE'));
-		JToolBarHelper::publishList('scorePublishYes', JText::_('COM_JVARCADE_SCORES_PUBLISH'));
-		JToolBarHelper::unpublishList('scorePublishNo', JText::_('COM_JVARCADE_SCORES_UNPUBLISH'));
+		JToolBarHelper::publishList('scorePublish', JText::_('COM_JVARCADE_SCORES_PUBLISH'));
+		JToolBarHelper::unpublishList('scoreUnPublish', JText::_('COM_JVARCADE_SCORES_UNPUBLISH'));
 		jvarcadeToolbarHelper::addSubmenu($this->getName());
 		$this->addSidebar('manage_scores');
 		parent::display($tpl);

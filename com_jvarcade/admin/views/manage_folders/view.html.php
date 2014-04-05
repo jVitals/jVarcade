@@ -54,8 +54,8 @@ class jvarcadeViewManage_folders extends JViewLegacy {
 		JToolBarHelper::editList('editfolder', JText::_('COM_JVARCADE_FOLDERS_EDIT'));
 		JToolBarHelper::addNew('addfolder', JText::_('COM_JVARCADE_FOLDERS_ADD'));
 		JToolBarHelper::deleteList(JText::_('COM_JVARCADE_FOLDERS_ASK_DELETE'), 'deletefolder', JText::_('COM_JVARCADE_FOLDERS_DELETE'));
-		JToolBarHelper::publishList('folderPublishYes', JText::_('COM_JVARCADE_FOLDERS_PUBLISH'));
-		JToolBarHelper::unpublishList('folderPublishNo', JText::_('COM_JVARCADE_FOLDERS_UNPUBLISH'));
+		JToolBarHelper::publishList('folderPublish', JText::_('COM_JVARCADE_FOLDERS_PUBLISH'));
+		JToolBarHelper::unpublishList('folderUnPublish', JText::_('COM_JVARCADE_FOLDERS_UNPUBLISH'));
 		jvarcadeToolbarHelper::addSubmenu($this->getName());
 		$this->addSidebar('manage_folders');
 		
