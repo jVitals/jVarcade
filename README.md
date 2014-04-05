@@ -20,8 +20,3 @@ Added support for game downloading with administration options for group permiss
 Used hard coded width and height in /views/game/default.php for games that use atari,c64,nes applets to prevent issues with config files not setting attributes when uploading.<br>
 Rounded corners no longer uses javascript/jquey. Added rounded.corners.css to prevent script conflicts.<br>
 Removed migration from puarcade. Note: Migration coding left in place for possible adaption to migration from Joomla 2.5</p>
-
-<p><b>Fixes:</b></p>
-
-<p>Rewrite reportgame function for changed database tables.<br>
-Fixed issue of incorrect row being selected when you publish/unpublish with icons(tick/red circle) in administration list view
