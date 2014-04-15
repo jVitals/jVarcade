@@ -45,7 +45,7 @@ defined('_JEXEC') or die('Restricted access');
 			<?php foreach ($folder['games'] as $game) : ?>
 				<?php $alt = htmlspecialchars(stripslashes($game['title'])); ?>
 				<div class="pua_folder_games">
-				<?php $game_url = JUri::root(true) . '/index.php?option=com_jvarcade&task=game&id=' . $game['id']; ?>
+				<?php $game_url = JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game['id'], false) ?>
 					<a href="<?php echo $game_url; ?>">
 						<?php echo jvaHelper::truncate(stripslashes($game['title']), (int)$this->config->truncate_title); ?>
 					</a>

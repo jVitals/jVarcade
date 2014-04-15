@@ -50,7 +50,7 @@ defined('_JEXEC') or die('Restricted access');
 			<?php foreach ($folder['games'] as $game) : ?>
 				<?php $alt = htmlspecialchars(stripslashes($game['title'])); ?>
 				<div class="pua_folder_games">
-				<?php $game_url = JUri::root(true) . '/index.php?option=com_jvarcade&task=game&id=' . $game['id']; ?>
+				<?php $game_url = JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game['id'], false) ?>
 				<?php if ($game['window'] == 2 || ($game['window'] == 0 && $this->config->window == 2)) : ?>
 					<a href="javascript:void(0);" onclick="window.open('<?php echo $game_url; ?>','jVArcade','width=<?php echo $game['width']; ?>,height=<?php echo $game['height']; ?>')">
 						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $game['imagename']; ?>" alt="<?php echo $alt; ?>" title="<?php echo $alt; ?>" />
