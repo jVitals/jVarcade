@@ -184,6 +184,16 @@ JHtml::_('bootstrap.tooltip');
 					<fieldset class="form-horizontal">
 						<div class="control-group">
 							<div class="control-label">
+								<label for="gsafe"><?php echo JText::_('COM_JVARCADE_GAMES_GSAFE'); ?></label>
+							</div>
+							<div class="controls">
+								<?php echo JHtml::_('jvarcade.html.booleanlist',  'gsafe', 'size="1"', $this->game->gsafe, 'JYES', 'JNO', 'gsafe');?>
+							</div>
+						</div>
+					</fieldset>
+					<fieldset class="form-horizontal">
+						<div class="control-group">
+							<div class="control-label">
 								<label for="mochi"><?php echo JText::_('COM_JVARCADE_GAMES_MOCHI'); ?></label>
 							</div>
 							<div class="controls">

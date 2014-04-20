@@ -1,18 +1,11 @@
 (function ($) {
 	var jva = {
 
-		loadModal: function(url, handler, width, height) {
-			SqueezeBox.initialize();
-			SqueezeBox.setOptions(SqueezeBox.presets, Object.merge(SqueezeBox.options || {}, {size: {x: width, y: height}}));
-			SqueezeBox.assignOptions();
-			SqueezeBox.setContent(handler, url);
-		},
-
 		rating: function(game_id, current_vote) {
 			jQuery('#rate1').rating(JVA_AJAX_RATING_URL + game_id, {maxvalue:5,increment:.5,curvalue:current_vote});
 		},
 
-		mochiScore: function(gname, score, ajaxscore) {
+		bridgeScore: function(gname, score, ajaxscore) {
 			if (ajaxscore == 1) {
 				$.post('/newscore.php', {
 					"gname": gname,
@@ -20,13 +13,13 @@
 					"ajaxscore": ajaxscore
 				}, function(data) {
 					if (data) {
-						jQuery.jva.loadModal(data, 'string', 300, 200);
+						alert(data);
 					}
 				});
 			} else {
-				document.getElementById('mochi_bridge_helper_form_score').value = score;
-				document.getElementById('mochi_bridge_helper_form_gname').value = gname;
-				document.getElementById('mochi_bridge_helper_form').submit();
+				document.getElementById('bridge_helper_form_score').value = score;
+				document.getElementById('bridge_helper_form_gname').value = gname;
+				document.getElementById('bridge_helper_form').submit();
 			}
 		},
 

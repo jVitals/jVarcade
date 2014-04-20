@@ -60,15 +60,15 @@ defined('_JEXEC') or die('Restricted access');
 
 		<!-- MOCHI INTEGRATION -->
 		
-		<?php if ((int)$this->game['mochi'] == 1) : ?>
-			<div id="leaderboard_bridge"></div>
+		<?php if ((int)$this->game['mochi'] == 1): ?>
+		<div id="leaderboard_bridge"></div>
 			<script src="http://xs.mochiads.com/static/pub/swf/leaderboard.js" type="text/javascript"></script>
 			<script type="text/javascript">
 			<!--
 				var options = {partnerID: "<?php echo $this->config->mochi_id; ?>", id: "leaderboard_bridge"};
 				options.userID = "<?php echo ($this->user->id ? $this->user->id : '0'); ?>";
 				options.username = "<?php echo $this->user->username; ?>";
-				options.callback = function (params) {jQuery.jva.mochiScore('<?php echo $this->game['gamename']; ?>', params.score, <?php echo (int)$this->game['ajaxscore']; ?>);};
+				options.callback = function (params) {jQuery.jva.bridgeScore('<?php echo $this->game['gamename']; ?>', params.score, <?php echo (int)$this->game['ajaxscore']; ?>);};
 				options.globalScores = "true";
 				<?php if (isset($_REQUEST['debug']) && $_REQUEST['debug']) : ?>
 				options.width = 320;
@@ -78,13 +78,42 @@ defined('_JEXEC') or die('Restricted access');
 				Mochi.addLeaderboardIntegration(options);
 			-->
 			</script>
+		<?php endif; ?>
+		<?php if ((int)$this->game['gsafe'] == 1):?>
+		<script language="JavaScript" type="text/javascript">
+		<!--
+		function setupGamerSafeBridge() {
+			var bridgeConfig = {
+				user: "<?php echo ($this->user->id ? $this->user->id : '0'); ?>",
+				game: "<?php echo $this->game['gamename']; ?>",
+				callback: "onBridgeMessage" 				
+			};
+			return bridgeConfig;
+		}
+		
+		function onBridgeMessage(message) {
+            switch(message.message) {
+                case "achievement_awarded":
+                    //do something fun
+                    break;
+                case "scoreboard_entry":
+                    jQuery(document).ready(function() {jQuery.jva.bridgeScore('<?php echo $this->game['gamename']; ?>', message.score, <?php echo (int)$this->game['ajaxscore']; ?>);});
+				
+                    break;
+            }
+        }
+
+		// -->
+			</script>
+		<?php endif; ?>
 			<?php if (!(int)$this->game['ajaxscore']) : ?>
-			<form method="post" action="<?php echo JRoute::_(JURI::root() . 'newscore.php') ?>" id="mochi_bridge_helper_form" style="display: none;">
-				<input type="hidden" name="score" value="" id="mochi_bridge_helper_form_score" />
-				<input type="hidden" name="gname" value="" id="mochi_bridge_helper_form_gname" />
+			<form method="post" action="<?php echo JRoute::_(JURI::root() . 'newscore.php') ?>" id="bridge_helper_form" style="display: none;">
+				<input type="hidden" name="score" value="" id="bridge_helper_form_score" />
+				<input type="hidden" name="gname" value="" id="bridge_helper_form_gname" />
 			</form>
 			<?php endif; ?>
-		<?php endif; ?>
+		
+		
 
 
 		<!-- EMBED OBJECT -->
@@ -114,7 +143,7 @@ defined('_JEXEC') or die('Restricted access');
 				<param name="menu" value="false" />
 				<param name="devicefont" value="false" />
 				<param name="salign" value="" />
-				<param name="allowScriptAccess" value="sameDomain" />
+				<param name="allowScriptAccess" value="always" />
 				<!--[if !IE]>-->
 				<object type="application/x-shockwave-flash" data="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>" width="<?php echo $this->game['width']; ?>" height="<?php echo $this->game['height']; ?>">
 					<param name="movie" value="<?php echo JVA_GAMES_SITEPATH . $this->game['filename']; ?>?pn_extravars=pn_uname=<?php echo $this->user->username; ?>&amp;pn_gid=<?php echo $this->game['id']; ?>" />
@@ -130,7 +159,7 @@ defined('_JEXEC') or die('Restricted access');
 					<param name="menu" value="false" />
 					<param name="devicefont" value="false" />
 					<param name="salign" value="" />
-					<param name="allowScriptAccess" value="sameDomain" />
+					<param name="allowScriptAccess" value="always" />
 				<!--<![endif]-->
 					<a href="http://www.adobe.com/go/getflash">
 						<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />

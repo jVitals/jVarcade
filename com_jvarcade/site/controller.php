@@ -326,7 +326,7 @@ class jvarcadeController extends JControllerLegacy {
 		$app = JFactory::getApplication();
 		$game_id = (int)$app->input->get('id');
 		$gd_folder = './arcade/gamedata/'.$gdata['gamename'].'';
-		$this->db->setQuery('SELECT gamename, imagename, filename, title, height, width, description, background, mochi, author FROM #__jvarcade_games WHERE id =' . $game_id);
+		$this->db->setQuery('SELECT gamename, imagename, filename, title, height, width, description, background, mochi, gsafe, author FROM #__jvarcade_games WHERE id =' . $game_id);
 		$gdata = $this->db->loadAssoc();
 		
 		//build the config file ready for downloading. .json file for mochimedia and .php for everything else.
@@ -346,6 +346,7 @@ class jvarcadeController extends JControllerLegacy {
 						gheight => $gdata['height'],
 						gwidth => $gdata['width'],
 						author => $gdata['author'],
+						gsafe => $gdata['gsafe'],
 						bgcolor => $gdata['background']
 						);
 			

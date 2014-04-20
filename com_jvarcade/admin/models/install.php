@@ -196,11 +196,11 @@ class jvarcadeModelInstall extends JModelLegacy {
 							  "(" . $this->db->quoteName('gamename') . ", " . $this->db->quoteName('title') . ", " . $this->db->quoteName('description') . ", " . 
 									$this->db->quoteName('height') . ", " . $this->db->quoteName('width') . ", " . $this->db->quoteName('filename') . ", " . $this->db->quoteName('imagename') . ", " . 
 									$this->db->quoteName('background') . ", " . $this->db->quoteName('published') . ", " . $this->db->quoteName('reverse_score') . ", " . 
-									$this->db->quoteName('scoring') . ", " . $this->db->quoteName('folderid') . ", " .  $this->db->quoteName('mochi'). ") " . 
+									$this->db->quoteName('scoring') . ", " . $this->db->quoteName('folderid') . ", " .  $this->db->quoteName('mochi'). ", " .  $this->db->quoteName('gsafe'). ") " .
 							"VALUES (" . $this->db->Quote($config['name']) . "," . $this->db->Quote($config['title']) . "," . $this->db->Quote($config['description']) . "," . 
 										$this->db->Quote((int)$config['height']) . "," . $this->db->Quote((int)$config['width']) . "," . $this->db->Quote($config['newfilename']) . "," . $this->db->Quote($config['newimagename']) . "," . 
 										$this->db->Quote($config['background']) . "," . $this->db->Quote((int)$published) . "," . $this->db->Quote((int)$config['reverse_score']) . "," . 
-										$this->db->Quote((int)$config['scoring']) . "," . $this->db->Quote((int)$folderid) . "," . $this->db->Quote((int)$config['mochi']) . ")"
+										$this->db->Quote((int)$config['scoring']) . "," . $this->db->Quote((int)$folderid) . "," . $this->db->Quote((int)$config['mochi']) . "," . $this->db->Quote((int)$config['gsafe']) . ")"
 					);
 					if(!$this->db->execute()) {
 						$errormsg[] = $config['name'] . ': ' . $this->db->getErrorMsg();
@@ -266,6 +266,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 			'height' => $obj->height,
 			'author' => $obj->developer,
 			'background' => '',
+			'gsafe' => 0,
 			'mochi' => 1,
 			'scoring' => 1,
 			'reverse_score' => 0,
@@ -294,6 +295,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 			'height' => $arr['height'],
 			'author' => $arr['author'],
 			'background' => '#' . $arr['bgcolor'],
+			'gsafe' => 0,
 			'mochi' => 0,
 			'scoring' => 1,
 			'reverse_score' => ((int)$arr['gameType'] == 2 ? 1: 0),
@@ -301,11 +303,17 @@ class jvarcadeModelInstall extends JModelLegacy {
 	}
 	
 	public function parseConfigPnflashtxt($dir) {
-		$files = JFolder::files($dir, '\.txt');
+		if (file_exists($dir . '/contents.txt')) {
+			$gsafe_detect = 1;
+		}
+		else {
+			$gsafe_detect = 0;
+		}
+		$files = JFolder::files($dir, '\.txt', false, false, array('.svn', 'CVS', '.DS_Store', '__MACOSX', 'contents.txt'));
 		$config = $dir . '/' . $files[0];
 		$string = file_get_contents($config);
 		
-		$game_title = preg_match('~Game Name(.*)~i', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
+		$game_title = preg_match('/(Game Name(.*)|Title(.*))/i', $string, $matches) ? trim(str_replace(array('Game Name:','Title:'), '', $matches[1])) : '';
 		$game_name = strtolower(str_replace(' ', '-', $game_title));
 		$game_desc = preg_match('~Description(.*)~i', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
 		$game_desc2 = preg_match('~Desc:(.*)~i', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
@@ -314,7 +322,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 		$game_author = preg_match('~Authors Name(.*)~i', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
 		$game_width = preg_match('~Width(.*)~i', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
 		$game_height = preg_match('~Height(.*)~i', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
-		$game_bgcolor = preg_match('~Color(.*)~i', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
+		$game_bgcolor = preg_match('~Color(.*)', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
 		
 		//$basename = basename(basename($files[0], '.txt'), '.txt');
 		$game_files = JFolder::files($dir, '\.bin|\.d64|\.dcr|\.gb|\.gbc|\.htm|\.html|\.nes|\.prg|\.sna|\.swf|\.z80');
@@ -334,10 +342,12 @@ class jvarcadeModelInstall extends JModelLegacy {
 			'height' => (int)$game_height,
 			'author' => $game_author,
 			'background' => $game_bgcolor,
+			'gsafe' => $gsafe_detect,
 			'mochi' => 0,
 			'scoring' => 1,
 			'reverse_score' => ($game_type == 'Highest Score Wins' ? 0: 1),
 		);
+
 	}
 	
 	public function parseConfigIbpro($dir) {
@@ -363,6 +373,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 			'height' => $arr['gheight'],
 			'author' => '',
 			'background' => '#' . $arr['bgcolor'],
+			'gsafe' => $arr['gsafe'],
 			'mochi' => 0,
 			'scoring' => 1,
 			'reverse_score' => 0,

@@ -44,6 +44,7 @@ class jvarcadeVieweditgame extends JViewLegacy {
 			$game->numplayed = 0;
 			$game->reverse_score = 0;
 			$game->scoring = 0;
+			$game->gsafe = 0;
 			$game->mochi = 0;
 			$game->window = 1;
 			$game->ajaxscore = 0;
