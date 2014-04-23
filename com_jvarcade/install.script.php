@@ -36,7 +36,7 @@ class com_jvarcadeInstallerScript {
 			$db->setQuery('SELECT COALESCE(COUNT(*), 0) FROM ' . $db->quoteName($table));
 			$records_exist = @$db->loadResult();
 			if (!(int)$records_exist) {
-					$query = file_get_contents(JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_jvarcade' . DIRECTORY_SEPARATOR . 'install' . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'install.defaults.sql');
+					$query = file_get_contents(JPATH_ADMINISTRATOR . '/components/com_jvarcade/install/sql/install.defaults.sql');
         			$queries = $db->splitSql($query);
         				foreach ($queries as $querie) { 
             			$db->setQuery($querie);
@@ -49,9 +49,29 @@ class com_jvarcadeInstallerScript {
 							}
 						}
         	} else {
-				JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_OK'), 'message');
+        		$result = $db->setQuery("SHOW COLUMNS FROM `#__jvarcade_games` LIKE 'gsafe'");
+        		$db->execute($result);
+        		$exists = $db->getNumRows();
+        		if ($exists == 0){
+        			$query = file_get_contents(JPATH_ADMINISTRATOR . '/components/com_jvarcade/install/sql/update.tables.sql');
+        			$queries = $db->splitSql($query);
+        				foreach ($queries as $querie) { 
+            			$db->setQuery($querie);
+            			$db->execute();
+        				$error = $db->getErrorNum();
+                    		if ($error) { 
+                      			JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_FAILED'), 'error');
+							} else {
+								JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_OK'), 'message');
+							}
+							
+						}
+        		} elseif ($exists == 1) {
+        			JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADED_COLUMNS_OK'), 'message');
+        		}
+        			
+        		
 			}
-			
 		// Create /arcade/gamedata directory. This prevents menu item with alias arcade being created which breaks gamedata rewrite rules
 		
 		if (!JFolder::exists(JPATH_ROOT . '/arcade')) {

@@ -121,9 +121,9 @@ class jvarcadeViewSettings extends JViewLegacy {
 			case 'comments' :
 				$opts = array(
 					JHtml::_( 'select.option', 0, 'None' ),
-					JHtml::_( 'select.option', 1, 'CompoJoom Comment' ),
+					JHtml::_( 'select.option', 1, 'CComment' ),
 					JHtml::_( 'select.option', 2, 'JComments' ),
-					JHtml::_( 'select.option', 3, 'JA Comment' ),
+					
 				);
 				$result = JHtml::_('jvarcade.html.radiolist', $opts, $arr['optname'], null, 'value', 'text', trim($arr['value']), $arr['optname']);
 				break;
@@ -146,8 +146,7 @@ class jvarcadeViewSettings extends JViewLegacy {
 	function showCommentsLegend() {
 		$compojoom_enabled = $this->componentEnabled($this->comment_data, 'com_comment') ? '<span style="color:green;">' . JText::_('YES') . '</span>' : '<span style="color:red;">' . JText::_('NO') . '</span>';
 		$jcomments_enabled = $this->componentEnabled($this->comment_data, 'com_jcomments') ? '<span style="color:green;">' . JText::_('YES') . '</span>' : '<span style="color:red;">' . JText::_('NO') . '</span>';
-		$jacomment_enabled = $this->componentEnabled($this->comment_data, 'com_jacomment') ? '<span style="color:green;">' . JText::_('YES') . '</span>' : '<span style="color:red;">' . JText::_('NO') . '</span>';
-		$ret = JText::sprintf('COM_JVARCADE_OPT_COMMENTS_LEGEND', $compojoom_enabled, $jcomments_enabled, $jacomment_enabled);
+		$ret = JText::sprintf('COM_JVARCADE_OPT_COMMENTS_LEGEND', $compojoom_enabled, $jcomments_enabled);
 		return $ret;
 	}
 	
