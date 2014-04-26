@@ -11,7 +11,7 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-
+$i = '';
 ?>
 <div id="puarcade_wrapper">
 	

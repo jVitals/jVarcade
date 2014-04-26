@@ -30,6 +30,17 @@ define('JVA_VERSION', '2.1');
 @define('JVA_JS_SITEPATH', JUri::root() . 'components/com_jvarcade/js/');
 @define('JVA_GAMES_SITEPATH', JUri::root() . 'images/jvarcade/games/');
 
+//Download config array
+@define('gname', '');
+@define('gtitle', '');
+@define('gwords', '');
+@define('object', '');
+@define('gheight', '');
+@define('gwidth', '');
+@define('author', '');
+@define('gsafe', '');
+@define('bgcolor', '');
+
 $JVersion = new JVersion();
 $version = $JVersion->getShortVersion();
 @define('JVA_JOOMLA_VERSION', $version);

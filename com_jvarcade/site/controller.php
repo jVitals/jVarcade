@@ -322,13 +322,12 @@ class jvarcadeController extends JControllerLegacy {
 		
 		}
 		
-	public function downloadgame(){
+	public function downloadgame($gdata=''){
 		$app = JFactory::getApplication();
 		$game_id = (int)$app->input->get('id');
-		$gd_folder = './arcade/gamedata/'.$gdata['gamename'].'';
 		$this->db->setQuery('SELECT gamename, imagename, filename, title, height, width, description, background, mochi, gsafe, author FROM #__jvarcade_games WHERE id =' . $game_id);
 		$gdata = $this->db->loadAssoc();
-		
+		$gd_folder = './arcade/gamedata/'.$gdata['gamename'].'';
 		//build the config file ready for downloading. .json file for mochimedia and .php for everything else.
 		if ((int)$gdata['mochi'] == 1){
 			$entry = array('slug'=> $gdata['gamename'], 'name'=> $gdata['title'], 'swf_url'=> $gdata['filename'], 'thumbnail_url'=> $gdata['imagename'], 'description'=> $gdata['description'], 'height'=> $gdata['height'], 'width'=> $gdata['width'], 'developer'=> $gdata['author']);
