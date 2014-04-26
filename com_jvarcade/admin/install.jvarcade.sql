@@ -153,7 +153,8 @@ CREATE TABLE IF NOT EXISTS `#__jvarcade_settings` (
   `ord` int(11) NOT NULL DEFAULT '1',
   `type` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`optname`)
 ) ENGINE=MyISAM CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 CREATE TABLE IF NOT EXISTS `#__jvarcade_tags` (

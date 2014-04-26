@@ -55,17 +55,17 @@ class com_jvarcadeInstallerScript {
         		if ($exists == 0){
         			$query = file_get_contents(JPATH_ADMINISTRATOR . '/components/com_jvarcade/install/sql/update.tables.sql');
         			$queries = $db->splitSql($query);
-        				foreach ($queries as $querie) { 
-            			$db->setQuery($querie);
-            			$db->execute();
-        				$error = $db->getErrorNum();
-                    		if ($error) { 
-                      			JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_FAILED'), 'error');
-							} else {
-								JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_OK'), 'message');
-							}
-							
-						}
+        			foreach ($queries as $querie) {
+        				$db->setQuery($querie);
+        				try {
+        					$db->execute();
+        					JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_OK'), 'message');
+        				} catch (RuntimeException $e) {
+        					$e->getMessage();
+        				}
+            			
+        			}		
+						
         		} elseif ($exists == 1) {
         			JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADED_COLUMNS_OK'), 'message');
         		}
