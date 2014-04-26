@@ -12,6 +12,25 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+$JVersion = new JVersion();
+$version = $JVersion->getShortVersion();
+ 
+if (version_compare($version, '3.3.0', 'lt')) {
+	interface JComponentRouterInterface {
+		public function build(&$query);
+		public function parse(&$segments);
+	}
+	function JvarcadeBuildRoute(&$query) {
+		$router = new JvarcadeRouter;
+		$query = $router->preprocess($query);
+		return $router->build($query);
+	}
+	function JvarcadeParseRoute($segments) {
+		$router = new JvarcadeRouter;
+		return $router->parse($segments);
+	}
+ }
+ 
 
 // TODO: may be extend the new JComponentRouterBasic class in 5.3.0
 
@@ -187,12 +206,4 @@ class JvarcadeRouter implements JComponentRouterInterface {
 		return str_replace(array('-', ' '), array('', '-'), trim($str));
 	}
 }
-function JvarcadeBuildRoute(&$query) {
-	$router = new JvarcadeRouter;
-	$query = $router->preprocess($query);
-	return $router->build($query);
-}
-function JvarcadeParseRoute($segments) {
-	$router = new JvarcadeRouter;
-	return $router->parse($segments);
-}
+
