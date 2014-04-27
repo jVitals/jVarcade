@@ -28,11 +28,15 @@ class com_jvarcadeInstallerScript {
 		
 		
 		function install($parent) {
+			$install = '<div style="align:left;">';
+			require_once (JPATH_ROOT . '/components/com_jvarcade/include/define.php');
 			$backendPath = JPATH_ROOT . '/administrator/components/com_jvarcade/';
 			$frontendPath = JPATH_ROOT . '/components/com_jvarcade/';
 			$table = '#__jvarcade_settings';
 			$db = JFactory::getDBO();
-			
+			?>
+			<center><h1>Installation of jVArcade <?php echo JVA_VERSION; ?> </h1></center>
+			<?php
 			$db->setQuery('SELECT COALESCE(COUNT(*), 0) FROM ' . $db->quoteName($table));
 			$records_exist = @$db->loadResult();
 			if (!(int)$records_exist) {
@@ -42,14 +46,15 @@ class com_jvarcadeInstallerScript {
             			$db->setQuery($querie);
             			$db->execute();
             			$error = $db->getErrorNum();
-                    		if ($error) { 
-                      			JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_FAILED'), 'error');
-							} else {
-								JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_OK'), 'message');
-							}
+                    		
+						}
+						if ($error) {
+							JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_FAILED'), 'error');
+						} else {
+							$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_OK') .'<br />';
 						}
         	} else {
-        		$result = $db->setQuery("SHOW COLUMNS FROM `#__jvarcade_games` LIKE 'gsafe'");
+        		$result = $db->setQuery("SHOW COLUMNS FROM `#__jvarcade_games` LIKE 'try'");
         		$db->execute($result);
         		$exists = $db->getNumRows();
         		if ($exists == 0){
@@ -59,15 +64,18 @@ class com_jvarcadeInstallerScript {
         				$db->setQuery($querie);
         				try {
         					$db->execute();
-        					JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_OK'), 'message');
         				} catch (RuntimeException $e) {
-        					$e->getMessage();
+        					$ec = $e->getCode();
         				}
             			
         			}		
-						
+        			if($ec == 1062){
+        				$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_OK') .'<br />';
+        			}else{
+        				$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_OK') .'<br />';
+        			}
         		} elseif ($exists == 1) {
-        			JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADED_COLUMNS_OK'), 'message');
+        			$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADED_COLUMNS_OK') .'<br />';
         		}
         			
         		
@@ -90,18 +98,18 @@ class com_jvarcadeInstallerScript {
 			foreach ($movefolders as $folder) {
 				if (!JFolder::exists($folder[1])) {
 					$mvres = JFolder::move($folder[0], $folder[1]);
-					if ($mvres === true) {
-						JFactory::getApplication()->enqueueMessage(JText::sprintf('COM_JVARCADE_INSTALLER_UPGRADE_MOVEFOLDERS_OK', $folder[0], $folder[1]), 'message');
-					} else {
-						JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_MOVEFOLDERS_FAILED'), 'error');
-							}
 				}
+			}
+			if ($mvres === true) {
+				$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_MOVEFOLDERS_OK') .'<br />';
+			} else {
+				$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'red_x.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_MOVEFOLDERS_FAILED') .'<br />';
 			}
 		}
 		
 		// (RE)CREATE THE CATCH FILES IN THE JOOMLA ROOT
 		
-		JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_FILECOPY'), 'message');
+		$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_FILECOPY') .'<br />';
 		$copyfiles = array(
 			JPATH_ROOT . '/arcade/index.html' => '<html><body bgcolor="#FFFFFF"></body></html>',
 			JPATH_ROOT . '/arcade/gamedata/index.html' => '<html><body bgcolor="#FFFFFF"></body></html>',
@@ -114,8 +122,8 @@ class com_jvarcadeInstallerScript {
 			file_put_contents($filename, $content);
 		}
 		
-		
-		
+		echo $install;
+		echo "</div><br /><br /><br />";
 	}//end install function
 	
 	function uninstall($parent) {
