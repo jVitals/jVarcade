@@ -7,31 +7,32 @@
  * @link		http://jvitals.com
  */
 
-
-.icon-48-jvasettings {
-	background:url("/images/jvarcade/images/cpanel/config.png") no-repeat scroll 0 0 transparent !important;
+.icon-jvasettings:before {
+	content: "9";
 }
-.icon-48-jvascores {
-	background:url("/images/jvarcade/images/cpanel/doc_48.png") no-repeat scroll 0 0 transparent !important;
+.icon-jvascores:before {
+	content: "\e228"
 }
-.icon-48-jvafolders {
-	background:url("/images/jvarcade/images/cpanel/folder.png") no-repeat scroll 0 0 transparent !important;
+.icon-jvafolders:before {
+	content: "-";
 }
-.icon-48-jvagames {
-	background:url("/images/jvarcade/images/cpanel/games2.png") no-repeat scroll 0 0 transparent !important;
-	padding-left: 65px!important;
+.icon-jvagames:before {
+	content: "\34";
 }
-.icon-48-jvaupload {
-	background:url("/images/jvarcade/images/cpanel/upload_zip.png") no-repeat scroll 0 0 transparent !important;
+.icon-jvaupload:before {
+	content: "\e022"
 }
-.icon-48-jvamaintenance {
-	background:url("/images/jvarcade/images/cpanel/maintenance.png") no-repeat scroll 0 0 transparent !important;
+.icon-jvamaintenance:before {
+	content: ":";
 }
-.icon-48-jvacontent {
-	background:url("/images/jvarcade/images/cpanel/content_rating.png") no-repeat scroll 0 0 transparent !important;
+.icon-jvacontent:before {
+	content: "\e224"
 }
-.icon-48-jvacontests {
-	background:url("/images/jvarcade/images/cpanel/contests.png") no-repeat scroll 0 0 transparent !important;
+.icon-jvacontests:before {
+	content: "B";
+}
+.icon-jvacpanel:before {
+	content: "\78";
 }
 
 /* CHANGELOG */

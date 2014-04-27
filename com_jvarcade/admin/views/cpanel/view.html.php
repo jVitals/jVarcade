@@ -58,7 +58,7 @@ class jvarcadeViewCpanel extends JViewLegacy {
 		$changelog = $model->getChangeLog();
 		$this->assignRef('changelog', $changelog);
 		
-		JToolBarHelper::title(JText::_('COM_JVARCADE_CPANEL'), 'cpanel');
+		JToolBarHelper::title(JText::_('COM_JVARCADE_CPANEL'), 'jvacpanel');
 		
 		$dashboard_buttons = array (
 			'SETTINGS' => array(
@@ -93,12 +93,12 @@ class jvarcadeViewCpanel extends JViewLegacy {
 			),
 			'CONTENT_RATINGS' => array(
 				'link' => JRoute::_('index.php?option=com_jvarcade&task=content_ratings'),
-				'icon' => 'contests.png',
+				'icon' => 'content_rating.png',
 				'label' => JText::_('COM_JVARCADE_CONTENT_RATINGS')
 			),
 			'CONTESTS' => array(
 				'link' => JRoute::_('index.php?option=com_jvarcade&task=contests'),
-				'icon' => 'content_rating.png',
+				'icon' => 'contests.png',
 				'label' => JText::_('COM_JVARCADE_CONTESTS')
 			),
 			'SUPPORT' => array(

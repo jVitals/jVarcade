@@ -29,7 +29,7 @@ class jvarcadeViewupload_archive extends JViewLegacy {
 		
 		$this->folderlist = $model->getFolderList();
 		
-		JToolBarHelper::title(JText::_('COM_JVARCADE_UPLOADARCHIVE_TITLE'), 'jvagames');
+		JToolBarHelper::title(JText::_('COM_JVARCADE_UPLOADARCHIVE_TITLE'), 'jvaupload');
 		jvarcadeToolbarHelper::addSubmenu($this->getName());
 		$this->addSidebar('upload_archive');
 		
