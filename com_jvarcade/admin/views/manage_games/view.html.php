@@ -68,7 +68,7 @@ class jvarcadeViewManage_games extends JViewLegacy {
 		$lists['folders'] = JHTML::_('select.genericlist', $folders, 'filter_name', 'class="inputbox" size="1" onchange="document.adminForm.submit( );"', 'value', 'text', $lists['filter_name']);
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_MANAGE_GAMES'), 'jvagames');
-		JToolBarHelper::custom('addgametocontest', 'default.png', 'default.png', JText::_('COM_JVARCADE_CONTESTSLINK_ADDTOCONTESTS'), true);
+		//JToolBarHelper::custom('addgametocontest', 'default.png', 'default.png', JText::_('COM_JVARCADE_CONTESTSLINK_ADDTOCONTESTS'), true);
 		JToolBarHelper::editList('editgame', JText::_('COM_JVARCADE_GAMES_EDIT'));
 		JToolBarHelper::addNew('addgame', JText::_('COM_JVARCADE_GAMES_ADD'));
 		JToolBarHelper::deleteList(JText::_('COM_JVARCADE_GAMES_ASK_DELETE'), 'deletegame', JText::_('COM_JVARCADE_GAMES_DELETE'));
@@ -76,7 +76,7 @@ class jvarcadeViewManage_games extends JViewLegacy {
 		JToolBarHelper::unpublishList('gameUnPublish', JText::_('COM_JVARCADE_GAMES_UNPUBLISH'));
 		jvarcadeToolbarHelper::addSubmenu($this->getName());
 		$this->addSidebar('manage_games');
-		
+
 		parent::display($tpl);
 	}
 	protected function addSidebar() {
