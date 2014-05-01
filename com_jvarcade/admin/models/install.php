@@ -196,11 +196,11 @@ class jvarcadeModelInstall extends JModelLegacy {
 							  "(" . $this->db->quoteName('gamename') . ", " . $this->db->quoteName('title') . ", " . $this->db->quoteName('description') . ", " . 
 									$this->db->quoteName('height') . ", " . $this->db->quoteName('width') . ", " . $this->db->quoteName('filename') . ", " . $this->db->quoteName('imagename') . ", " . 
 									$this->db->quoteName('background') . ", " . $this->db->quoteName('published') . ", " . $this->db->quoteName('reverse_score') . ", " . 
-									$this->db->quoteName('scoring') . ", " . $this->db->quoteName('folderid') . ", " .  $this->db->quoteName('mochi'). ", " .  $this->db->quoteName('gsafe'). ") " .
+									$this->db->quoteName('scoring') . ", " . $this->db->quoteName('folderid') . ", " .  $this->db->quoteName('gsafe'). ") " .
 							"VALUES (" . $this->db->Quote($config['name']) . "," . $this->db->Quote($config['title']) . "," . $this->db->Quote($config['description']) . "," . 
 										$this->db->Quote((int)$config['height']) . "," . $this->db->Quote((int)$config['width']) . "," . $this->db->Quote($config['newfilename']) . "," . $this->db->Quote($config['newimagename']) . "," . 
 										$this->db->Quote($config['background']) . "," . $this->db->Quote((int)$published) . "," . $this->db->Quote((int)$config['reverse_score']) . "," . 
-										$this->db->Quote((int)$config['scoring']) . "," . $this->db->Quote((int)$folderid) . "," . $this->db->Quote((int)$config['mochi']) . "," . $this->db->Quote((int)$config['gsafe']) . ")"
+										$this->db->Quote((int)$config['scoring']) . "," . $this->db->Quote((int)$folderid) . "," . $this->db->Quote((int)$config['gsafe']) . ")"
 					);
 					if(!$this->db->execute()) {
 						$errormsg[] = $config['name'] . ': ' . $this->db->getErrorMsg();
