@@ -267,7 +267,6 @@ class jvarcadeModelInstall extends JModelLegacy {
 			'author' => $obj->developer,
 			'background' => '',
 			'gsafe' => 0,
-			'mochi' => 1,
 			'scoring' => 1,
 			'reverse_score' => 0,
 		);
@@ -296,7 +295,6 @@ class jvarcadeModelInstall extends JModelLegacy {
 			'author' => $arr['author'],
 			'background' => '#' . $arr['bgcolor'],
 			'gsafe' => 0,
-			'mochi' => 0,
 			'scoring' => 1,
 			'reverse_score' => ((int)$arr['gameType'] == 2 ? 1: 0),
 		);
@@ -343,7 +341,6 @@ class jvarcadeModelInstall extends JModelLegacy {
 			'author' => $game_author,
 			'background' => $game_bgcolor,
 			'gsafe' => $gsafe_detect,
-			'mochi' => 0,
 			'scoring' => 1,
 			'reverse_score' => ($game_type == 'Highest Score Wins' ? 0: 1),
 		);
@@ -374,7 +371,6 @@ class jvarcadeModelInstall extends JModelLegacy {
 			'author' => '',
 			'background' => '#' . $arr['bgcolor'],
 			'gsafe' => $arr['gsafe'],
-			'mochi' => 0,
 			'scoring' => 1,
 			'reverse_score' => 0,
 		);

@@ -25,9 +25,6 @@ class jvarcadeVieweditgame extends JViewLegacy {
 		$task = $app->input->getWord('task', 'editgame');
 		$this->assignRef('task', $task);
 
-		$gameid = array_unique($app->input->get('id', array(), 'array'));
-		$gameid = (int)$gameid[0];
-		
 		if ($task == 'addgame') {
 			$game = new stdClass();
 			$game->id = 0;
@@ -45,10 +42,11 @@ class jvarcadeVieweditgame extends JViewLegacy {
 			$game->reverse_score = 0;
 			$game->scoring = 0;
 			$game->gsafe = 0;
-			$game->mochi = 0;
 			$game->window = 1;
 			$game->ajaxscore = 0;
 		} else {
+			$gameid = array_unique($app->input->get('id', array(), 'array'));
+			$gameid = (int)$gameid[0];
 			$game = $model->getGames((int)$gameid);
 			if (is_array($game)) $game = $game[0];
 		}

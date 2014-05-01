@@ -58,27 +58,8 @@ defined('_JEXEC') or die('Restricted access');
 			</div>
 		<?php endif; ?>
 
-		<!-- MOCHI INTEGRATION -->
+		<!-- GamerSafe Integration -->
 		
-		<?php if ((int)$this->game['mochi'] == 1): ?>
-		<div id="leaderboard_bridge"></div>
-			<script src="http://xs.mochiads.com/static/pub/swf/leaderboard.js" type="text/javascript"></script>
-			<script type="text/javascript">
-			<!--
-				var options = {partnerID: "<?php echo $this->config->mochi_id; ?>", id: "leaderboard_bridge"};
-				options.userID = "<?php echo ($this->user->id ? $this->user->id : '0'); ?>";
-				options.username = "<?php echo $this->user->username; ?>";
-				options.callback = function (params) {jQuery.jva.bridgeScore('<?php echo $this->game['gamename']; ?>', params.score, <?php echo (int)$this->game['ajaxscore']; ?>);};
-				options.globalScores = "true";
-				<?php if (isset($_REQUEST['debug']) && $_REQUEST['debug']) : ?>
-				options.width = 320;
-				options.height = 240;
-				options.debug = "true";
-				<?php endif; ?>
-				Mochi.addLeaderboardIntegration(options);
-			-->
-			</script>
-		<?php endif; ?>
 		<?php if ((int)$this->game['gsafe'] == 1):?>
 		<script language="JavaScript" type="text/javascript">
 		<!--

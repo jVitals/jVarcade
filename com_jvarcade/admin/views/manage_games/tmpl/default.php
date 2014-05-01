@@ -82,7 +82,7 @@ JHtml::_('formbehavior.chosen', 'select');
 					<tr class="<?php echo "row$i"; ?>">
 						<td style="text-align: center;"><?php echo $checked; ?></td>
 						<td style="text-align: center;"><?php echo $obj->id; ?></td>
-						<td style="text-align: center;"><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&c&task=editgame&id=' . $obj->id); ?>"><?php echo $obj->title; ?></a></td>
+						<td style="text-align: center;"><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=editgame&id=' . $obj->id); ?>"><?php echo $obj->title; ?></a></td>
 						<td style="text-align: center;"><?php echo $imgtagscore; ?></td>
 						<td style="text-align: center;"><?php echo $obj->numplayed; ?></td>
 						<td style="text-align: center;"><?php echo $obj->name; ?></td>

@@ -108,7 +108,6 @@ CREATE TABLE IF NOT EXISTS `#__jvarcade_games` (
   `folderid` int(11) DEFAULT NULL,
   `window` tinyint(2) NOT NULL,
   `contentratingid` int(11) NOT NULL DEFAULT '1',
-  `mochi` tinyint(2) NOT NULL DEFAULT '0',
   `gsafe` tinyint(2) NOT NULL DEFAULT '0',
   `ajaxscore` tinyint(1) NOT NULL DEFAULT '0',
   `author` varchar(255) NOT NULL,

@@ -325,19 +325,10 @@ class jvarcadeController extends JControllerLegacy {
 	public function downloadgame($gdata=''){
 		$app = JFactory::getApplication();
 		$game_id = (int)$app->input->get('id');
-		$this->db->setQuery('SELECT gamename, imagename, filename, title, height, width, description, background, mochi, gsafe, author FROM #__jvarcade_games WHERE id =' . $game_id);
+		$this->db->setQuery('SELECT gamename, imagename, filename, title, height, width, description, background, gsafe, author FROM #__jvarcade_games WHERE id =' . $game_id);
 		$gdata = $this->db->loadAssoc();
 		$gd_folder = './arcade/gamedata/'.$gdata['gamename'].'';
-		//build the config file ready for downloading. .json file for mochimedia and .php for everything else.
-		if ((int)$gdata['mochi'] == 1){
-			$entry = array('slug'=> $gdata['gamename'], 'name'=> $gdata['title'], 'swf_url'=> $gdata['filename'], 'thumbnail_url'=> $gdata['imagename'], 'description'=> $gdata['description'], 'height'=> $gdata['height'], 'width'=> $gdata['width'], 'developer'=> $gdata['author']);
-		$cfg_file = $this->global_conf->get('tmp_path') . '/' . $gdata['gamename'] .'.json';
-		$cfg_fileHandle = fopen($cfg_file, 'w') or die("can't open file");
-		fwrite($cfg_fileHandle, json_encode($entry));
-		fclose($cfg_fileHandle);
-		
-		$archive_file_name = basename($this->global_conf->get('tmp_path') . '/' .'mochi_'.$gdata['gamename'].'.zip');
-		}else{
+		//build the config file ready for downloading.
 			$config = array(gname => $gdata['gamename'],
 						gtitle => $gdata['title'],
 						gwords => $gdata['description'],
@@ -358,7 +349,7 @@ class jvarcadeController extends JControllerLegacy {
 			file_put_contents($cfg_file, '$config = ' .var_export($config, TRUE).";\n?>", FILE_APPEND);
 			
 		$archive_file_name = basename($this->global_conf->get('tmp_path') . '/' . 'game_'.$gdata['gamename'].'.zip');
-		}
+		
 		
 
 		$zip = new ZipArchive();

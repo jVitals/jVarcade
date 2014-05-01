@@ -23,7 +23,6 @@ INSERT INTO `#__jvarcade_settings` (`optname`,`value`,`group`,`ord`,`type`,`desc
 			('comments', '0', 'integration', 1, 'radio', 'COM_JVARCADE_OPTDESC_COMMENTS'),
 			('scorelink', '1', 'integration', 2, 'radio', 'COM_JVARCADE_OPTDESC_SCORELINK'),
 			('show_avatar', '1', 'integration', 3, 'yesno', 'COM_JVARCADE_OPTDESC_SHOW_AVATAR'),
-			('mochi_id', '', 'integration', 4, 'text', 'COM_JVARCADE_OPTDESC_MOCHI_ID'),
 			('communitybuilder_itemid', '7', 'integration', 5, 'text', 'COM_JVARCADE_OPTDESC_COMMUNITYBUILDER_ITEMID'),
 			('title', 'jVArcade', 'frontend', 1, 'text', 'COM_JVARCADE_OPTDESC_TITLE'),
 			('scoreundergame', '1', 'frontend', 2, 'yesno', 'COM_JVARCADE_OPTDESC_SCOREUNDERGAME'),
