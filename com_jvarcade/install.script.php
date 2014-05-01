@@ -54,7 +54,7 @@ class com_jvarcadeInstallerScript {
 							$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_OK') .'<br />';
 						}
         	} else {
-        		$result = $db->setQuery("SHOW COLUMNS FROM `#__jvarcade_games` LIKE 'try'");
+        		$result = $db->setQuery("SHOW COLUMNS FROM `#__jvarcade_games` LIKE 'gsafe'");
         		$db->execute($result);
         		$exists = $db->getNumRows();
         		if ($exists == 0){
