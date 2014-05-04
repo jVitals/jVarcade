@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog component="jVArcade">
+  <version number="2.10">
+    <date>2014-05-04</date>
+    <description><![CDATA[ Feature Release ]]></description>
+    <list>
+      <item type="ui"><![CDATA[ New home view layout using bootstrap carousel(not compatible with mootools-more.js) ]]></item>
+	  <item type="ui"><![CDATA[ Administrator layout enhancements ]]></item>
+	  <item type="ui"><![CDATA[ Improved installation experience ]]></item>
+      <item type="new"><![CDATA[ Support for GamerSafe(https://www.gamersafe.com/) games score saving]]></item>
+    </list>
+  </version>
   <version number="2.1">
     <date>2014-02-25</date>
     <description><![CDATA[ Major release ]]></description>
