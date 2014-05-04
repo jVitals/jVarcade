@@ -10,6 +10,7 @@
     <version>2.1</version>
     <packagename>jvarcade</packagename>
     <description>A Joomla Arcade Component</description>
+	<scriptfile>pkg.install.php</scriptfile>
     <files folder="packages">
         <file type="component" id="com_jvarcade" >com_jvarcade.zip</file>
         <file type="plugin" id="atari">plg_jvarcade_atari.zip</file>

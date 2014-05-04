@@ -73,7 +73,7 @@
 			<folder>models</folder>
 			<folder>views</folder>
 			<folder>language</folder>
-			<folder>install/sql</folder>
+			<folder>install</folder>
 		</files>
 		<languages folder="admin">
 			<language tag="en-GB">/language/en-GB/en-GB.com_jvarcade.ini</language>
