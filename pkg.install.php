@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.1
+ * @version		2.11
  * @date		2014-01-12
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
@@ -46,7 +46,7 @@ class pkg_jvarcadeInstallerScript {
                "jvaPostinstallAction", 
                "admin://components/com_jvarcade/install/postinstall.php", 
                "jvaPostinstallCondition", 
-               "2.10", 
+               "2.11", 
                1)';
 		$db->setQuery($query);
      	$db->execute();
