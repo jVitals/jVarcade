@@ -86,6 +86,8 @@ class com_jvarcadeInstallerScript {
 			@JFolder::create(JPATH_ROOT . '/arcade', 0775);
 			@JFolder::create(JPATH_ROOT . '/arcade/gamedata', 0775);
 		}
+		
+		
 		// ONLY FOR FRESH INSTALL - MOVE FOLDERS
 		
 		if (!JFolder::exists(JPATH_ROOT . '/images/jvarcade')) {
@@ -105,6 +107,9 @@ class com_jvarcadeInstallerScript {
 			} else {
 				$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'red_x.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_MOVEFOLDERS_FAILED') .'<br />';
 			}
+		} elseif (JFolder::exists(JPATH_ROOT . '/images/jvarcade')) {
+			JFile::copy(dirname(__FILE__) . '/site/images/tick.png', JPATH_ROOT . '/images/jvarcade/images/tick.png');
+			JFile::copy(dirname(__FILE__) . '/site/images/contentrating/gamewarning.png', JPATH_ROOT . '/images/jvarcade/images/contentrating/gamewarning.png');
 		}
 		
 		// (RE)CREATE THE CATCH FILES IN THE JOOMLA ROOT
