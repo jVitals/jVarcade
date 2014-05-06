@@ -150,12 +150,12 @@ class jvarcadeViewGame extends JViewLegacy {
 		$end = '</div>';
 		if ($this->config->comments == 1 && $this->componentEnabled($this->comment_data, 'com_comment')) {
 			// CComment
-			$ccommentpath = JPATH_SITE . '/components/com_comment/helpers/utils.php';
+			
 			$path = JPATH_SITE . '/administrator/components/com_comment/plugins/com_jvarcade/jvarcade.php';
 			if (file_exists($path)) {
-				require_once($ccommentpath);
+				JLoader::discover('ccommentHelper', JPATH_SITE . '/components/com_comment/helpers');
 				echo $start;
-				echo CcommentHelperUtils::commentInit('com_jvarcade', $this->game['id']);
+				echo CcommentHelperUtils::commentInit('com_jvarcade', $this->game);
 				echo $end;
 			}
 		} elseif ($this->config->comments == 2 && $this->componentEnabled($this->comment_data, 'com_jcomments')) {

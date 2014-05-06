@@ -22,15 +22,14 @@ class ccommentComponentjvarcadeSettings extends ccommentComponentSettings {
 		$db = JFactory::getDBO();
 	
 		$query = $db->getQuery(true);
-		$query->select('id, name AS title');
-		$query->from('#__jvarcade_folders');
+		$query->select('id, title');
+		$query->from('#__jvarcade_games');
 		$query->where('published = 1');
-		$query->order('title ASC');
+		$query->order('id ASC');
 				
 		$db->setQuery( $query );
-		$catoptions = $db->loadObjectList();
-				
-		return $catoptions;
+		return $db->loadObjectList();
+
 	}
 	
 }

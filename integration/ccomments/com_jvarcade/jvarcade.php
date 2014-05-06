@@ -20,15 +20,15 @@ class ccommentComponentJvarcadePlugin extends ccommentComponentPlugin {
 	{
 		$config = ccommentConfig::getConfig('com_jvarcade');
 		$row = $this->row;
-	
 		$contentIds = $config->get('basic.exclude_content_items', array());
 		$categories = $config->get('basic.categories', array());
 		$include = $config->get('basic.include_categories', 0);
+		
 	
 		/* content ids */
 		if (count($contentIds) > 0)
 		{
-			$result = in_array((($row->id == 0) ? -1 : $row->id), $contentIds);
+			$result = in_array((($row['id'] == 0) ? -1 : $row['id']), $contentIds);
 			if ($include && $result)
 			{
 				return true; /* include and selected */
@@ -40,7 +40,7 @@ class ccommentComponentJvarcadePlugin extends ccommentComponentPlugin {
 		}
 	
 		/* categories */
-		$result = in_array((($row->folderid == 0) ? -1 : $row->folderid), $categories);
+		$result = in_array((($row['folderid'] == 0) ? -1 : $row['folderid']), $categories);
 		if ($include && $result)
 		{
 			return true; /* include and selected */
@@ -72,8 +72,9 @@ class ccommentComponentJvarcadePlugin extends ccommentComponentPlugin {
 		$input = JFactory::getApplication()->input;
 		$option = $input->getCmd('option', '');
 		$view = $input->getCmd('task', '');
+		$id = $input->get('id', 0);
 	
-		return ($option == 'com_jvarcade' && $view == 'game'
+		return ($option == 'com_jvarcade' && $view == 'game' && $id !=0
 		);
 	}
 	
@@ -100,40 +101,24 @@ class ccommentComponentJvarcadePlugin extends ccommentComponentPlugin {
 	 */
 	public function getLink($contentId, $commentId = 0, $xhtml = true)
 	{
+		
 		$add = '';
-		$menuid = $this->getItemid();
+
 		if ($commentId)
 		{
 			$add = "#!/ccomment-comment=$commentId";
 		}
-		$url = JURI::root() . "index.php?option=com_jvarcade&task=game&id=$contentId"
-		. ( $menuid ? "&Itemid=$menuid" : "" );
-		;
+		$url = JUri::root() . "index.php?option=com_jvarcade&task=game&id=$contentId";
 		$url .= $add;
 		$url = JRoute::_($url, $xhtml);
 	
 		return $url;
 	}
 	
-	/*
-	 *  getItemid
-	*/
-	
-	function getItemid($component='com_jvarcade') {
-		static $ids;
-		if (!isset($ids)) {
-			$ids = array();
-		}
-		if (!isset($ids[$component])) {
-			$database = & JFactory::getDBO();
-			$query = "SELECT id FROM #__menu"
-					. "\n WHERE link LIKE '%option=$component%'"
-					. "\n AND type = 'component'"
-					. "\n AND published = 1 LIMIT 1";
-						$database->setQuery($query);
-						$ids[$component] = $database->loadResult();
-		}
-		return $ids[$component];
+	public function getPageId()
+	{
+		$row = $this->row;
+		return $row['id'];
 	}
 	
 	/**
