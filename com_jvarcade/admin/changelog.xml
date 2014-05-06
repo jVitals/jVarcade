@@ -8,6 +8,7 @@
 	  <item type="ui"><![CDATA[ Administrator layout enhancements ]]></item>
 	  <item type="ui"><![CDATA[ Improved installation experience ]]></item>
       <item type="new"><![CDATA[ Support for GamerSafe(https://www.gamersafe.com/) games score saving]]></item>
+	  <item type="new"><![CDATA[ Added new plugin for CComments(Previously CompoJoom) commenting system ]]></item>
     </list>
   </version>
   <version number="2.1">
