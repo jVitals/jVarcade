@@ -149,11 +149,13 @@ class jvarcadeViewGame extends JViewLegacy {
 		$start = '<div class="pu_heading" style="text-align: center;margin: 20px 0 20px 0;">' . JText::_('COM_JVARCADE_COMMENTS') . '</div><div id="comment-block">';
 		$end = '</div>';
 		if ($this->config->comments == 1 && $this->componentEnabled($this->comment_data, 'com_comment')) {
-			// CompoJoom Comment
-			$path = JPATH_SITE . '/administrator/components/com_comment/plugin/com_jvarcade/josc_com_jvarcade.php';
+			// CComment
+			$ccommentpath = JPATH_SITE . '/components/com_comment/helpers/utils.php';
+			$path = JPATH_SITE . '/administrator/components/com_comment/plugins/com_jvarcade/jvarcade.php';
 			if (file_exists($path)) {
+				require_once($ccommentpath);
 				echo $start;
-				require_once($path);
+				echo CcommentHelperUtils::commentInit('com_jvarcade', $this->game['id']);
 				echo $end;
 			}
 		} elseif ($this->config->comments == 2 && $this->componentEnabled($this->comment_data, 'com_jcomments')) {
