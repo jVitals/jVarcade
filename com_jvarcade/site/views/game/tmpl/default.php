@@ -351,11 +351,11 @@ defined('_JEXEC') or die('Restricted access');
 					});
 					jQuery('<?php echo '#' . $modalId ?>').on('show.bs.modal', function (e) {
 						jQuery("body").css("overflow", "hidden");
-						jQuery("#<?php echo $this->game['gamename']; ?>").css("display", "none");
+						
 					});
 					jQuery('<?php echo '#' . $modalId ?>').on('hide.bs.modal', function (e) {
 						jQuery("body").css("overflow", "none");
-						jQuery("#<?php echo $this->game['gamename']; ?>").css("display", "");
+						
 					});
 					</script>
 					<?php }?>					
