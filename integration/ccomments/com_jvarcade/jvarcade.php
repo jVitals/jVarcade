@@ -160,7 +160,7 @@ class ccommentComponentJvarcadePlugin extends ccommentComponentPlugin {
 	{
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
-		$query->select('id,title')->from('#__javrcade_games')
+		$query->select('id,title')->from('#__jvarcade_games')
 		->where('id IN (' . implode(',', $ids) . ')');
 	
 		$db->setQuery($query);
