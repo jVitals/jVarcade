@@ -54,8 +54,8 @@ class jvarcadeViewContent_ratings extends JViewLegacy {
 		JToolBarHelper::editList('editcontentrating', JText::_('COM_JVARCADE_CONTENT_RATINGS_EDIT'));
 		JToolBarHelper::addNew('addcontentrating', JText::_('COM_JVARCADE_CONTENT_RATINGS_ADD'));
 		JToolBarHelper::deleteList(JText::_('COM_JVARCADE_CONTENT_RATINGS_ASK_DELETE'), 'deletecontentrating', JText::_('COM_JVARCADE_CONTENT_RATINGS_DELETE'));
-		JToolBarHelper::publishList('contentratingPublishYes', JText::_('COM_JVARCADE_CONTENT_RATINGS_PUBLISH'));
-		JToolBarHelper::unpublishList('contentratingPublishNo', JText::_('COM_JVARCADE_CONTENT_RATINGS_UNPUBLISH'));
+		JToolBarHelper::publishList('contentratingPublish', JText::_('COM_JVARCADE_CONTENT_RATINGS_PUBLISH'));
+		JToolBarHelper::unpublishList('contentratingUnpublish', JText::_('COM_JVARCADE_CONTENT_RATINGS_UNPUBLISH'));
 		jvarcadeToolbarHelper::addSubmenu($this->getName());
 		$this->addSidebar('content_ratings');
 		

@@ -691,7 +691,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			$this->dbo->execute();
 			$this->dbo->setQuery("DELETE FROM #__jvarcade_contestmember WHERE " . $this->dbo->quoteName('contestid') . " IN (" . implode(',', $id) . ")");
 			$this->dbo->execute();
-			$this->dbo->setQuery("DELETE FROM #__jvarcade_contenstscore WHERE " . $this->dbo->quoteName('contestid') . " IN (" . implode(',', $id) . ")");
+			$this->dbo->setQuery("DELETE FROM #__jvarcade_contestscore WHERE " . $this->dbo->quoteName('contestid') . " IN (" . implode(',', $id) . ")");
 			$this->dbo->execute();
 			
 			$this->dbo->setQuery("SELECT id FROM #__jvarcade_leaderboard WHERE " . $this->dbo->quoteName('contestid') . " IN (" . implode(',', $id) . ")");
@@ -704,7 +704,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 			}
 		}
 		
-		$app->redirect('index.php?option=com_jvarcade&c&task=manage_games');
+		$app->redirect('index.php?option=com_jvarcade&c&task=contests');
 	}
 	
 	public function saveContest() {
