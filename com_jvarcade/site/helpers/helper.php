@@ -295,6 +295,16 @@ class jvaHelper {
 				include_once(JPATH_ROOT . '/' . 'components' . '/' . 'com_community' . '/' . 'libraries' . '/' . 'core.php');
 				$js_user = CFactory::getUser((int)$userid);
 				$_avatar = $js_user->getThumbAvatar();
+			//AlphaUserPoints
+			} elseif ((int)$config->scorelink ==3) {
+				$api_AUP = JPATH_SITE . '/components/com_alphauserpoints/helper.php';
+				if ( file_exists($api_AUP))
+				{
+					require_once ($api_AUP);
+					$avatar = AlphaUserPointsHelper:: getAupAvatar( $userid, 1, '50', '50', '', '' );
+					echo $avatar;
+				}
+				
 			}
 			$_avatar = $_avatar ? '<img src="' . $_avatar . '" border="0" height="50" width="50" align="middle" />' : '' ;
 			$jva_avatars[(int)$userid] = $_avatar;
@@ -319,12 +329,17 @@ class jvaHelper {
 				$_name = $config->guest_name;
 			//Alpha User Points
 			} elseif ((int)$config->scorelink == 3) {
+				$db	   = JFactory::getDBO();
+				
+				$query = "SELECT id FROM #__menu WHERE `link`='index.php?option=com_alphauserpoints&view=account' AND `type`='component' AND `published`='1'";
+				$db->setQuery( $query );
+				$Itemid = $db->loadResult();
 				$api_AUP = JPATH_SITE . '/components/com_alphauserpoints/helper.php';
 				if ( file_exists($api_AUP))
 				{
 					require_once ($api_AUP);
-					$linktoAUPprofil = AlphaUserPointsHelper::getAupLinkToProfil((int)$userid);
-					$_name = '<a href="' . JRoute::_($linktoAUPprofil) . '">' . $username . '</a>';
+					$linktoAUPprofil = AlphaUserPointsHelper::getAupLinkToProfil($userid, $Itemid);
+					$_name = '<a href="' . $linktoAUPprofil . '">' . $username . '</a>';
 				}
 			//Community Builder
 			} elseif ((int)$config->scorelink == 2) {
