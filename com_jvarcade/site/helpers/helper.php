@@ -317,6 +317,15 @@ class jvaHelper {
 			// Guest
 			if ((int)$userid == 0) {
 				$_name = $config->guest_name;
+			//Alpha User Points
+			} elseif ((int)$config->scorelink == 3) {
+				$api_AUP = JPATH_SITE . '/components/com_alphauserpoints/helper.php';
+				if ( file_exists($api_AUP))
+				{
+					require_once ($api_AUP);
+					$linktoAUPprofil = AlphaUserPointsHelper::getAupLinkToProfil((int)$userid);
+					$_name = '<a href="' . JRoute::_($linktoAUPprofil) . '">' . $username . '</a>';
+				}
 			//Community Builder
 			} elseif ((int)$config->scorelink == 2) {
 				$_name = '<a href="' . JRoute::_('index.php?option=com_comprofiler&task=userProfile&user=' . (int)$userid . '&Itemid=' . (int)$config->communitybuilder_itemid ) . '">' . $username . '</a>';
