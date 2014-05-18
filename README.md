@@ -1,22 +1,9 @@
-jVArcade 2.1
+jVArcade 2.12
 
-Arcade games component for Joomla 3.2
+Arcade games component for Joomla
 
 <p><b>Install Note:</b></p>
-<p>Enable jvfixscript plugin and enable fix backend in settings.</p>
+<p>After install completes refer to joomla post install messages to configure fixscript. Enable 'Fix Backend'
+AplhaUserPoints profile integration requires a menu item created for AUP's profile view in order to get the item id of component.
+</p>
 
-<p><b>Known Bugs:</b></p>
-
-<p>BUG: Uploading archive in tar format fails when php version is 5.5 + <br>
-CAUSE: JArchive tar adapter issue. <br>
-FIX: To be addressed by joomla core update <br>
-REFERENCE: https://github.com/joomla/joomla-framework-archive/commit/89d15271ac6e339657ca349d56226d550e94156c</p>
-
-<p><b>Updates:</b></p>
-
-<p>Replaced jstella atari applet with javartari in the atari plugin.<br>
-Added support for Commodore 64 .prg with use of jac64 applet in the c64 plugin.<br>
-Added support for game downloading with administration options for group permission and enable/disable.<br>
-Used hard coded width and height in /views/game/default.php for games that use atari,c64,nes applets to prevent issues with config files not setting attributes when uploading.<br>
-Rounded corners no longer uses javascript/jquey. Added rounded.corners.css to prevent script conflicts.<br>
-Removed migration from puarcade. Note: Migration coding left in place for possible adaption to migration from Joomla 2.5</p>
