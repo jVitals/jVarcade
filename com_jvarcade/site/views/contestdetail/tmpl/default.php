@@ -117,7 +117,7 @@ defined('_JEXEC') or die('Restricted access');
 			<?php foreach ($this->games as $game) : ?>
 				<tr class="sectiontableentry">
 					<td width="10%">
-						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $game->imagename ; ?>" border="0" alt="" />
+						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $game->imagename ; ?>" height="50" width="50" border="0" alt="" />
 					</td>
 					<td width="35%">
 						<center><?php echo jvaHelper::truncate(stripslashes($game->title), (int)$this->config->truncate_title); ?></center>
