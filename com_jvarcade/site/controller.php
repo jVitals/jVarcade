@@ -108,7 +108,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->setModel($model, true);
 		$view->setLayout('default');
 		$view->set('config', $this->config);
-		$view->display($cachable = false, $urlparams = false);
+		$view->display();
 	}
 	
 	public function contestregister() {
