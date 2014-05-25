@@ -32,7 +32,8 @@ $document = JFactory::getDocument();
 $document->addStyleSheet(JUri::root() . 'administrator/components/com_jvarcade/css/'. 'style.css');
 echo JHtml::_('bootstrap.loadCss');
 // Javascript includes and declarations
-$document->addScript(JVA_JS_SITEPATH . 'jquery.jva.js');
+JHtml::_('jquery.framework');
+JHtml::script('com_jvarcade/jquery.jva.js', false, true);
 
 $jsconstants  = 'var JVA_HOST_NAME = \'' . JUri::base() . '\';' . "\n";
 $jsconstants .= 'var JVA_AJAX_URL = \'' . JUri::base() . '\';' . "\n";

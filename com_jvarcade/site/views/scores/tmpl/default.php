@@ -72,7 +72,7 @@ defined('_JEXEC') or die('Restricted access');
 	
 <?php if (!$this->table_only) :?>
 	<?php if ($this->config->rate == 1) : ?> 
-		<?php $document = JFactory::getDocument(); $document->addScript(JVA_JS_SITEPATH . 'jquery.rating.js'); ?>
+		<?php JHtml::script('com_jvarcade/jquery.rating.js', false, true); ?>
 		<div id="rate1" class="rating">
 		<script type="text/javascript">
 			jQuery(document).ready(function() {

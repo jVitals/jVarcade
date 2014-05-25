@@ -20,36 +20,7 @@ class pkg_jvarcadeInstallerScript {
 	
 	
 	function install($parent){
-		$db = JFactory::getDbo();
-     	$query = 'INSERT INTO '. $db->quoteName('#__postinstall_messages') .
-              ' ( `extension_id`, 
-                  `title_key`, 
-                  `description_key`, 
-                  `action_key`, 
-                  `language_extension`, 
-                  `language_client_id`, 
-                  `type`, 
-                  `action_file`, 
-                  `action`, 
-                  `condition_file`, 
-                  `condition_method`, 
-                  `version_introduced`, 
-                  `enabled`) VALUES '
-              .'( 700,
-               "COM_JVARCADE_POST_INSTALL_TITLE", 
-               "COM_JVARCADE_POST_INSTALL_BODY", 
-               "COM_JVARCADE_POST_INSTALL_ACTION",
-               "com_jvarcade",
-                1,
-               "action", 
-               "admin://components/com_jvarcade/install/postinstall.php",
-               "jvaPostinstallAction", 
-               "admin://components/com_jvarcade/install/postinstall.php", 
-               "jvaPostinstallCondition", 
-               "2.11", 
-               1)';
-		$db->setQuery($query);
-     	$db->execute();
+		
 	}
 	
 	function postflight($parent) {

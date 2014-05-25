@@ -2,7 +2,7 @@
 /**
  * @package		jVArcade
  * @version		2.12
- * @date		2014-05-04
+ * @date		2014-05-17
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -19,7 +19,6 @@ define('JVA_VERSION', '2.12');
 @define('JVA_CSS_INCPATH', JPATH_ROOT . '/components/com_jvarcade/css/');
 @define('JVA_HOMEVIEW_INCPATH', JPATH_ROOT . '/components/com_jvarcade/views/home/tmpl/');
 @define('JVA_IMAGES_INCPATH', JPATH_ROOT . '/images/jvarcade/images/');
-@define('JVA_JS_INCPATH', JPATH_ROOT . '/components/com_jvarcade/js/');
 @define('JVA_MODELS_INCPATH', JPATH_ROOT . '/components/com_jvarcade/models/');
 @define('JVA_HELPERS_INCPATH', JPATH_ROOT . '/components/com_jvarcade/helpers/');
 @define('JVA_TEMPLATES_INCPATH', JPATH_ROOT . '/components/com_jvarcade/views/include/');
@@ -28,7 +27,6 @@ define('JVA_VERSION', '2.12');
 // Url paths
 @define('JVA_CSS_SITEPATH', JUri::root() . 'components/com_jvarcade/css/');
 @define('JVA_IMAGES_SITEPATH', JUri::root() . 'images/jvarcade/images/');
-@define('JVA_JS_SITEPATH', JUri::root() . 'components/com_jvarcade/js/');
 @define('JVA_GAMES_SITEPATH', JUri::root() . 'images/jvarcade/games/');
 
 

@@ -33,7 +33,6 @@
 		<folder>games</folder>
 		<folder>images</folder>
 		<folder>include</folder>
-		<folder>js</folder>
 		<folder>models</folder>
 		<folder>views</folder>
 		<folder>helpers</folder>
@@ -86,4 +85,7 @@
 			<language tag="fi-FI">/language/fi-FI/fi-FI.com_jvarcade.sys.ini</language>
 		</languages>
 	</administration>
+	<media destination="com_jvarcade" folder="media/com_jvarcade">
+	<folder>js</folder>
+	</media>
 </extension>

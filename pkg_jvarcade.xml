@@ -19,6 +19,5 @@
 		<file type="plugin" id="nes">plg_jvarcade_nes.zip</file>
 		<file type="plugin" id="jvarcade">plg_search_jvarcade.zip</file>
 		<file type="plugin" id="jvaracde">plg_system_jvarcade.zip</file>
-		<file type="plugin" id="jvfixscript">plg_jvfixscript.zip</file>
     </files>
 </extension>

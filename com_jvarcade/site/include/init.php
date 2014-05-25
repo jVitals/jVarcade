@@ -31,12 +31,14 @@ define('COM_JVARCADE_TIMEZONE', $config->timezone);
 // Javascript includes and declarations
 $document = JFactory::getDocument();
 
-$document->addScript(JVA_JS_SITEPATH . 'jquery.jva.js');
+
 $jsconstants = 'var JVA_HOST_NAME = \'' . JURI::base() . '\';' . "\n";
 $jsconstants .= 'var JVA_AJAX_URL = \'' . JURI::base() . '\';' . "\n";
 $jsconstants .= 'var JVA_AJAX_RATING_URL = JVA_HOST_NAME + \'index.php?option=com_jvarcade&task=rategame&format=raw&gid=\';' . "\n";
 $jsconstants .= 'var JVA_MAIN_URL = JVA_HOST_NAME + \'index.php\';' . "\n";
 $document->addScriptDeclaration($jsconstants);
+JHtml::_('jquery.framework');
+JHtml::script('com_jvarcade/jquery.jva.js', false, true);
 
 // Load the puarcade plugins
 $dispatcher = JDispatcher::getInstance();

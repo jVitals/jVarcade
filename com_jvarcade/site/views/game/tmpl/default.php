@@ -17,7 +17,7 @@ defined('_JEXEC') or die('Restricted access');
 
 <div id="puarcade_wrapper">
 	<?php if ($this->config->rate == 1) : ?> 
-		<?php $document =& JFactory::getDocument(); $document->addScript(JVA_JS_SITEPATH . 'jquery.rating.js'); ?>
+		<?php  JHtml::script('com_jvarcade/jquery.rating.js', false, true); ?>
 	<?php endif; ?>
 	
 	<?php include_once(JVA_TEMPLATES_INCPATH . 'menu.php'); ?>
@@ -80,7 +80,7 @@ defined('_JEXEC') or die('Restricted access');
                     break;
                 case "scoreboard_entry":
                     jQuery(document).ready(function() {jQuery.jva.bridgeScore('<?php echo $this->game['gamename']; ?>', message.score, <?php echo (int)$this->game['ajaxscore']; ?>);});
-				
+					
                     break;
             }
         }

@@ -1,4 +1,4 @@
-(function ($) {
+(function (jQuery) {
 	var jva = {
 
 		rating: function(game_id, current_vote) {
@@ -7,7 +7,7 @@
 
 		bridgeScore: function(gname, score, ajaxscore) {
 			if (ajaxscore == 1) {
-				$.post('/newscore.php', {
+				jQuery.post('/newscore.php', {
 					"gname": gname,
 					"score": score,
 					"ajaxscore": ajaxscore
@@ -24,7 +24,7 @@
 		},
 
 		showTags: function(id, status, Itemid) {
-			$.post(JVA_AJAX_URL, {
+			jQuery.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",
 				"task": "gametags",
 				"format": "raw",
@@ -40,7 +40,7 @@
 		},
 		
 		saveTag: function(id, tag,Itemid) {
-			$.post(JVA_AJAX_URL, {
+			jQuery.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",
 				"task": "savetag",
 				"format": "raw",
@@ -55,7 +55,7 @@
 		},
 		
 		savefave: function(id) {
-			$.post(JVA_AJAX_URL, {
+			jQuery.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",
 				"task": "savefave",
 				"format": "raw",
@@ -69,7 +69,7 @@
 		},
 		
 		delfave: function(id) {
-			$.post(JVA_AJAX_URL, {
+			jQuery.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",
 				"task": "delfave",
 				"format": "raw",
@@ -83,7 +83,7 @@
 		},
 		
 		reportGame: function(id) {
-			$.post(JVA_AJAX_URL, {
+			jQuery.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",
 				"task": "reportgame",
 				"format": "raw",
@@ -134,7 +134,7 @@
 				contest_ids.push(contests[i].value);
 			}
 			var game_ids = jQuery('#game_ids').val();
-			$.post(JVA_AJAX_URL, {
+			jQuery.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",
 				"task": "savegametocontest",
 				"tmpl": "component",
@@ -157,7 +157,7 @@
 				game_ids.push(games[i].value);
 			}
 			var contest_id = jQuery('#contest_id').val();
-			$.post(JVA_AJAX_URL, {
+			jQuery.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",
 				"task": "savegametocontest",
 				"tmpl": "component",
@@ -174,7 +174,7 @@
 		},
 		
 		showContestGames: function(contest_id) {
-			$.post(JVA_AJAX_URL, {
+			jQuery.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",
 				"task": "showcontestgames",
 				"tmpl": "component",
@@ -188,7 +188,7 @@
 		},
 		
 		showGameContests: function(game_id) {
-			$.post(JVA_AJAX_URL, {
+			jQuery.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",
 				"task": "showgamecontests",
 				"tmpl": "component",
@@ -203,7 +203,7 @@
 		
 		deleteGameFromContest: function(contest_id, game_id, where) {
 			if (confirm(COM_JVARCADE_CONTESTSLINK_DELETE_WARNING)) {
-				$.post(JVA_AJAX_URL, {
+				jQuery.post(JVA_AJAX_URL, {
 					"option": "com_jvarcade",
 					"task": "deletegamefromcontest",
 					"tmpl": "component",
@@ -282,7 +282,7 @@
 			
 			var confirm_msg = 'COM_JVARCADE_MAINTENANCE_' + langstr + 'DESC_' + service.toUpperCase();
 			if (confirm(eval(confirm_msg))) {
-				$.post(JVA_AJAX_URL, {
+				jQuery.post(JVA_AJAX_URL, {
 					"option": "com_jvarcade",
 					"task": "domaintenance",
 					"service": service,
@@ -307,7 +307,7 @@
 		doMigration: function(step) {
 			if(step <= JVA_MAX_MIGRATION_STEPS) {
 				if (step == 1) jQuery.jva.clearMaintenance();
-				$.post(JVA_AJAX_URL, {
+				jQuery.post(JVA_AJAX_URL, {
 					"option": "com_jvarcade",
 					"task": "domigration",
 					"step": step
@@ -340,6 +340,6 @@
 		
 	};
 	
-	$.extend({"jva":jva});
+	jQuery.extend({"jva":jva});
 	
 })(jQuery);
