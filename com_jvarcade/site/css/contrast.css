@@ -384,6 +384,9 @@ at bottom of game play page*/
 	clear: left;
 }
 
+#gameissues {
+	clear: left;
+}
 /* Container for the comments link at bottom of
 game play page*/
 div.pu_comments {
