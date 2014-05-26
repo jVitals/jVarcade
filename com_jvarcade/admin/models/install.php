@@ -322,11 +322,6 @@ class jvarcadeModelInstall extends JModelLegacy {
 		$game_width = preg_match('~Width(.*)~i', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
 		$game_height = preg_match('~Height(.*)~i', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
 		$game_bgcolor = preg_match('~Color(.*)', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
-		if ($gsafe_detect == 1) {
-			$rev_score = 0;
-		} else {
-			$rev_score = ($game_type == 'Highest Score Wins' ? 0: 1);
-		}
 		
 		//$basename = basename(basename($files[0], '.txt'), '.txt');
 		$game_files = JFolder::files($dir, '\.bin|\.d64|\.dcr|\.gb|\.gbc|\.htm|\.html|\.nes|\.prg|\.sna|\.swf|\.z80');
@@ -348,7 +343,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 			'background' => $game_bgcolor,
 			'gsafe' => $gsafe_detect,
 			'scoring' => 1,
-			'reverse_score' => $rev_score,
+			'reverse_score' => ($game_type == 'Highest Score Wins' ? 1: 0),
 		);
 
 	}
