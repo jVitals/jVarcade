@@ -301,7 +301,7 @@ class jvaHelper {
 				if ( file_exists($api_AUP))
 				{
 					require_once ($api_AUP);
-					$avatar = AlphaUserPointsHelper:: getAupAvatar( $userid, 1, '50', '50', '', '' );
+					$avatar = AlphaUserPointsHelper:: getAupAvatar( $userid, 0, '50', '50', '', '' );
 					echo $avatar;
 				}
 				
@@ -329,16 +329,11 @@ class jvaHelper {
 				$_name = $config->guest_name;
 			//Alpha User Points
 			} elseif ((int)$config->scorelink == 3) {
-				$db	   = JFactory::getDBO();
-				
-				$query = "SELECT id FROM #__menu WHERE `link`='index.php?option=com_alphauserpoints&view=account' AND `type`='component' AND `published`='1'";
-				$db->setQuery( $query );
-				$Itemid = $db->loadResult();
 				$api_AUP = JPATH_SITE . '/components/com_alphauserpoints/helper.php';
 				if ( file_exists($api_AUP))
 				{
 					require_once ($api_AUP);
-					$linktoAUPprofil = AlphaUserPointsHelper::getAupLinkToProfil($userid, $Itemid);
+					$linktoAUPprofil = AlphaUserPointsHelper::getAupLinkToProfil($userid, (int)$config->aup_itemid);
 					$_name = '<a href="' . $linktoAUPprofil . '">' . $username . '</a>';
 				}
 			//Community Builder

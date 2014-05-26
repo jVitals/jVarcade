@@ -24,6 +24,7 @@ INSERT INTO `#__jvarcade_settings` (`optname`,`value`,`group`,`ord`,`type`,`desc
 			('scorelink', '1', 'integration', 2, 'radio', 'COM_JVARCADE_OPTDESC_SCORELINK'),
 			('show_avatar', '1', 'integration', 3, 'yesno', 'COM_JVARCADE_OPTDESC_SHOW_AVATAR'),
 			('communitybuilder_itemid', '7', 'integration', 5, 'text', 'COM_JVARCADE_OPTDESC_COMMUNITYBUILDER_ITEMID'),
+			('aup_itemid', '8', 'integration', 6, 'text', 'COM_JVARCADE_OPTDESC_AUP_ITEMID'),
 			('title', 'jVArcade', 'frontend', 1, 'text', 'COM_JVARCADE_OPTDESC_TITLE'),
 			('scoreundergame', '1', 'frontend', 2, 'yesno', 'COM_JVARCADE_OPTDESC_SCOREUNDERGAME'),
 			('foldergames', '1', 'frontend', 3, 'yesno', 'COM_JVARCADE_OPTDESC_FOLDERGAMES'),
