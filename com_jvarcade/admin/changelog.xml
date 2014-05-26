@@ -7,7 +7,7 @@
       <item type="new"><![CDATA[ Integration of AplhaUserPoints profiles and avatars]]></item>
 	  <item type="bugfix"><![CDATA[ Game download configuration .php file possibly written with blank array ]]></item>
 	  <item type="bugfix"><![CDATA[ Fixed contest detail page not displaying ]]></item>
-	  <item type="bugfix"><![CDATA[ Include jQuery in no conflict mode to no longer use jvfixscript ]]></item>
+	  <item type="upgrade"><![CDATA[ Include jQuery in no conflict mode to no longer use jvfixscript ]]></item>
     </list>
   </version>
   <version number="2.11">
