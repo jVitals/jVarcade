@@ -54,6 +54,7 @@ class com_jvarcadeInstallerScript {
 							$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_OK') .'<br />';
 						}
         	} else {
+				//Update database tables
         		$result = $db->setQuery("SHOW COLUMNS FROM `#__jvarcade_games` LIKE 'gsafe'");
         		$db->execute($result);
         		$exists = $db->getNumRows();
@@ -75,7 +76,19 @@ class com_jvarcadeInstallerScript {
         				$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_OK') .'<br />';
         			}
         		} elseif ($exists == 1) {
-        			$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADED_COLUMNS_OK') .'<br />';
+					$alters = array();
+					$alters[] = "INSERT INTO `#__jvarcade_settings` (`optname`,`value`,`group`,`ord`,`type`,`description`) VALUES('aup_itemid', '8', 'integration', 6, 'text', 'COM_JVARCADE_OPTDESC_AUP_ITEMID')";
+					$alters[] = "DELETE FROM `#__jvarcade_settings` WHERE `optname` = 'mochi_id'";
+					$alters[] = "DELETE FROM `#__jvarcade_settings` WHERE `optname` = 'flat'";
+					$alters[] = "ALTER TABLE `#__jvarcade_games` DROP COLUMN `mochi`";
+					if (count($alters)) {
+						foreach ($alters as $query) {
+							$db->setQuery($query);
+							$db->execute();
+						}
+					}
+					
+        			$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_OK') .'<br />';
         		}
         			
         		
@@ -109,6 +122,7 @@ class com_jvarcadeInstallerScript {
 			}
 		} elseif (JFolder::exists(JPATH_ROOT . '/images/jvarcade')) {
 			JFile::copy(dirname(__FILE__) . '/site/images/tick.png', JPATH_ROOT . '/images/jvarcade/images/tick.png');
+			JFile::copy(dirname(__FILE__) . '/site/images/cpanel/games2.png', JPATH_ROOT . '/images/jvarcade/images/cpanel/games2.png');
 			JFile::copy(dirname(__FILE__) . '/site/images/contentrating/gamewarning.png', JPATH_ROOT . '/images/jvarcade/images/contentrating/gamewarning.png');
 		}
 		

@@ -5,9 +5,11 @@
     <description><![CDATA[ Bugfix Release ]]></description>
     <list>
       <item type="new"><![CDATA[ Integration of AplhaUserPoints profiles and avatars]]></item>
-	  <item type="bugfix"><![CDATA[ Game download configuration .php file possibly written with blank array ]]></item>
+	  <item type="bugfix"><![CDATA[ Fixed game download configuration .php file possibly written with blank array ]]></item>
 	  <item type="bugfix"><![CDATA[ Fixed contest detail page not displaying ]]></item>
-	  <item type="upgrade"><![CDATA[ Include jQuery in no conflict mode to no longer use jvfixscript ]]></item>
+	  <item type="bugfix"><![CDATA[ Fixed issue of unable to install games if upgraded from version 2.1 ]]></item>
+	  <item type="bugfix"><![CDATA[ Fixed redundant settings still displayed in administration ]]></item>
+	  <item type="upgrade"><![CDATA[ Include jQuery in no conflict mode to no longer require use of jvfixscript plugin ]]></item>
     </list>
   </version>
   <version number="2.11">
