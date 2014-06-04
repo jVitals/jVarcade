@@ -81,17 +81,19 @@ class com_jvarcadeInstallerScript {
 					$alters[] = "DELETE FROM `#__jvarcade_settings` WHERE `optname` = 'mochi_id'";
 					$alters[] = "DELETE FROM `#__jvarcade_settings` WHERE `optname` = 'flat'";
 					$alters[] = "ALTER TABLE `#__jvarcade_games` DROP COLUMN `mochi`";
+					//if (count($alters)) {
 						foreach ($alters as $query) {
 							$db->setQuery($query);
 						try {
         					$db->execute();
         				} catch (RuntimeException $e) {
         					$ec1 = $e->getCode();
-        					}
+        				}
 						}
-
+					//}
 					if($ec1 == 1091) {
-						$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_OK') .'<br />';
+					
+        			$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_OK') .'<br />';
 					}
         		}
         			
@@ -148,6 +150,10 @@ class com_jvarcadeInstallerScript {
 		echo $install;
 		echo "</div><br /><br /><br />";
 	}//end install function
+	
+	function update($parent) {
+		$this->install($parent);
+	}
 	
 	function uninstall($parent) {
 		
