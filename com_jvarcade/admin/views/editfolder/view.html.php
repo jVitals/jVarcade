@@ -27,7 +27,7 @@ class jvarcadeViewEditfolder extends JViewLegacy {
 		$this->gtree = JVA_COMPATIBLE_MODE == '15' ? $this->acl->get_group_children_tree(null, 'USERS', false) : array();
 		$mainframe = JFactory::getApplication();
 		$task = $mainframe->input->get('task', 'editfolder');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 
 		$folderid = $mainframe->input->get('id', 'folder');
 		if (is_array($folderid)) $folderid = $folderid[0];
@@ -46,15 +46,15 @@ class jvarcadeViewEditfolder extends JViewLegacy {
 			$folder = $model->getFolders((int)$folderid);
 			if (is_array($folder)) $folder = $folder[0];
 		}
-		$this->assignRef('folder', $folder);
+		$this->folder = $folder;
 		
 		$this->folderlist = $model->getFolderList();
 		
 		$editor = JFactory::getEditor();
-		$this->assignRef('editor', $editor);
+		$this->editor = $editor;
 		
 		$editor_params = array('mode' => 'advanced');
-		$this->assignRef('editor_params', $editor_params);
+		$this->editor_params = $editor_params;
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_FOLDERS_FOLDER') . ': ' . $folder->name, 'jvafolders');
 		JToolBarHelper::custom('manage_folders', 'cancel.png', 'cancel.png', JText::_('COM_JVARCADE_FOLDERS_CANCEL'), false, false);

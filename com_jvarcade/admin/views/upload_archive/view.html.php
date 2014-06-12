@@ -24,9 +24,9 @@ class jvarcadeViewupload_archive extends JViewLegacy {
 		$model = $this->getModel();
 		$app = JFactory::getApplication();
 		$task = $app->input->getCmd('task', 'upload_archive');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		$published = 1;
-		$this->assignRef('published', $published);
+		$this->published = $published;
 		
 		$this->folderlist = $model->getFolderList();
 		
@@ -35,12 +35,12 @@ class jvarcadeViewupload_archive extends JViewLegacy {
 		$this->addSidebar('upload_archive');
 		
 		$tmp_path = $config->get('tmp_path') . '/';
-		$this->assignRef('tmp_path', $tmp_path);
+		$this->tmp_path = $tmp_path;
 		
 		$example1 = "archive.zip\n\t|-game.swf\n\t|-config.txt\n\t|-game.jpg";
 		$example2 = "archive.zip\n\t|-game1.zip\n\t|-game2.zip\n\t|-game2.zip";
 		$legend = JText::sprintf('COM_JVARCADE_UPLOADARCHIVE_LEGEND', $example1, $example2);
-		$this->assignRef('legend', $legend);
+		$this->legend = $legend;
 		
 		parent::display($tpl);
 	}

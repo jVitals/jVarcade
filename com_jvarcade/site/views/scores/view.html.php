@@ -24,12 +24,12 @@ class jvarcadeViewScores extends JViewLegacy {
 		$pathway = $mainframe->getPathway();
 		$doc = JFactory::getDocument();
 		$user = JFactory::getUser();
-		$this->assignRef('user', $user);
+		$this->user = $user;
 		$Itemid = $mainframe->input->get('Itemid');
-		$this->assignRef('Itemid', $Itemid);
+		$this->Itemid = $Itemid;
 		
 		$game_id = (int)$mainframe->input->get('id');
-		$this->assignRef('game_id', $game_id);
+		$this->game_id = $game_id;
 		$sort_url = !$this->table_only ? 'index.php?option=com_jvarcade&task=scores&id=' . $game_id : 'index.php?option=com_jvarcade&task=game&id=' . $game_id;
 		
 		$model = $this->getModel();
@@ -53,19 +53,19 @@ class jvarcadeViewScores extends JViewLegacy {
 		$model->setOrderDir($filter_order_Dir);
 		$lists['order_Dir']	= $filter_order_Dir;
 		$lists['order'] = $filter_order;
-		$this->assignRef('lists', $lists);
+		$this->lists = $lists;
 		
 		// Get Scores and inititiate Pagination
 		
 		$scores = $model->getScores($game_id, $reverse);
 		$pageNav = $model->getPagination();
-		$this->assignRef('pageNav', $pageNav);
-		$this->assignRef('scores', $scores);
-		$this->assignRef('sort_url', $sort_url);
+		$this->pageNav = $pageNav;
+		$this->scores = $scores;
+		$this->sort_url = $sort_url;
 		
 		// Game details
 		$game['current_vote'] = ($game['total_value'] > 0 && $game['total_votes'] > 0) ? round($game['total_value']/$game['total_votes'], 1) : 0;
-		$this->assignRef('game', $game);
+		$this->game = $game;
 		if(!(int)$this->table_only) {
 			$pathway->addItem($game['title'], JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game['id']));
 			$pathway->addItem(JText::_('COM_JVARCADE_SCORES'));

@@ -22,21 +22,21 @@ class jvarcadeViewContestlink extends JViewLegacy {
 		$model = $this->getModel();
 		$app = JFactory::getApplication();
 		$task = $app->input->getWord('task', 'showcontestgames');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		
 		if ($task == 'showcontestgames') {
 		
 			$contest_id = $app->input->getInt('contest_id', 0);
 			$games = $model->getContestGames($contest_id);
-			$this->assignRef('contest_id', $contest_id);
-			$this->assignRef('games', $games);
+			$this->contest_id = $contest_id;
+			$this->games = $games;
 
 		} else if ($task == 'showgamecontests') {
 		
 			$game_id = $app->input->getInt('game_id', 0);
 			$contests = $model->getGameContests($game_id);
-			$this->assignRef('game_id', $game_id);
-			$this->assignRef('contests', $contests);
+			$this->game_id = $game_id;
+			$this->contests = $contests;
 
 		}
 		

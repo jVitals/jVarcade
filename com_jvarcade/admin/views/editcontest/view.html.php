@@ -22,7 +22,7 @@ class jvarcadeVieweditcontest extends JViewLegacy {
 		$model = $this->getModel();
 		$app = JFactory::getApplication();
 		$task = $app->input->get('task', 'editcontest');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 
 		$contestid = $app->input->getInt('id', 0);
 		if (is_array($contestid)) $contestid = $contestid[0];
@@ -45,17 +45,17 @@ class jvarcadeVieweditcontest extends JViewLegacy {
 			$contest = $model->getContests((int)$contestid);
 			if (is_array($contest)) $contest = $contest[0];
 		}
-		$this->assignRef('contest', $contest);
+		$this->contest = $contest;
 		
 		$editor = JFactory::getEditor();
-		$this->assignRef('editor', $editor);
+		$this->editor = $editor;
 		$editor_params = array('mode' => 'advanced');
-		$this->assignRef('editor_params', $editor_params);
+		$this->editor_params = $editor_params;
 		
 		$upimage = ($task == 'addcontest' ? JText::_('COM_JVARCADE_CONTESTS_NEWIMAGE') : JText::_('COM_JVARCADE_CONTESTS_CHIMAGE'));
 		$upimage_desc = ($task == 'addcontest' ? JText::_('COM_JVARCADE_CONTESTS_NEWIMAGE_DESC') : JText::_('COM_JVARCADE_CONTESTS_CHIMAGE_DESC'));
-		$this->assignRef('upimage', $upimage);
-		$this->assignRef('upimage_desc', $upimage_desc);
+		$this->upimage = $upimage;
+		$this->upimage_desc = $upimage_desc;
 		
 		JToolBarHelper::title(($task == 'addcontest' ? JText::_('COM_JVARCADE_CONTESTS_NEWCONTEST') : $contest->name), 'jvacontests');
 		JToolBarHelper::custom('contests', 'cancel.png', 'cancel.png', JText::_('COM_JVARCADE_CONTESTS_CANCEL'), false, false);

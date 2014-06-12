@@ -24,7 +24,7 @@ class jvarcadeViewContests extends JViewLegacy {
 		$acl = JFactory::getACL();
 		
 		$task = $mainframe->input->get('task', 'contests');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		
 		$filter_order = $mainframe->getUserStateFromRequest('com_jvarcade.contests.filter_order', 'filter_order', 'startdatetime', 'cmd' );
 		$filter_order_Dir = $mainframe->getUserStateFromRequest('com_jvarcade.contests.filter_order_Dir', 'filter_order_Dir', '', 'word' );
@@ -41,12 +41,12 @@ class jvarcadeViewContests extends JViewLegacy {
 		$lists['order_Dir']	= $filter_order_Dir;
 		$lists['order'] = $filter_order;
 
-		$this->assignRef('lists', $lists);
+		$this->lists = $lists;
 		
 		$contests = $model->getContests();
 		$pagination = $model->getPagination();
-		$this->assignRef('pagination', $pagination);
-		$this->assignRef('contests', $contests);
+		$this->pagination = $pagination;
+		$this->contests = $contests;
 		
 		//~ $this->permnames = $model->getAcl();
 		

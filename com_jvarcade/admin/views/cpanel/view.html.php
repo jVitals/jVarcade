@@ -22,21 +22,21 @@ class jvarcadeViewCpanel extends JViewLegacy {
 		$model = $this->getModel();
 		
 		$task = $mainframe->input->get('task', 'cpanel');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		
 		// config
 		$config = $model->getConfObj();
-		$this->assignRef('config', $config);
+		$this->config = $config;
 		
 		// stats
 		$games_count = $model->getGamesCount();
-		$this->assignRef('games_count', $games_count);
+		$this->games_count = $games_count;
 		$scores_count = $model->getScoresCount();
-		$this->assignRef('scores_count', $scores_count);
+		$this->scores_count = $scores_count;
 		$latest_scores = $model->getLatestScores();
-		$this->assignRef('latest_scores', $latest_scores);
+		$this->latest_scores = $latest_scores;
 		$latest_games = $model->getLatestGames();
-		$this->assignRef('latest_games', $latest_games);
+		$this->latest_games = $latest_games;
 		
 		// tabs
 		jimport('cms.html.bootstrap');
@@ -47,16 +47,16 @@ class jvarcadeViewCpanel extends JViewLegacy {
 		
 		// plugin checks
 		$sysplg_installed = JPluginHelper::isEnabled('system', 'jvarcade');
-		$this->assignRef('sysplg_installed', $sysplg_installed);
+		$this->sysplg_installed = $sysplg_installed;
 		if (!$sysplg_installed) {
 			$mainframe->enqueueMessage(JText::_('COM_JVARCADE_PLUGINS_WARNING'), 'error');
 		}
 		$plugins = JPluginHelper::getPlugin('jvarcade');
-		$this->assignRef('plugins', $plugins);
+		$this->plugins = $plugins;
 		
 		// changelog
 		$changelog = $model->getChangeLog();
-		$this->assignRef('changelog', $changelog);
+		$this->changelog = $changelog;
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_CPANEL'), 'jvacpanel');
 		
@@ -101,6 +101,11 @@ class jvarcadeViewCpanel extends JViewLegacy {
 				'icon' => 'contests.png',
 				'label' => JText::_('COM_JVARCADE_CONTESTS')
 			),
+			'RSS' => array(
+				'link' => JRoute::_('index.php?option=com_jvarcade&task=rss'),
+				'icon' => 'rss.png',
+				'label' => JText::_('COM_JVARCADE_RSS')
+			),
 			'SUPPORT' => array(
 				'link' => 'http://www.jvitals.com/support/support-forum/default-forum/14-jvarcade.html',
 				'icon' => 'user_48.png',
@@ -108,7 +113,7 @@ class jvarcadeViewCpanel extends JViewLegacy {
 				'target' => '_blank'
 			),
 		);
-		$this->assignRef('dashboard_buttons', $dashboard_buttons);
+		$this->dashboard_buttons = $dashboard_buttons;
 		
 		parent::display($tpl);
 	}

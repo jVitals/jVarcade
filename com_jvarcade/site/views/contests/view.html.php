@@ -24,9 +24,9 @@ class jvarcadeViewContests extends JViewLegacy {
 		$pathway = $mainframe->getPathway();
 		$doc = JFactory::getDocument();
 		$task = $mainframe->input->get('task');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		$Itemid = $mainframe->input->get('Itemid');
-		$this->assignRef('Itemid', $Itemid);
+		$this->Itemid = $Itemid;
 		$model = $this->getModel();
 		$sort_url = 'index.php?option=com_jvarcade&task=' . $task;
 		
@@ -43,7 +43,7 @@ class jvarcadeViewContests extends JViewLegacy {
 		$model->setOrderDir($filter_order_Dir);
 		$lists['order_Dir']	= $filter_order_Dir;
 		$lists['order'] = $filter_order;
-		$this->assignRef('lists', $lists);		
+		$this->lists = $lists;		
 		
 		// Get actual data
 		
@@ -53,16 +53,16 @@ class jvarcadeViewContests extends JViewLegacy {
 		// Pagination
 		
 		$pageNav = $model->getPagination();
-		$this->assignRef('pageNav', $pageNav);
-		$this->assignRef('contests', $contests);
+		$this->pageNav = $pageNav;
+		$this->contests = $contests;
 		
 		$pathway->addItem($title);
 		$doc->setTitle(($this->config->title ? $this->config->title . ' - ' : '') . $title);
-		$this->assignRef('tabletitle', $title);
-		$this->assignRef('sort_url', $sort_url);
+		$this->tabletitle = $title;
+		$this->sort_url = $sort_url;
 
 		$user = JFactory::getUser();
-		$this->assignRef('user', $user);
+		$this->user = $user;
 		
 		parent::display($tpl);
 	}

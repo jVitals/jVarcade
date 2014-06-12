@@ -25,16 +25,16 @@ class jvarcadeViewList extends JViewLegacy {
 		$doc = JFactory::getDocument();
 		$user = JFactory::getUser();
 		$task = $mainframe->input->get('task');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		$Itemid = $mainframe->input->get('Itemid');
-		$this->assignRef('Itemid', $Itemid);
+		$this->Itemid = $Itemid;
 		$model = $this->getModel();
 		$sort_url = 'index.php?option=com_jvarcade&task=' . $task;
 		$can_view = 1;
 		$subfolders = 1;
 		
 		$can_dload = $model->canDloadPerms($user);
-		$this->assignRef('can_dload', $can_dload);
+		$this->can_dload = $can_dload;
 
 		
 
@@ -68,7 +68,7 @@ class jvarcadeViewList extends JViewLegacy {
 		$model->setOrderDir($filter_order_Dir);
 		$lists['order_Dir']	= $filter_order_Dir;
 		$lists['order'] = $filter_order;
-		$this->assignRef('lists', $lists);		
+		$this->lists = $lists;		
 		
 		// Get actual data
 		$description = '';
@@ -91,7 +91,7 @@ class jvarcadeViewList extends JViewLegacy {
 				$games = $model->getFolderGames($folder_id);
 				$description = $games[0]['description'];
 				$title = isset($games[0]) ? $games[0]['folder_name'] : '';
-				$this->assignRef('folder_id', $folder_id);
+				$this->folder_id = $folder_id;
 				$sort_url .= '&id=' . $folder_id;
 				break;
             case 'random':
@@ -111,7 +111,7 @@ class jvarcadeViewList extends JViewLegacy {
 			case 'showtag':
 				$tag = $mainframe->input->get('tag');
 				$games = $model->getGamesByTag($tag);
-				$this->assignRef('tag', $tag);
+				$this->tag = $tag;
 				$title = $tag;
 				$description = $tag;
 				$sort_url .= '&tag=' . $tag;
@@ -121,7 +121,7 @@ class jvarcadeViewList extends JViewLegacy {
 		// Pagination
 		
 		$pageNav = $model->getPagination();
-		$this->assignRef('pageNav', $pageNav);
+		$this->pageNav = $pageNav;
 		
 		if ($task == 'folder') {
 			if (isset($games[0])) $can_view = $model->folderPerms($user, $games[0]['viewpermissions']);
@@ -161,13 +161,13 @@ class jvarcadeViewList extends JViewLegacy {
 			}
 		}
 	
-		$this->assignRef('games', $games);
-		$this->assignRef('tabletitle', $title);
-		$this->assignRef('sort_url', $sort_url);
-		$this->assignRef('user', $user);
-		$this->assignRef('can_view', $can_view);
-		$this->assignRef('subfolders', $subfolders);
-		$this->assignRef('config', $this->config);
+		$this->games = $games;
+		$this->tabletitle = $title;
+		$this->sort_url = $sort_url;
+		$this->user = $user;
+		$this->can_view = $can_view;
+		$this->subfolders = $subfolders;
+		$this->config = $this->config;
 		
 		parent::display($tpl);
 	}

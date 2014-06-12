@@ -22,7 +22,7 @@ class jvarcadeViewManage_scores extends JViewLegacy {
 		$mainframe = JFactory::getApplication('site');
 		
 		$task = $mainframe->input->get('task', 'manage_scores');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		
 		$filter_order = $mainframe->getUserStateFromRequest('com_jvarcade.manage_scores.filter_order', 'filter_order', 'p.date', 'cmd' );
 		$filter_order_Dir = $mainframe->getUserStateFromRequest('com_jvarcade.manage_scores.filter_order_Dir', 'filter_order_Dir', '', 'word' );
@@ -39,12 +39,12 @@ class jvarcadeViewManage_scores extends JViewLegacy {
 		$lists['order_Dir']	= $filter_order_Dir;
 		$lists['order'] = $filter_order;
 
-		$this->assignRef('lists', $lists);
+		$this->lists = $lists;
 		
 		$scores = $model->getScores();
 		$pagination = $model->getPagination();
-		$this->assignRef('pagination', $pagination);
-		$this->assignRef('scores', $scores);
+		$this->pagination = $pagination;
+		$this->scores = $scores;
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_MANAGE_SCORES'), 'jvascores');
 		JToolBarHelper::deleteList(JText::_('COM_JVARCADE_SCORES_ASK_DELETE'), 'deletescore', JText::_('COM_JVARCADE_SCORES_DELETE'));

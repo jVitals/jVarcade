@@ -24,9 +24,9 @@ class jvarcadeViewContestdetail extends JViewLegacy {
 		$pathway = $mainframe->getPathway();
 		$doc = JFactory::getDocument();
 		$task = $mainframe->input->get('task');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		$Itemid = $mainframe->input->get('Itemid');
-		$this->assignRef('Itemid', $Itemid);
+		$this->Itemid = $Itemid;
 		$model = $this->getModel();
 		$contest_id = $mainframe->input->get('id', 0);
 		$slotsleft = 0;	
@@ -34,7 +34,7 @@ class jvarcadeViewContestdetail extends JViewLegacy {
 		// Get actual data
 		
 		$contest = $model->getContest($contest_id);
-		$this->assignRef('contest', $contest);
+		$this->contest = $contest;
 		
 		if ($contest_id && $contest) {
 			
@@ -42,10 +42,10 @@ class jvarcadeViewContestdetail extends JViewLegacy {
 			
 			// Get contest games and members (if registration)
 			$games = $model->getContestGames($contest_id);
-			$this->assignRef('games', $games);
+			$this->games = $games;
 			if ($contest->islimitedtoslots) {
 				$members = $model->getContestMembers($contest_id);
-				$this->assignRef('members', $members);
+				$this->members = $members;
 				if (is_array($members) && count($members)) {
 					$slotsleft = ($this->contest->islimitedtoslots - count($members));
 				}
@@ -56,7 +56,7 @@ class jvarcadeViewContestdetail extends JViewLegacy {
 				$model->regenerateLeaderBoard($contest_id);
 			}
 			$leaderboard = $model->getleaderBoard($contest_id);
-			$this->assignRef('leaderboard', $leaderboard);
+			$this->leaderboard = $leaderboard;
 			
 			$contests_title = JText::_('COM_JVARCADE_CONTESTS');
 			$title = $contest->name;
@@ -65,14 +65,14 @@ class jvarcadeViewContestdetail extends JViewLegacy {
 			$pathway->addItem($title);
 			$doc->setTitle(($this->config->title ? $this->config->title . ' - ' : '') . $contests_title . ' - ' . $title);
 			$doc->setDescription(strip_tags($contest->description));
-			$this->assignRef('tabletitle', $title);
+			$this->tabletitle = $title;
 		
 		}
 		
-		$this->assignRef('slotsleft', $slotsleft);
+		$this->slotsleft = $slotsleft;
 
 		$user = JFactory::getUser();
-		$this->assignRef('user', $user);
+		$this->user = $user;
 		
 		parent::display($tpl);
 	}

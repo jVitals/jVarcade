@@ -26,33 +26,33 @@ class jvarcadeViewGame extends JViewLegacy {
 		$pathway = $app->getPathway();
 		$doc = JFactory::getDocument();
 		$user = JFactory::getUser();
-		$this->assignRef('user', $user);
+		$this->user = $user;
 		
 		$model = $this->getModel();
 
 		// vars
 		$scheme = (strpos(JURI::root(), 'https://') !== false) ? 'https://' : 'http://';
-    	$this->assignRef('scheme', $scheme);
+    	$this->scheme = $scheme;
 		$sitename = $app->get('sitename');
-		$this->assignRef('sitename', $sitename);
+		$this->sitename = $sitename;
 		$folder_id = $app->input->getInt('fid', 0);
-		$this->assignRef('folder_id', $folder_id);
+		$this->folder_id = $folder_id;
 
 		// game
 		$game_id = (int)$app->input->get('id');
 		$game = $model->getGame($game_id);
 		$game['current_vote'] = ($game['total_value'] > 0 && $game['total_votes'] > 0) ? round($game['total_value']/$game['total_votes'], 1) : 0;
-		$this->assignRef('game', $game);
+		$this->game = $game;
 		$model->increaseNumplayed($game_id);
 		
 		// Play permissions based on folder permissions 
 		$can_play = $model->folderPerms($user, $game['viewpermissions']);
-		$this->assignRef('can_play', $can_play);
+		$this->can_play = $can_play;
 		
 		// Download permissions
 		
 		$can_dload = $model->canDloadPerms($user);
-		$this->assignRef('can_dload', $can_dload);
+		$this->can_dload = $can_dload;
 
 		// bookmarks
 		$uri = JURI::getInstance();
@@ -62,24 +62,24 @@ class jvarcadeViewGame extends JViewLegacy {
 			$bookmark_url = '/' . $bookmark_url;
 		}
 		$bookmark_url = $scheme . $prefix . $bookmark_url;
-		$this->assignRef('bookmark_url', $bookmark_url);
+		$this->bookmark_url = $bookmark_url;
 		
 		// contests
 		$contests = $this->scores_model->getContestsByGame($game['id'], 1);
-		$this->assignRef('contests', $contests);
+		$this->contests = $contests;
 		
 		// stats
 		$scorecount = $this->scores_model->gameScoreCount($game_id);
-		$this->assignRef('scorecount', $scorecount);
+		$this->scorecount = $scorecount;
 		$favoured = $model->getGameFavCount($game_id);
-		$this->assignRef('favoured', $favoured);
+		$this->favoured = $favoured;
 		$favoured_by_me = $model->getGameFavCount($game_id, $user->id);
-		$this->assignRef('favoured_by_me', $favoured_by_me);
+		$this->favoured_by_me = $favoured_by_me;
 		$my_fav_count = $model->getMyFavCount($user->id);
-		$this->assignRef('my_fav_count', $my_fav_count);
+		$this->my_fav_count = $my_fav_count;
 		$parents = $model->getParents((int)$game['folderid']);
 		$folderpath = $this->buildFolders($parents);
-		$this->assignRef('folderpath', $folderpath);
+		$this->folderpath = $folderpath;
 		
 		// page title and breadcrumbs
 		$doc->setTitle(($this->config->title ? $this->config->title . ' - ' : '') . $game['title']);

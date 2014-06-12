@@ -25,7 +25,7 @@ class jvarcadeViewManage_folders extends JViewLegacy {
 		$acl = JFactory::getACL();
 		
 		$task = $mainframe->input->get('task', 'manage_folders');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		
 		$filter_order = $mainframe->getUserStateFromRequest('com_jvarcade.manage_folders.filter_order', 'filter_order', 'f.name', 'cmd' );
 		$filter_order_Dir = $mainframe->getUserStateFromRequest('com_jvarcade.manage_folders.filter_order_Dir', 'filter_order_Dir', '', 'word' );
@@ -42,12 +42,12 @@ class jvarcadeViewManage_folders extends JViewLegacy {
 		$lists['order_Dir']	= $filter_order_Dir;
 		$lists['order'] = $filter_order;
 
-		$this->assignRef('lists', $lists);
+		$this->lists = $lists;
 		
 		$folders = $model->getFolders();
 		$pagination = $model->getPagination();
-		$this->assignRef('pagination', $pagination);
-		$this->assignRef('folders', $folders);
+		$this->pagination = $pagination;
+		$this->folders = $folders;
 		
 		$this->permnames = $model->getAcl();
 		

@@ -23,7 +23,7 @@ class jvarcadeViewManage_games extends JViewLegacy {
 		$app = JFactory::getApplication('site');
 		
 		$task = $app->input->getWord('task', 'manage_games');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		$lists = array();
 		
 		$search = '';
@@ -54,19 +54,19 @@ class jvarcadeViewManage_games extends JViewLegacy {
 		$lists['order_Dir']	= $filter_order_Dir;
 		$lists['order'] = $filter_order;
 
-		$this->assignRef('lists', $lists);
+		$this->lists = $lists;
 		
 		$games = $model->getGames();
 		$pagination = $model->getPagination();
-		$this->assignRef('pagination', $pagination);
-		$this->assignRef('games', $games);
+		$this->pagination = $pagination;
+		$this->games = $games;
 		
 		$folderlist = $model->getFolderList();
 		$folders[] = JHTML::_('select.option', '', JText::_( 'COM_JVARCADE_FOLDERS_ALL'));
 		foreach($folderlist as $obj ) {
 			$folders[] = JHTML::_('select.option', $obj->name, $obj->name);
 		}
-		$lists['folders'] = JHTML::_('select.genericlist', $folders, 'filter_name', 'class="inputbox" size="1" onchange="document.adminForm.submit( );"', 'value', 'text', $lists['filter_name']);
+		$this->lists['folders'] = JHTML::_('select.genericlist', $folders, 'filter_name', 'class="inputbox" size="1" onchange="document.adminForm.submit( );"', 'value', 'text', $lists['filter_name']);
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_MANAGE_GAMES'), 'jvagames');
 		//JToolBarHelper::custom('addgametocontest', 'default.png', 'default.png', JText::_('COM_JVARCADE_CONTESTSLINK_ADDTOCONTESTS'), true);

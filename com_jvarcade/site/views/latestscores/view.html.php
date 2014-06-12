@@ -25,9 +25,9 @@ class jvarcadeViewLatestscores extends JViewLegacy {
 		$doc = JFactory::getDocument();
 		$user = JFactory::getUser();
 		$task = $mainframe->input->get('task');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		$Itemid = $mainframe->input->get('Itemid');
-		$this->assignRef('Itemid', $Itemid);
+		$this->Itemid = $Itemid;
 		$model = $this->getModel();
 		$sort_url = 'index.php?option=com_jvarcade&task=' . $task;
 		$subfolders = 1;
@@ -45,7 +45,7 @@ class jvarcadeViewLatestscores extends JViewLegacy {
 		$model->setOrderDir($filter_order_Dir);
 		$lists['order_Dir']	= $filter_order_Dir;
 		$lists['order'] = $filter_order;
-		$this->assignRef('lists', $lists);		
+		$this->lists = $lists;		
 		
 		// Get actual data
 		$scores = $model->getLatestScores();
@@ -53,7 +53,7 @@ class jvarcadeViewLatestscores extends JViewLegacy {
 		
 		// Pagination
 		$pageNav = $model->getPagination();
-		$this->assignRef('pageNav', $pageNav);
+		$this->pageNav = $pageNav;
 		
 		// Highest Scores
 		$highscores = array();
@@ -72,17 +72,17 @@ class jvarcadeViewLatestscores extends JViewLegacy {
 				}
 			}
 		}
-		$this->assignRef('highscores', $highscores);
+		$this->highscores = $highscores;
 		
 		$pathway->addItem($title);
 		$doc->setTitle(($this->config->title ? $this->config->title . ' - ' : '') . $title);
 		
-		$this->assignRef('scores', $scores);
-		$this->assignRef('tabletitle', $title);
-		$this->assignRef('sort_url', $sort_url);
-		$this->assignRef('user', $user);
-		$this->assignRef('subfolders', $subfolders);
-		$this->assignRef('config', $this->config);
+		$this->scores = $scores;
+		$this->tabletitle = $title;
+		$this->sort_url = $sort_url;
+		$this->user = $user;
+		$this->subfolders = $subfolders;
+		$this->config = $this->config;
 		
 		parent::display($tpl);
 	}

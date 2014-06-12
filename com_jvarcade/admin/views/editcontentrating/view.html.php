@@ -24,7 +24,7 @@ class jvarcadeVieweditcontentrating extends JViewLegacy {
 		$model = $this->getModel();
 		$mainframe = JFactory::getApplication();
 		$task = $mainframe->input->get('task', 'editcontentrating');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 
 		$contentratingid = $mainframe->input->get('id', 'game');
 		if (is_array($contentratingid)) $contentratingid = $contentratingid[0];
@@ -42,17 +42,17 @@ class jvarcadeVieweditcontentrating extends JViewLegacy {
 			$contentrating = $model->getContentRatings((int)$contentratingid);
 			if (is_array($contentrating)) $contentrating = $contentrating[0];
 		}
-		$this->assignRef('contentrating', $contentrating);
+		$this->contentrating = $contentrating;
 		
 		$editor = JFactory::getEditor();
-		$this->assignRef('editor', $editor);
+		$this->editor = $editor;
 		$editor_params = array('mode' => 'advanced');
-		$this->assignRef('editor_params', $editor_params);
+		$this->editor_params = $editor_params;
 		
 		$upimage = ($task == 'addcontentrating' ? JText::_('COM_JVARCADE_CONTENT_RATINGS_NEWIMAGE') : JText::_('COM_JVARCADE_CONTENT_RATINGS_CHIMAGE'));
 		$upimage_desc = ($task == 'addcontentrating' ? JText::_('COM_JVARCADE_CONTENT_RATINGS_NEWIMAGE_DESC') : JText::_('COM_JVARCADE_CONTENT_RATINGS_CHIMAGE_DESC'));
-		$this->assignRef('upimage', $upimage);
-		$this->assignRef('upimage_desc', $upimage_desc);
+		$this->upimage = $upimage;
+		$this->upimage_desc = $upimage_desc;
 		
 		JToolBarHelper::title(($task == 'addcontentrating' ? JText::_('COM_JVARCADE_CONTENT_RATINGS_NEW') : $contentrating->name), 'jvacontent');
 		JToolBarHelper::custom('content_ratings', 'cancel.png', 'cancel.png', JText::_('COM_JVARCADE_CONTENT_RATINGS_CANCEL'), false, false);

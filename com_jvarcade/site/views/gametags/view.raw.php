@@ -22,7 +22,7 @@ class jvarcadeViewGametags extends JViewLegacy {
 		
 		$mainframe = JFactory::getApplication();
 		$user = JFactory::getUser();
-		$this->assignRef('user', $user);
+		$this->user = $user;
 		
 		$model = $this->getModel();
 		
@@ -30,8 +30,8 @@ class jvarcadeViewGametags extends JViewLegacy {
 		$status = (int)$mainframe->input->get('status');
 		$Itemid = (int)$mainframe->input->get('Itemid');
 		$show_itemid = $Itemid ? '&Itemid=' . $Itemid : '';
-		$this->assignRef('show_itemid', $show_itemid);
-		$this->assignRef('Itemid', $Itemid);
+		$this->show_itemid = $show_itemid;
+		$this->Itemid = $Itemid;
 		$can_tag = $model->canTagPerms($user);
 		
 		
@@ -41,10 +41,10 @@ class jvarcadeViewGametags extends JViewLegacy {
 		$max_font_size = 26;
 		$minimum_count = 0;
 		$maximum_count = 0;
-		$this->assignRef('min_font_size', $min_font_size);
-		$this->assignRef('max_font_size', $max_font_size);
-		$this->assignRef('minimum_count', $minimum_count);
-		$this->assignRef('maximum_count', $maximum_count);
+		$this->min_font_size = $min_font_size;
+		$this->max_font_size = $max_font_size;
+		$this->minimum_count = $minimum_count;
+		$this->maximum_count = $maximum_count;
 		foreach ($tags as $tag) {
 			if ($minimum_count > $tag->count) {
 				$minimum_count = $tag->count;
@@ -58,11 +58,11 @@ class jvarcadeViewGametags extends JViewLegacy {
 		if ($spread == 0) {
 			$spread = 1;
 		}
-		$this->assignRef('tags', $tags);
-		$this->assignRef('spread', $spread);
-		$this->assignRef('game_id', $game_id);
-		$this->assignRef('status', $status);
-		$this->assignRef('can_tag', $can_tag);
+		$this->tags = $tags;
+		$this->spread = $spread;
+		$this->game_id = $game_id;
+		$this->status = $status;
+		$this->can_tag = $can_tag;
 		
 		parent::display($tpl);
 	}

@@ -21,16 +21,16 @@ class jvarcadeViewHome extends JViewLegacy {
 		$mainframe = JFactory::getApplication();
 		$doc = JFactory::getDocument();
 		$user = JFactory::getUser();
-		$this->assignRef('user', $user);
+		$this->user = $user;
 		$task = $mainframe->input->get('task');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		$Itemid = $mainframe->input->get('Itemid');
-		$this->assignRef('Itemid', $Itemid);
+		$this->Itemid = $Itemid;
 		$sort_url = 'index.php?option=com_jvarcade&task=' . $task;
 
 		$model = $this->getModel();
 		$can_dload = $model->canDloadPerms($user);
-		$this->assignRef('can_dload', $can_dload);
+		$this->can_dload = $can_dload;
 
 		
 		
@@ -51,7 +51,7 @@ class jvarcadeViewHome extends JViewLegacy {
 			$model->setOrderDir($filter_order_Dir);
 			$lists['order_Dir']	= $filter_order_Dir;
 			$lists['order'] = $filter_order;
-			$this->assignRef('lists', $lists);		
+			$this->lists = $lists;		
 			
 			// Get actual data
 			$games = $model->getAllGames();
@@ -59,7 +59,7 @@ class jvarcadeViewHome extends JViewLegacy {
 			
 			// Pagination
 			$pageNav = $model->getPagination();
-			$this->assignRef('pageNav', $pageNav);
+			$this->pageNav = $pageNav;
 			
 			// Scores
 			foreach ($games as $key => $game) {
@@ -81,9 +81,9 @@ class jvarcadeViewHome extends JViewLegacy {
 				}
 			}
 		
-			$this->assignRef('games', $games);
-			$this->assignRef('tabletitle', $title);
-			$this->assignRef('sort_url', $sort_url);
+			$this->games = $games;
+			$this->tabletitle = $title;
+			$this->sort_url = $sort_url;
 
 		} else {
 			// FOLDER MODE
@@ -135,9 +135,9 @@ class jvarcadeViewHome extends JViewLegacy {
 			
 			$games_count = $model->getGamesCountByFolder();
 				
-			$this->assignRef('folders', $folders);
-			$this->assignRef('all_folders', $all_folders);
-			$this->assignRef('games_count', $games_count);
+			$this->folders = $folders;
+			$this->all_folders = $all_folders;
+			$this->games_count = $games_count;
 
 		}
 		

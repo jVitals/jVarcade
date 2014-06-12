@@ -22,7 +22,7 @@ class jvarcadeViewContent_ratings extends JViewLegacy {
 		$mainframe = JFactory::getApplication('site');
 		
 		$task = $mainframe->input->get('task', 'contentratings');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		$lists = array();
 		
 		$search = '';
@@ -43,12 +43,12 @@ class jvarcadeViewContent_ratings extends JViewLegacy {
 		$lists['order_Dir']	= $filter_order_Dir;
 		$lists['order'] = $filter_order;
 
-		$this->assignRef('lists', $lists);
+		$this->lists = $lists;
 		
 		$ratings = $model->getContentRatings();
 		$pagination = $model->getPagination();
-		$this->assignRef('pagination', $pagination);
-		$this->assignRef('ratings', $ratings);
+		$this->pagination = $pagination;
+		$this->ratings = $ratings;
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_CONTENT_RATINGS'), 'jvacontent');
 		JToolBarHelper::editList('editcontentrating', JText::_('COM_JVARCADE_CONTENT_RATINGS_EDIT'));

@@ -24,7 +24,7 @@ class jvarcadeVieweditgame extends JViewLegacy {
 		$model = $this->getModel();
 		$app = JFactory::getApplication();
 		$task = $app->input->getWord('task', 'editgame');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 
 		if ($task == 'addgame') {
 			$game = new stdClass();
@@ -51,22 +51,22 @@ class jvarcadeVieweditgame extends JViewLegacy {
 			$game = $model->getGames((int)$gameid);
 			if (is_array($game)) $game = $game[0];
 		}
-		$this->assignRef('game', $game);
+		$this->game = $game;
 		
 		$this->folderlist = $model->getFolderList();
 		$this->contentratinglist = $model->getContentRatingList();
 		
 		$editor = JFactory::getEditor();
-		$this->assignRef('editor', $editor);
+		$this->editor = $editor;
 		
 		$upfile = ($task == 'addgame' ? JText::_('COM_JVARCADE_GAMES_NEWFILE') : JText::_('COM_JVARCADE_GAMES_CHFILE'));
 		$upfile_desc = ($task == 'addgame' ? JText::_('COM_JVARCADE_GAMES_NEWFILE_DESC') : JText::_('COM_JVARCADE_GAMES_CHFILE_DESC'));
 		$upimage = ($task == 'addgame' ? JText::_('COM_JVARCADE_GAMES_NEWIMAGE') : JText::_('COM_JVARCADE_GAMES_CHIMAGE'));
 		$upimage_desc = ($task == 'addgame' ? JText::_('COM_JVARCADE_GAMES_NEWIMAGE_DESC') : JText::_('COM_JVARCADE_GAMES_CHIMAGE_DESC'));
-		$this->assignRef('upfile', $upfile);
-		$this->assignRef('upfile_desc', $upfile_desc);
-		$this->assignRef('upimage', $upimage);
-		$this->assignRef('upimage_desc', $upimage_desc);
+		$this->upfile = $upfile;
+		$this->upfile_desc = $upfile_desc;
+		$this->upimage = $upimage;
+		$this->upimage_desc = $upimage_desc;
 		
 		JToolBarHelper::title(($task == 'addgame' ? JText::_('COM_JVARCADE_GAMES_NEWGAME') : $game->title), 'jvagames');
 		JToolBarHelper::custom('manage_games', 'cancel.png', 'cancel.png', JText::_('COM_JVARCADE_GAMES_CANCEL'), false, false);

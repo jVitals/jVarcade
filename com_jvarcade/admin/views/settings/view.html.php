@@ -38,13 +38,13 @@ class jvarcadeViewSettings extends JViewLegacy {
 			);
 		}
 		
-		$this->assignRef('conf', $conf);
+		$this->conf = $conf;
 		
 		$editor = JFactory::getEditor();
-		$this->assignRef('editor', $editor);
+		$this->editor = $editor;
 		
 		$editor_params = array('mode' => 'advanced');
-		$this->assignRef('editor_params', $editor_params);
+		$this->editor_params = $editor_params;
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_SETTINGS'), 'jvasettings');
 		JToolBarHelper::custom('settings', 'save.png', 'save.png', JText::_('COM_JVARCADE_SAVE_SETTINGS'), false, false);

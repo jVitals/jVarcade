@@ -18,7 +18,7 @@ class jvarcadeViewMaintenance extends JViewLegacy {
 	function display($tpl = null) {
 		$app = JFactory::getApplication();
 		$task = $app->input->get('task', 'maintenance');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_MAINTENANCE'), 'jvamaintenance');
 		jvarcadeToolbarHelper::addSubmenu($this->getName());

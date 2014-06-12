@@ -23,9 +23,9 @@ class jvarcadeViewLeaderboard extends JViewLegacy {
 		$pathway = $mainframe->getPathway();
 		$doc = JFactory::getDocument();
 		$task = $mainframe->input->get('task');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		$Itemid = $mainframe->input->get('Itemid');
-		$this->assignRef('Itemid', $Itemid);
+		$this->Itemid = $Itemid;
 		$model = $this->getModel();
 		
 		// Get Leaderboard
@@ -33,15 +33,15 @@ class jvarcadeViewLeaderboard extends JViewLegacy {
 			$model->regenerateLeaderBoard(0);
 		}
 		$leaderboard = $model->getleaderBoard(0);
-		$this->assignRef('leaderboard', $leaderboard);
+		$this->leaderboard = $leaderboard;
 		
 		$title = JText::_('COM_JVARCADE_LEADERBOARD');
 		$pathway->addItem($title);
 		$doc->setTitle(($this->config->title ? $this->config->title . ' - ' : '') . $title);
-		$this->assignRef('tabletitle', $title);
+		$this->tabletitle = $title;
 
 		$user = JFactory::getUser();
-		$this->assignRef('user', $user);
+		$this->user = $user;
 		
 		parent::display($tpl);
 	}

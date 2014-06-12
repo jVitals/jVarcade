@@ -22,7 +22,7 @@ class jvarcadeViewContestlink extends JViewLegacy {
 		$model = $this->getModel();
 		$app = JFactory::getApplication();
 		$task = $app->input->get('task', 'addgametocontest');
-		$this->assignRef('task', $task);
+		$this->task = $task;
 		
 		if ($task == 'addgametocontest') {
 			
@@ -30,8 +30,8 @@ class jvarcadeViewContestlink extends JViewLegacy {
 			JArrayHelper::toInteger($game_id);
 			$game_titles = $model->getGameTitles($game_id);
 			$game_titles = implode(',', $game_titles);
-			$this->assignRef('game_titles', $game_titles);
-			$this->assignRef('game_ids', implode(',', $game_id));
+			$this->game_titles = $game_titles;
+			$this->game_ids = implode(',', $game_id);
 			
 			
 			$contestobj = $model->getContests();
@@ -39,20 +39,20 @@ class jvarcadeViewContestlink extends JViewLegacy {
 				$contests[] = JHTML::_('select.option', $obj->id, $obj->name);
 			}
 			$contestlist = JHTML::_('select.genericlist', $contests, 'contestlist', 'size="9" multiple', 'value', 'text');
-			$this->assignRef('contestlist', $contestlist);
+			$this->contestlist = $contestlist;
 
 		} else if ($task == 'addcontestgames') {
 			
 			$contest_id = array_unique($app->input->get('cid', array(), 'array'));
 			JArrayHelper::toInteger($contest_id);
-			$this->assignRef('contest_id', implode(',', $contest_id));
+			$this->contest_id = implode(',', $contest_id);
 			
 			$gamesobj = $model->getGameIdTitles();
 			foreach($gamesobj as $obj ) {
 				$games[] = JHTML::_('select.option', $obj->id, $obj->title);
 			}
 			$gameslist = JHTML::_('select.genericlist', $games, 'gameslist', 'size="9" multiple', 'value', 'text');
-			$this->assignRef('gameslist', $gameslist);
+			$this->gameslist = $gameslist;
 		}
 		
 		parent::display($tpl);
