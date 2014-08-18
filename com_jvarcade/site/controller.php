@@ -182,6 +182,17 @@ class jvarcadeController extends JControllerLegacy {
 		exit;
 	}
 	
+	public function achaward() {
+		$app = JFactory::getApplication();
+		$gtitle = $app->input->getString('gtitle', '');
+		$achtitle = $app->input->getString('achtitle', '');
+		$achdesc = $app->input->getString('achdesc', '');
+		$achicon = $app->input->getString('achicon', '');
+		$user = JFactory::getUser();
+		$model = $this->getModel('Games');
+		$model->saveAchievement($user->id, $gtitle, $achtitle, $achdesc, $achicon);
+	}
+	
 	public function savefave() {
 		$app = JFactory::getApplication();
 		$game_id = (int)$app->input->get('id');

@@ -54,6 +54,20 @@
 			});
 		},
 		
+		achAward: function(gtitle, title, desc, icon) {
+			jQuery.post(JVA_AJAX_URL, {
+				"option": "com_jvarcade",
+				"task": "achaward",
+				"format": "raw",
+				"tmpl": "component",
+				"gtitle": gtitle,
+				"achtitle": title,
+				"achdesc": desc,
+				"achicon": icon
+				
+			});
+		},
+		
 		savefave: function(id) {
 			jQuery.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",

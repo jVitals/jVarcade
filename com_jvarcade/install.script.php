@@ -77,7 +77,8 @@ class com_jvarcadeInstallerScript {
         			}
         		} elseif ($exists == 1) {
 					$alters = array();
-					$alters[] = "INSERT INTO `#__jvarcade_settings` (`optname`,`value`,`group`,`ord`,`type`,`description`) VALUES('aup_itemid', '8', 'integration', 6, 'text', 'COM_JVARCADE_OPTDESC_AUP_ITEMID')";
+					$alters[] = "ALTER TABLE `#__jvarcade_settings` ADD UNIQUE (`optname`)";
+					$alters[] = "INSERT IGNORE INTO `#__jvarcade_settings` (`optname`,`value`,`group`,`ord`,`type`,`description`) VALUES('aup_itemid', '8', 'integration', 6, 'text', 'COM_JVARCADE_OPTDESC_AUP_ITEMID')";
 					$alters[] = "DELETE FROM `#__jvarcade_settings` WHERE `optname` = 'mochi_id'";
 					$alters[] = "DELETE FROM `#__jvarcade_settings` WHERE `optname` = 'flat'";
 					$alters[] = "ALTER TABLE `#__jvarcade_games` DROP COLUMN `mochi`";
