@@ -15,7 +15,7 @@ if (!defined('DS')) {
 	define('DS', DIRECTORY_SEPARATOR);
 }
 
-jimport( 'cms.plugin.plugin' );
+//jimport( 'cms.plugin.plugin' );
 
 class plgSystemJvarcade extends JPlugin {
 	var $url = '';
