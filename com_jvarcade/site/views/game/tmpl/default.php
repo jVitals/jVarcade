@@ -327,7 +327,7 @@ defined('_JEXEC') or die('Restricted access');
 												jQuery("body").css("overflow", "hidden");
 											});
 											jQuery('#warnModal').on('hide.bs.modal', function (e) {
-												jQuery("body").css("overflow", "none");
+												jQuery("body").css("overflow", "visible");
 						 						jQuery('<?php echo '#'. $modalId ?>').modal({
 														backdrop: 'static',
 														keyboard: true
@@ -337,7 +337,7 @@ defined('_JEXEC') or die('Restricted access');
 												jQuery("body").css("overflow", "hidden");
 											});
 											jQuery('<?php echo '#' . $modalId ?>').on('hide.bs.modal', function (e) {
-												jQuery("body").css("overflow", "none");
+												jQuery("body").css("overflow", "visible");
 											});
 						 					
 						 			</script>
@@ -355,7 +355,7 @@ defined('_JEXEC') or die('Restricted access');
 						
 					});
 					jQuery('<?php echo '#' . $modalId ?>').on('hide.bs.modal', function (e) {
-						jQuery("body").css("overflow", "none");
+						jQuery("body").css("overflow", "visible");
 						
 					});
 					</script>
@@ -394,7 +394,7 @@ defined('_JEXEC') or die('Restricted access');
 						jQuery("body").css("overflow", "hidden");
 					});
 					jQuery('#warnModal').on('hide.bs.modal', function (e) {
-						jQuery("body").css("overflow", "none");
+						jQuery("body").css("overflow", "visible");
 					});
 					</script>	
 				<?php endif;
