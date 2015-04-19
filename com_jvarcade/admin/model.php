@@ -1290,6 +1290,52 @@ class jvarcadeModelCommon extends JModelLegacy {
 		return (is_file($tmpfile) ? $tmpfile : $default_file);
 	}
 
+	public function createGsFeed() {
+		$config = JFactory::getConfig();
+		$tmp_path = $config->get('tmp_path');
+		$filename = 'gsfeed.php';
+		$tmpfile = $tmp_path . '/' . $filename;
+		
+		$dorequest = false;
+		$filefound = false;
+		
+		if (is_file($tmpfile)) {
+			$filefound = true;
+			if ((filemtime($tmpfile) + (60 * 60 * 24)) < time()) {
+				// only once per day
+				$dorequest = true;
+			}
+		}
+		
+		if (!$filefound) $dorequest = true;
+		
+		if ($dorequest) {
+				
+			$http = JHttpFactory::getHttp();
+			$response = $http->get('http://flashgamedistribution.com/feed?type=mochi&gpp=32&feed=phpcode', array(), 90);
+			$response = $response->body;
+				
+				
+				
+			$fp = @fopen($tmpfile, "wb");
+			if ($fp) {
+				@flock($fp, LOCK_EX);
+				$len = strlen($response);
+				@fwrite($fp, $response, $len);
+				@flock($fp, LOCK_UN);
+				@fclose($fp);
+				$written = true;
+			}
+			// Data integrity check
+			if ($written && (file_get_contents($tmpfile))) {
+				// nothing to do
+			} else {
+				unlink($tmpfile);
+			}
+		}
+		
+		return (is_file($tmpfile) ? $tmpfile : $default_file);
+	}
 
 }
 

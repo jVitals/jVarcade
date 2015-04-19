@@ -58,14 +58,14 @@ defined('_JEXEC') or die('Restricted access');
 				</td>
 				<td width="10%">
 					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game['id'], false); ?>">
-						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $game['imagename']; ?>" border="0" height="50" width="50" alt="<?php echo $alt; ?>" title="<?php echo $alt; ?>" />
+						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $game['imagename']; ?>" border="0" height="50" width="50" class="hasTooltip" data-original-title="<strong><?php echo $alt; ?></strong>"/>
 					</a>
 				</td>
 				<td width="20%">
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game['id'], false); ?>">
+					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game['id'], false); ?>" class="hasTooltip" data-original-title="<strong><?php echo $alt; ?></strong></br><?php echo html_entity_decode($game['game_desc'], ENT_QUOTES, 'UTF-8'); ?>">
 						<b><?php echo jvaHelper::truncate(stripslashes($game['title']), (int)$this->config->truncate_title); ?></b>
 					</a>
-					<br /><?php echo html_entity_decode($game['game_desc'], ENT_QUOTES, 'UTF-8'); ?>
+					<br /><?php //echo html_entity_decode($game['game_desc'], ENT_QUOTES, 'UTF-8'); ?>
 				</td>
 				<td width="10%">
 					<center><?php echo $game['numplayed']; ?></center>

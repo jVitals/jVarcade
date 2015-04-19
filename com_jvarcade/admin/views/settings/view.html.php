@@ -39,7 +39,6 @@ class jvarcadeViewSettings extends JViewLegacy {
 		}
 		
 		$this->conf = $conf;
-		
 		$editor = JFactory::getEditor();
 		$this->editor = $editor;
 		

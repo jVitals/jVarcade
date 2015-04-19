@@ -77,6 +77,17 @@ class JvarcadeRouter implements JComponentRouterInterface {
 			unset($query['id']);
 		}
 		
+		if (($task == 'profile') && isset($query['id'])) {
+			$id = (int)$query['id'];
+			$sql = 'SELECT username from #__users WHERE id =' . $id;
+			$this->dbo->setQuery($sql);
+			$name = $this->dbo->loadResult();
+			$name = $name ? $this->makeAlias($name) : '';
+			$name = $name ? 'id:' . $id . ':' . $name : 'id:' . $id;
+			$segments[] = $name;
+			unset($query['id']);
+		}
+		
 		if ($task == 'showtag') {
 			$tag = isset($query['tag']) ? (string)$query['tag'] : '';
 			$this->dbo->setQuery('SELECT id from #__jvarcade_tags WHERE tag = ' . $this->dbo->Quote($tag));

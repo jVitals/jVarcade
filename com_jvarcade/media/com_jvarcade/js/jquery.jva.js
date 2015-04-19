@@ -54,16 +54,18 @@
 			});
 		},
 		
-		achAward: function(gtitle, title, desc, icon) {
+		achAward: function(gtitle, gid, title, desc, icon, pts) {
 			jQuery.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",
 				"task": "achaward",
 				"format": "raw",
 				"tmpl": "component",
 				"gtitle": gtitle,
+				"gid": gid,
 				"achtitle": title,
 				"achdesc": desc,
-				"achicon": icon
+				"achicon": icon,
+				"pts": pts
 				
 			});
 		},

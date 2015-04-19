@@ -44,6 +44,9 @@ class jvarcadeToolbarHelper {
 		JText::_('COM_JVARCADE_CONTESTS'), 'index.php?option=com_jvarcade&task=contests', $vName == 'contests');
 		
 		JHtmlSidebar::addEntry(
+		JText::_('COM_JVARCADE_RSS'), 'index.php?option=com_jvarcade&task=rss', $vName == 'rss');
+		
+		JHtmlSidebar::addEntry(
 		JText::_('COM_JVARCADE_SUPPORT'), 'http://www.jvitals.com/support/support-forum/default-forum/14-jvarcade.html', $vName == 'support');
 	
 	}

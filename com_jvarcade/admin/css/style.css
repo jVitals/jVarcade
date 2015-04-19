@@ -34,6 +34,9 @@
 .icon-jvacpanel:before {
 	content: "\78";
 }
+.icon-jvarss:before {
+	content: "\71";
+}
 
 /* CHANGELOG */
 

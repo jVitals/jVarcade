@@ -166,5 +166,4 @@ defined('_JEXEC') or die('Restricted access');
 			</div>
 			<!-- end sliders -->
 		</td>
-	<tr>
 </table>

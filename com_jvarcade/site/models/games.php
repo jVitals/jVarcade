@@ -364,12 +364,6 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 		$this->dbo->execute();
 	}
 	
-	public function saveAchievement($user_id, $gtitle, $achtitle, $achdesc, $achicon) {
-		$query = 'INSERT IGNORE INTO #__jvarcade_achievements (userid, gametitle, title, description, icon_url) VALUES ('. $this->dbo->Quote((int)$user_id) .','. $this->dbo->Quote($gtitle) .','
-				. $this->dbo->Quote($achtitle) .','. $this->dbo->Quote($achdesc) .','. $this->dbo->Quote($achicon) .')';
-		$this->dbo->setQuery($query);
-		$this->dbo->execute();
-	}
 	
 	// FAVOURITES RELATED
 	

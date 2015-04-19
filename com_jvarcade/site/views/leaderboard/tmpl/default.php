@@ -74,6 +74,4 @@ defined('_JEXEC') or die('Restricted access');
 <input type="hidden" name="option" value="com_jvarcade" />
 <input type="hidden" name="task" value="<?php echo $this->task; ?>" />
 <input type="hidden" name="Itemid" value="<?php echo $this->Itemid; ?>" />
-<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
-<input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['order_Dir']; ?>" />
 </form>

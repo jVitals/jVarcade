@@ -17,12 +17,13 @@ defined('_JEXEC') or die('Restricted access');
 
 class jvarcadeController extends JControllerLegacy {
 	private $returl;
-	
+
 	public function __construct($config = array()) {
 		parent::__construct($config);
 		$this->config = JFactory::getConfig();
 		$this->baseurl = $this->config->get('config.live_site');
 		$this->db = JFactory::getDBO();
+
 
 	}
 
@@ -291,6 +292,14 @@ class jvarcadeController extends JControllerLegacy {
 	public function maintenance($cachable = false, $urlparams = false) {
 		$model = $this->getModel('Common');
 		$view = $this->getView('maintenance', 'html', '');
+		$view->setLayout('default');
+		$view->setModel($model, true);
+		$view->display();
+	}
+	
+	public function rss($cachable = false, $urlparams = false) {
+		$model = $this->getModel('Common');
+		$view = $this->getView('rss', 'html', '');
 		$view->setLayout('default');
 		$view->setModel($model, true);
 		$view->display();

@@ -54,7 +54,7 @@ class com_jvarcadeInstallerScript {
 							$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_OK') .'<br />';
 						}
         	} else {
-				//Update database tables
+				/*Update database tables
         		$result = $db->setQuery("SHOW COLUMNS FROM `#__jvarcade_games` LIKE 'gsafe'");
         		$db->execute($result);
         		$exists = $db->getNumRows();
@@ -75,9 +75,11 @@ class com_jvarcadeInstallerScript {
         			}else{
         				$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_OK') .'<br />';
         			}
-        		} elseif ($exists == 1) {
+        		} elseif ($exists == 1) {*/
 					$alters = array();
 					$alters[] = "ALTER TABLE `#__jvarcade_settings` ADD UNIQUE (`optname`)";
+					$alters[] = "ALTER TABLE `#__jvarcade_games` ADD `gsafe` tinyint(2) NOT NULL DEFAULT 0";
+					$alters[] = "INSERT IGNORE INTO `#__jvarcade_settings` (`optname`,`value`,`group`,`ord`,`type`,`description`) VALUES('homepage_view', 'default', 'frontend', 7, 'select', 'COM_JVARCADE_OPTDESC_HOMEPAGE_VIEW')";
 					$alters[] = "INSERT IGNORE INTO `#__jvarcade_settings` (`optname`,`value`,`group`,`ord`,`type`,`description`) VALUES('aup_itemid', '8', 'integration', 6, 'text', 'COM_JVARCADE_OPTDESC_AUP_ITEMID')";
 					$alters[] = "DELETE FROM `#__jvarcade_settings` WHERE `optname` = 'mochi_id'";
 					$alters[] = "DELETE FROM `#__jvarcade_settings` WHERE `optname` = 'flat'";
@@ -96,7 +98,7 @@ class com_jvarcadeInstallerScript {
 					
         			$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_OK') .'<br />';
 					}
-        		}
+        		//}
         			
         		
 			}
@@ -130,6 +132,8 @@ class com_jvarcadeInstallerScript {
 		} elseif (JFolder::exists(JPATH_ROOT . '/images/jvarcade')) {
 			JFile::copy(dirname(__FILE__) . '/site/images/tick.png', JPATH_ROOT . '/images/jvarcade/images/tick.png');
 			JFile::copy(dirname(__FILE__) . '/site/images/cpanel/games2.png', JPATH_ROOT . '/images/jvarcade/images/cpanel/games2.png');
+			JFile::copy(dirname(__FILE__) . '/site/images/cpanel/rss.png', JPATH_ROOT . '/images/jvarcade/images/cpanel/rss.png');
+			JFile::copy(dirname(__FILE__) . '/site/images/cpanel/menu-contests.png', JPATH_ROOT . '/images/jvarcade/images/cpanel/menu-contests.png');
 			JFile::copy(dirname(__FILE__) . '/site/images/contentrating/gamewarning.png', JPATH_ROOT . '/images/jvarcade/images/contentrating/gamewarning.png');
 		}
 		

@@ -76,7 +76,7 @@ defined('_JEXEC') or die('Restricted access');
 		function onBridgeMessage(message) {
             switch(message.message) {
                 case "achievement_awarded":
-                    jQuery(document).ready(function() {jQuery.jva.achAward('<?php echo $this->game['title']; ?>', message.title, message.description, message.icon_url);});
+                    jQuery(document).ready(function() {jQuery.jva.achAward('<?php echo $this->game['title']; ?>','<?php echo $this->game['id'];?>', message.title, message.description, message.icon_url, message.point_value);});
                     break;
                 case "scoreboard_entry":
                     jQuery(document).ready(function() {jQuery.jva.bridgeScore('<?php echo $this->game['gamename']; ?>', message.score, <?php echo (int)$this->game['ajaxscore']; ?>);});

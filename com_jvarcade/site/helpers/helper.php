@@ -346,7 +346,7 @@ class jvaHelper {
 				$_name = '<a href="' . CRoute::_('index.php?option=com_community&view=profile&userid=' . (int)$userid) . '">' . $js_user->getDisplayName() . '</a>';
 			// No integration
 			} else {
-				$_name = $username;
+				$_name = '<a href="' . JRoute::_('index.php?option=com_jvarcade&task=profile&id=' . (int)$userid) . '">' . $username . '</a>';
 			}
 			
 			$jva_userlinks[(int)$userid] = $_name;

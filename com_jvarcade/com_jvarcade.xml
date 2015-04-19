@@ -55,6 +55,7 @@
 			<menu link="option=com_jvarcade&amp;task=maintenance">COM_JVARCADE_MAINTENANCE</menu>
 			<menu link="option=com_jvarcade&amp;task=content_ratings">COM_JVARCADE_CONTENT_RATINGS</menu>
 			<menu link="option=com_jvarcade&amp;task=contests">COM_JVARCADE_CONTESTS</menu>
+			<menu link="option=com_jvarcade&amp;task=rss">COM_JVARCADE_RSS</menu>
 		</submenu>
 		<files folder="admin">
 			<filename>index.html</filename>
@@ -77,10 +78,8 @@
 		<languages folder="admin">
 			<language tag="en-GB">/language/en-GB/en-GB.com_jvarcade.ini</language>
 			<language tag="en-GB">/language/en-GB/en-GB.com_jvarcade.sys.ini</language>
-			<language tag="en-GB">/language/en-GB/en-GB.com_jvarcade.menu.ini</language>
 			<language tag="ru-RU">/language/ru-RU/ru-RU.com_jvarcade.ini</language>
 			<language tag="ru-RU">/language/ru-RU/ru-RU.com_jvarcade.sys.ini</language>
-			<language tag="ru-RU">/language/ru-RU/ru-RU.com_jvarcade.menu.ini</language>
 			<language tag="fi-FI">/language/fi-FI/fi-FI.com_jvarcade.ini</language>
 			<language tag="fi-FI">/language/fi-FI/fi-FI.com_jvarcade.sys.ini</language>
 		</languages>

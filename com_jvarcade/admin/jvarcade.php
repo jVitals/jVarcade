@@ -23,6 +23,7 @@ require_once (JVA_HELPERS_INCPATH . 'helper.php');
 
 $model = JModelLegacy::getInstance('common', 'jvarcadeModel');
 $config = $model->getConfObj();
+$model->createGsFeed();
 
 define('COM_JVARCADE_DATE_FORMAT', $config->date_format);
 define('COM_JVARCADE_TIME_FORMAT', $config->time_format);

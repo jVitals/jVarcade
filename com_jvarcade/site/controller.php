@@ -49,6 +49,16 @@ class jvarcadeController extends JControllerLegacy {
 		$view->display();
 	}
 	
+	public function profile($cachable = false, $urlparams = false) {
+		$document = JFactory::getDocument();
+		$viewType = $document->getType();
+		$model = $this->getModel('Profile');
+		$view = $this->getView('profile', $viewType);
+		$view->setModel($model, true);
+		$view->setLayout('default');
+		$view->set('config', $this->config);
+		$view->display();
+	}
 	// LISTINGS
 	
 	public function newest() {
@@ -184,13 +194,17 @@ class jvarcadeController extends JControllerLegacy {
 	
 	public function achaward() {
 		$app = JFactory::getApplication();
+		$gid = $app->input->getString('gid', '');
 		$gtitle = $app->input->getString('gtitle', '');
 		$achtitle = $app->input->getString('achtitle', '');
 		$achdesc = $app->input->getString('achdesc', '');
 		$achicon = $app->input->getString('achicon', '');
+		$pts = $app->input->getInt('pts', 0);
 		$user = JFactory::getUser();
-		$model = $this->getModel('Games');
-		$model->saveAchievement($user->id, $gtitle, $achtitle, $achdesc, $achicon);
+		$model = $this->getModel('Profile');
+		if ($user->id) {
+			$model->saveAchievement($user->id, $gid, $gtitle, $achtitle, $achdesc, $achicon, $pts);
+		}
 	}
 	
 	public function savefave() {
