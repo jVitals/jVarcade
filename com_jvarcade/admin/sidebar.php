@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.12
- * @date		2014-05-17
+ * @version		2.13
+ * @date		2016-02-18
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -32,7 +32,7 @@ class jvarcadeToolbarHelper {
 		JText::_('COM_JVARCADE_MANAGE_GAMES'), 'index.php?option=com_jvarcade&task=manage_games', $vName == 'manage_games');
 		
 		JHtmlSidebar::addEntry(
-		JText::_('COM_JVARCADE_UPLOAD_ARCHIVE'), 'index.php?option=com_jvarcade&task=upload_archive', $vName == 'upload_archive');
+		JText::_('COM_JVARCADE_UPLOAD_ARCHIVE'), 'index.php?option=com_jvarcade&task=game_upload', $vName == 'game_upload');
 		
 		JHtmlSidebar::addEntry(
 		JText::_('COM_JVARCADE_MAINTENANCE'), 'index.php?option=com_jvarcade&task=maintenance', $vName == 'maintenance');

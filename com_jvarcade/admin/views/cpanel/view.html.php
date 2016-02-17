@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.12
- * @date		2014-05-17
+ * @version		2.13
+ * @date		2016-02-18
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -11,8 +11,6 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-
-//jimport('joomla.application.component.view');
 
 class jvarcadeViewCpanel extends JViewLegacy {
 
@@ -38,11 +36,6 @@ class jvarcadeViewCpanel extends JViewLegacy {
 		$latest_games = $model->getLatestGames();
 		$this->latest_games = $latest_games;
 		
-		// tabs
-		jimport('cms.html.bootstrap');
-		$this->slidesOptions = array(
-				
-				"toggle" => true, );
 		
 		
 		// plugin checks
@@ -82,7 +75,7 @@ class jvarcadeViewCpanel extends JViewLegacy {
 				'label' => JText::_('COM_JVARCADE_MANAGE_GAMES')
 			),
 			'UPLOAD_ARCHIVE' => array(
-				'link' => JRoute::_('index.php?option=com_jvarcade&task=upload_archive'),
+				'link' => JRoute::_('index.php?option=com_jvarcade&task=game_upload'),
 				'icon' => 'upload_zip.png',
 				'label' => JText::_('COM_JVARCADE_UPLOAD_ARCHIVE')
 			),

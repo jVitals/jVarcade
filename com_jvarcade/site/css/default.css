@@ -1,7 +1,7 @@
 /**
  * @package		jVArcade
- * @version		2.12
- * @date		2014-05-17
+ * @version		2.13
+ * @date		2016-02-18
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -329,6 +329,21 @@ border: 0;
 	text-decoration: none;
 }
 
+/*Containers for profile achievements and latest scores */
+#ProTable tr {
+	border-top: 2px groove #FFFFFF;
+	text-align: left;
+	background: url("img/row3_bg.png") repeat scroll 0 0 transparent;
+	/*border-left: 1px solid #CCCCCC;
+	border-right: 1px solid #CCCCCC;*/
+}
+#ProTable td{
+padding: 3px 0 3px 3px;
+border: 0;
+}
+#ProTable a {
+	text-decoration: none;
+}
 /* Container to center score and game lists */
 .pu_ListContainer {
 	margin: 0 auto;
@@ -664,4 +679,34 @@ button.close {
     font-size: 0.8em;
     border: 1px solid #222222;
 	border-radius: 5px 5px 5px 5px !important;
+}
+
+/***************************
+* Profile Page Related
+****************************/
+
+.profile-row{
+	text-align: left;
+	position: relative;
+	padding: 5px 5px;
+}
+.avatar-clickarea{
+	position: relative;
+	width: 140px;
+}
+.edit-avatar{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width:140px;
+	height:175px;
+	background-color: rgba(255,255,255,0.8);
+	 opacity: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.edit-avatar:hover{
+	opacity: 1;
 }

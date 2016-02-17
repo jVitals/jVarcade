@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.12
- * @date		2014-05-17
+ * @version		2.13
+ * @date		2016-02-18
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -139,7 +139,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	public function redirectPage($url, $sef = false) {
 		$app = JFactory::getApplication();
 		if ($sef) $url = JRoute::_($url, false);
-		session_write_close();
+		//session_write_close();
 		$app->redirect($url);
 		jexit();
 	}
@@ -151,9 +151,9 @@ class jvarcadeControllerScore extends JControllerLegacy {
 		$game_name = $app->input->getString('game_name', '');
 		$gamename = $app->input->getString('gamename', '');
 		$gname  = $app->input->getString('gname', '');
-		$gscore = $app->input->getInt('gscore', 0);
-		$score = $app->input->getInt('score', 0);
-		$ajaxscore = $app->input->getInt('ajaxscore', 0);
+		$gscore = $app->input->getFloat('gscore', 0);
+		$score = $app->input->getFloat('score', 0);
+		$ajaxscore = $app->input->getFloat('ajaxscore', 0);
 		
 		if (strlen($gamename) > strlen($game_name) && strlen($gamename) > strlen($gname)){
 			$jva_gname = $gamename;
@@ -168,7 +168,8 @@ class jvarcadeControllerScore extends JControllerLegacy {
 		} else {
 			$jva_gscore = $score;
 		}
-
+		
+		
 		$this->session->set('session_endtime', time(), 'jvarcade');
 		$this->session->set('session_score', strip_tags($jva_gscore), 'jvarcade');
 		$this->session->set('session_g', strip_tags($jva_gname), 'jvarcade');

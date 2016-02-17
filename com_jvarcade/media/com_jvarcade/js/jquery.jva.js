@@ -130,6 +130,19 @@
 			});
 		},
 		
+		showUploadAvatar: function() {
+			jQuery('#avatarUpload').modal({
+				show: true,
+				backdrop: 'static',
+				});
+			jQuery('#avatarUpload').on('show.bs.modal', function (e) {
+				jQuery("body").css("overflow", "hidden");
+			});
+			jQuery('#avatarUpload').on('hide.bs.modal', function (e) {
+				jQuery("body").css("overflow", "none");
+			});
+		},
+		
 		showAddGamesPopup: function() {
 			jQuery('#gameForContest').modal({
 				show: true,
@@ -157,7 +170,7 @@
 				"game_ids": game_ids,
 				"contest_ids": contest_ids.join(',')
 			}, function(data) {
-				if (window.parent.document.location.href.indexOf('editgame') != -1) {
+				if (window.parent.document.location.href.indexOf('edit_game') != -1) {
 					window.parent.jQuery.jva.showGameContests(game_ids);
 					window.parent.jQuery('#contestForGame').modal('hide');
 				} else if (data) {
@@ -180,7 +193,7 @@
 				"game_ids": game_ids.join(','),
 				"contest_ids": contest_id
 			}, function(data) {
-				if (window.parent.document.location.href.indexOf('editcontest') != -1) {
+				if (window.parent.document.location.href.indexOf('edit_contest') != -1) {
 					window.parent.jQuery.jva.showContestGames(contest_id);
 					window.parent.jQuery('#gameForContest').modal('hide');
 				} else if (data) {

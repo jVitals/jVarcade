@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.12
- * @date		2014-05-17
+ * @version		2.13
+ * @date		2016-02-18
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -11,19 +11,17 @@
 
 
 // no direct access
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
-JLoader::register("jvarcadeToolbarHelper", JPATH_COMPONENT_ADMINISTRATOR . DIRECTORY_SEPARATOR . "sidebar.php");
+JLoader::register("jvarcadeToolbarHelper", JPATH_COMPONENT_ADMINISTRATOR ."/sidebar.php");
 
 require_once (dirname(__FILE__) . '/model.php');
-require_once (dirname(__FILE__) . '/models/migration.php');
-require_once (dirname(__FILE__) . '/controller.php');
+//require_once (dirname(__FILE__) . '/models/migration.php');
 require_once (JPATH_ROOT . '/components/com_jvarcade/include/define.php');
 require_once (JVA_HELPERS_INCPATH . 'helper.php');
 
 $model = JModelLegacy::getInstance('common', 'jvarcadeModel');
 $config = $model->getConfObj();
-$model->createGsFeed();
 
 define('COM_JVARCADE_DATE_FORMAT', $config->date_format);
 define('COM_JVARCADE_TIME_FORMAT', $config->time_format);
@@ -71,10 +69,9 @@ $document->addScriptDeclaration($jsconstants);
 
 // check for new version 
 jvaHelper::checkForNewVersion();
+jvaHelper::createGsFeed();
 
-// Create the controller
-$task = JFactory::getApplication()->input->getCmd('task', 'cpanel');
-$controller = new jvarcadeController();
-$controller->execute($task);
+$controller = JControllerLegacy::getInstance('jvarcade');
+$controller->execute(JFactory::getApplication()->input->get('task'));
 $controller->redirect();
 

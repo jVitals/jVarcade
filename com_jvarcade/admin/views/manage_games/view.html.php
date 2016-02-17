@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.12
- * @date		2014-05-17
+ * @version		2.13
+ * @date		2016-02-18
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -11,70 +11,38 @@
 
 
 // no direct access
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die();
 
-//jimport('joomla.application.component.view');
 
 class jvarcadeViewManage_games extends JViewLegacy {
 	var $permnames = array();
 
 	function display($tpl = null) {
 	
-		$app = JFactory::getApplication('site');
+		$app = JFactory::getApplication();
 		
-		$task = $app->input->getWord('task', 'manage_games');
-		$this->task = $task;
-		$lists = array();
+		$this->items = $this->get('Items');
+		$this->pagination = $this->get('Pagination');
+		$this->filter_order = $app->getUserStateFromRequest('jvarcade.manage_games.filter_order', 'filter_order', 'g.id', 'cmd' );
+		$this->filter_order_Dir = $app->getUserStateFromRequest('jvarcade.manage_games.filter_order_Dir', 'filter_order_Dir', 'desc', 'word' );
+		$this->filterForm = $this->get('FilterForm');
+		$this->activeFilters 	= $this->get('ActiveFilters');
 		
-		$search = '';
-		$searchfields = array('filter_title', 'filter_name');
+		// Check for errors.
+		if (count($errors = $this->get('Errors')))
+		{
+			JError::raiseError(500, implode('<br />', $errors));
 		
-		$filter_order = $app->getUserStateFromRequest('com_jvarcade.manage_games.filter_order', 'filter_order', 'g.id', 'cmd' );
-		$filter_order_Dir = $app->getUserStateFromRequest('com_jvarcade.manage_games.filter_order_Dir', 'filter_order_Dir', '', 'word' );
-		$filter_order_Dir = $filter_order_Dir ? $filter_order_Dir : 'DESC';
-		// ensure filter_order has a valid value.
-		if (!in_array($filter_order, array('g.id', 'g.title', 'g.scoring', 'g.numplayed', 'f.name', 'g.published'))) {
-			$filter_order = 'g.id';
+			return false;
 		}
-
-		foreach ($searchfields as $field) {
-			$search = $app->getUserStateFromRequest('com_jvarcade.manage_games.' . $field, $field, '', 'string');
-			if (strpos($search, '"') !== false) {
-				$search = str_replace(array('=', '<'), '', $search);
-			}
-			$search = JString::strtolower($search);
-			$lists[$field] = $search;
-		}
-
-		$model = $this->getModel();
-		$model->setOrderBy($filter_order);
-		$model->setOrderDir($filter_order_Dir);
-		$model->setSearchFields($lists);
 		
-		$lists['order_Dir']	= $filter_order_Dir;
-		$lists['order'] = $filter_order;
-
-		$this->lists = $lists;
-		
-		$games = $model->getGames();
-		$pagination = $model->getPagination();
-		$this->pagination = $pagination;
-		$this->games = $games;
-		
-		$folderlist = $model->getFolderList();
-		$folders[] = JHTML::_('select.option', '', JText::_( 'COM_JVARCADE_FOLDERS_ALL'));
-		foreach($folderlist as $obj ) {
-			$folders[] = JHTML::_('select.option', $obj->name, $obj->name);
-		}
-		$this->lists['folders'] = JHTML::_('select.genericlist', $folders, 'filter_name', 'class="inputbox" size="1" onchange="document.adminForm.submit( );"', 'value', 'text', $lists['filter_name']);
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_MANAGE_GAMES'), 'jvagames');
-		//JToolBarHelper::custom('addgametocontest', 'default.png', 'default.png', JText::_('COM_JVARCADE_CONTESTSLINK_ADDTOCONTESTS'), true);
-		JToolBarHelper::editList('editgame', JText::_('COM_JVARCADE_GAMES_EDIT'));
-		JToolBarHelper::addNew('addgame', JText::_('COM_JVARCADE_GAMES_ADD'));
-		JToolBarHelper::deleteList(JText::_('COM_JVARCADE_GAMES_ASK_DELETE'), 'deletegame', JText::_('COM_JVARCADE_GAMES_DELETE'));
-		JToolBarHelper::publishList('gamePublish', JText::_('COM_JVARCADE_GAMES_PUBLISH'));
-		JToolBarHelper::unpublishList('gameUnPublish', JText::_('COM_JVARCADE_GAMES_UNPUBLISH'));
+		JToolBarHelper::editList('manage_games.editGame', JText::_('COM_JVARCADE_GAMES_EDIT'));
+		JToolBarHelper::addNew('add_game', JText::_('COM_JVARCADE_GAMES_ADD'));
+		JToolBarHelper::deleteList(JText::_('COM_JVARCADE_GAMES_ASK_DELETE'), 'manage_games.deletegame', JText::_('COM_JVARCADE_GAMES_DELETE'));
+		JToolBarHelper::publishList('manage_games.gamePublish', JText::_('COM_JVARCADE_GAMES_PUBLISH'));
+		JToolBarHelper::unpublishList('manage_games.gameUnPublish', JText::_('COM_JVARCADE_GAMES_UNPUBLISH'));
 		jvarcadeToolbarHelper::addSubmenu($this->getName());
 		$this->addSidebar('manage_games');
 

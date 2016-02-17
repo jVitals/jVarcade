@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog component="jVArcade">
-	<version number="2.12">
+  <version number="2.13">
+    <date>2016-02-18</date>
+    <description><![CDATA[ Major Release ]]></description>
+    <list>
+      <item type="new"><![CDATA[ Major overhaul of file system and code ]]></item>
+	  <item type="bugfix"><![CDATA[ Fixed game upload fails after Joomla upgrade to 3.4.8 ]]></item>
+	  <item type="bugfix"><![CDATA[ Fixed unable to add/edit contests after Joomla upgrade to 3.4.8 ]]></item>
+	  <item type="bugfix"><![CDATA[ Fixed issue of games not saving scores after Joomla upgrade to 3.4.8 ]]></item>
+    </list>
+  </version>
+  <version number="2.12">
     <date>2014-05-17</date>
     <description><![CDATA[ Bugfix Release ]]></description>
     <list>

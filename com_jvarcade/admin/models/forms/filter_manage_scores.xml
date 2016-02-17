@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="filter">
+		<field
+			name="search"
+			type="text"
+			label="COM_BANNERS_SEARCH_IN_TITLE"
+			hint="COM_JVARCADE_SCORES_SEARCH"
+			class="js-stools-search-string"
+		/>
+	</fields>
+</form>

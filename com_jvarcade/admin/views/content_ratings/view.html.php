@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.12
- * @date		2014-05-17
+* @version		2.13
+* @date		2016-02-18
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -11,51 +11,33 @@
 
 
 // no direct access
-defined('_JEXEC') or die('Restricted access');
-
-jimport('joomla.application.component.view');
+defined('_JEXEC') or die();
 
 class jvarcadeViewContent_ratings extends JViewLegacy {
 
 	function display($tpl = null) {
-	
-		$mainframe = JFactory::getApplication('site');
+
+		$app = JFactory::getApplication();
 		
-		$task = $mainframe->input->get('task', 'contentratings');
-		$this->task = $task;
-		$lists = array();
+		$this->items = $this->get('Items');
+		$this->pagination = $this->get('Pagination');
+		$this->state = $this->get('State');
+		$this->filter_order = $app->getUserStateFromRequest('jvarcade.content_ratings.filter_order', 'filter_order', 'id', 'cmd' );
+		$this->filter_order_Dir = $app->getUserStateFromRequest('jvarcade.content_ratings.filter_order_Dir', 'filter_order_Dir', 'asc', 'word' );
+		// Check for errors.
+		if (count($errors = $this->get('Errors')))
+		{
+			JError::raiseError(500, implode('<br />', $errors));
 		
-		$search = '';
-		$searchfields = array('title', 'name');
-		
-		$filter_order = $mainframe->getUserStateFromRequest('com_jvarcade.content_ratings.filter_order', 'filter_order', 'id', 'cmd' );
-		$filter_order_Dir = $mainframe->getUserStateFromRequest('com_jvarcade.content_ratings.filter_order_Dir', 'filter_order_Dir', '', 'word' );
-		$filter_order_Dir = $filter_order_Dir ? $filter_order_Dir : 'DESC';
-		// ensure filter_order has a valid value.
-		if (!in_array($filter_order, array('id', 'name', 'warningrequired', 'published'))) {
-			$filter_order = 'id';
+			return false;
 		}
-
-		$model = $this->getModel();
-		$model->setOrderBy($filter_order);
-		$model->setOrderDir($filter_order_Dir);
-		
-		$lists['order_Dir']	= $filter_order_Dir;
-		$lists['order'] = $filter_order;
-
-		$this->lists = $lists;
-		
-		$ratings = $model->getContentRatings();
-		$pagination = $model->getPagination();
-		$this->pagination = $pagination;
-		$this->ratings = $ratings;
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_CONTENT_RATINGS'), 'jvacontent');
-		JToolBarHelper::editList('editcontentrating', JText::_('COM_JVARCADE_CONTENT_RATINGS_EDIT'));
-		JToolBarHelper::addNew('addcontentrating', JText::_('COM_JVARCADE_CONTENT_RATINGS_ADD'));
-		JToolBarHelper::deleteList(JText::_('COM_JVARCADE_CONTENT_RATINGS_ASK_DELETE'), 'deletecontentrating', JText::_('COM_JVARCADE_CONTENT_RATINGS_DELETE'));
-		JToolBarHelper::publishList('contentratingPublish', JText::_('COM_JVARCADE_CONTENT_RATINGS_PUBLISH'));
-		JToolBarHelper::unpublishList('contentratingUnpublish', JText::_('COM_JVARCADE_CONTENT_RATINGS_UNPUBLISH'));
+		JToolBarHelper::editList('content_ratings.editcontentrating', JText::_('COM_JVARCADE_CONTENT_RATINGS_EDIT'));
+		JToolBarHelper::addNew('add_contentrating', JText::_('COM_JVARCADE_CONTENT_RATINGS_ADD'));
+		JToolBarHelper::deleteList(JText::_('COM_JVARCADE_CONTENT_RATINGS_ASK_DELETE'), 'content_ratings.deletecontentrating', JText::_('COM_JVARCADE_CONTENT_RATINGS_DELETE'));
+		JToolBarHelper::publishList('content_ratings.contentratingPublish', JText::_('COM_JVARCADE_CONTENT_RATINGS_PUBLISH'));
+		JToolBarHelper::unpublishList('content_ratings.contentratingUnpublish', JText::_('COM_JVARCADE_CONTENT_RATINGS_UNPUBLISH'));
 		jvarcadeToolbarHelper::addSubmenu($this->getName());
 		$this->addSidebar('content_ratings');
 		

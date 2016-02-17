@@ -1,7 +1,7 @@
 /**
  * @package		jVArcade
- * @version		2.12
- * @date		2014-05-17
+ * @version		2.13
+ * @date		2016-02-18
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -311,7 +311,7 @@ This div gets directly updated by the javascript */
 #FlashTable tr {
 	border-top: 2px groove #FFFFFF;
 	text-align: left;
-	background: url("img/row3_bg.png") repeat scroll 0 0 #FCFCFC;
+	background: url("img/row3_bg.png") repeat scroll 0 0 transparent;
 	border-left: 1px solid #CCCCCC;
 	border-right: 1px solid #CCCCCC;
 }
@@ -320,6 +320,22 @@ padding: 3px 0;
 border: 0;
 }
 #FlashTable a {
+	text-decoration: none;
+}
+
+/*Containers for profile achievements and latest scores */
+#ProTable tr {
+	border-top: 2px groove #FFFFFF;
+	text-align: left;
+	background: url("img/row3_bg.png") repeat scroll 0 0 transparent;
+	/*border-left: 1px solid #CCCCCC;
+	border-right: 1px solid #CCCCCC;*/
+}
+#ProTable td{
+padding: 3px 0 3px 3px;
+border: 0;
+}
+#ProTable a {
 	text-decoration: none;
 }
 

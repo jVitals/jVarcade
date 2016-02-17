@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.12
- * @date		2014-05-17
+ * @version		2.13
+ * @date		2016-02-18
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -23,8 +23,8 @@ defined('_JEXEC') or die('Restricted access');
 <div id="j-main-container">
 <?php endif;?>
 
-
-<table cellspacing="0" cellpadding="0" border="0" width="100%">
+<div class="span9">
+<table cellspacing="0" cellpadding="0" border="0" ="100%">
 	<tr>
 		<td valign="top">
 			<div id="dashboard">
@@ -43,10 +43,14 @@ defined('_JEXEC') or die('Restricted access');
 			</div>
 			<div id="jvitals_banner_div" style="margin: 20px auto auto auto; float: none; clear: both;"></div>
 		</td>
-		<td valign="top" style="padding: 0 0 0 5px; width: 420px;">
+	</tr>
+</table>
+</div>
+
+		
 			<!-- start sliders -->
-			<div id="accordion">
-			<?php echo JHtml::_('bootstrap.startAccordion', 'cp1', $this->slidesOptions); ?>
+			<div class="span3">
+			<?php echo JHtml::_('bootstrap.startAccordion', 'cp1'); ?>
 			<?php echo JHtml::_('bootstrap.addSlide', 'cp1', JText::_('COM_JVARCADE_ABOUT'), 'jvabout'); ?> 
 				<div>
 					<table class="adminlist">
@@ -165,5 +169,3 @@ defined('_JEXEC') or die('Restricted access');
 				<?php echo JHtml::_('bootstrap.endAccordion'); ?>
 			</div>
 			<!-- end sliders -->
-		</td>
-</table>

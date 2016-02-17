@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
-* @version		2.12
-* @date		2014-05-17
+ * @version		2.13
+ * @date		2016-02-18
 * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
 * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
 * @link		http://jvitals.com
@@ -27,11 +27,20 @@ class jvarcadeModelProfile extends jvarcadeModelCommon {
 	}
 	
 	public function getUserAchievements($user_id) {
-		$query = 'SELECT * FROM #__jvarcade_achievements WHERE userid =' . $user_id;
+		$query = 'SELECT * FROM #__jvarcade_achievements WHERE userid =' . $user_id . ' ORDER BY id DESC LIMIT 5';
 		$this->dbo->setQuery($query);
 		$user_achieve = $this->dbo->loadAssocList();
 		return $user_achieve;
 	}
+	
+	public function getUserScores($user_id) {
+		$query = 'SELECT b.score, b.date, c.title, c.imagename, c.description, c.id FROM #__jvarcade AS b, #__jvarcade_games AS c WHERE b.userid ='
+				 . $user_id .' AND b.gameid = c.id ORDER BY b.date DESC LIMIT 5';
+		$this->dbo->setQuery($query);
+		$user_scores = $this->dbo->loadAssocList();
+		return $user_scores;
+	}
+	
 	
 
 }

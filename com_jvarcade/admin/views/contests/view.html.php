@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.12
- * @date		2014-05-17
+ * @version		2.13
+ * @date		2016-02-18
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -13,49 +13,35 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-jimport('joomla.application.component.view');
-
 class jvarcadeViewContests extends JViewLegacy {
-	var $permnames = array();
+	
 
 	function display($tpl = null) {
-		$mainframe = JFactory::getApplication('site');
-		
-		$acl = JFactory::getACL();
-		
-		$task = $mainframe->input->get('task', 'contests');
+		$app = JFactory::getApplication('site');
+		$task = $app->input->get('task', 'contests');
 		$this->task = $task;
 		
-		$filter_order = $mainframe->getUserStateFromRequest('com_jvarcade.contests.filter_order', 'filter_order', 'startdatetime', 'cmd' );
-		$filter_order_Dir = $mainframe->getUserStateFromRequest('com_jvarcade.contests.filter_order_Dir', 'filter_order_Dir', '', 'word' );
-		$filter_order_Dir = $filter_order_Dir ? $filter_order_Dir : 'DESC';
-		// ensure filter_order has a valid value.
-		if (!in_array($filter_order, array('id', 'name', 'startdatetime', 'enddatetime', 'maxplaycount', 'published'))) {
-			$filter_order = 'startdatetime';
+		$this->items = $this->get('Items');
+		$this->pagination = $this->get('Pagination');
+		$this->state = $this->get('State');
+		$this->filter_order = $app->getUserStateFromRequest('jvarcade.contests.filter_order', 'filter_order', 'id', 'cmd' );
+		$this->filter_order_Dir = $app->getUserStateFromRequest('jvarcade.contests.filter_order_Dir', 'filter_order_Dir', 'asc', 'word' );
+		// Check for errors.
+		if (count($errors = $this->get('Errors')))
+		{
+			JError::raiseError(500, implode('<br />', $errors));
+		
+			return false;
 		}
-
-		$model = $this->getModel();
-		$model->setOrderBy($filter_order);
-		$model->setOrderDir($filter_order_Dir);
 		
-		$lists['order_Dir']	= $filter_order_Dir;
-		$lists['order'] = $filter_order;
-
-		$this->lists = $lists;
 		
-		$contests = $model->getContests();
-		$pagination = $model->getPagination();
-		$this->pagination = $pagination;
-		$this->contests = $contests;
-		
-		//~ $this->permnames = $model->getAcl();
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_CONTESTS'), 'jvacontests');
-		JToolBarHelper::editList('editcontest', JText::_('COM_JVARCADE_CONTESTS_EDIT'));
-		JToolBarHelper::addNew('addcontest', JText::_('COM_JVARCADE_CONTESTS_ADD'));
+		JToolBarHelper::editList('contests.editcontest', JText::_('COM_JVARCADE_CONTESTS_EDIT'));
+		JToolBarHelper::addNew('add_contest', JText::_('COM_JVARCADE_CONTESTS_ADD'));
 		JToolBarHelper::deleteList(JText::_('COM_JVARCADE_CONTESTS_ASK_DELETE'), 'deleteContest', JText::_('COM_JVARCADE_CONTESTS_DELETE'));
-		JToolBarHelper::publishList('contestPublish', JText::_('COM_JVARCADE_CONTESTS_PUBLISH'));
-		JToolBarHelper::unpublishList('contestUnpublish', JText::_('COM_JVARCADE_CONTESTS_UNPUBLISH'));
+		JToolBarHelper::publishList('contests.contestPublish', JText::_('COM_JVARCADE_CONTESTS_PUBLISH'));
+		JToolBarHelper::unpublishList('contests.contestUnpublish', JText::_('COM_JVARCADE_CONTESTS_UNPUBLISH'));
 		jvarcadeToolbarHelper::addSubmenu($this->getName());
 		$this->addSidebar('contests');
 		
@@ -65,16 +51,4 @@ class jvarcadeViewContests extends JViewLegacy {
 		$this->sidebar = JHtmlSidebar::render();
 	}
 	
-	function showPerms($perms) {
-		$permsarr = explode(',', $perms);
-		$result = '';
-		foreach ($permsarr as $perm) {
-			if(array_key_exists($perm, $this->permnames)) {
-				$result .= $this->permnames[$perm]['name'] . ', ';
-			}
-			
-		}
-		$result = rtrim($result,', ');
-		return $result;
-	}
 }

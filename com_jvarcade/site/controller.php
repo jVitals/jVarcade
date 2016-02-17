@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.12
- * @date		2014-05-17
+ * @version		2.13
+ * @date		2016-02-18
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -11,7 +11,7 @@
 
 
 // no direct access
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
 
 class jvarcadeController extends JControllerLegacy {
@@ -516,7 +516,7 @@ class jvarcadeController extends JControllerLegacy {
 		
 		// GET GAME RELATED SESSION VARIABLES
 		$gname = $session->get('session_g', '', 'jvarcade');
-		$score = (int)$session->get('session_score', 0, 'jvarcade');
+		$score = $session->get('session_score', 0, 'jvarcade');
 		$starttime = (int)$session->get('session_starttime', 0 , 'jvarcade');
 		$endtime = (int)$session->get('session_endtime', ($starttime + 1), 'jvarcade');
 		$endtime = $endtime ? $endtime : ($starttime + 1) ;
@@ -563,10 +563,10 @@ class jvarcadeController extends JControllerLegacy {
 					} else {
 
 						// UNSET ALL SESSION VARIABLES RELATED TO SCORING
-						$_SESSION['session_g'] = '';
-						$_SESSION['session_score' ] = '';
-						$_SESSION['session_endtime' ] = -1;
-						$_SESSION['session_starttime' ] = -1;
+						$session->clear('session_g', 'jvaracde');
+						$session->clear('session_score', 'jvaracde');
+						$session->clear('session_endtime', 'jvaracde');
+						$session->clear('session_starttime', 'jvarcade');
 							
 						// CHECK IF THIS SCORE IS BETTER THAN USER'S PREVIOUS ONES
 						if ($reverse == 1) {
@@ -779,10 +779,10 @@ class jvarcadeController extends JControllerLegacy {
 						} else {
 
 							// UNSET ALL SESSION VARIABLES RELATED TO SCORING
-							$_SESSION['session_g'] = '';
-							$_SESSION['session_score' ] = '';
-							$_SESSION['session_endtime' ] = -1;
-							$_SESSION['session_starttime' ] = -1;
+							$session->clear('session_g', 'jvaracde');
+							$session->clear('session_score', 'jvaracde');
+							$session->clear('session_endtime', 'jvaracde');
+							$session->clear('session_starttime', 'jvarcade');
 								
 							// CHECK IF THIS SCORE IS BETTER THAN USER'S PREVIOUS ONES
 							if ($reverse == 1) {

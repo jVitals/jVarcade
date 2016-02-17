@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.12
- * @date		2014-05-17
+ * @version		2.13
+ * @date		2016-02-18
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -35,7 +35,7 @@ defined('_JEXEC') or die('Restricted access');
 				<tr class="<?php echo "row$i"; ?>">
 					<td style="text-align: center;"><?php echo JHTML::_('grid.id', $k, $obj->id, false, 'cid'); ?></td>
 					<td style="text-align: center;"><?php echo $obj->id; ?></td>
-					<td style="text-align: center;"><a target="_blank" href="<?php echo JRoute::_('index.php?option=com_jvarcade&c&task=editgame&id=' . $obj->id); ?>"><?php echo $obj->title; ?></a></td>
+					<td style="text-align: center;"><a target="_blank" href="<?php echo JRoute::_('index.php?option=com_jvarcade&c&task=edit_game&id=' . $obj->id); ?>"><?php echo $obj->title; ?></a></td>
 					<td style="text-align: center;"><?php echo $obj->numplayed; ?></td>
 				</tr>
 		<?php

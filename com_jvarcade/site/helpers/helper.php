@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.12
- * @date		2014-05-17
+ * @version		2.13
+ * @date		2016-02-18
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -270,6 +270,53 @@ class jvaHelper {
 		return true;
 	}
 	
+	public static function createGsFeed() {
+		$config = JFactory::getConfig();
+		$tmp_path = $config->get('tmp_path');
+		$filename = 'gsfeed.php';
+		$tmpfile = $tmp_path . '/' . $filename;
+	
+		$dorequest = false;
+		$filefound = false;
+	
+		if (is_file($tmpfile)) {
+			$filefound = true;
+			if ((filemtime($tmpfile) + (60 * 60 * 24)) < time()) {
+				// only once per day
+				$dorequest = true;
+			}
+		}
+	
+		if (!$filefound) $dorequest = true;
+	
+		if ($dorequest) {
+	
+			$http = JHttpFactory::getHttp();
+			$response = $http->get('http://flashgamedistribution.com/feed?type=mochi&gpp=32&feed=phpcode', array(), 90);
+			$response = $response->body;
+	
+	
+	
+			$fp = @fopen($tmpfile, "wb");
+			if ($fp) {
+				@flock($fp, LOCK_EX);
+				$len = strlen($response);
+				@fwrite($fp, $response, $len);
+				@flock($fp, LOCK_UN);
+				@fclose($fp);
+				$written = true;
+			}
+			// Data integrity check
+			if ($written && (file_get_contents($tmpfile))) {
+				// nothing to do
+			} else {
+				unlink($tmpfile);
+			}
+		}
+	
+		return (is_file($tmpfile) ? $tmpfile : $default_file);
+	}
+	
 	public static function showAvatar($userid) {
 	
 		static $jva_avatars;
@@ -285,14 +332,14 @@ class jvaHelper {
 				$db = JFactory::getDBO();
 				$db->setQuery('SELECT avatar FROM #__comprofiler WHERE user_id = ' . (int)$userid);
 				$_avatar = $db->loadResult();
-				if (strlen($_avatar) && file_exists(JPATH_BASE . '/' . 'images' . '/' . 'comprofiler' . '/' . $_avatar) && ($img_size = @getimagesize(JPATH_BASE . '/' . 'images' . '/' . 'comprofiler' . '/' . $_avatar))) {
+				if (strlen($_avatar) && file_exists(JPATH_BASE . '/images/comprofiler/' . $_avatar) && ($img_size = @getimagesize(JPATH_BASE . '/images/comprofiler/' . $_avatar))) {
 					$_avatar = JURI::root(). 'images/comprofiler/' . $_avatar;
 				} else {
 					$_avatar = JURI::root() . 'components/com_comprofiler/plugin/templates/default/images/avatar/tnnophoto_n.png';
 				}
 			//JomSocial
-			} elseif (((int)$config->scorelink == 1) && is_file(JPATH_ROOT . '/' . 'components' . '/' . 'com_community' . '/' . 'libraries' . '/' . 'core.php')) {
-				include_once(JPATH_ROOT . '/' . 'components' . '/' . 'com_community' . '/' . 'libraries' . '/' . 'core.php');
+			} elseif (((int)$config->scorelink == 1) && is_file(JPATH_ROOT . '/components/com_community/libraries/core.php')) {
+				include_once(JPATH_ROOT . '/components/com_community/libraries/core.php');
 				$js_user = CFactory::getUser((int)$userid);
 				$_avatar = $js_user->getThumbAvatar();
 			//AlphaUserPoints
@@ -305,12 +352,66 @@ class jvaHelper {
 					echo $avatar;
 				}
 				
-			}
+			} /*elseif ((int)$config->scorelink == 0) {
+				$_avatar = JPATH_BASE . '/images/jvarcade/images/avatars/blank_avatar.png';
+				
+				
+			}*/
+		
 			$_avatar = $_avatar ? '<img src="' . $_avatar . '" border="0" height="50" width="50" align="middle" />' : '' ;
 			$jva_avatars[(int)$userid] = $_avatar;
 			
 		}
 		
+		return $jva_avatars[(int)$userid];
+	}
+	
+	public static function showProfileAvatar($userid) {
+	
+		static $jva_avatars;
+		$model = jvarcadeModelCommon::getInst();
+		$config = $model->getConf();
+	
+		if (!($jva_avatars && is_array($jva_avatars) && count($jva_avatars) && array_key_exists((int)$userid, $jva_avatars))) {
+			if(!is_array($jva_avatars)) $jva_avatars = array();
+			$_avatar = '';
+				
+			//Community Builder
+			if ((int)$config->scorelink == 2) {
+				$db = JFactory::getDBO();
+				$db->setQuery('SELECT avatar FROM #__comprofiler WHERE user_id = ' . (int)$userid);
+				$_avatar = $db->loadResult();
+				if (strlen($_avatar) && file_exists(JPATH_BASE . '/images/comprofiler/' . $_avatar) && ($img_size = @getimagesize(JPATH_BASE . '/images/comprofiler/' . $_avatar))) {
+					$_avatar = JURI::root(). 'images/comprofiler/' . $_avatar;
+				} else {
+					$_avatar = JURI::root() . 'components/com_comprofiler/plugin/templates/default/images/avatar/tnnophoto_n.png';
+				}
+				//JomSocial
+			} elseif (((int)$config->scorelink == 1) && is_file(JPATH_ROOT . '/components/com_community/libraries/core.php')) {
+				include_once(JPATH_ROOT . '/components/com_community/libraries/core.php');
+				$js_user = CFactory::getUser((int)$userid);
+				$_avatar = $js_user->getThumbAvatar();
+				//AlphaUserPoints
+			} elseif ((int)$config->scorelink ==3) {
+				$api_AUP = JPATH_SITE . '/components/com_alphauserpoints/helper.php';
+				if ( file_exists($api_AUP))
+				{
+					require_once ($api_AUP);
+					$avatar = AlphaUserPointsHelper:: getAupAvatar( $userid, 0, '50', '50', '', '' );
+					echo $avatar;
+				}
+	
+			} elseif ((int)$config->scorelink == 0) {
+				$_avatar = JPATH_BASE . '/images/jvarcade/images/avatars/blank_avatar.png';
+	
+	
+			}
+	
+			$_avatar = $_avatar ? '<img src="' . $_avatar . '" border="0" align="middle" />' : '' ;
+			$jva_avatars[(int)$userid] = $_avatar;
+				
+		}
+	
 		return $jva_avatars[(int)$userid];
 	}
 	
@@ -328,7 +429,7 @@ class jvaHelper {
 			if ((int)$userid == 0) {
 				$_name = $config->guest_name;
 			//Alpha User Points
-			} elseif ((int)$config->scorelink == 3) {
+			} elseif (((int)$config->scorelink == 3) && is_file(JPATH_SITE . '/components/com_alphauserpoints/helper.php')) {
 				$api_AUP = JPATH_SITE . '/components/com_alphauserpoints/helper.php';
 				if ( file_exists($api_AUP))
 				{
@@ -340,13 +441,13 @@ class jvaHelper {
 			} elseif ((int)$config->scorelink == 2) {
 				$_name = '<a href="' . JRoute::_('index.php?option=com_comprofiler&task=userProfile&user=' . (int)$userid . '&Itemid=' . (int)$config->communitybuilder_itemid ) . '">' . $username . '</a>';
 			//JomSocial
-			} elseif (((int)$config->scorelink == 1) && is_file(JPATH_ROOT . '/' . 'components' . '/' . 'com_community' . '/' . 'libraries' . '/' . 'core.php')) {
-				include_once(JPATH_ROOT . '/' . 'components' . '/' . 'com_community' . '/' . 'libraries' . '/' . 'core.php');
+			} elseif (((int)$config->scorelink == 1) && is_file(JPATH_ROOT . '/components/com_community/libraries/core.php')) {
+				include_once(JPATH_ROOT . '/components/com_community/libraries/core.php');
 				$js_user = CFactory::getUser((int)$userid);
 				$_name = '<a href="' . CRoute::_('index.php?option=com_community&view=profile&userid=' . (int)$userid) . '">' . $js_user->getDisplayName() . '</a>';
 			// No integration
 			} else {
-				$_name = '<a href="' . JRoute::_('index.php?option=com_jvarcade&task=profile&id=' . (int)$userid) . '">' . $username . '</a>';
+				$_name = /*'<a href="' . JRoute::_('index.php?option=com_jvarcade&task=profile&id=' . (int)$userid) . '">' .*/ $username /*. '</a>'*/;
 			}
 			
 			$jva_userlinks[(int)$userid] = $_name;
@@ -449,7 +550,7 @@ class jvarcadeHtml {
 		$ret = '';
 		$selected = explode(',', $selected);
 		
-		if (JVA_COMPATIBLE_MODE == '16') {
+
 		
 			$db = JFactory::getDbo();
 			$db->setQuery(
@@ -467,7 +568,7 @@ class jvarcadeHtml {
 				}
 				array_unshift($options, JHtml::_('select.option', 0, 'Guest'));
 				$ret = JHtml::_('select.genericlist', $options, $name, array('list.attr' => $attribs, 'list.select' => $selected ));
-			}
+			
 			
 		}
 		

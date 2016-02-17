@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.12
- * @date		2014-05-17
+* @version		2.13
+* @date		2016-02-18
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -13,7 +13,6 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-//jimport('joomla.application.component.model');
 
 class jvarcadeModelInstall extends JModelLegacy {
 	private $db;
@@ -27,102 +26,11 @@ class jvarcadeModelInstall extends JModelLegacy {
 		$this->config = JFactory::getConfig();
 	}
 	
-	public function installPackage() {
-		jimport('joomla.installer.installer');
-		jimport('joomla.installer.helper');
-		jimport('joomla.filesystem.file');
-		jimport('joomla.filesystem.folder');
-		jimport('joomla.filesystem.archive');
-		jimport('joomla.filesystem.path');
-		
-		$installtype = $this->app->input->getWord('installtype', '');
-		if ($installtype == 'folder') {
-			$this->_installFromFolder();
-		} elseif ($installtype == 'upload') {
-			$this->_installFromUpload();
-		}
-		
-		$this->app->enqueueMessage(JText::_('COM_JVARCADE_UPLOADARCHIVE_INSTALLMETHOD_ERROR'), 'error');
-		$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive');
-		jexit();
-	}
-	
-	private function _installFromFolder() {
-		// Get the path to the package to install
-		$p_dir = $this->app->input->getString('install_directory', '');
-		$p_dir = JPath::clean($p_dir);
-		$errormsg = '';
-		
-		// Did you give us a valid directory?
-		if (!$errormsg && !is_dir($p_dir)) {
-			$errormsg = JText::_('COM_JVARCADE_UPLOADARCHIVE_INVALID_DIR');
-		}
-		
-		if ($errormsg) {
-			$this->app->enqueueMessage($errormsg, 'error');
-			$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive');
-			jexit();
-		}
-		
-		$dest = $this->config->get('tmp_path') . '/' . uniqid('install_');
-		JFolder::copy($p_dir, $dest);
-		
-		$package['packagefile'] = null;
-		$package['extractdir'] = null;
-		$package['dir'] = $dest;
-		$this->_doAcctualInstall($package);
-	}
-
-	private function _installFromUpload() {
-		
-		// Get the uploaded file information
-		$userfile = $this->app->input->files->get('install_package');
-		$errormsg = '';
-		
-		// Make sure that file uploads are enabled in php
-		if (!$errormsg && !(bool) ini_get('file_uploads')) {
-			$errormsg = JText::_('COM_JVARCADE_UPLOADARCHIVE_INIFALSE');
-		}
-		// Make sure that zlib is loaded so that the package can be unpacked
-		if (!$errormsg && !extension_loaded('zlib')) {
-			$errormsg = JText::_('COM_JVARCADE_UPLOADARCHIVE_ZIPFALSE');
-		}
-		// If there is no uploaded file, we have a problem...
-		if (!$errormsg && !is_array($userfile) ) {
-			$errormsg = JText::_('COM_JVARCADE_UPLOADARCHIVE_NOFILEUPL');
-		}
-		// Check if there was a problem uploading the file.
-		if (!$errormsg && ($userfile['error'] || $userfile['size'] < 1)) {
-			$errormsg = JText::sprintf('COM_JVARCADE_UPLOADARCHIVE_UPLOADERR', jvaHelper::getUploadErr((int)$userfile['error']));
-		}
-		
-		if ($errormsg) {
-			$this->app->enqueueMessage($errormsg, 'error');
-			$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive');
-			exit;
-		}
-		
-		// Build the appropriate paths and move uploaded file
-		$tmp_dest = $this->config->get('tmp_path') . '/'. $userfile['name'];
-		$tmp_src = $userfile['tmp_name'];
-		$uploaded = JFile::upload($tmp_src, $tmp_dest);
-
-		// Unpack the downloaded package file
-		$package = jvaHelper::unpack($tmp_dest);
-		if (!$package) {
-			$this->app->enqueueMessage(JText::_('COM_JVARCADE_UPLOADARCHIVE_NOPACKAGE'), 'error');
-			$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive');
-			exit;
-		}
-		
-		$this->_doAcctualInstall($package);
-	}
-	
-	private function _doAcctualInstall($pkg) {
+	public function doAcctualInstall($pkg) {
 		
 		if (!$pkg) {
 			$this->app->enqueueMessage(JText::_('COM_JVARCADE_UPLOADARCHIVE_NOPACKAGE'), 'error');
-			$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive');
+			$this->app->redirect('index.php?option=com_jvarcade&task=game_upload');
 			jexit();
 		}
 		
@@ -228,8 +136,6 @@ class jvarcadeModelInstall extends JModelLegacy {
 						$gamedatasrc = $package['dir'] . '/' . 'gamedata' . '/' . $config['name'];
 						$gamedatadest = JPATH_SITE . '/' . 'arcade' . '/' . 'gamedata' . '/' . $config['name'];
 						if (JFolder::exists($gamedatasrc)) {
-							//@JFolder::create(JPATH_SITE . '/' . 'arcade', 0755);
-							//@JFolder::create(JPATH_SITE . '/' . 'arcade' . '/' . 'gamedata', 0755);
 							JFolder::move($gamedatasrc, $gamedatadest);
 						}
 					}
@@ -249,7 +155,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 		$msg = (count($errormsg) ? implode('<br />', $errormsg) : JText::sprintf('COM_JVARCADE_UPLOADARCHIVE_SUCCESS'));
 		$msg_type = count($errormsg) ? 'error' : 'message';
 		$this->app->enqueueMessage($msg, $msg_type);
-		$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive');
+		$this->app->redirect('index.php?option=com_jvarcade&task=game_upload');
 		jexit();
 	}
 	
