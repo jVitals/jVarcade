@@ -583,10 +583,10 @@ class jvarcadeModelCommon extends JModelLegacy {
 		
 		if (is_file($tmpfile)) {
 			$filefound = true;
-			//if ((filemtime($tmpfile) + (60 * 60 * 24)) < time()) {
+			if ((filemtime($tmpfile) + (60 * 60 * 24)) < time()) {
 				// only once per day
 				$dorequest = true;
-			//}
+			}
 		}
 		
 		if (!$filefound) $dorequest = true;
