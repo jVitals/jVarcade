@@ -583,10 +583,10 @@ class jvarcadeModelCommon extends JModelLegacy {
 		
 		if (is_file($tmpfile)) {
 			$filefound = true;
-			if ((filemtime($tmpfile) + (60 * 60 * 24)) < time()) {
+			//if ((filemtime($tmpfile) + (60 * 60 * 24)) < time()) {
 				// only once per day
 				$dorequest = true;
-			}
+			//}
 		}
 		
 		if (!$filefound) $dorequest = true;
@@ -594,7 +594,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		if ($dorequest) {
 			
 			$http = JHttpFactory::getHttp();
-			$response = $http->get('http://www.jvitals.com/index.php?option=com_jvitalsversions&task=changelog&format=raw&com=jvarcade', array(), 90);
+			$response = $http->get('https://rawgit.com/jVitals/jVarcade/master/com_jvarcade/admin/changelog.xml', array(), 90);
 			$response = $response->body;
 			
 			
