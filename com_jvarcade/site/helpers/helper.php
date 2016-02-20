@@ -221,13 +221,11 @@ class jvaHelper {
 		if ($dorequest) {
 			$JVersion = new JVersion();
 			
-			$http = JHttpFactory::getHttp();
-			$response = $http->get('http://www.jvitals.com/index.php?option=com_jvitalsversions&task=version_info&format=raw&com=jvarcade&myversion=' . urlencode(JVA_VERSION) . '&jversion=' . urlencode($JVersion->getShortVersion()), array(), 90);
+			$response = json_decode(file_get_contents('https://api.github.com/repos/jvitals/jvarcade/releases/latest' , false, stream_context_create(['http' => ['header' => "User-Agent: Mozilla\r\n"]])), true);
+			$version= $response['tag_name'];
 			
-			$response = explode(',', $response->body);
-			$message = trim(substr(rawurldecode($response[5]), 11), '}"');
-			$version_info = trim(substr(rawurldecode($response[3]), 11), '"') . ($message ? ':' . $message : '');
-			
+			$message = "The latest release of jVArcade(" . $version . ") is now available on GitHub! <a href='https://github.com/jVitals/jVarcade/releases/download/" . $version . "/jVArcade-" . $version . "-unzip-first.zip'> Download Here</a>";
+			$version_info = $version . ':' . $message;
 			$fp = @fopen($tmpfile, "wb");
 			if ($fp) {
 				@flock($fp, LOCK_EX);
