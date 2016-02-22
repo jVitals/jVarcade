@@ -221,7 +221,14 @@ class jvaHelper {
 		if ($dorequest) {
 			$JVersion = new JVersion();
 			
-			$response = json_decode(file_get_contents('https://api.github.com/repos/jvitals/jvarcade/releases/latest' , false, stream_context_create(['http' => ['header' => "User-Agent: Mozilla\r\n"]])), true);
+			$opts = array(
+					'http'=>array(
+							'header'=>'User-Agent: Mozilla\r\n'
+							)
+					);
+			$context = stream_context_create($opts);
+			
+			$response = json_decode(file_get_contents('https://api.github.com/repos/jvitals/jvarcade/releases/latest' , false, $context), true);
 			$version= $response['tag_name'];
 			
 			$message = "The latest release of jVArcade(" . $version . ") is now available on GitHub! <a href='https://github.com/jVitals/jVarcade/releases/download/" . $version . "/jVArcade-" . $version . "-unzip-first.zip'> Download Here</a>";
