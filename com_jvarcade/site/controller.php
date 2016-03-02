@@ -59,6 +59,15 @@ class jvarcadeController extends JControllerLegacy {
 		$view->set('config', $this->config);
 		$view->display();
 	}
+	
+	public function uploadavatar($cachable = false, $urlparams = false) {
+		$document = JFactory::getDocument();
+		$viewType = $document->getType();
+		$view = $this->getView('uploadavatar', $viewType);
+		$view->setLayout('default');
+		$view->set('config', $this->config);
+		$view->display();
+	}
 	// LISTINGS
 	
 	public function newest() {

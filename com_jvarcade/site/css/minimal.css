@@ -675,3 +675,21 @@ button.close {
 	border: 1px solid #222222;
 	border-radius: 5px 5px 5px 5px !important;
 }
+/***************************
+* Profile Page Related
+****************************/
+
+.profile-row{
+	text-align: left;
+	position: relative;
+	padding: 5px 5px;
+	height: 180px;
+}
+.avatar-clickarea{
+	width: 140px;
+	height: 175px;
+	float: left;
+}
+.info-area{
+	float: left;
+}

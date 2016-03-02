@@ -689,24 +689,13 @@ button.close {
 	text-align: left;
 	position: relative;
 	padding: 5px 5px;
+	height: 180px;
 }
 .avatar-clickarea{
-	position: relative;
 	width: 140px;
+	height: 175px;
+	float: left;
 }
-.edit-avatar{
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	width:140px;
-	height:175px;
-	background-color: rgba(255,255,255,0.8);
-	 opacity: 0;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-.edit-avatar:hover{
-	opacity: 1;
+.info-area{
+	float: left;
 }

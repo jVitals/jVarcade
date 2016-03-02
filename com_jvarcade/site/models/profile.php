@@ -33,14 +33,36 @@ class jvarcadeModelProfile extends jvarcadeModelCommon {
 		return $user_achieve;
 	}
 	
-	public function getUserScores($user_id) {
+	public function getUserScores($user_id, $limit='') {
 		$query = 'SELECT b.score, b.date, c.title, c.imagename, c.description, c.id FROM #__jvarcade AS b, #__jvarcade_games AS c WHERE b.userid ='
-				 . $user_id .' AND b.gameid = c.id ORDER BY b.date DESC LIMIT 5';
+				 . $user_id .' AND b.gameid = c.id ORDER BY b.date DESC ' . $limit;
 		$this->dbo->setQuery($query);
 		$user_scores = $this->dbo->loadAssocList();
 		return $user_scores;
 	}
 	
+	public function getLatestScores() {
+		$query = 'SELECT SQL_CALC_FOUND_ROWS p.*, g.id as gameid, g.gamename, g.title, g.imagename, g.scoring, g.reverse_score, u.id as userid, u.username, u.name
+				FROM #__jvarcade p
+					LEFT JOIN #__jvarcade_games g ON p.gameid = g.id
+					LEFT JOIN #__users u ON u.id = p.userid
+				WHERE p.published = ' . $this->dbo->Quote(1);
+		$this->dbo->setQuery($query);
+		return  $this->dbo->loadAssocList();
+	}
+	
+	public function getHighestScore($game_id, $reverse, $userid = null) {
+		$order = $reverse ? 'ASC' : 'DESC' ;
+		$this->dbo->setQuery('SELECT p.id, p.score, p.userid, u.name, u.username' .
+				' FROM #__jvarcade p' .
+				' LEFT JOIN #__users u ON p.userid = u.id' .
+				' WHERE ' . $this->dbo->quoteName('gameid') . ' = ' . $this->dbo->Quote($game_id) .
+				(!is_null($userid) ? ' AND ' . $this->dbo->quoteName('userid') . ' = ' . $this->dbo->Quote((int)$userid) : '') .
+				' AND ' . $this->dbo->quoteName('published') . ' = ' . $this->dbo->Quote(1) .
+				' ORDER BY p.score ' . $order .
+				' LIMIT 1');
+		return $this->dbo->loadAssoc();
+	}
 	
 
 }

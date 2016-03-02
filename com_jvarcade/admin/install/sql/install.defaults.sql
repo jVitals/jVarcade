@@ -21,7 +21,7 @@ INSERT INTO `#__jvarcade_settings` (`optname`,`value`,`group`,`ord`,`type`,`desc
 			('enable_dload', '1', 'general', 20, 'yesno', 'COM_JVARCADE_OPTDESC_ENABLE_DLOAD'),
 			('DloadPerms', '0,1,2,3,4,5,6,7,8,9', 'general', 21, 'multiselect', 'COM_JVARCADE_OPTDESC_DLOADPERMS'),
 			('comments', '0', 'integration', 1, 'radio', 'COM_JVARCADE_OPTDESC_COMMENTS'),
-			('scorelink', '1', 'integration', 2, 'radio', 'COM_JVARCADE_OPTDESC_SCORELINK'),
+			('scorelink', '0', 'integration', 2, 'radio', 'COM_JVARCADE_OPTDESC_SCORELINK'),
 			('show_avatar', '1', 'integration', 3, 'yesno', 'COM_JVARCADE_OPTDESC_SHOW_AVATAR'),
 			('communitybuilder_itemid', '7', 'integration', 5, 'text', 'COM_JVARCADE_OPTDESC_COMMUNITYBUILDER_ITEMID'),
 			('aup_itemid', '8', 'integration', 6, 'text', 'COM_JVARCADE_OPTDESC_AUP_ITEMID'),
