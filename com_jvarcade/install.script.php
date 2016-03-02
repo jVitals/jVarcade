@@ -54,28 +54,7 @@ class com_jvarcadeInstallerScript {
 							$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_OK') .'<br />';
 						}
         	} else {
-				/*Update database tables
-        		$result = $db->setQuery("SHOW COLUMNS FROM `#__jvarcade_games` LIKE 'gsafe'");
-        		$db->execute($result);
-        		$exists = $db->getNumRows();
-        		if ($exists == 0){
-        			$query = file_get_contents(JPATH_ADMINISTRATOR . '/components/com_jvarcade/install/sql/update.tables.sql');
-        			$queries = $db->splitSql($query);
-        			foreach ($queries as $querie) {
-        				$db->setQuery($querie);
-        				try {
-        					$db->execute();
-        				} catch (RuntimeException $e) {
-        					$ec = $e->getCode();
-        				}
-            			
-        			}		
-        			if($ec == 1062){
-        				$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_OK') .'<br />';
-        			}else{
-        				$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_OK') .'<br />';
-        			}
-        		} elseif ($exists == 1) {*/
+			
 					$alters = array();
 					$alters[] = "ALTER TABLE `#__jvarcade_settings` ADD UNIQUE (`optname`)";
 					$alters[] = "ALTER TABLE `#__jvarcade_games` ADD `gsafe` tinyint(2) NOT NULL DEFAULT 0";
