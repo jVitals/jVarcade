@@ -74,7 +74,7 @@ JHtml::_('bootstrap.tooltip');
 								<label for="gamename" class="hasTooltip" data-original-title="<strong><?php echo htmlspecialchars(JText::_('COM_JVARCADE_GAMES_SYSTEM_NAME') . '</strong><br>' . JText::_('COM_JVARCADE_GAMES_SYSTEM_NAME_DESC'), ENT_QUOTES, 'UTF-8'); ?>"><?php echo JText::_('COM_JVARCADE_GAMES_SYSTEM_NAME'); ?></label>
 							</div>
 							<div class="controls">
-								<?php if($this->task == 'addgame'): ?>
+								<?php if($this->task == 'add_game'): ?>
 								<input type="text" id="gamename" name="gamename" value="<?php echo $this->game->gamename;?>" size="40" />
 								<?php else: ?>
 								<input style='-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;' unselectable='on' onselectstart='return false;' onmousedown='return false;' type="text" id="gamename" name="gamename" value="<?php echo $this->game->gamename;?>" size="40" />
