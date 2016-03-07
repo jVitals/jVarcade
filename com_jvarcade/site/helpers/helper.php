@@ -332,6 +332,7 @@ class jvaHelper {
 			if(!is_array($jva_avatars)) $jva_avatars = array();
 			$_avatar = '';
 			
+			
 			//Community Builder
 			if ((int)$config->scorelink == 2) {
 				$db = JFactory::getDBO();
@@ -359,13 +360,16 @@ class jvaHelper {
 				
 			} elseif ((int)$config->scorelink == 0) {
 				
-				$imgSearch = glob('images/jvarcade/images/avatars/' .$userid. '.*');
-				if (isset($imgSearch[0])) {
-					$_avatar = $imgSearch[0];
-				} else {
+				if ((int)$userid == 0) {
 					$_avatar = JVA_IMAGES_SITEPATH . '/avatars/blank_avatar.png';
+				} else {
+				$imgSearch = glob('images/jvarcade/images/avatars/' .$userid. '.*');
+					if (isset($imgSearch[0])) {
+						$_avatar = $imgSearch[0];
+					} else {
+						$_avatar = JVA_IMAGES_SITEPATH . '/avatars/blank_avatar.png';
+					}
 				}
-				
 				
 				
 			}
