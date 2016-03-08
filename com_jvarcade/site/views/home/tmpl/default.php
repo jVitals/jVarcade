@@ -20,7 +20,8 @@ $i = '';
 	
 	<?php if ($this->config->foldercols > 1) : ?>
 		<?php $i = 1; ?>
-		<div class="jva_foldercols" border="0" width="100%"><div class="jva_column_wrap">
+		<div class="jva_foldercols" border="0" width="100%">
+			<div class="jva_column_wrap">
 	<?php endif; ?>
 	
 	<?php if (is_array($this->folders) && count($this->folders)) : ?>
@@ -100,10 +101,10 @@ $i = '';
 			<?php endif; ?>
 		</div>
 		
-		<?php if ($this->config->foldercols >= 1) : ?>
-			</div><div>
+		<?php if ($this->config->foldercols > 1) : ?>
+			</div>
 			<?php if(!($i%(int)$this->config->foldercols)) : ?>
-			</div><div>
+			<div></div>
 			<?php endif; ?>
 			<?php $i++; ?>
 		<?php endif; ?>
@@ -114,10 +115,11 @@ $i = '';
 	<?php endif; ?>
 	
 	<?php if ($this->config->foldercols > 1) : ?>
-		</div></div>
+		</div>
 	<?php endif; ?>
 
 	<?php include_once(JVA_TEMPLATES_INCPATH . 'footer.php'); ?>
-	
-</div>
+	<?php if ($this->config->foldercols > 1) : ?>
+		</div>
+	<?php endif; ?>
 </div>
