@@ -683,7 +683,8 @@ button.close {
 	text-align: left;
 	position: relative;
 	padding: 5px 5px;
-	height: 180px;
+	height: 220px;
+	margin: 5px;
 }
 .avatar-clickarea{
 	width: 140px;
@@ -692,4 +693,7 @@ button.close {
 }
 .info-area{
 	float: left;
+}
+.user-online{
+	text-align: center;
 }
