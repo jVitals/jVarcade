@@ -39,12 +39,20 @@ jQuery(document).ready(function($) {
 				<?php if ($this->user->id == $this->userToProfile->id) :?>
 					</a>
 				<?php endif; ?>
+				<div class="user-online">
+				<?php if ($this->useronline) :?>
+					<img src="<?php echo JVA_IMAGES_SITEPATH . 'icons/online.png' ?>">
+				<?php else :?>
+					<img src="<?php echo JVA_IMAGES_SITEPATH . 'icons/offline.png' ?>">
+				<?php endif; ?>
+				</div>
 			</div>
 			<div class="pu_AddMargin"></div>
 			<div class="info-area">
 			<h4><?php echo JText::_('COM_JVARCADE_USERNAME') . $this->userToProfile->username; ?></h4>
 			<h4>Scores: <?php echo $this->totalScores; ?></h4>
 			<h4>High Scores: <?php echo $this->totalHighScores; ?></h4>
+			
 			</div>
 	</div>
 

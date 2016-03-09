@@ -59,6 +59,14 @@ class jvarcadeViewProfile extends JViewLegacy {
 		$achievements = $model->getUserAchievements($user_id);
 		$this->achs = $achievements;
 		
+		//Online
+		$useronline = false;
+		$check = $model->checkOnline($user_id);
+		if ($check) {
+			$useronline = true;
+		}
+		$this->useronline = $useronline;
+		
 		$this->config = $this->config;
 		
 		$title = JText::_('COM_JVARCADE_PROFILE_TITLE') . ' - ' . $this->userToProfile->username;

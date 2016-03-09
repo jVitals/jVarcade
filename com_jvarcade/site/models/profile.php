@@ -64,6 +64,12 @@ class jvarcadeModelProfile extends jvarcadeModelCommon {
 		return $this->dbo->loadAssoc();
 	}
 	
+	public function checkOnline($user_id) {
+		$query = 'SELECT userid FROM #__session WHERE client_id = 0 AND userid = ' . $user_id;
+		$this->dbo->setQuery($query);
+		return $this->dbo->loadRow();
+	}
+	
 
 }
 
