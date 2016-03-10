@@ -33,7 +33,7 @@ class jvarcadeControllerGame_upload extends JControllerLegacy {
 		foreach ($userfile as &$file){
 			$file['name']     = JFile::makeSafe($file['name']);
 		}
-		var_dump($file);
+		
 		$errormsg = '';
 		
 		// Make sure that file uploads are enabled in php
