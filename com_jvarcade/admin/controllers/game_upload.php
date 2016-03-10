@@ -90,7 +90,7 @@ class jvarcadeControllerGame_upload extends JControllerLegacy {
 	
 		if ($errormsg) {
 			$this->app->enqueueMessage($errormsg, 'error');
-			$this->app->redirect('index.php?option=com_jvarcade&task=upload_archive');
+			$this->app->redirect('index.php?option=com_jvarcade&task=game_upload');
 			jexit();
 		}
 	
