@@ -4,15 +4,26 @@
 		<field
 			name="search"
 			type="text"
-			label="COM_BANNERS_SEARCH_IN_TITLE"
+			label="COM_JVARCADE_SEARCH_IN_TITLE"
 			hint="COM_JVARCADE_SCORES_SEARCH"
 			class="js-stools-search-string"
 		/>
 		<field
 			name="folders"
 			type="folders"
-			label="Search Folder Name"
-			hint="Search Folder Name"
+			label="Search Game Title"
+			hint="Search Game Title"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+	<fields name="list">
+		<field
+			name="limit"
+			type="limitbox"
+			class="input-mini"
+			default="25"
+			label="COM_JVARCADE_LIST_LIMIT"
+			description="COM_JVARCADE_LIST_LIMIT_DESC"
 			onchange="this.form.submit();"
 		/>
 	</fields>
