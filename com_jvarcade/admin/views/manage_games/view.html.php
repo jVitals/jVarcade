@@ -24,7 +24,7 @@ class jvarcadeViewManage_games extends JViewLegacy {
 		$this->items = $this->get('Items');
 		$this->pagination = $this->get('Pagination');
 		$this->filter_order = $app->getUserStateFromRequest('jvarcade.manage_games.filter_order', 'filter_order', 'g.id', 'cmd' );
-		$this->filter_order_Dir = $app->getUserStateFromRequest('jvarcade.manage_games.filter_order_Dir', 'filter_order_Dir', 'desc', 'word' );
+		$this->filter_order_Dir = $app->getUserStateFromRequest('jvarcade.manage_games.filter_order_Dir', 'filter_order_Dir', 'asc', 'word' );
 		$this->filterForm = $this->get('FilterForm');
 		$this->activeFilters 	= $this->get('ActiveFilters');
 		

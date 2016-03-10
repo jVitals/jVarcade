@@ -46,10 +46,10 @@ JHtml::_('bootstrap.tooltip');
 			<div class="row-fluid">
 				<div class="span6">
 				<form enctype="multipart/form-data" action="/" name="adminForm" id="adminForm" method="post">
-					<table class="adminform">
-						<tr><th><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_UPLOAD_FILE'); ?></th></tr>
-						<tr><td><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_FILE_DESC'); ?></td></tr>
-					</table>
+				<table>
+				<th><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_CHOOSE'); ?></th>
+				</table>
+					
 					<fieldset class="form-horizontal">
 					<div class="control-group">
 							<div class="control-label">
@@ -70,6 +70,11 @@ JHtml::_('bootstrap.tooltip');
 							</div>
 					</div>
 					</fieldset>
+					<hr>
+					<table class="adminform">
+						<tr><th><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_UPLOAD_FILE'); ?></th></tr>
+						<tr><td><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_FILE_DESC'); ?></td></tr>
+					</table>
 			<table class="adminform">
 				<tr>
 					<td>
@@ -78,6 +83,7 @@ JHtml::_('bootstrap.tooltip');
 					</td>
 				</tr>
 			</table>
+			<hr>
 				<table class="adminform">
 				<tr><th><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_INSTALL_FROM_DIR'); ?></th></tr>
 				<tr><td><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_INSTALL_FROM_DIR_DESC'); ?></td></tr>

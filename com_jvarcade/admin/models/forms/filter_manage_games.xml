@@ -11,8 +11,8 @@
 		<field
 			name="folders"
 			type="folders"
-			label="Search Game Title"
-			hint="Search Game Title"
+			label="Filter By Folder"
+			hint="Filter By Folder"
 			onchange="this.form.submit();"
 		/>
 	</fields>
