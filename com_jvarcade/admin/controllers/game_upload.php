@@ -61,11 +61,10 @@ class jvarcadeControllerGame_upload extends JControllerLegacy {
 		}
 		
 		// Build the appropriate paths and move uploaded file
+		$safeFileOptions = array('php_tag_in_content' => false, 'shorttag_in_content' => false, 'fobidden_ext_in_content' => false);
 		$tmp_dest = $this->config->get('tmp_path') . '/'. ($file['name']);
 		$tmp_src = $file['tmp_name'];
-		$uploaded = JFile::upload($tmp_src, $tmp_dest, false, array ($safeFileOptions['php_tag_in_content'] =>false, 
-				$safeFileOptions['shorttag_in_content']=>false, 
-				$safeFileOptions['fobidden_ext_in_content']=>false ));
+		$uploaded = JFile::upload($tmp_src, $tmp_dest, false, $safeFileOptions);
 		
 		// Unpack the downloaded package file
 		$package = jvaHelper::unpack($tmp_dest);

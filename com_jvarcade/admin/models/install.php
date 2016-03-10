@@ -227,7 +227,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 		$game_author = preg_match('~Authors Name(.*)~i', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
 		$game_width = preg_match('~Width(.*)~i', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
 		$game_height = preg_match('~Height(.*)~i', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
-		$game_bgcolor = preg_match('~Color(.*)', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
+		$game_bgcolor = preg_match('~Color(.*)~', $string, $matches) ? trim(str_replace(':', '', $matches[1])) : '';
 		
 		//$basename = basename(basename($files[0], '.txt'), '.txt');
 		$game_files = JFolder::files($dir, '\.bin|\.d64|\.dcr|\.gb|\.gbc|\.htm|\.html|\.nes|\.prg|\.sna|\.swf|\.z80');
