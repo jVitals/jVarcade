@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.13
- * @date		2016-02-18
+ * @version		2.14
+ * @date		2016-03-12
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -23,7 +23,7 @@ class jvarcadeControllerUploadavatar extends JControllerLegacy {
 		
 		$fileExt = JFile::getExt($upload['name']);
 		if (!in_array(strtolower($fileExt), array('bmp', 'gif', 'jpeg', 'jpg', 'png'))){
-			$app->enqueueMessage('File type .' . $fileExt . ' is not allowed', 'Error');
+			$app->enqueueMessage(JText::sprintf('COM_JVARCADE_UPLOAD_AVATAR_PRE_ERR1') . $fileExt . JText::sprintf('COM_JVARCADE_UPLOAD_AVATAR_POST_ERR1'), 'Error');
 			$app->redirect('index.php?option=com_jvarcade&task=uploadavatar&tmpl=component&id=' . $userid);
 			exit;
 		}
@@ -37,9 +37,9 @@ class jvarcadeControllerUploadavatar extends JControllerLegacy {
 		$dest = 'images/jvarcade/images/avatars/' . $userid . '.' . $fileExt;
 		
 		if (!JFile::upload($src, $dest)) {
-			$app->enqueueMessage('Your avatar has not been updated', 'Error');
+			$app->enqueueMessage(JText::_('COM_JVARCADE_UPLOAD_AVATAR_ERR2'), 'Error');
 		} else {
-			$app->enqueueMessage('Your avatar has been updated');
+			$app->enqueueMessage(JText::_('COM_JVARCADE_UPLOAD_AVATAR'));
 		}
 		$app->redirect('index.php?option=com_jvarcade&task=uploadavatar&tmpl=component&id=' . $userid);
 	}

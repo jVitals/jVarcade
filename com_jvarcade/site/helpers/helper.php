@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.13
- * @date		2016-02-18
+ * @version		2.14
+ * @date		2016-03-12
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -392,7 +392,7 @@ class jvaHelper {
 			$_avatar = JVA_IMAGES_SITEPATH . '/avatars/blank_avatar.png';
 		}
 		
-		$_avatar = $_avatar ? '<img src="' . $_avatar . '" border="0" align="middle" />' : '' ;
+		$_avatar = $_avatar ? '<img src="' . $_avatar . '" border="0" align="middle" width="140px" height="175px"/>' : '' ;
 		$jva_avatars[(int)$userid] = $_avatar;
 				
 	

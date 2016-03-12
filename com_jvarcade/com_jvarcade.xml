@@ -2,9 +2,9 @@
 <!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/component-install.dtd">
 <extension type="component" version="3.4" method="upgrade">
 	<name>jVArcade</name>
-	<version>2.13</version>
-	<copyright>(C) All rights reserved. 2011-2012 jVitals.com</copyright>
-	<creationDate>16 Feb 2016</creationDate>
+	<version>2.14</version>
+	<copyright>(C) All rights reserved. 2011-2016 jVitals.com</copyright>
+	<creationDate>12 Mar 2016</creationDate>
 	<author>jVitals Team</author>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>admin@jvitals.com</authorEmail>

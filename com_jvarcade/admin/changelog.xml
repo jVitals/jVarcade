@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog component="jVArcade">
+    <version number="2.14">
+    <date>2016-03-12</date>
+    <description><![CDATA[ Feature Release ]]></description>
+    <list>
+      <item type="new"><![CDATA[ jVArcade Profiles, used when no social integration is set (default for new install) ]]></item>
+	  <item type="new"><![CDATA[ Users can upload avatars for their jVArcade Profile by clicking on avatar ]]></item>
+	  <item type="ui"><![CDATA[ List items now limitable in administration  ]]></item>
+	  <item type="ui"><![CDATA[ Improved layout of game upload page ]]></item>
+	  <item type="bugfix"><![CDATA[ No page shown after game install from folder ]]></item>
+	  <item type="bugfix"><![CDATA[ Administration pagination not working ]]></item>
+	  <item type="bugfix"><![CDATA[ Fix right side modules being displaced on default home view ]]></item>
+	  <item type="bugfix"><![CDATA[ Fix last folder displayed on default home view appears larger than others ]]></item>
+	  <item type="bugfix"><![CDATA[ Fix users unable to enter system name of game when using Add function of manage games ]]></item>
+    </list>
+  </version>
   <version number="2.13">
     <date>2016-02-18</date>
     <description><![CDATA[ Major Release ]]></description>

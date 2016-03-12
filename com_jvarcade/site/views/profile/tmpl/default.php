@@ -1,8 +1,8 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.13
- * @date		2016-02-18
+ * @version		2.14
+ * @date		2016-03-12
  * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
  * @link		http://jvitals.com
@@ -26,7 +26,7 @@ jQuery(document).ready(function($) {
 </script>
 <div id="puarcade_wrapper">
 <?php include_once(JVA_TEMPLATES_INCPATH . 'menu.php');?>
-	<?php echo JHtml::_('bootstrap.renderModal', 'avatarUpload', array('url' => JRoute::_('index.php?option=com_jvarcade&task=uploadavatar&tmpl=component&id=' . $this->user->id, false), 'title' => 'Edit Avatar', 'height' => '300', 'width' => '600'));?>
+	<?php echo JHtml::_('bootstrap.renderModal', 'avatarUpload', array('url' => JRoute::_('index.php?option=com_jvarcade&task=uploadavatar&tmpl=component&id=' . $this->user->id, false), 'title' => JText::_('COM_JVARCADE_UPLOAD_AVATAR_MODAL_TITLE'), 'height' => '300'));?>
 
 <div class="pu_heading" style="text-align: center;"><?php echo JText::_('COM_JVARCADE_PROFILE_TITLE'); ?></div>
 	<div class="profile-row">
