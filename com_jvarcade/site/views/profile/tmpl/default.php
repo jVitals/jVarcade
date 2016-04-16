@@ -52,7 +52,8 @@ jQuery(document).ready(function($) {
 			<h4><?php echo JText::_('COM_JVARCADE_USERNAME') . $this->userToProfile->username; ?></h4>
 			<h4>Scores: <?php echo $this->totalScores; ?></h4>
 			<h4>High Scores: <?php echo $this->totalHighScores; ?></h4>
-			
+			<h4>Leaderboard Position: <?php echo $this->lbPos['id']; ?></h4>
+			<h4>Leaderboard Points: <?php echo $this->lbPos['points']; ?></h4>
 			</div>
 	</div>
 

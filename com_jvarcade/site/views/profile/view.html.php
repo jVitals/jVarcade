@@ -53,7 +53,13 @@ class jvarcadeViewProfile extends JViewLegacy {
 				$counts[$subarr['userid']]++;
 			}else $counts[$subarr['userid']] = 1;
 		}
-		$this->totalHighScores = $counts[$user_id];
+		if (isset($counts[$user_id])) {
+			$this->totalHighScores = $counts[$user_id];
+		}else
+		$this->totalHighScores = 0;
+		
+		//Leaderboard
+		$this->lbPos = $model->getLbPos($user_id);
 		
 		//Gamersafe Achievements
 		$achievements = $model->getUserAchievements($user_id);
