@@ -132,7 +132,7 @@ class jvarcadeViewSettings extends JViewLegacy {
 					JHtml::_( 'select.option', 0, 'None' ),
 					JHtml::_( 'select.option', 1, 'JomSocial' ),
 					JHtml::_( 'select.option', 2, 'Community Builder' ),
-					JHtml::_( 'select.option', 3, 'Alpha User Points'),
+					JHtml::_( 'select.option', 3, 'Alta User Points'),
 				);
 				$result = JHtml::_('jvarcade.html.radiolist', $opts, $arr['optname'], null, 'value', 'text', trim($arr['value']), $arr['optname']);
 				break;
